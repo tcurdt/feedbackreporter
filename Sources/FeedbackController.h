@@ -8,6 +8,8 @@
     IBOutlet NSTextField *consoleField;
     IBOutlet NSTextField *crashesField;
 
+    IBOutlet NSProgressIndicator *indicator;
+
     BOOL showSystem;
     BOOL showConsole;
     BOOL showCrashes;

@@ -42,6 +42,8 @@
 				<string>NSTextField</string>
 				<key>crashesField</key>
 				<string>NSTextField</string>
+				<key>indicator</key>
+				<string>NSProgressIndicator</string>
 				<key>systemField</key>
 				<string>NSTextField</string>
 			</dict>

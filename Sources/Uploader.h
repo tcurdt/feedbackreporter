@@ -5,7 +5,7 @@
     NSString *target;
 }
 
-- (id) initWithURL:(NSString*)target;
+- (id) initWithTarget:(NSString*)target;
 - (void) post:(NSDictionary*)dict;
 
 @end

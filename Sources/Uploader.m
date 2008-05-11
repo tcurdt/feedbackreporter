@@ -3,7 +3,7 @@
 
 @implementation Uploader
 
-- (id) initWithURL:(NSString*)pTarget;
+- (id) initWithTarget:(NSString*)pTarget;
 {
     self = [super init];
     if (self != nil) {

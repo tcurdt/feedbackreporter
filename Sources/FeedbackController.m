@@ -2,10 +2,33 @@
 #import "Uploader.h"
 
 #import <asl.h>
-//#import <unistd.h>
+#import <unistd.h>
 
 
 @implementation FeedbackController
+
+- (NSString*) applicationVersion
+{
+    NSString *applicationVersion = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleLongVersionString"];
+
+    if (!applicationVersion) {
+        applicationVersion = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleVersion"];
+    }
+
+    return applicationVersion;
+}
+
+
+- (NSString*) applicationName
+{
+    NSString *applicationName = [[[NSBundle mainBundle] localizedInfoDictionary] valueForKey: @"CFBundleExecutable"];
+
+    if (!applicationName) {
+        applicationName = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleExecutable"];
+    }
+
+    return applicationName;
+}
 
 - (IBAction)showSystem:(id)sender
 {
@@ -50,148 +73,103 @@
 
 - (IBAction)cancel:(id)sender
 {
-    NSLog(@"cancel");
+    [self close];
 }
 
 - (IBAction)send:(id)sender
 {
-    NSLog(@"send");
+
+    [indicator startAnimation:self];
+        
+    // FIXME get url from plist    
+    NSString *target = [[NSString alloc] initWithFormat:@"http://vafer.org/upload.php?project=%@", [self applicationName]];
+
+    NSLog(@"sending feedback to %@", target);
     
-    // FIXME get url from plist
-    Uploader *uploader = [[Uploader alloc] initWithURL:@"http://vafer.org/upload.php?project=fossi"];
+    Uploader *uploader = [[Uploader alloc] initWithTarget:target];
     
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:5];
 
-    [dict setObject:@"1.0.0" forKey:@"version"];
+    // FIXME get from application
     [dict setObject:@"anonymous" forKey:@"user"];
+
+    [dict setObject:[self applicationVersion] forKey:@"version"];
+    [dict setObject:[commentField stringValue] forKey:@"comment"];
     [dict setObject:[systemField stringValue] forKey:@"system"];
     [dict setObject:[consoleField stringValue] forKey:@"console"];
     [dict setObject:[crashesField stringValue] forKey:@"crashes"];
-    [dict setObject:[NSURL fileURLWithPath: @"/var/log/fsck_hfs.log"] forKey:@"file"];
+    //[dict setObject:[NSURL fileURLWithPath: @"/var/log/fsck_hfs.log"] forKey:@"file"];
     
     [uploader post:dict];
     
+    [target release];
     [dict release];
     [uploader release];
+
+    [indicator stopAnimation:self];
+
+    [self close];    
 }
 
-/*
-- (void)getSystemVersionMajor:(unsigned *)major
-                        minor:(unsigned *)minor
-                       bugFix:(unsigned *)bugFix;
-{
-    OSErr err;
-    SInt32 systemVersion, versionMajor, versionMinor, versionBugFix;
-    if ((err = Gestalt(gestaltSystemVersion, &systemVersion)) != noErr) goto fail;
-    if (systemVersion < 0x1040)
-    {
-        if (major) *major = ((systemVersion & 0xF000) >> 12) * 10 +
-            ((systemVersion & 0x0F00) >> 8);
-        if (minor) *minor = (systemVersion & 0x00F0) >> 4;
-        if (bugFix) *bugFix = (systemVersion & 0x000F);
-    }
-    else
-    {
-        if ((err = Gestalt(gestaltSystemVersionMajor, &versionMajor)) != noErr) goto fail;
-        if ((err = Gestalt(gestaltSystemVersionMinor, &versionMinor)) != noErr) goto fail;
-        if ((err = Gestalt(gestaltSystemVersionBugFix, &versionBugFix)) != noErr) goto fail;
-        if (major) *major = versionMajor;
-        if (minor) *minor = versionMinor;
-        if (bugFix) *bugFix = versionBugFix;
-    }
-    
-    return;
-    
-fail:
-    NSLog(@"Unable to obtain system version: %ld", (long)err);
-    if (major) *major = 10;
-    if (minor) *minor = 0;
-    if (bugFix) *bugFix = 0;
-}
-*/
 
-
-
-- (NSString*) applicationName
-{
-    NSString *applicationName = [[[NSBundle mainBundle] localizedInfoDictionary] valueForKey: @"CFBundleExecutable"];
-
-    if (!applicationName) {
-        applicationName = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleExecutable"];
-    }
-
-    return applicationName;
-}
-
-- (void) crashes
-{
-/*  Leppard:
-    .Fossi_shodan_CrashHistory.plist
-    [NSString stringWithFormat: @"~/Library/Logs/CrashReporter/%@_2008-05-09-012401_shodan.crash", [self applicationName]],
-    [NSString stringWithFormat: @"/Library/Logs/HangReporter/%@/2008-04-24-132937-Mail.hang", [self applicationName]],
-*/
-
-/* Tiger:
-    [NSString stringWithFormat: @"~/Library/Logs/CrashReporter/%@.crash.log", [self applicationName]],
-*/
-}
 
 - (NSString*) console
 {
-/*  Tiger:
-        [NSString stringWithFormat: @"/Library/Logs/Console/%@/console.log", [NSNumber numberWithUnsignedInt: getuid()]],
-        | grep Fossi
-*/
 
-/* Leopard:
-*/
+    NSMutableString *console = [[NSMutableString alloc] init];
+
+/* Leopard: */
+
+    [console appendString:@"ASL:\n"];
+
     aslmsg query = asl_new(ASL_TYPE_QUERY);
-    asl_set_query(query, ASL_KEY_SENDER, "Fossi", ASL_QUERY_OP_EQUAL);
+    asl_set_query(query, ASL_KEY_SENDER, [[self applicationName] lossyCString], ASL_QUERY_OP_EQUAL);
 
     aslresponse response = asl_search(NULL, query);
 
     asl_free(query);
 
+    NSDateFormatter *formatter = [[[NSDateFormatter alloc] initWithDateFormat:@"%Y.%m.%d %H:%M:%S %Z" allowNaturalLanguage:NO] autorelease];
+
     aslmsg msg;
     while ((msg = aslresponse_next(response))) {
-        const char *key;
-        for (unsigned i = 0U; (key = asl_key(msg, i)); ++i) {
-            const char *value = asl_get(msg, key);
 
-            printf("%s\t%s\n", key, value);
+        NSString *dateString = [NSString stringWithUTF8String:asl_get(msg, ASL_KEY_TIME)];
+        
+        NSDate *date = [formatter dateFromString:dateString];
+        if(!date) {
+            NSTimeInterval timestamp = [dateString doubleValue];
+            date = [NSDate dateWithTimeIntervalSince1970:timestamp];
         }
+
+        [console appendFormat:@"%@: %s\n", date, asl_get(msg, ASL_KEY_MSG)];
     }
 
     aslresponse_free(response);
 
+/*  Tiger: */
+
+    [console appendString:@"LOG:\n"];
+
+    NSString *logPath = [NSString stringWithFormat: @"/Library/Logs/Console/%@/console.log", [NSNumber numberWithUnsignedInt:getuid()]];
+
+    NSString *log = [NSString stringWithContentsOfFile:logPath];
+
+    NSString *filter = [NSString stringWithFormat: @"%@[", [self applicationName]];
 
 
+    NSEnumerator *lineEnum = [[log componentsSeparatedByString: @"\n"] objectEnumerator];
 
-/*
-    NSArray *paths = [[NSArray alloc] initWithObjects:
-
-        nil];
-
-
-    NSString *consolelogPath = 
-
-    NSLog(@"reading console log at %@", consolelogPath);
-
-    NSString *console = [NSString stringWithContentsOfFile: consolelogPath];
-    NSEnumerator *theEnum = [[console componentsSeparatedByString: @"\n"] objectEnumerator];
     NSString* currentObject;
-    NSMutableArray *profcastStrings = [NSMutableArray array];
 
-    while (currentObject = [theEnum nextObject])
-    {
-    NSString *keyString = [NSString stringWithFormat: @"%@[", [self applicationName]];
-    if ([currentObject rangeOfString: keyString].location != NSNotFound)
-      [profcastStrings addObject: currentObject];
-    }  
+    while (currentObject = [lineEnum nextObject]) {
 
-    return [profcastStrings componentsJoinedByString: @"\n"];
-    */
-    return @"console";
+        if ([currentObject rangeOfString:filter].location != NSNotFound) {        
+            [console appendFormat:@"%@\n", currentObject];
+        }  
+    }
+
+    return console;
 }
 
 - (NSString*) system
@@ -265,12 +243,26 @@ fail:
 }
 
 
+- (NSString*) crashes
+{
+/*  Leppard:
+    .Fossi_shodan_CrashHistory.plist
+    [NSString stringWithFormat: @"~/Library/Logs/CrashReporter/%@_2008-05-09-012401_shodan.crash", [self applicationName]],
+    [NSString stringWithFormat: @"/Library/Logs/HangReporter/%@/2008-04-24-132937-Mail.hang", [self applicationName]],
+*/
+
+/* Tiger:
+    [NSString stringWithFormat: @"~/Library/Logs/CrashReporter/%@.crash.log", [self applicationName]],
+*/
+    return @"";
+}
 
 
 - (void) awakeFromNib
 {
     [systemField setStringValue:[self system]];
     [consoleField setStringValue:[self console]];
+    [crashesField setStringValue:[self crashes]];
 }
 
 
