@@ -44,7 +44,7 @@
 	return [result autorelease];
 }
 
-- (void) post:(NSDictionary*)dict
+- (NSString*) post:(NSDictionary*)dict
 {
     NSString *formBoundary = [[NSProcessInfo processInfo] globallyUniqueString];
 
@@ -64,10 +64,11 @@
 													   error: &error];
 
 	if(error != nil) {
-		NSLog(@"Got error.  Code: %d, Description: %@", [error code], [error localizedDescription]);
+		NSLog(@"Error: %d, Description: %@", [error code], [error localizedDescription]);
 	}
 
-    NSLog(@"result = %@", [[NSString alloc] initWithData:result encoding:NSASCIIStringEncoding]);
+    return [[[NSString alloc] initWithData:result
+                                  encoding:NSUTF8StringEncoding] autorelease];
 }
 
 

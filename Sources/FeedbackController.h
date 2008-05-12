@@ -3,16 +3,20 @@
 
 @interface FeedbackController : NSWindowController {
 
-    IBOutlet NSTextField *commentField;
-    IBOutlet NSTextField *systemField;
-    IBOutlet NSTextField *consoleField;
-    IBOutlet NSTextField *crashesField;
+    IBOutlet NSTextView *commentView;
+    IBOutlet NSTextView *systemView;
+    IBOutlet NSTextView *consoleView;
+    IBOutlet NSTextView *crashesView;
 
     IBOutlet NSProgressIndicator *indicator;
+
+    IBOutlet NSButton *cancelButton;
+    IBOutlet NSButton *sendButton;
 
     BOOL showSystem;
     BOOL showConsole;
     BOOL showCrashes;
+
 }
 
 - (IBAction)showSystem:(id)sender;

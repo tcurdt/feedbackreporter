@@ -34,18 +34,24 @@
 			<string>ObjC</string>
 			<key>OUTLETS</key>
 			<dict>
-				<key>commentField</key>
-				<string>NSTextField</string>
-				<key>consoleField</key>
-				<string>NSTextField</string>
+				<key>cancelButton</key>
+				<string>NSButton</string>
+				<key>commentView</key>
+				<string>NSTextView</string>
+				<key>consoleView</key>
+				<string>NSTextView</string>
 				<key>crashField</key>
 				<string>NSTextField</string>
-				<key>crashesField</key>
-				<string>NSTextField</string>
+				<key>crashesView</key>
+				<string>NSTextView</string>
 				<key>indicator</key>
 				<string>NSProgressIndicator</string>
-				<key>systemField</key>
+				<key>sendButton</key>
+				<string>NSButton</string>
+				<key>status</key>
 				<string>NSTextField</string>
+				<key>systemView</key>
+				<string>NSTextView</string>
 			</dict>
 			<key>SUPERCLASS</key>
 			<string>NSWindowController</string>

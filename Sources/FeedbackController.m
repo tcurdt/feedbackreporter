@@ -78,7 +78,7 @@
 
 - (IBAction)send:(id)sender
 {
-
+    [indicator setHidden:NO];
     [indicator startAnimation:self];
         
     // FIXME get url from plist    
@@ -94,23 +94,33 @@
     [dict setObject:@"anonymous" forKey:@"user"];
 
     [dict setObject:[self applicationVersion] forKey:@"version"];
-    [dict setObject:[commentField stringValue] forKey:@"comment"];
-    [dict setObject:[systemField stringValue] forKey:@"system"];
-    [dict setObject:[consoleField stringValue] forKey:@"console"];
-    [dict setObject:[crashesField stringValue] forKey:@"crashes"];
+    [dict setObject:[commentView string] forKey:@"comment"];
+    [dict setObject:[systemView string] forKey:@"system"];
+    [dict setObject:[consoleView string] forKey:@"console"];
+    [dict setObject:[crashesView string] forKey:@"crashes"];
     //[dict setObject:[NSURL fileURLWithPath: @"/var/log/fsck_hfs.log"] forKey:@"file"];
     
-    [uploader post:dict];
+    NSString *result = [uploader post:dict];
     
+    [indicator stopAnimation:self];
+    [indicator setHidden:YES];
+
     [target release];
     [dict release];
     [uploader release];
-
-    [indicator stopAnimation:self];
-
-    [self close];    
+    
+    [self close];
+    
+    NSLog(@"result = %@", result);
+    
+    // FIXME check result for ^ERR
+    
+    NSRunAlertPanel(
+        @"Feedback",
+        @"Feedback has been received!",
+        @"Thanks!",
+        nil, nil);
 }
-
 
 
 - (NSString*) console
@@ -171,6 +181,35 @@
 
     return console;
 }
+
+- (int)executeCommand:(NSString*)path withArgs:(NSArray*)args output:(NSMutableString*)output error:(NSMutableString*)error
+{
+	NSTask *task = [[NSTask alloc] init];
+	[task setLaunchPath:path];
+	[task setArguments:args];
+	
+	NSPipe *outPipe = [NSPipe pipe];
+	NSFileHandle *outFile = [outPipe fileHandleForReading];
+	[task setStandardOutput:outPipe];
+
+	NSPipe *errPipe = [NSPipe pipe];
+	NSFileHandle *errFile = [errPipe fileHandleForReading];	
+	[task setStandardError:errPipe];
+	
+	[task launch];
+	
+	[task waitUntilExit];
+
+    [output appendString:[[NSString alloc] initWithData:[outFile readDataToEndOfFile] encoding: NSUTF8StringEncoding]];
+    [error appendString:[[NSString alloc] initWithData:[errFile readDataToEndOfFile] encoding: NSUTF8StringEncoding]];
+
+	int result = [task terminationStatus];
+	
+	[task release];
+	
+	return result;
+}
+
 
 - (NSString*) system
 {
@@ -239,12 +278,31 @@
         NSLog(@"error detecting cpu speed: %d", error);
     }
 
+    // FIXME add output of script defn
+    
+    NSString *scriptPath = [[NSBundle mainBundle] pathForResource:@"FeedbackReporter" ofType:@"sh"];
+    NSArray *args = [[NSArray alloc] init];
+
+    NSLog(@"executing script at %@", scriptPath);
+
+    int ret = [self executeCommand:scriptPath
+                          withArgs:args
+                            output:system
+                             error:system];
+
+    [args release];
+                             
+    NSLog(@"script returned code = %d", ret);
+
     return system;
 }
 
 
 - (NSString*) crashes
 {
+    // read last sent date
+    // find all files ...that are from after that given date
+
 /*  Leppard:
     .Fossi_shodan_CrashHistory.plist
     [NSString stringWithFormat: @"~/Library/Logs/CrashReporter/%@_2008-05-09-012401_shodan.crash", [self applicationName]],
@@ -260,9 +318,14 @@
 
 - (void) awakeFromNib
 {
-    [systemField setStringValue:[self system]];
-    [consoleField setStringValue:[self console]];
-    [crashesField setStringValue:[self crashes]];
+    // FIXME auto-fill based on existence of crash reports
+    [commentView setString:@""];
+
+    [systemView setString:[self system]];
+    [consoleView setString:[self console]];
+    [crashesView setString:[self crashes]];
+    
+    [indicator setHidden:YES];
 }
 
 

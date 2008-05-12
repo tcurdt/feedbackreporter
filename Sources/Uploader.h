@@ -6,6 +6,6 @@
 }
 
 - (id) initWithTarget:(NSString*)target;
-- (void) post:(NSDictionary*)dict;
+- (NSString*) post:(NSDictionary*)dict;
 
 @end
