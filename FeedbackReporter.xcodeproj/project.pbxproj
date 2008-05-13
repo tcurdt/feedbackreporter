@@ -9,9 +9,11 @@
 /* Begin PBXBuildFile section */
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
+		9D2A2A6C0DD8CFDF008CC376 /* Command.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D2A2A6A0DD8CFDF008CC376 /* Command.h */; };
+		9D2A2A6D0DD8CFDF008CC376 /* Command.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D2A2A6B0DD8CFDF008CC376 /* Command.m */; };
 		9D4347000DD3B712000F1E48 /* FeedbackReporter.nib in Resources */ = {isa = PBXBuildFile; fileRef = 9D4346FF0DD3B712000F1E48 /* FeedbackReporter.nib */; };
-		9D5EB3990DD3C21D00DAF890 /* FeedbackReporter.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D5EB3970DD3C21D00DAF890 /* FeedbackReporter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9D5EB39A0DD3C21D00DAF890 /* FeedbackReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D5EB3980DD3C21D00DAF890 /* FeedbackReporter.m */; };
+		9D5EB3990DD3C21D00DAF890 /* FRFeedbackReporter.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D5EB3970DD3C21D00DAF890 /* FRFeedbackReporter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9D5EB39A0DD3C21D00DAF890 /* FRFeedbackReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D5EB3980DD3C21D00DAF890 /* FRFeedbackReporter.m */; };
 		9DF7252D0DD3D547009E7B8B /* FeedbackController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DF7252B0DD3D547009E7B8B /* FeedbackController.h */; };
 		9DF7252E0DD3D547009E7B8B /* FeedbackController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF7252C0DD3D547009E7B8B /* FeedbackController.m */; };
 		9DF725310DD3D599009E7B8B /* Uploader.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DF7252F0DD3D599009E7B8B /* Uploader.h */; };
@@ -26,9 +28,11 @@
 		32DBCF5E0370ADEE00C91783 /* FeedbackReporter_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackReporter_Prefix.pch; sourceTree = "<group>"; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* FeedbackReporter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FeedbackReporter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D2A2A6A0DD8CFDF008CC376 /* Command.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Command.h; path = Sources/Command.h; sourceTree = "<group>"; };
+		9D2A2A6B0DD8CFDF008CC376 /* Command.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Command.m; path = Sources/Command.m; sourceTree = "<group>"; };
 		9D4346FF0DD3B712000F1E48 /* FeedbackReporter.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = FeedbackReporter.nib; path = Resources/FeedbackReporter.nib; sourceTree = "<group>"; };
-		9D5EB3970DD3C21D00DAF890 /* FeedbackReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedbackReporter.h; path = Sources/FeedbackReporter.h; sourceTree = SOURCE_ROOT; };
-		9D5EB3980DD3C21D00DAF890 /* FeedbackReporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedbackReporter.m; path = Sources/FeedbackReporter.m; sourceTree = SOURCE_ROOT; };
+		9D5EB3970DD3C21D00DAF890 /* FRFeedbackReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FRFeedbackReporter.h; path = Sources/FRFeedbackReporter.h; sourceTree = "<group>"; };
+		9D5EB3980DD3C21D00DAF890 /* FRFeedbackReporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FRFeedbackReporter.m; path = Sources/FRFeedbackReporter.m; sourceTree = "<group>"; };
 		9DF7252B0DD3D547009E7B8B /* FeedbackController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedbackController.h; path = Sources/FeedbackController.h; sourceTree = "<group>"; };
 		9DF7252C0DD3D547009E7B8B /* FeedbackController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedbackController.m; path = Sources/FeedbackController.m; sourceTree = "<group>"; };
 		9DF7252F0DD3D599009E7B8B /* Uploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Uploader.h; path = Sources/Uploader.h; sourceTree = "<group>"; };
@@ -90,12 +94,14 @@
 		08FB77AEFE84172EC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				9D5EB3970DD3C21D00DAF890 /* FeedbackReporter.h */,
-				9D5EB3980DD3C21D00DAF890 /* FeedbackReporter.m */,
+				9D5EB3970DD3C21D00DAF890 /* FRFeedbackReporter.h */,
+				9D5EB3980DD3C21D00DAF890 /* FRFeedbackReporter.m */,
 				9DF7252B0DD3D547009E7B8B /* FeedbackController.h */,
 				9DF7252C0DD3D547009E7B8B /* FeedbackController.m */,
 				9DF7252F0DD3D599009E7B8B /* Uploader.h */,
 				9DF725300DD3D599009E7B8B /* Uploader.m */,
+				9D2A2A6A0DD8CFDF008CC376 /* Command.h */,
+				9D2A2A6B0DD8CFDF008CC376 /* Command.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -133,9 +139,10 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D5EB3990DD3C21D00DAF890 /* FeedbackReporter.h in Headers */,
+				9D5EB3990DD3C21D00DAF890 /* FRFeedbackReporter.h in Headers */,
 				9DF7252D0DD3D547009E7B8B /* FeedbackController.h in Headers */,
 				9DF725310DD3D599009E7B8B /* Uploader.h in Headers */,
+				9D2A2A6C0DD8CFDF008CC376 /* Command.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,9 +203,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D5EB39A0DD3C21D00DAF890 /* FeedbackReporter.m in Sources */,
+				9D5EB39A0DD3C21D00DAF890 /* FRFeedbackReporter.m in Sources */,
 				9DF7252E0DD3D547009E7B8B /* FeedbackController.m in Sources */,
 				9DF725320DD3D599009E7B8B /* Uploader.m in Sources */,
+				9D2A2A6D0DD8CFDF008CC376 /* Command.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -50,6 +50,8 @@
 
 	NSData *formData = [self generateFormData:dict forBoundary:formBoundary];
 
+    NSLog(@"posting %d bytes to %@", [formData length], target);
+
 	NSMutableURLRequest* post = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:target]];
 	
 	NSString *boundaryString = [NSString stringWithFormat: @"multipart/form-data; boundary=%@", formBoundary];

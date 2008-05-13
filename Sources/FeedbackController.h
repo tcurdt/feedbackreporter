@@ -4,6 +4,7 @@
 @interface FeedbackController : NSWindowController {
 
     IBOutlet NSTextView *commentView;
+    IBOutlet NSTextField *emailField;
     IBOutlet NSTextView *systemView;
     IBOutlet NSTextView *consoleView;
     IBOutlet NSTextView *crashesView;
@@ -17,7 +18,10 @@
     BOOL showConsole;
     BOOL showCrashes;
 
+    NSString *user;
 }
+
+- (id) initWithUser:(NSString*)user;
 
 - (IBAction)showSystem:(id)sender;
 - (IBAction)showConsole:(id)sender;

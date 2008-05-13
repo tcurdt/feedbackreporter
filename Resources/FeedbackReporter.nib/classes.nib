@@ -44,6 +44,8 @@
 				<string>NSTextField</string>
 				<key>crashesView</key>
 				<string>NSTextView</string>
+				<key>emailField</key>
+				<string>NSTextField</string>
 				<key>indicator</key>
 				<string>NSProgressIndicator</string>
 				<key>sendButton</key>

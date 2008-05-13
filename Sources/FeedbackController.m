@@ -1,11 +1,26 @@
 #import "FeedbackController.h"
 #import "Uploader.h"
+#import "Command.h"
 
 #import <asl.h>
 #import <unistd.h>
 
 
 @implementation FeedbackController
+
+- (id) initWithUser:(NSString*)pUser
+{
+    self = [super initWithWindowNibName:@"FeedbackReporter"];
+    if (self != nil) {
+        user = pUser;
+/*
+        if (user == nil) {
+            user = @"anonymous";
+        }
+        */
+    }
+    return self;
+}
 
 - (NSString*) applicationVersion
 {
@@ -76,13 +91,20 @@
     [self close];
 }
 
+- (NSString*) target
+{
+    NSString *target = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"FRFeedbacReporterURL"];
+
+    return [NSString stringWithFormat:target, [self applicationName]];
+}
+
+
 - (IBAction)send:(id)sender
 {
     [indicator setHidden:NO];
     [indicator startAnimation:self];
         
-    // FIXME get url from plist    
-    NSString *target = [[NSString alloc] initWithFormat:@"http://vafer.org/upload.php?project=%@", [self applicationName]];
+    NSString *target = [self target];
 
     NSLog(@"sending feedback to %@", target);
     
@@ -90,9 +112,8 @@
     
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:5];
 
-    // FIXME get from application
-    [dict setObject:@"anonymous" forKey:@"user"];
-
+    [dict setObject:user forKey:@"user"];
+    [dict setObject:[emailField stringValue] forKey:@"email"];
     [dict setObject:[self applicationVersion] forKey:@"version"];
     [dict setObject:[commentView string] forKey:@"comment"];
     [dict setObject:[systemView string] forKey:@"system"];
@@ -105,7 +126,6 @@
     [indicator stopAnimation:self];
     [indicator setHidden:YES];
 
-    [target release];
     [dict release];
     [uploader release];
     
@@ -117,16 +137,21 @@
     
     NSRunAlertPanel(
         @"Feedback",
-        @"Feedback has been received!",
+        @"Your feedback has been received!",
         @"Thanks!",
         nil, nil);
+
+
+    [[NSUserDefaults standardUserDefaults] setValue: [NSDate date]
+                                             forKey: @"FRFeedbackReporter.lastSubmissionDate"];
+
 }
 
 
 - (NSString*) console
 {
 
-    NSMutableString *console = [[NSMutableString alloc] init];
+    NSMutableString *console = [[[NSMutableString alloc] init] autorelease];
 
 /* Leopard: */
 
@@ -182,38 +207,10 @@
     return console;
 }
 
-- (int)executeCommand:(NSString*)path withArgs:(NSArray*)args output:(NSMutableString*)output error:(NSMutableString*)error
-{
-	NSTask *task = [[NSTask alloc] init];
-	[task setLaunchPath:path];
-	[task setArguments:args];
-	
-	NSPipe *outPipe = [NSPipe pipe];
-	NSFileHandle *outFile = [outPipe fileHandleForReading];
-	[task setStandardOutput:outPipe];
-
-	NSPipe *errPipe = [NSPipe pipe];
-	NSFileHandle *errFile = [errPipe fileHandleForReading];	
-	[task setStandardError:errPipe];
-	
-	[task launch];
-	
-	[task waitUntilExit];
-
-    [output appendString:[[NSString alloc] initWithData:[outFile readDataToEndOfFile] encoding: NSUTF8StringEncoding]];
-    [error appendString:[[NSString alloc] initWithData:[errFile readDataToEndOfFile] encoding: NSUTF8StringEncoding]];
-
-	int result = [task terminationStatus];
-	
-	[task release];
-	
-	return result;
-}
-
 
 - (NSString*) system
 {
-    NSMutableString *system = [[NSMutableString alloc] init];
+    NSMutableString *system = [[[NSMutableString alloc] init] autorelease];
 
     OSType error;
     long result;
@@ -278,30 +275,56 @@
         NSLog(@"error detecting cpu speed: %d", error);
     }
 
-    // FIXME add output of script defn
-    
-    NSString *scriptPath = [[NSBundle mainBundle] pathForResource:@"FeedbackReporter" ofType:@"sh"];
-    NSArray *args = [[NSArray alloc] init];
+    [system appendString:@"\n"];
 
-    NSLog(@"executing script at %@", scriptPath);
+    NSString *scriptPath = [[NSBundle mainBundle] pathForResource:@"FRFeedbackReporter" ofType:@"sh"];
 
-    int ret = [self executeCommand:scriptPath
-                          withArgs:args
-                            output:system
-                             error:system];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:scriptPath]) {
 
-    [args release];
-                             
-    NSLog(@"script returned code = %d", ret);
+        Command *cmd = [[Command alloc] initWithPath:scriptPath];
+        [cmd setOutput:system];
+        [cmd setError:system];
+        int ret = [cmd execute];
+
+        NSLog(@"script returned code = %d", ret);
+        
+    } else {
+        NSLog(@"no custom script to execute");
+    }
+
 
     return system;
 }
 
+- (NSDate*) fileModificationDateForPath:(NSString*)path
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    return [[fileManager fileAttributesAtPath:path traverseLink: YES] fileModificationDate];
+}
 
 - (NSString*) crashes
 {
-    // read last sent date
-    // find all files ...that are from after that given date
+    NSDate *lastSubmissionDate = [[NSUserDefaults standardUserDefaults] valueForKey: @"FRFeedbackReporter.lastSubmissionDate"];
+
+    NSLog(@"checking for crash files earlier than %@", lastSubmissionDate);
+
+    NSArray *libraryDirectories = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, FALSE);
+
+    int i = [libraryDirectories count];
+    while(i--) {
+        NSString* libraryDirectory = [libraryDirectories objectAtIndex:i];
+
+
+        NSString* log1 = [NSString stringWithFormat: @"Logs/CrashReporter/%@.crash.log", [self applicationName]];
+        log1 = [[libraryDirectory stringByAppendingPathComponent:log1] stringByExpandingTildeInPath];
+
+        NSLog(@"checking for crash file %@", log1);
+                
+        if (lastSubmissionDate && ([lastSubmissionDate compare:[self fileModificationDateForPath:log1]] == NSOrderedDescending)) {
+            NSLog(@"");
+        }
+    }
+
 
 /*  Leppard:
     .Fossi_shodan_CrashHistory.plist
@@ -315,9 +338,9 @@
     return @"";
 }
 
-
-- (void) awakeFromNib
+- (void) windowDidLoad
 {
+
     // FIXME auto-fill based on existence of crash reports
     [commentView setString:@""];
 
