@@ -19,13 +19,9 @@
 				<string>id</string>
 				<key>send</key>
 				<string>id</string>
-				<key>showConsole</key>
-				<string>id</string>
 				<key>showCrash</key>
 				<string>id</string>
-				<key>showCrashes</key>
-				<string>id</string>
-				<key>showSystem</key>
+				<key>showDetails</key>
 				<string>id</string>
 			</dict>
 			<key>CLASS</key>

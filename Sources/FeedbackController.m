@@ -5,6 +5,10 @@
 #import <asl.h>
 #import <unistd.h>
 
+static NSString *FILE_SHELLSCRIPT= @"FRFeedbackReporter";
+static NSString *KEY_SENDEREMAIL = @"FRFeedbackReporter.sender";
+static NSString *KEY_LASTSUBMISSIONDATE = @"FRFeedbackReporter.lastSubmissionDate";
+static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
 
 @implementation FeedbackController
 
@@ -13,11 +17,10 @@
     self = [super initWithWindowNibName:@"FeedbackReporter"];
     if (self != nil) {
         user = pUser;
-/*
+        
         if (user == nil) {
-            user = @"anonymous";
+            user = @"unknown";
         }
-        */
     }
     return self;
 }
@@ -45,9 +48,10 @@
     return applicationName;
 }
 
-- (IBAction)showSystem:(id)sender
+
+- (IBAction)showDetails:(id)sender
 {
-    NSLog(@"showSystem %d", [sender intValue]);
+    NSLog(@"showDetails %d", [sender intValue]);
     
     /*
     NSRect windowFrame = [[self window] frame];
@@ -75,17 +79,6 @@
     */
 }
 
-- (IBAction)showConsole:(id)sender
-{
-    NSLog(@"showConsole %d", [sender intValue]);
-}
-
-- (IBAction)showCrashes:(id)sender
-{
-    NSLog(@"showCrash %d", [sender intValue]);
-}
-
-
 - (IBAction)cancel:(id)sender
 {
     [self close];
@@ -93,7 +86,7 @@
 
 - (NSString*) target
 {
-    NSString *target = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"FRFeedbacReporterURL"];
+    NSString *target = [[[NSBundle mainBundle] infoDictionary] valueForKey: KEY_TARGETURL];
 
     return [NSString stringWithFormat:target, [self applicationName]];
 }
@@ -143,7 +136,10 @@
 
 
     [[NSUserDefaults standardUserDefaults] setValue: [NSDate date]
-                                             forKey: @"FRFeedbackReporter.lastSubmissionDate"];
+                                             forKey: KEY_LASTSUBMISSIONDATE];
+
+    [[NSUserDefaults standardUserDefaults] setObject:[emailField stringValue]
+                                              forKey:KEY_SENDEREMAIL];
 
 }
 
@@ -277,7 +273,7 @@
 
     [system appendString:@"\n"];
 
-    NSString *scriptPath = [[NSBundle mainBundle] pathForResource:@"FRFeedbackReporter" ofType:@"sh"];
+    NSString *scriptPath = [[NSBundle mainBundle] pathForResource:FILE_SHELLSCRIPT ofType:@"sh"];
 
     if ([[NSFileManager defaultManager] fileExistsAtPath:scriptPath]) {
 
@@ -304,7 +300,7 @@
 
 - (NSString*) crashes
 {
-    NSDate *lastSubmissionDate = [[NSUserDefaults standardUserDefaults] valueForKey: @"FRFeedbackReporter.lastSubmissionDate"];
+    NSDate *lastSubmissionDate = [[NSUserDefaults standardUserDefaults] valueForKey:KEY_LASTSUBMISSIONDATE];
 
     NSLog(@"checking for crash files earlier than %@", lastSubmissionDate);
 
@@ -343,6 +339,14 @@
 
     // FIXME auto-fill based on existence of crash reports
     [commentView setString:@""];
+
+    NSString *sender = [[NSUserDefaults standardUserDefaults] stringForKey:KEY_SENDEREMAIL];
+    
+    if (sender == nil) {
+        sender = @"anonymous";
+    }
+
+    [emailField setStringValue:sender];
 
     [systemView setString:[self system]];
     [consoleView setString:[self console]];
