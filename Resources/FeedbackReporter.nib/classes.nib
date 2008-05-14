@@ -44,6 +44,8 @@
 				<string>NSTextField</string>
 				<key>indicator</key>
 				<string>NSProgressIndicator</string>
+				<key>preferencesView</key>
+				<string>NSTextView</string>
 				<key>sendButton</key>
 				<string>NSButton</string>
 				<key>status</key>

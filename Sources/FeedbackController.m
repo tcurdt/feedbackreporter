@@ -48,6 +48,13 @@ static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
     return applicationName;
 }
 
+- (NSString*) applicationIdentifier
+{
+    NSString *applicationIdentifier = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleIdentifier"];
+
+    return applicationIdentifier;
+}
+
 
 - (IBAction)showDetails:(id)sender
 {
@@ -112,6 +119,7 @@ static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
     [dict setObject:[systemView string] forKey:@"system"];
     [dict setObject:[consoleView string] forKey:@"console"];
     [dict setObject:[crashesView string] forKey:@"crashes"];
+    [dict setObject:[preferencesView string] forKey:@"preferences"];
     //[dict setObject:[NSURL fileURLWithPath: @"/var/log/fsck_hfs.log"] forKey:@"file"];
     
     NSString *result = [uploader post:dict];
@@ -334,6 +342,14 @@ static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
     return @"";
 }
 
+- (NSString*) preferences
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    
+    return [NSString stringWithFormat:@"%@", [preferences persistentDomainForName:[self applicationIdentifier]]];
+}
+
+
 - (void) windowDidLoad
 {
 
@@ -351,6 +367,7 @@ static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
     [systemView setString:[self system]];
     [consoleView setString:[self console]];
     [crashesView setString:[self crashes]];
+    [preferencesView setString:[self preferences]];
     
     [indicator setHidden:YES];
 }
