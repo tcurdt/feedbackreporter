@@ -71,8 +71,6 @@
 
 - (void) terminated: (NSNotification *)notification
 {
-    NSLog(@"task terminated");
-
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     terminated = YES;
@@ -108,21 +106,14 @@
                                                  name:NSTaskDidTerminateNotification
                                                object:task];
 
-    NSLog(@"start receiving");
     [outFile waitForDataInBackgroundAndNotify];
     [errFile waitForDataInBackgroundAndNotify];
 
-    NSLog(@"launching command %@", path);
 	[task launch];
-
-    NSLog(@"waiting for command to finsh");
-    //[task waitUntilExit];
 
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     while(!terminated) {
-        NSLog(@"run");
         if (![[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:1.0]]) {
-            NSLog(@"app end");
             break;
         }
         [pool release];
@@ -130,12 +121,8 @@
     }
     [pool release];
 
-    NSLog(@"finshed");
-
 	int result = [task terminationStatus];
 
-    NSLog(@"command exited with status %d", result);
-	
 	return result;
 }
 

@@ -56,34 +56,41 @@ static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
 }
 
 
-- (IBAction)showDetails:(id)sender
+- (void) showDetails:(BOOL)show animate:(BOOL)animate
 {
-    NSLog(@"showDetails %d", [sender intValue]);
+    NSSize fullSize = NSMakeSize(455, 302);
     
-    /*
     NSRect windowFrame = [[self window] frame];
-    
-    NSRect controlFrame = [systemField frame];
-    
-    if ([sender intValue]) {
-        [systemField setFrameSize:NSMakeSize(10,10)];
-        [systemField setNeedsDisplay:YES];
-        windowFrame.origin.y -= 10;
-        windowFrame.size.height += 10;
+        
+    if (show) {
+
+        [tabView setFrameSize:fullSize];
+        [tabView setNeedsDisplay:YES];
+        windowFrame.origin.y -= fullSize.height;
+        windowFrame.size.height += fullSize.height;
         [[self window] setFrame: windowFrame
                         display: YES
-                        animate: YES];
+                        animate: animate];
+
     } else {
-        [systemField setFrameSize:NSMakeSize(0,0)];
-        [systemField setNeedsDisplay:YES];
-        windowFrame.origin.y += controlFrame.size.height;
-        windowFrame.size.height -= controlFrame.size.height;
+        [tabView setFrameSize:NSMakeSize(0,0)];
+        [tabView setNeedsDisplay:YES];
+        windowFrame.origin.y += fullSize.height;
+        windowFrame.size.height -= fullSize.height;
         [[self window] setFrame: windowFrame
                         display: YES
-                        animate: YES];
+                        animate: animate];
         
     }
-    */
+    
+    NSRect tabFrame = [tabView frame];
+    
+    NSLog(@"(%f,%f) (%fx%f)", tabFrame.origin.x, tabFrame.origin.y, tabFrame.size.width, tabFrame.size.height);
+}
+
+- (IBAction)showDetails:(id)sender
+{
+    [self showDetails:[sender intValue] animate:YES];
 }
 
 - (IBAction)cancel:(id)sender
@@ -300,46 +307,124 @@ static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
     return system;
 }
 
-- (NSDate*) fileModificationDateForPath:(NSString*)path
+- (BOOL)file:(NSString*)path isNewerThan:(NSDate*)date
 {
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    return [[fileManager fileAttributesAtPath:path traverseLink: YES] fileModificationDate];
+
+    if (![fileManager fileExistsAtPath:path]) {
+        return NO;
+    }
+
+    if (!date) {
+        return YES;
+    }
+
+    NSDate* fileDate = [[fileManager fileAttributesAtPath:path traverseLink: YES] fileModificationDate];
+
+    if ([date compare:fileDate] == NSOrderedDescending) {
+        return NO;
+    }
+    
+    return YES;
 }
 
-- (NSString*) crashes
+- (NSArray*) findCrashDumpsBefore:(NSDate*)date
 {
-    NSDate *lastSubmissionDate = [[NSUserDefaults standardUserDefaults] valueForKey:KEY_LASTSUBMISSIONDATE];
 
-    NSLog(@"checking for crash files earlier than %@", lastSubmissionDate);
+    NSMutableArray *files = [NSMutableArray array];
 
-    NSArray *libraryDirectories = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, FALSE);
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+
+    NSArray *libraryDirectories = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSLocalDomainMask|NSUserDomainMask, FALSE);
 
     int i = [libraryDirectories count];
     while(i--) {
         NSString* libraryDirectory = [libraryDirectories objectAtIndex:i];
 
 
+/* Tiger:
+    [NSString stringWithFormat: @"~/Library/Logs/CrashReporter/%@.crash.log", [self applicationName]],
+*/
         NSString* log1 = [NSString stringWithFormat: @"Logs/CrashReporter/%@.crash.log", [self applicationName]];
         log1 = [[libraryDirectory stringByAppendingPathComponent:log1] stringByExpandingTildeInPath];
 
-        NSLog(@"checking for crash file %@", log1);
-                
-        if (lastSubmissionDate && ([lastSubmissionDate compare:[self fileModificationDateForPath:log1]] == NSOrderedDescending)) {
-            NSLog(@"");
+        if ([self file:log1 isNewerThan:date]) {
+            [files addObject:log1];
         }
-    }
-
-
+                
 /*  Leppard:
     .Fossi_shodan_CrashHistory.plist
     [NSString stringWithFormat: @"~/Library/Logs/CrashReporter/%@_2008-05-09-012401_shodan.crash", [self applicationName]],
     [NSString stringWithFormat: @"/Library/Logs/HangReporter/%@/2008-04-24-132937-Mail.hang", [self applicationName]],
 */
+        
+        NSDirectoryEnumerator *enumerator;
+        NSString *file;
+        
+        NSString* log2 = [NSString stringWithFormat: @"Logs/CrashReporter/", [self applicationName]];
+        log2 = [[libraryDirectory stringByAppendingPathComponent:log2] stringByExpandingTildeInPath];
 
-/* Tiger:
-    [NSString stringWithFormat: @"~/Library/Logs/CrashReporter/%@.crash.log", [self applicationName]],
-*/
-    return @"";
+        NSLog(@"searching for crash files at %@", log2);
+
+        if ([fileManager fileExistsAtPath:log2]) {
+
+            enumerator  = [fileManager enumeratorAtPath:log2];
+            while ((file = [enumerator nextObject])) {
+            
+                file = [[libraryDirectory stringByAppendingPathComponent:file] stringByExpandingTildeInPath];
+            
+                if ([file hasSuffix:@".crash"]) {
+                    if ([self file:file isNewerThan:date]) {
+                        [files addObject:file];
+                    }
+                }
+            }
+        }
+
+
+        NSString* log3 = [NSString stringWithFormat: @"Logs/HangReporter/%@/", [self applicationName]];
+        log3 = [[libraryDirectory stringByAppendingPathComponent:log3] stringByExpandingTildeInPath];
+
+        NSLog(@"searching for hang files at %@", log3);
+
+        if ([fileManager fileExistsAtPath:log3]) {
+
+            enumerator  = [fileManager enumeratorAtPath:log3];
+            while ((file = [enumerator nextObject])) {
+
+                file = [[libraryDirectory stringByAppendingPathComponent:file] stringByExpandingTildeInPath];
+
+                if ([file hasSuffix:@".hang"]) {
+                    if ([self file:file isNewerThan:date]) {
+                        [files addObject:file];
+                    }
+                }
+            }
+        }
+    }
+    
+    return files;
+}
+
+- (NSString*) crashes
+{
+    NSMutableString *crashes = [NSMutableString string];
+
+    NSDate *lastSubmissionDate = [[NSUserDefaults standardUserDefaults] valueForKey:KEY_LASTSUBMISSIONDATE];
+
+    NSLog(@"checking for crash files earlier than %@", lastSubmissionDate);
+
+    NSArray *crashFiles = [self findCrashDumpsBefore:lastSubmissionDate];
+
+    int i = [crashFiles count];
+    while(i--) {
+        NSString *crashFile = [crashFiles objectAtIndex:i];
+        [crashes appendFormat:@"File: %@\n", crashFile];
+        [crashes appendString:[NSString stringWithContentsOfFile:crashFile]];
+        [crashes appendString:@"\n"];
+    }
+
+    return crashes;
 }
 
 - (NSString*) preferences
@@ -370,6 +455,9 @@ static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
     [preferencesView setString:[self preferences]];
     
     [indicator setHidden:YES];
+
+    [tabView setAutoresizesSubviews:NO];
+    [self showDetails:NO animate:NO];
 }
 
 

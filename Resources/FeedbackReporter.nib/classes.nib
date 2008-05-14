@@ -52,6 +52,8 @@
 				<string>NSTextField</string>
 				<key>systemView</key>
 				<string>NSTextView</string>
+				<key>tabView</key>
+				<string>NSTabView</string>
 			</dict>
 			<key>SUPERCLASS</key>
 			<string>NSWindowController</string>

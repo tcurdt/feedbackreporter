@@ -5,6 +5,11 @@
 
     IBOutlet NSTextView *commentView;
     IBOutlet NSTextField *emailField;
+
+    IBOutlet NSTabView *tabView;
+
+    BOOL showDetails;
+
     IBOutlet NSTextView *systemView;
     IBOutlet NSTextView *consoleView;
     IBOutlet NSTextView *crashesView;
@@ -14,8 +19,6 @@
 
     IBOutlet NSButton *cancelButton;
     IBOutlet NSButton *sendButton;
-
-    BOOL showDetails;
 
     NSString *user;
 }
