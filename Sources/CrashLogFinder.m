@@ -66,10 +66,11 @@
 
             enumerator  = [fileManager enumeratorAtPath:log2];
             while ((file = [enumerator nextObject])) {
-            
-                file = [[libraryDirectory stringByAppendingPathComponent:file] stringByExpandingTildeInPath];
-            
-                if ([file hasSuffix:@".crash"]) {
+
+                if ([file hasSuffix:@".crash"] && [file hasPrefix:[Application applicationName]) {
+
+                    file = [[libraryDirectory stringByAppendingPathComponent:file] stringByExpandingTildeInPath];
+
                     if ([self file:file isNewerThan:date]) {
                         [files addObject:file];
                     }
@@ -87,10 +88,11 @@
 
             enumerator  = [fileManager enumeratorAtPath:log3];
             while ((file = [enumerator nextObject])) {
-
-                file = [[libraryDirectory stringByAppendingPathComponent:file] stringByExpandingTildeInPath];
-
+            
                 if ([file hasSuffix:@".hang"]) {
+
+                    file = [[libraryDirectory stringByAppendingPathComponent:file] stringByExpandingTildeInPath];
+
                     if ([self file:file isNewerThan:date]) {
                         [files addObject:file];
                     }
