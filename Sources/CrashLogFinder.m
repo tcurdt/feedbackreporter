@@ -67,7 +67,7 @@
             enumerator  = [fileManager enumeratorAtPath:log2];
             while ((file = [enumerator nextObject])) {
 
-                if ([file hasSuffix:@".crash"] && [file hasPrefix:[Application applicationName]) {
+                if ([file hasSuffix:@".crash"] && [file hasPrefix:[Application applicationName]]) {
 
                     file = [[libraryDirectory stringByAppendingPathComponent:file] stringByExpandingTildeInPath];
 
