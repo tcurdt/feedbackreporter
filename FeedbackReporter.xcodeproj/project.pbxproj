@@ -14,6 +14,11 @@
 		9D4347000DD3B712000F1E48 /* FeedbackReporter.nib in Resources */ = {isa = PBXBuildFile; fileRef = 9D4346FF0DD3B712000F1E48 /* FeedbackReporter.nib */; };
 		9D5EB3990DD3C21D00DAF890 /* FRFeedbackReporter.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D5EB3970DD3C21D00DAF890 /* FRFeedbackReporter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9D5EB39A0DD3C21D00DAF890 /* FRFeedbackReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D5EB3980DD3C21D00DAF890 /* FRFeedbackReporter.m */; };
+		9D8700290DDC1F9C003249C0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9D8700270DDC1F9C003249C0 /* Localizable.strings */; };
+		9D87FFCF0DDC1AAC003249C0 /* CrashLogFinder.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D87FFCD0DDC1AAC003249C0 /* CrashLogFinder.h */; };
+		9D87FFD00DDC1AAC003249C0 /* CrashLogFinder.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D87FFCE0DDC1AAC003249C0 /* CrashLogFinder.m */; };
+		9D87FFD30DDC1B3E003249C0 /* Application.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D87FFD10DDC1B3E003249C0 /* Application.h */; };
+		9D87FFD40DDC1B3E003249C0 /* Application.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D87FFD20DDC1B3E003249C0 /* Application.m */; };
 		9DF7252D0DD3D547009E7B8B /* FeedbackController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DF7252B0DD3D547009E7B8B /* FeedbackController.h */; };
 		9DF7252E0DD3D547009E7B8B /* FeedbackController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF7252C0DD3D547009E7B8B /* FeedbackController.m */; };
 		9DF725310DD3D599009E7B8B /* Uploader.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DF7252F0DD3D599009E7B8B /* Uploader.h */; };
@@ -33,6 +38,11 @@
 		9D4346FF0DD3B712000F1E48 /* FeedbackReporter.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = FeedbackReporter.nib; path = Resources/FeedbackReporter.nib; sourceTree = "<group>"; };
 		9D5EB3970DD3C21D00DAF890 /* FRFeedbackReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FRFeedbackReporter.h; path = Sources/FRFeedbackReporter.h; sourceTree = "<group>"; };
 		9D5EB3980DD3C21D00DAF890 /* FRFeedbackReporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FRFeedbackReporter.m; path = Sources/FRFeedbackReporter.m; sourceTree = "<group>"; };
+		9D8700280DDC1F9C003249C0 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
+		9D87FFCD0DDC1AAC003249C0 /* CrashLogFinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CrashLogFinder.h; path = Sources/CrashLogFinder.h; sourceTree = "<group>"; };
+		9D87FFCE0DDC1AAC003249C0 /* CrashLogFinder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CrashLogFinder.m; path = Sources/CrashLogFinder.m; sourceTree = "<group>"; };
+		9D87FFD10DDC1B3E003249C0 /* Application.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Application.h; path = Sources/Application.h; sourceTree = "<group>"; };
+		9D87FFD20DDC1B3E003249C0 /* Application.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Application.m; path = Sources/Application.m; sourceTree = "<group>"; };
 		9DF7252B0DD3D547009E7B8B /* FeedbackController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedbackController.h; path = Sources/FeedbackController.h; sourceTree = "<group>"; };
 		9DF7252C0DD3D547009E7B8B /* FeedbackController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedbackController.m; path = Sources/FeedbackController.m; sourceTree = "<group>"; };
 		9DF7252F0DD3D599009E7B8B /* Uploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Uploader.h; path = Sources/Uploader.h; sourceTree = "<group>"; };
@@ -86,6 +96,7 @@
 			children = (
 				9D4346FF0DD3B712000F1E48 /* FeedbackReporter.nib */,
 				8DC2EF5A0486A6940098B216 /* Info.plist */,
+				9D8700270DDC1F9C003249C0 /* Localizable.strings */,
 				089C1666FE841158C02AAC07 /* InfoPlist.strings */,
 			);
 			name = Resources;
@@ -102,6 +113,10 @@
 				9DF725300DD3D599009E7B8B /* Uploader.m */,
 				9D2A2A6A0DD8CFDF008CC376 /* Command.h */,
 				9D2A2A6B0DD8CFDF008CC376 /* Command.m */,
+				9D87FFCD0DDC1AAC003249C0 /* CrashLogFinder.h */,
+				9D87FFCE0DDC1AAC003249C0 /* CrashLogFinder.m */,
+				9D87FFD10DDC1B3E003249C0 /* Application.h */,
+				9D87FFD20DDC1B3E003249C0 /* Application.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -143,6 +158,8 @@
 				9DF7252D0DD3D547009E7B8B /* FeedbackController.h in Headers */,
 				9DF725310DD3D599009E7B8B /* Uploader.h in Headers */,
 				9D2A2A6C0DD8CFDF008CC376 /* Command.h in Headers */,
+				9D87FFCF0DDC1AAC003249C0 /* CrashLogFinder.h in Headers */,
+				9D87FFD30DDC1B3E003249C0 /* Application.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -193,6 +210,7 @@
 			files = (
 				8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */,
 				9D4347000DD3B712000F1E48 /* FeedbackReporter.nib in Resources */,
+				9D8700290DDC1F9C003249C0 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,6 +225,8 @@
 				9DF7252E0DD3D547009E7B8B /* FeedbackController.m in Sources */,
 				9DF725320DD3D599009E7B8B /* Uploader.m in Sources */,
 				9D2A2A6D0DD8CFDF008CC376 /* Command.m in Sources */,
+				9D87FFD00DDC1AAC003249C0 /* CrashLogFinder.m in Sources */,
+				9D87FFD40DDC1B3E003249C0 /* Application.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,6 +240,14 @@
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
+		};
+		9D8700270DDC1F9C003249C0 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9D8700280DDC1F9C003249C0 /* English */,
+			);
+			name = Localizable.strings;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXVariantGroup section */
 

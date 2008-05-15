@@ -1,6 +1,8 @@
 #import "FeedbackController.h"
 #import "Uploader.h"
 #import "Command.h"
+#import "Application.h"
+#import "CrashLogFinder.h"
 
 #import <asl.h>
 #import <unistd.h>
@@ -14,6 +16,11 @@ static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
 
 - (id) initWithUser:(NSString*)pUser
 {
+    return [self initWithUser:pUser comment:@""];
+}
+
+- (id) initWithUser:(NSString*)pUser comment:(NSString*)pComment
+{
     self = [super initWithWindowNibName:@"FeedbackReporter"];
     if (self != nil) {
         user = pUser;
@@ -21,38 +28,17 @@ static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
         if (user == nil) {
             user = @"unknown";
         }
+        
+        comment = pComment;
     }
     return self;
 }
 
-- (NSString*) applicationVersion
-{
-    NSString *applicationVersion = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleLongVersionString"];
 
-    if (!applicationVersion) {
-        applicationVersion = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleVersion"];
-    }
-
-    return applicationVersion;
-}
-
-
+// FIXME just for the display pattern binding
 - (NSString*) applicationName
 {
-    NSString *applicationName = [[[NSBundle mainBundle] localizedInfoDictionary] valueForKey: @"CFBundleExecutable"];
-
-    if (!applicationName) {
-        applicationName = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleExecutable"];
-    }
-
-    return applicationName;
-}
-
-- (NSString*) applicationIdentifier
-{
-    NSString *applicationIdentifier = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleIdentifier"];
-
-    return applicationIdentifier;
+    return [Application applicationName];
 }
 
 
@@ -64,8 +50,6 @@ static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
         
     if (show) {
 
-        [tabView setFrameSize:fullSize];
-        [tabView setNeedsDisplay:YES];
         windowFrame.origin.y -= fullSize.height;
         windowFrame.size.height += fullSize.height;
         [[self window] setFrame: windowFrame
@@ -73,8 +57,6 @@ static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
                         animate: animate];
 
     } else {
-        [tabView setFrameSize:NSMakeSize(0,0)];
-        [tabView setNeedsDisplay:YES];
         windowFrame.origin.y += fullSize.height;
         windowFrame.size.height -= fullSize.height;
         [[self window] setFrame: windowFrame
@@ -82,10 +64,6 @@ static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
                         animate: animate];
         
     }
-    
-    NSRect tabFrame = [tabView frame];
-    
-    NSLog(@"(%f,%f) (%fx%f)", tabFrame.origin.x, tabFrame.origin.y, tabFrame.size.width, tabFrame.size.height);
 }
 
 - (IBAction)showDetails:(id)sender
@@ -102,7 +80,7 @@ static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
 {
     NSString *target = [[[NSBundle mainBundle] infoDictionary] valueForKey: KEY_TARGETURL];
 
-    return [NSString stringWithFormat:target, [self applicationName]];
+    return [NSString stringWithFormat:target, [Application applicationName]];
 }
 
 
@@ -121,7 +99,7 @@ static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
 
     [dict setObject:user forKey:@"user"];
     [dict setObject:[emailField stringValue] forKey:@"email"];
-    [dict setObject:[self applicationVersion] forKey:@"version"];
+    [dict setObject:[Application applicationVersion] forKey:@"version"];
     [dict setObject:[commentView string] forKey:@"comment"];
     [dict setObject:[systemView string] forKey:@"system"];
     [dict setObject:[consoleView string] forKey:@"console"];
@@ -169,7 +147,7 @@ static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
     [console appendString:@"ASL:\n"];
 
     aslmsg query = asl_new(ASL_TYPE_QUERY);
-    asl_set_query(query, ASL_KEY_SENDER, [[self applicationName] lossyCString], ASL_QUERY_OP_EQUAL);
+    asl_set_query(query, ASL_KEY_SENDER, [[Application applicationName] lossyCString], ASL_QUERY_OP_EQUAL);
 
     aslresponse response = asl_search(NULL, query);
 
@@ -201,7 +179,7 @@ static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
 
     NSString *log = [NSString stringWithContentsOfFile:logPath];
 
-    NSString *filter = [NSString stringWithFormat: @"%@[", [self applicationName]];
+    NSString *filter = [NSString stringWithFormat: @"%@[", [Application applicationName]];
 
 
     NSEnumerator *lineEnum = [[log componentsSeparatedByString: @"\n"] objectEnumerator];
@@ -307,104 +285,6 @@ static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
     return system;
 }
 
-- (BOOL)file:(NSString*)path isNewerThan:(NSDate*)date
-{
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-
-    if (![fileManager fileExistsAtPath:path]) {
-        return NO;
-    }
-
-    if (!date) {
-        return YES;
-    }
-
-    NSDate* fileDate = [[fileManager fileAttributesAtPath:path traverseLink: YES] fileModificationDate];
-
-    if ([date compare:fileDate] == NSOrderedDescending) {
-        return NO;
-    }
-    
-    return YES;
-}
-
-- (NSArray*) findCrashDumpsBefore:(NSDate*)date
-{
-
-    NSMutableArray *files = [NSMutableArray array];
-
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-
-    NSArray *libraryDirectories = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSLocalDomainMask|NSUserDomainMask, FALSE);
-
-    int i = [libraryDirectories count];
-    while(i--) {
-        NSString* libraryDirectory = [libraryDirectories objectAtIndex:i];
-
-
-/* Tiger:
-    [NSString stringWithFormat: @"~/Library/Logs/CrashReporter/%@.crash.log", [self applicationName]],
-*/
-        NSString* log1 = [NSString stringWithFormat: @"Logs/CrashReporter/%@.crash.log", [self applicationName]];
-        log1 = [[libraryDirectory stringByAppendingPathComponent:log1] stringByExpandingTildeInPath];
-
-        if ([self file:log1 isNewerThan:date]) {
-            [files addObject:log1];
-        }
-                
-/*  Leppard:
-    .Fossi_shodan_CrashHistory.plist
-    [NSString stringWithFormat: @"~/Library/Logs/CrashReporter/%@_2008-05-09-012401_shodan.crash", [self applicationName]],
-    [NSString stringWithFormat: @"/Library/Logs/HangReporter/%@/2008-04-24-132937-Mail.hang", [self applicationName]],
-*/
-        
-        NSDirectoryEnumerator *enumerator;
-        NSString *file;
-        
-        NSString* log2 = [NSString stringWithFormat: @"Logs/CrashReporter/", [self applicationName]];
-        log2 = [[libraryDirectory stringByAppendingPathComponent:log2] stringByExpandingTildeInPath];
-
-        NSLog(@"searching for crash files at %@", log2);
-
-        if ([fileManager fileExistsAtPath:log2]) {
-
-            enumerator  = [fileManager enumeratorAtPath:log2];
-            while ((file = [enumerator nextObject])) {
-            
-                file = [[libraryDirectory stringByAppendingPathComponent:file] stringByExpandingTildeInPath];
-            
-                if ([file hasSuffix:@".crash"]) {
-                    if ([self file:file isNewerThan:date]) {
-                        [files addObject:file];
-                    }
-                }
-            }
-        }
-
-
-        NSString* log3 = [NSString stringWithFormat: @"Logs/HangReporter/%@/", [self applicationName]];
-        log3 = [[libraryDirectory stringByAppendingPathComponent:log3] stringByExpandingTildeInPath];
-
-        NSLog(@"searching for hang files at %@", log3);
-
-        if ([fileManager fileExistsAtPath:log3]) {
-
-            enumerator  = [fileManager enumeratorAtPath:log3];
-            while ((file = [enumerator nextObject])) {
-
-                file = [[libraryDirectory stringByAppendingPathComponent:file] stringByExpandingTildeInPath];
-
-                if ([file hasSuffix:@".hang"]) {
-                    if ([self file:file isNewerThan:date]) {
-                        [files addObject:file];
-                    }
-                }
-            }
-        }
-    }
-    
-    return files;
-}
 
 - (NSString*) crashes
 {
@@ -414,7 +294,7 @@ static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
 
     NSLog(@"checking for crash files earlier than %@", lastSubmissionDate);
 
-    NSArray *crashFiles = [self findCrashDumpsBefore:lastSubmissionDate];
+    NSArray *crashFiles = [CrashLogFinder findCrashLogsBefore:lastSubmissionDate];
 
     int i = [crashFiles count];
     while(i--) {
@@ -431,15 +311,14 @@ static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     
-    return [NSString stringWithFormat:@"%@", [preferences persistentDomainForName:[self applicationIdentifier]]];
+    return [NSString stringWithFormat:@"%@", [preferences persistentDomainForName:[Application applicationIdentifier]]];
 }
 
 
 - (void) windowDidLoad
 {
 
-    // FIXME auto-fill based on existence of crash reports
-    [commentView setString:@""];
+    [commentView setString:comment];
 
     NSString *sender = [[NSUserDefaults standardUserDefaults] stringForKey:KEY_SENDEREMAIL];
     
@@ -456,7 +335,6 @@ static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
     
     [indicator setHidden:YES];
 
-    [tabView setAutoresizesSubviews:NO];
     [self showDetails:NO animate:NO];
 }
 

@@ -5,6 +5,7 @@
 {
 }
 
-+ (void) sendReportForUser:(NSString*)user;
++ (void) reportAsUser:(NSString*)user;
++ (void) reportCrashAsUser:(NSString*)user;
 
 @end

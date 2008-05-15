@@ -1,6 +1,5 @@
 #import <Cocoa/Cocoa.h>
 
-
 @interface FeedbackController : NSWindowController {
 
     IBOutlet NSTextView *commentView;
@@ -21,16 +20,17 @@
     IBOutlet NSButton *sendButton;
 
     NSString *user;
+    NSString *comment;
 }
 
 - (id) initWithUser:(NSString*)user;
-
-- (NSString*) applicationName;
-- (NSString*) applicationVersion;
+- (id) initWithUser:(NSString*)user comment:(NSString*)comment;
 
 - (IBAction)showDetails:(id)sender;
 
 - (IBAction)cancel:(id)sender;
 - (IBAction)send:(id)sender;
+
+- (NSString*) applicationName;
 
 @end
