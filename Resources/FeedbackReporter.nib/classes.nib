@@ -48,6 +48,8 @@
 				<string>NSTextView</string>
 				<key>sendButton</key>
 				<string>NSButton</string>
+				<key>shellView</key>
+				<string>NSTextView</string>
 				<key>status</key>
 				<string>NSTextField</string>
 				<key>systemView</key>

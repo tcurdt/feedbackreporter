@@ -104,6 +104,7 @@ static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
     [dict setObject:[systemView string] forKey:@"system"];
     [dict setObject:[consoleView string] forKey:@"console"];
     [dict setObject:[crashesView string] forKey:@"crashes"];
+    [dict setObject:[shellView string] forKey:@"shell"];
     [dict setObject:[preferencesView string] forKey:@"preferences"];
     //[dict setObject:[NSURL fileURLWithPath: @"/var/log/fsck_hfs.log"] forKey:@"file"];
     
@@ -264,24 +265,6 @@ static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
         NSLog(@"error detecting cpu speed: %d", error);
     }
 
-    [system appendString:@"\n"];
-
-    NSString *scriptPath = [[NSBundle mainBundle] pathForResource:FILE_SHELLSCRIPT ofType:@"sh"];
-
-    if ([[NSFileManager defaultManager] fileExistsAtPath:scriptPath]) {
-
-        Command *cmd = [[Command alloc] initWithPath:scriptPath];
-        [cmd setOutput:system];
-        [cmd setError:system];
-        int ret = [cmd execute];
-
-        NSLog(@"script returned code = %d", ret);
-        
-    } else {
-        NSLog(@"no custom script to execute");
-    }
-
-
     return system;
 }
 
@@ -305,6 +288,28 @@ static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
     }
 
     return crashes;
+}
+
+- (NSString*) shell
+{
+    NSMutableString *shell = [NSMutableString string];
+
+    NSString *scriptPath = [[NSBundle mainBundle] pathForResource:FILE_SHELLSCRIPT ofType:@"sh"];
+
+    if ([[NSFileManager defaultManager] fileExistsAtPath:scriptPath]) {
+
+        Command *cmd = [[Command alloc] initWithPath:scriptPath];
+        [cmd setOutput:shell];
+        [cmd setError:shell];
+        int ret = [cmd execute];
+
+        NSLog(@"script returned code = %d", ret);
+        
+    } else {
+        NSLog(@"no custom script to execute");
+    }
+
+    return shell;
 }
 
 - (NSString*) preferences
@@ -331,6 +336,7 @@ static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
     [systemView setString:[self system]];
     [consoleView setString:[self console]];
     [crashesView setString:[self crashes]];
+    [shellView setString:[self shell]];
     [preferencesView setString:[self preferences]];
     
     [indicator setHidden:YES];

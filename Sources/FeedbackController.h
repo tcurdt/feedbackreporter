@@ -12,6 +12,7 @@
     IBOutlet NSTextView *systemView;
     IBOutlet NSTextView *consoleView;
     IBOutlet NSTextView *crashesView;
+    IBOutlet NSTextView *shellView;
     IBOutlet NSTextView *preferencesView;
 
     IBOutlet NSProgressIndicator *indicator;
