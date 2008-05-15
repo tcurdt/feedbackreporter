@@ -302,6 +302,7 @@ static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
         [cmd setOutput:shell];
         [cmd setError:shell];
         int ret = [cmd execute];
+        [cmd release];
 
         NSLog(@"script returned code = %d", ret);
         
