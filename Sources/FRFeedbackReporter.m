@@ -2,7 +2,7 @@
 #import "FeedbackController.h"
 #import "CrashLogFinder.h"
 
-static NSString *KEY_LASTCRASCHECKDATE = @"FRFeedbackReporter.lastCrashDetectedDate";
+static NSString *KEY_LASTCRASHCHECKDATE = @"FRFeedbackReporter.lastCrashCheckDate";
 
 @implementation FRFeedbackReporter
 
@@ -15,22 +15,25 @@ static NSString *KEY_LASTCRASCHECKDATE = @"FRFeedbackReporter.lastCrashDetectedD
 
 + (void) reportCrashAsUser:(NSString*)user
 {
-    NSDate *lastCrashCheckDate = [[NSUserDefaults standardUserDefaults] valueForKey:KEY_LASTCRASCHECKDATE];
-    NSArray *crashFiles = [CrashLogFinder findCrashLogsBefore:lastCrashCheckDate];
+    NSDate *lastCrashCheckDate = [[NSUserDefaults standardUserDefaults] valueForKey:KEY_LASTCRASHCHECKDATE];
     
-    if ([crashFiles count] > 0) {
-        NSLog(@"found new crash files");
+    if (lastCrashCheckDate != nil) {
+        NSArray *crashFiles = [CrashLogFinder findCrashLogsBefore:lastCrashCheckDate];
+        
+        if ([crashFiles count] > 0) {
+            NSLog(@"found new crash files");
 
-        NSString *comment = NSLocalizedString(@"The application crashed after I...", nil);
+            NSString *comment = NSLocalizedString(@"The application crashed after I...", nil);
 
-        FeedbackController *controller = [[FeedbackController alloc] initWithUser:user comment:comment];
+            FeedbackController *controller = [[FeedbackController alloc] initWithUser:user comment:comment];
 
-        [controller showWindow:self];
+            [controller showWindow:self];
 
+        }
     }
     
     [[NSUserDefaults standardUserDefaults] setValue: [NSDate date]
-                                             forKey: KEY_LASTCRASCHECKDATE];
+                                             forKey: KEY_LASTCRASHCHECKDATE];
 
 }
 
