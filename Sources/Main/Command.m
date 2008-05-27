@@ -61,6 +61,7 @@
         NSString *s = [[NSString alloc] initWithBytes:[data bytes] length:[data length] encoding:NSASCIIStringEncoding];
     
         [output appendString:s];
+        NSLog(@"stdout: %@", s);
         
         [s release];
     }
@@ -77,6 +78,7 @@
         NSString *s = [[NSString alloc] initWithBytes:[data bytes] length:[data length] encoding:NSASCIIStringEncoding];
 
         [error appendString:s];
+        NSLog(@"stderr: %@", s);
         
         [s release];
     }

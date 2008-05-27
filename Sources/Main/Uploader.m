@@ -66,7 +66,7 @@
 
 	NSData *formData = [self generateFormData:dict forBoundary:formBoundary];
 
-    NSLog(@"posting %d bytes to %@", [formData length], target);
+    NSLog(@"Posting %d bytes to %@", [formData length], target);
 
 	NSMutableURLRequest* post = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:target]];
 	
@@ -82,7 +82,7 @@
 													   error: &error];
 
 	if(error != nil) {
-		NSLog(@"Error: %d, Description: %@", [error code], [error localizedDescription]);
+		NSLog(@"Post failed. Error: %d, Description: %@", [error code], [error localizedDescription]);
 	}
 
     return [[[NSString alloc] initWithData:result

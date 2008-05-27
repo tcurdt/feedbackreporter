@@ -37,7 +37,7 @@ static NSString *KEY_LASTCRASHCHECKDATE = @"FRFeedbackReporter.lastCrashCheckDat
         NSArray *crashFiles = [CrashLogFinder findCrashLogsBefore:lastCrashCheckDate];
         
         if ([crashFiles count] > 0) {
-            NSLog(@"found new crash files");
+            NSLog(@"Found new crash files");
 
             NSString *comment = NSLocalizedString(@"The application crashed after I...", nil);
 

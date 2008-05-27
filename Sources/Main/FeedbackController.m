@@ -107,7 +107,7 @@ static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
         
     NSString *target = [self target];
 
-    NSLog(@"sending feedback to %@", target);
+    NSLog(@"Sending feedback to %@", target);
     
     Uploader *uploader = [[Uploader alloc] initWithTarget:target];
     
@@ -235,13 +235,16 @@ static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
     if (!error) {
         [system appendFormat:@"ram = %d MB\n", result];
     } else {
-        NSLog(@"error detecting ram: %d", error);
+        NSLog(@"Failed to detect RAM. Error %d", error);
     }
     
     error = Gestalt(gestaltNativeCPUtype, &result);
     if (!error) {
+    
         char type[5] = { 0 };
         long swappedResult = EndianU32_BtoN(result);
+
+        NSLog(@"result=%d, swappedResult=%d", result, swappedResult); 
 
         memmove(type, &swappedResult, 4);
 
@@ -270,15 +273,18 @@ static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
         if (s != nil) {
             [system appendFormat:@"cpu type = %@ (%s, %d)\n", s, type, result];
         } else {
-            NSLog(@"error detecting cpu type: %d", error);
+            NSLog(@"Unknown cpu type %d", result);
         }
+        
+    } else {
+        NSLog(@"Failed to detect cpu type. Error %d", error);
     }
     
     error = Gestalt(gestaltProcClkSpeed, &result);
     if (!error) {
         [system appendFormat:@"cpu speed = %d MHz\n", (result/1000000)];
     } else {
-        NSLog(@"error detecting cpu speed: %d", error);
+        NSLog(@"Error detecting cpu speed. Error %d", error);
     }
 
     return system;
@@ -291,7 +297,7 @@ static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
 
     NSDate *lastSubmissionDate = [[NSUserDefaults standardUserDefaults] valueForKey:KEY_LASTSUBMISSIONDATE];
 
-    NSLog(@"checking for crash files earlier than %@", lastSubmissionDate);
+    NSLog(@"Checking for crash files earlier than %@", lastSubmissionDate);
 
     NSArray *crashFiles = [CrashLogFinder findCrashLogsBefore:lastSubmissionDate];
 
@@ -320,10 +326,10 @@ static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
         int ret = [cmd execute];
         [cmd release];
 
-        NSLog(@"script returned code = %d", ret);
+        NSLog(@"Script returned code = %d", ret);
         
     } else {
-        NSLog(@"no custom script to execute");
+        NSLog(@"No custom script to execute");
     }
 
     return shell;
