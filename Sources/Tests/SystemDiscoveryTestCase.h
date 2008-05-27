@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-#import <Cocoa/Cocoa.h>
 #import <SenTestingKit/SenTestingKit.h>
 
-@interface CommandTestCase : SenTestCase {
+
+@interface SystemDiscoveryTestCase : SenTestCase {
 
 }
 

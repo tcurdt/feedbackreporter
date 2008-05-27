@@ -25,6 +25,9 @@
 		9DA7D6FA0DEB8E5D00C3B586 /* Uploader.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA7D6ED0DEB8E5D00C3B586 /* Uploader.h */; };
 		9DA7D6FB0DEB8E5D00C3B586 /* Uploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DA7D6EE0DEB8E5D00C3B586 /* Uploader.m */; };
 		9DA7D6FF0DEB8E9100C3B586 /* CommandTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DA7D6FD0DEB8E9100C3B586 /* CommandTestCase.m */; };
+		9DCF52A90DEC0D8A00EBF810 /* SystemDiscoveryTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DCF52A80DEC0D8A00EBF810 /* SystemDiscoveryTestCase.m */; };
+		9DCF52AC0DEC0E4300EBF810 /* SystemDiscovery.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DCF52AA0DEC0E4300EBF810 /* SystemDiscovery.h */; };
+		9DCF52AD0DEC0E4300EBF810 /* SystemDiscovery.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DCF52AB0DEC0E4300EBF810 /* SystemDiscovery.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +66,10 @@
 		9DA7D6EE0DEB8E5D00C3B586 /* Uploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Uploader.m; path = Sources/Main/Uploader.m; sourceTree = SOURCE_ROOT; };
 		9DA7D6FC0DEB8E9100C3B586 /* CommandTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommandTestCase.h; path = Sources/Tests/CommandTestCase.h; sourceTree = "<group>"; };
 		9DA7D6FD0DEB8E9100C3B586 /* CommandTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommandTestCase.m; path = Sources/Tests/CommandTestCase.m; sourceTree = "<group>"; };
+		9DCF52A70DEC0D8A00EBF810 /* SystemDiscoveryTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SystemDiscoveryTestCase.h; path = Sources/Tests/SystemDiscoveryTestCase.h; sourceTree = "<group>"; };
+		9DCF52A80DEC0D8A00EBF810 /* SystemDiscoveryTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SystemDiscoveryTestCase.m; path = Sources/Tests/SystemDiscoveryTestCase.m; sourceTree = "<group>"; };
+		9DCF52AA0DEC0E4300EBF810 /* SystemDiscovery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SystemDiscovery.h; path = Sources/Main/SystemDiscovery.h; sourceTree = "<group>"; };
+		9DCF52AB0DEC0E4300EBF810 /* SystemDiscovery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SystemDiscovery.m; path = Sources/Main/SystemDiscovery.m; sourceTree = "<group>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -136,6 +143,8 @@
 				9DA7D6E50DEB8E5D00C3B586 /* Command.m */,
 				9DA7D6E60DEB8E5D00C3B586 /* CrashLogFinder.h */,
 				9DA7D6E70DEB8E5D00C3B586 /* CrashLogFinder.m */,
+				9DCF52AA0DEC0E4300EBF810 /* SystemDiscovery.h */,
+				9DCF52AB0DEC0E4300EBF810 /* SystemDiscovery.m */,
 				9DA7D6E80DEB8E5D00C3B586 /* FeedbackController.h */,
 				9DA7D6E90DEB8E5D00C3B586 /* FeedbackController.m */,
 				9DA7D6EA0DEB8E5D00C3B586 /* FRFeedbackReporter.h */,
@@ -178,6 +187,8 @@
 			children = (
 				9DA7D6FC0DEB8E9100C3B586 /* CommandTestCase.h */,
 				9DA7D6FD0DEB8E9100C3B586 /* CommandTestCase.m */,
+				9DCF52A70DEC0D8A00EBF810 /* SystemDiscoveryTestCase.h */,
+				9DCF52A80DEC0D8A00EBF810 /* SystemDiscoveryTestCase.m */,
 				9D90077F0DEB96D40000330E /* Tests-Info.plist */,
 			);
 			name = Tests;
@@ -196,6 +207,7 @@
 				9DA7D6F50DEB8E5D00C3B586 /* FeedbackController.h in Headers */,
 				9DA7D6F70DEB8E5D00C3B586 /* FRFeedbackReporter.h in Headers */,
 				9DA7D6FA0DEB8E5D00C3B586 /* Uploader.h in Headers */,
+				9DCF52AC0DEC0E4300EBF810 /* SystemDiscovery.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,6 +318,7 @@
 				9DA7D6F60DEB8E5D00C3B586 /* FeedbackController.m in Sources */,
 				9DA7D6F80DEB8E5D00C3B586 /* FRFeedbackReporter.m in Sources */,
 				9DA7D6FB0DEB8E5D00C3B586 /* Uploader.m in Sources */,
+				9DCF52AD0DEC0E4300EBF810 /* SystemDiscovery.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,6 +327,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9DA7D6FF0DEB8E9100C3B586 /* CommandTestCase.m in Sources */,
+				9DCF52A90DEC0D8A00EBF810 /* SystemDiscoveryTestCase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

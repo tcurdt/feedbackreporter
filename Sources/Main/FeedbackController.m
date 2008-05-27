@@ -19,6 +19,7 @@
 #import "Command.h"
 #import "Application.h"
 #import "CrashLogFinder.h"
+#import "SystemDiscovery.h"
 
 #import <asl.h>
 #import <unistd.h>
@@ -218,74 +219,16 @@ static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
 {
     NSMutableString *system = [[[NSMutableString alloc] init] autorelease];
 
-    OSType error;
-    long result;
+    SystemDiscovery *discovery = [[SystemDiscovery alloc] init];
 
-    NSProcessInfo *info = [NSProcessInfo processInfo];
+    NSDictionary *dict = [discovery discover];
 
-    NSString *version = [info operatingSystemVersionString];
-    
-    if ([version hasPrefix:@"Version "]) {
-        version = [version substringFromIndex:7];
-    }
+    [system appendFormat:@"os version = %@\n", [dict valueForKey:@"OS_VERSION"]];
+    [system appendFormat:@"ram = %@\n", [dict valueForKey:@"RAM"]];
+    [system appendFormat:@"cpu type = %@\n", [dict valueForKey:@"CPU_TYPE"]];
+    [system appendFormat:@"cpu speed = %@\n", [dict valueForKey:@"CPU_SPEED"]];
 
-    [system appendFormat:@"os version = %@\n", version];
-    
-    error = Gestalt(gestaltPhysicalRAMSizeInMegabytes, &result);
-    if (!error) {
-        [system appendFormat:@"ram = %d MB\n", result];
-    } else {
-        NSLog(@"Failed to detect RAM. Error %d", error);
-    }
-    
-    error = Gestalt(gestaltNativeCPUtype, &result);
-    if (!error) {
-    
-        char type[5] = { 0 };
-        long swappedResult = EndianU32_BtoN(result);
-
-        NSLog(@"result=%d, swappedResult=%d", result, swappedResult); 
-
-        memmove(type, &swappedResult, 4);
-
-        NSString *s = nil;
-        
-        switch(result) {
-            case gestaltCPU601:        s = @"PowerPC 601"; break;
-            case gestaltCPU603:        s = @"PowerPC 603"; break;
-            case gestaltCPU603e:       s = @"PowerPC 603e"; break;
-            case gestaltCPU603ev:      s = @"PowerPC 603ev"; break;
-            case gestaltCPU604:        s = @"PowerPC 604"; break;
-            case gestaltCPU604e:       s = @"PowerPC 604e"; break;
-            case gestaltCPU604ev:      s = @"PowerPC 604ev"; break;
-            case gestaltCPU750:        s = @"G3"; break;
-            case gestaltCPUG4:         s = @"G4"; break;
-            case gestaltCPU970:        s = @"G5 (970)"; break;
-            case gestaltCPU970FX:      s = @"G5 (970 FX)"; break;
-            case gestaltCPU486 :       s = @"Intel 486"; break;
-            case gestaltCPUPentium:    s = @"Intel Pentium"; break;
-            case gestaltCPUPentiumPro: s = @"Intel Pentium Pro"; break;
-            case gestaltCPUPentiumII:  s = @"Intel Pentium II"; break;
-            case gestaltCPUX86:        s = @"Intel x86"; break;
-            case gestaltCPUPentium4:   s = @"Intel Pentium 4"; break;
-        }
-
-        if (s != nil) {
-            [system appendFormat:@"cpu type = %@ (%s, %d)\n", s, type, result];
-        } else {
-            NSLog(@"Unknown cpu type %d", result);
-        }
-        
-    } else {
-        NSLog(@"Failed to detect cpu type. Error %d", error);
-    }
-    
-    error = Gestalt(gestaltProcClkSpeed, &result);
-    if (!error) {
-        [system appendFormat:@"cpu speed = %d MHz\n", (result/1000000)];
-    } else {
-        NSLog(@"Error detecting cpu speed. Error %d", error);
-    }
+    [dict release];
 
     return system;
 }

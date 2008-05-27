@@ -15,10 +15,12 @@
  */
 
 #import <Cocoa/Cocoa.h>
-#import <SenTestingKit/SenTestingKit.h>
 
-@interface CommandTestCase : SenTestCase {
+
+@interface SystemDiscovery : NSObject {
 
 }
+
+- (NSDictionary*) discover;
 
 @end

@@ -14,11 +14,23 @@
  * limitations under the License.
  */
 
-#import <Cocoa/Cocoa.h>
-#import <SenTestingKit/SenTestingKit.h>
+#import "SystemDiscoveryTestCase.h"
+#import "SystemDiscovery.h"
 
-@interface CommandTestCase : SenTestCase {
+@implementation SystemDiscoveryTestCase
 
+- (void) testDiscovery
+{
+    SystemDiscovery *discovery = [[SystemDiscovery alloc] init];
+    
+    NSDictionary *dict = [discovery discover];
+    
+    NSString *cpu_type = [dict valueForKey:@"CPU_TYPE"];
+    
+    STAssertTrue([cpu_type length] > 0, @"No CPU type found");
+
+    [discovery release];
 }
+
 
 @end
