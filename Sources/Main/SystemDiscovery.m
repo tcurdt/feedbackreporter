@@ -31,14 +31,16 @@
     NSString *version = [info operatingSystemVersionString];
     
     if ([version hasPrefix:@"Version "]) {
-        version = [version substringFromIndex:7];
+        version = [version substringFromIndex:8];
     }
 
     [dict setObject:version forKey:@"OS_VERSION"];
+    NSLog(@"OS_VERSION=%@", version);
     
     error = Gestalt(gestaltPhysicalRAMSizeInMegabytes, &result);
     if (!error) {
         [dict setObject:[NSString stringWithFormat:@"%d", result] forKey:@"RAM"];
+        NSLog(@"RAM=%d", result);
     } else {
         NSLog(@"Failed to detect RAM. Error %d", error);
     }
@@ -46,37 +48,33 @@
     error = Gestalt(gestaltNativeCPUtype, &result);
     if (!error) {
     
-        char type[5] = { 0 };
-        long swappedResult = EndianU32_BtoN(result);
-
-        NSLog(@"result=%d, swappedResult=%d", result, swappedResult); 
-
-        memmove(type, &swappedResult, 4);
-
-        NSString *s = nil;
+        NSString *p = nil;
         
         switch(result) {
-            case gestaltCPU601:        s = @"PowerPC 601"; break;
-            case gestaltCPU603:        s = @"PowerPC 603"; break;
-            case gestaltCPU603e:       s = @"PowerPC 603e"; break;
-            case gestaltCPU603ev:      s = @"PowerPC 603ev"; break;
-            case gestaltCPU604:        s = @"PowerPC 604"; break;
-            case gestaltCPU604e:       s = @"PowerPC 604e"; break;
-            case gestaltCPU604ev:      s = @"PowerPC 604ev"; break;
-            case gestaltCPU750:        s = @"G3"; break;
-            case gestaltCPUG4:         s = @"G4"; break;
-            case gestaltCPU970:        s = @"G5 (970)"; break;
-            case gestaltCPU970FX:      s = @"G5 (970 FX)"; break;
-            case gestaltCPU486 :       s = @"Intel 486"; break;
-            case gestaltCPUPentium:    s = @"Intel Pentium"; break;
-            case gestaltCPUPentiumPro: s = @"Intel Pentium Pro"; break;
-            case gestaltCPUPentiumII:  s = @"Intel Pentium II"; break;
-            case gestaltCPUX86:        s = @"Intel x86"; break;
-            case gestaltCPUPentium4:   s = @"Intel Pentium 4"; break;
+            case gestaltCPU601:        p = @"PowerPC 601"; break;
+            case gestaltCPU603:        p = @"PowerPC 603"; break;
+            case gestaltCPU603e:       p = @"PowerPC 603e"; break;
+            case gestaltCPU603ev:      p = @"PowerPC 603ev"; break;
+            case gestaltCPU604:        p = @"PowerPC 604"; break;
+            case gestaltCPU604e:       p = @"PowerPC 604e"; break;
+            case gestaltCPU604ev:      p = @"PowerPC 604ev"; break;
+            case gestaltCPU750:        p = @"G3"; break;
+            case gestaltCPUG4:         p = @"G4"; break;
+            case gestaltCPU970:        p = @"G5 (970)"; break;
+            case gestaltCPU970FX:      p = @"G5 (970 FX)"; break;
+            case gestaltCPU486 :       p = @"Intel 486"; break;
+            case gestaltCPUPentium:    p = @"Intel Pentium"; break;
+            case gestaltCPUPentiumPro: p = @"Intel Pentium Pro"; break;
+            case gestaltCPUPentiumII:  p = @"Intel Pentium II"; break;
+            case gestaltCPUX86:        p = @"Intel x86"; break;
+            case gestaltCPUPentium4:   p = @"Intel Pentium 4"; break;
+            default: p = @"???"; break;
         }
 
-        if (s != nil) {
-            [dict setObject:[NSString stringWithFormat:@"%@ (%s, %d)", s, type, result] forKey:@"CPU_TYPE"];
+        if (p != nil) {
+            NSString *s = [NSString stringWithFormat:@"%@ (%d)", p, result];
+            [dict setObject:s forKey:@"CPU_TYPE"];
+            NSLog(@"CPU_TYPE=%@", s);
         } else {
             NSLog(@"Unknown cpu type %d", result);
         }
@@ -87,7 +85,9 @@
     
     error = Gestalt(gestaltProcClkSpeed, &result);
     if (!error) {
-        [dict setObject:[NSString stringWithFormat:@"%d MHz", (result/1000000)] forKey:@"CPU_SPEED"];
+        NSString *s = [NSString stringWithFormat:@"%d MHz", (result/1000000)];
+        [dict setObject:s forKey:@"CPU_SPEED"];
+        NSLog(@"CPU_SPEED=%@", s);
     } else {
         NSLog(@"Error detecting cpu speed. Error %d", error);
     }

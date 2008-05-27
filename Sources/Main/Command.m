@@ -50,21 +50,28 @@
 }
 
 
--(void) outData: (NSNotification *) notification
+-(void) appendDataFrom:(NSFileHandle*)fileHandle to:(NSMutableString*)string
 {
-    NSFileHandle *fileHandle = (NSFileHandle*) [notification object];
-
-
-    NSData *data = [fileHandle availableData];
+   NSData *data = [fileHandle availableData];
 
     if ([data length]) {
         NSString *s = [[NSString alloc] initWithBytes:[data bytes] length:[data length] encoding:NSASCIIStringEncoding];
     
         [output appendString:s];
-        NSLog(@"stdout: %@", s);
+        //NSLog(@"| %@", s);
         
         [s release];
     }
+    [fileHandle waitForDataInBackgroundAndNotify];
+
+}
+
+-(void) outData: (NSNotification *) notification
+{
+    NSFileHandle *fileHandle = (NSFileHandle*) [notification object];
+
+    [self appendDataFrom:fileHandle to:output];
+
     [fileHandle waitForDataInBackgroundAndNotify];
 }
 
@@ -72,16 +79,7 @@
 {
     NSFileHandle *fileHandle = (NSFileHandle*) [notification object];
 
-    NSData *data = [fileHandle availableData];
-
-    if ([data length]) {
-        NSString *s = [[NSString alloc] initWithBytes:[data bytes] length:[data length] encoding:NSASCIIStringEncoding];
-
-        [error appendString:s];
-        NSLog(@"stderr: %@", s);
-        
-        [s release];
-    }
+    [self appendDataFrom:fileHandle to:output];
 
     [fileHandle waitForDataInBackgroundAndNotify];
 }
@@ -89,6 +87,7 @@
 
 - (void) terminated: (NSNotification *)notification
 {
+    NSLog(@"Task terminated");
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     terminated = YES;
@@ -131,13 +130,16 @@
 
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     while(!terminated) {
-        if (![[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:1.0]]) {
+        if (![[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:100000]]) {
             break;
         }
         [pool release];
         pool = [[NSAutoreleasePool alloc] init];
     }
     [pool release];
+
+    [self appendDataFrom:outFile to:output];
+    [self appendDataFrom:errFile to:error];
 
 	int result = [task terminationStatus];
 

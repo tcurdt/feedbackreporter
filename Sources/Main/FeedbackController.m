@@ -228,7 +228,7 @@ static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
     [system appendFormat:@"cpu type = %@\n", [dict valueForKey:@"CPU_TYPE"]];
     [system appendFormat:@"cpu speed = %@\n", [dict valueForKey:@"CPU_SPEED"]];
 
-    [dict release];
+    [discovery release];
 
     return system;
 }
