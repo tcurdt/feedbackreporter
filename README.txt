@@ -17,3 +17,4 @@ TODO:
 
 Credits:  
  - Fraser Speirs, Multipart/Form construction, BSD License
+ - Jens Alfke, Exception handling and callstack, BSD License

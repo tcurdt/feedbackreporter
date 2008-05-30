@@ -15,7 +15,7 @@
  */
 
 #import "SystemDiscovery.h"
-
+#import <sys/sysctl.h>
 
 @implementation SystemDiscovery
 
@@ -59,6 +59,7 @@
             case gestaltCPU604e:       p = @"PowerPC 604e"; break;
             case gestaltCPU604ev:      p = @"PowerPC 604ev"; break;
             case gestaltCPU750:        p = @"G3"; break;
+            case 275:
             case gestaltCPUG4:         p = @"G4"; break;
             case gestaltCPU970:        p = @"G5 (970)"; break;
             case gestaltCPU970FX:      p = @"G5 (970 FX)"; break;
@@ -82,6 +83,16 @@
     } else {
         NSLog(@"Failed to detect cpu type. Error %d", error);
     }
+
+    int     count;
+    size_t  size = sizeof(count);
+
+    if (sysctlbyname("hw.ncpu", &count, &size, NULL, 0)) {
+        count = 1;
+    }
+    
+    NSLog(@"CPU_COUNT=%d", count);
+    [dict setObject:[NSNumber numberWithInt:count] forKey:@"CPU_COUNT"];
     
     error = Gestalt(gestaltProcClkSpeed, &result);
     if (!error) {
