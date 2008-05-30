@@ -31,24 +31,45 @@ static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
 
 @implementation FeedbackController
 
-- (id) initWithUser:(NSString*)pUser
-{
-    return [self initWithUser:pUser comment:@""];
-}
-
-- (id) initWithUser:(NSString*)pUser comment:(NSString*)pComment
+- (id) init
 {
     self = [super initWithWindowNibName:@"FeedbackReporter"];
     if (self != nil) {
-        user = pUser;
-        
-        if (user == nil) {
-            user = @"unknown";
-        }
-        
-        comment = pComment;
+        comment = @"";
+        user = @"unknown";
+        exception = @"";
     }
     return self;
+}
+
+- (void) setUser:(NSString*)pUser
+{
+    user = pUser;
+}
+
+- (NSString*)user
+{
+    return user;
+}
+
+- (void) setComment:(NSString*)pComment
+{
+    comment = pComment;
+}
+
+- (NSString*) comment
+{
+    return comment;
+}
+
+- (void) setException:(NSString*)pException
+{
+    exception = pException;
+}
+
+- (NSString*) exception
+{
+    return exception;
 }
 
 
@@ -90,7 +111,7 @@ static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
 
 - (IBAction)cancel:(id)sender
 {
-    [self close];
+    [NSApp stopModalWithCode:NSCancelButton];
 }
 
 - (NSString*) target
@@ -133,36 +154,28 @@ static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
     [dict release];
     [uploader release];
     
-    [self close];
-    
     NSLog(@"result = %@", result);
     
     // FIXME check result for ^ERR
     
-    NSRunAlertPanel(
-        @"Feedback",
-        @"Your feedback has been received!",
-        @"Thanks!",
-        nil, nil);
-
-
     [[NSUserDefaults standardUserDefaults] setValue: [NSDate date]
                                              forKey: KEY_LASTSUBMISSIONDATE];
 
     [[NSUserDefaults standardUserDefaults] setObject:[emailField stringValue]
                                               forKey:KEY_SENDEREMAIL];
 
+    [NSApp stopModalWithCode:NSOKButton];
 }
 
 
 - (NSString*) console
 {
-
     NSMutableString *console = [[[NSMutableString alloc] init] autorelease];
 
 /* Leopard: */
 
     [console appendString:@"ASL:\n"];
+
 
     aslmsg query = asl_new(ASL_TYPE_QUERY);
     asl_set_query(query, ASL_KEY_SENDER, [[Application applicationName] lossyCString], ASL_QUERY_OP_EQUAL);
@@ -186,6 +199,8 @@ static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
 
         [console appendFormat:@"%@: %s\n", date, asl_get(msg, ASL_KEY_MSG)];
     }
+
+    NSLog(@"appended");
 
     aslresponse_free(response);
 
@@ -305,10 +320,26 @@ static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
     [crashesView setString:[self crashes]];
     [shellView setString:[self shell]];
     [preferencesView setString:[self preferences]];
+    [exceptionView setString:[self exception]];
     
     [indicator setHidden:YES];
 
     [self showDetails:NO animate:NO];
+    
+    if ([exception length] == 0) {
+        // select exception tab
+        [tabView selectTabViewItemWithIdentifier:@"System"];
+    } else {
+        // select system tab
+        [tabView selectTabViewItemWithIdentifier:@"Exception"];
+    }
+    
+}
+
+- (int) runModal
+{
+    [self showWindow:self];
+    return [NSApp runModalForWindow:[self window]];
 }
 
 

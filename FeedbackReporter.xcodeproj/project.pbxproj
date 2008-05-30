@@ -24,7 +24,7 @@
 		9DA7D6F40DEB8E5D00C3B586 /* CrashLogFinder.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DA7D6E70DEB8E5D00C3B586 /* CrashLogFinder.m */; };
 		9DA7D6F50DEB8E5D00C3B586 /* FeedbackController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA7D6E80DEB8E5D00C3B586 /* FeedbackController.h */; };
 		9DA7D6F60DEB8E5D00C3B586 /* FeedbackController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DA7D6E90DEB8E5D00C3B586 /* FeedbackController.m */; };
-		9DA7D6F70DEB8E5D00C3B586 /* FRFeedbackReporter.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA7D6EA0DEB8E5D00C3B586 /* FRFeedbackReporter.h */; };
+		9DA7D6F70DEB8E5D00C3B586 /* FRFeedbackReporter.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA7D6EA0DEB8E5D00C3B586 /* FRFeedbackReporter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9DA7D6F80DEB8E5D00C3B586 /* FRFeedbackReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DA7D6EB0DEB8E5D00C3B586 /* FRFeedbackReporter.m */; };
 		9DA7D6FA0DEB8E5D00C3B586 /* Uploader.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA7D6ED0DEB8E5D00C3B586 /* Uploader.h */; };
 		9DA7D6FB0DEB8E5D00C3B586 /* Uploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DA7D6EE0DEB8E5D00C3B586 /* Uploader.m */; };

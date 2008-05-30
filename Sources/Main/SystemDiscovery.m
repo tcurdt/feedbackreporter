@@ -69,7 +69,8 @@
             case gestaltCPUPentiumII:  p = @"Intel Pentium II"; break;
             case gestaltCPUX86:        p = @"Intel x86"; break;
             case gestaltCPUPentium4:   p = @"Intel Pentium 4"; break;
-            default: p = @"???"; break;
+            case 2028621756:           p = @"Intel Core 2 Duo"; break;
+            default:                   p = @"???"; break;
         }
 
         if (p != nil) {

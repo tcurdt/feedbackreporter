@@ -21,7 +21,15 @@
 {
 }
 
++ (void) setUser:(NSString*)user;
+
++ (int) reportFeedback;
++ (int) reportIfCrash;
++ (int) reportException:(NSException *)exception;
+
+// deprecated
 + (void) reportAsUser:(NSString*)user;
 + (void) reportCrashAsUser:(NSString*)user;
+
 
 @end

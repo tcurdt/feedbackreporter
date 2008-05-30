@@ -42,6 +42,8 @@
 				<string>NSTextView</string>
 				<key>emailField</key>
 				<string>NSTextField</string>
+				<key>exceptionView</key>
+				<string>NSTextView</string>
 				<key>indicator</key>
 				<string>NSProgressIndicator</string>
 				<key>preferencesView</key>

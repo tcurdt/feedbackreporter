@@ -17,20 +17,36 @@
 #import "FRFeedbackReporter.h"
 #import "FeedbackController.h"
 #import "CrashLogFinder.h"
+#import "NSException+Callstack.h"
 
 static NSString *KEY_LASTCRASHCHECKDATE = @"FRFeedbackReporter.lastCrashCheckDate";
 
 @implementation FRFeedbackReporter
 
-+ (void) reportAsUser:(NSString*)user
-{
-    FeedbackController *controller = [[FeedbackController alloc] initWithUser:user];
+static NSString* user = nil;
 
-    [controller showWindow:self];
++ (void) setUser:(NSString*)pUser
+{
+    user = pUser;
 }
 
-+ (void) reportCrashAsUser:(NSString*)user
++ (int) reportFeedback
 {
+    FeedbackController *controller = [[FeedbackController alloc] init];
+
+    [controller setUser:user];
+
+    int ret = [controller runModal];
+    
+    [controller release];
+    
+    return ret;
+}
+
++ (int) reportIfCrash
+{
+    int ret = NSCancelButton;
+    
     NSDate *lastCrashCheckDate = [[NSUserDefaults standardUserDefaults] valueForKey:KEY_LASTCRASHCHECKDATE];
     
     if (lastCrashCheckDate != nil) {
@@ -39,18 +55,60 @@ static NSString *KEY_LASTCRASHCHECKDATE = @"FRFeedbackReporter.lastCrashCheckDat
         if ([crashFiles count] > 0) {
             NSLog(@"Found new crash files");
 
-            NSString *comment = NSLocalizedString(@"The application crashed after I...", nil);
+            FeedbackController *controller = [[FeedbackController alloc] init];
 
-            FeedbackController *controller = [[FeedbackController alloc] initWithUser:user comment:comment];
+            [controller setUser:user];
+            [controller setComment:NSLocalizedString(@"The application crashed after I...", nil)];
 
-            [controller showWindow:self];
-
+            ret = [controller runModal];
+            
+            [controller release];
         }
     }
     
     [[NSUserDefaults standardUserDefaults] setValue: [NSDate date]
                                              forKey: KEY_LASTCRASHCHECKDATE];
 
+    return ret;
+}
+
++ (int) reportException:(NSException *)exception
+{
+    FeedbackController *controller = [[FeedbackController alloc] init];
+
+    [controller setUser:user];
+
+    [controller setComment:NSLocalizedString(@"Uncought exception", nil)];
+
+
+    NSString *s = [NSString stringWithFormat: @"%@\n\n%@\n\n%@",
+                             [exception name],
+                             [exception reason],
+                             [exception my_callStack] ?:@""];
+
+    [controller setException:s];
+
+    int ret = [controller runModal];
+    
+    [controller release];
+
+    return ret;
+}
+
+
+
+// deprected
+
++ (void) reportAsUser:(NSString*)user
+{
+    [self setUser:user];
+    [self reportFeedback];
+}
+
++ (void) reportCrashAsUser:(NSString*)user
+{
+    [self setUser:user];
+    [self reportIfCrash];
 }
 
 @end

@@ -30,6 +30,7 @@
     IBOutlet NSTextView *crashesView;
     IBOutlet NSTextView *shellView;
     IBOutlet NSTextView *preferencesView;
+    IBOutlet NSTextView *exceptionView;
 
     IBOutlet NSProgressIndicator *indicator;
 
@@ -38,10 +39,18 @@
 
     NSString *user;
     NSString *comment;
+    NSString *exception;
 }
 
-- (id) initWithUser:(NSString*)user;
-- (id) initWithUser:(NSString*)user comment:(NSString*)comment;
+- (void) setUser:(NSString*)user;
+- (void) setComment:(NSString*)comment;
+- (void) setException:(NSString*)exception;
+
+- (NSString*) user;
+- (NSString*) comment;
+- (NSString*) exception;
+
+- (int) runModal;
 
 - (IBAction)showDetails:(id)sender;
 

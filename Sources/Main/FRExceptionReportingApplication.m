@@ -16,6 +16,7 @@
 
 #import "FRExceptionReportingApplication.h"
 #import "NSException+Callstack.h"
+#import "FRFeedbackReporter.h"
 
 static void (*sExceptionReporter)(NSException*);
 
@@ -59,25 +60,12 @@ static void report( NSException *x ) {
 - (void)reportException:(NSException *)x
 {
     [super reportException: x];
-    [self performSelector: @selector(_showExceptionAlert:) withObject: x afterDelay: 0.0];
+    
     MYSetExceptionReporter(NULL);     // ignore further exceptions till alert is dismissed
-}
 
-- (void) _showExceptionAlert: (NSException*)x
-{
-    //[FRFeedbackReporter reportAsUser:nil];
+    [FRFeedbackReporter reportException:x];
 
-    NSString *stack = [x my_callStack] ?:@"";
-    int r = NSRunCriticalAlertPanel( @"Cloudy Internal Error!",
-                            [NSString stringWithFormat: @"Uncaught exception: %@\n%@\n\n%@\n\n"
-                             "Please report this bug.",
-                             [x name], [x reason], stack],
-                            @"Sorry",@"Quit",nil);
-    if( r == NSAlertAlternateReturn ) {
-        exit(1);
-    }
-
-    MYSetExceptionReporter(&report);
+    MYSetExceptionReporter(&report);    
 }
 
 
