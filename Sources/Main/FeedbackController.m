@@ -44,7 +44,9 @@ static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
 
 - (void) setUser:(NSString*)pUser
 {
-    user = pUser;
+    if (pUser != nil) {
+        user = pUser;
+    }
 }
 
 - (NSString*)user
@@ -111,6 +113,8 @@ static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
 
 - (IBAction)cancel:(id)sender
 {
+    [uploader cancel];
+    
     [NSApp stopModalWithCode:NSCancelButton];
 }
 
@@ -118,20 +122,32 @@ static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
 {
     NSString *target = [[[NSBundle mainBundle] infoDictionary] valueForKey: KEY_TARGETURL];
 
+    if (target == nil) {
+        return nil;
+    }
+
     return [NSString stringWithFormat:target, [Application applicationName]];
 }
 
+BOOL terminated = NO;
 
 - (IBAction)send:(id)sender
 {
-    [indicator setHidden:NO];
-    [indicator startAnimation:self];
-        
+    if (uploader != nil) {
+        NSLog(@"Still uploading");
+        return;
+    }
+            
     NSString *target = [self target];
+    
+    if (target == nil) {
+        NSLog(@"You are missing the %@ key in your Info.plist!", KEY_TARGETURL);
+        return;        
+    }
 
     NSLog(@"Sending feedback to %@", target);
     
-    Uploader *uploader = [[Uploader alloc] initWithTarget:target];
+    uploader = [[Uploader alloc] initWithTarget:target delegate:self];
     
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:5];
 
@@ -146,18 +162,81 @@ static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
     [dict setObject:[preferencesView string] forKey:@"preferences"];
     //[dict setObject:[NSURL fileURLWithPath: @"/var/log/fsck_hfs.log"] forKey:@"file"];
     
-    NSString *result = [uploader post:dict];
+    [uploader post:dict];
+
+    terminated = NO;
+
+    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+    while(!terminated) {
+        if (![[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:100000]]) {
+            NSLog(@"break");
+            break;
+        }
+        [pool release];
+        pool = [[NSAutoreleasePool alloc] init];
+    }
+    [pool release];
     
+    NSLog(@"done");
+
+    //[dict autorelease];
+}
+
+- (void) uploaderStarted:(Uploader*)pUploader
+{
+    NSLog(@"Upload started");
+
+    [indicator setHidden:NO];
+    [indicator startAnimation:self];    
+    
+    [commentView setEditable:NO];
+    [sendButton setEnabled:NO];
+}
+
+- (void) uploaderFailed:(Uploader*)pUploader withError:(NSError*)error
+{
+    NSLog(@"Upload failed: %@", error);
+
     [indicator stopAnimation:self];
     [indicator setHidden:YES];
 
-    [dict release];
-    [uploader release];
+    [uploader release], uploader = nil;
     
-    NSLog(@"result = %@", result);
-    
-    // FIXME check result for ^ERR
-    
+    terminated = YES;
+
+    [commentView setEditable:YES];
+    [sendButton setEnabled:YES];
+}
+
+- (void) uploaderFinished:(Uploader*)pUploader
+{
+    NSLog(@"Upload finished");
+
+    [indicator stopAnimation:self];
+    [indicator setHidden:YES];
+
+    terminated = YES;
+
+    NSString *response = [[uploader response] copy];
+
+    [uploader release], uploader = nil;
+
+    [commentView setEditable:YES];
+    [sendButton setEnabled:YES];
+
+    NSLog(@"response = %@", response);
+
+    NSArray *lines = [response componentsSeparatedByString:@"\n"];
+    int i = [lines count];
+    while(i--) {
+        NSString *line = [lines objectAtIndex:i];
+        
+        if (![line hasPrefix:@"OK "]) {
+            NSLog(@"Error!");
+            return;
+        }
+    }
+
     [[NSUserDefaults standardUserDefaults] setValue: [NSDate date]
                                              forKey: KEY_LASTSUBMISSIONDATE];
 
@@ -165,6 +244,7 @@ static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
                                               forKey:KEY_SENDEREMAIL];
 
     [NSApp stopModalWithCode:NSOKButton];
+
 }
 
 
@@ -180,27 +260,23 @@ static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
     aslmsg query = asl_new(ASL_TYPE_QUERY);
     asl_set_query(query, ASL_KEY_SENDER, [[Application applicationName] lossyCString], ASL_QUERY_OP_EQUAL);
 
+    // FIXME restrict to logs no older than 2 hours
+
     aslresponse response = asl_search(NULL, query);
 
     asl_free(query);
 
-    NSDateFormatter *formatter = [[[NSDateFormatter alloc] initWithDateFormat:@"%Y.%m.%d %H:%M:%S %Z" allowNaturalLanguage:NO] autorelease];
+    //NSDateFormatter *formatter = [[[NSDateFormatter alloc] initWithDateFormat:@"%Y.%m.%d %H:%M:%S %Z" allowNaturalLanguage:NO] autorelease];
 
     aslmsg msg;
     while ((msg = aslresponse_next(response))) {
 
-        NSString *dateString = [NSString stringWithUTF8String:asl_get(msg, ASL_KEY_TIME)];
-        
-        NSDate *date = [formatter dateFromString:dateString];
-        if(!date) {
-            NSTimeInterval timestamp = [dateString doubleValue];
-            date = [NSDate dateWithTimeIntervalSince1970:timestamp];
-        }
+        const char* time = asl_get(msg, ASL_KEY_TIME);
+
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:atof(time)];
 
         [console appendFormat:@"%@: %s\n", date, asl_get(msg, ASL_KEY_MSG)];
     }
-
-    NSLog(@"appended");
 
     aslresponse_free(response);
 

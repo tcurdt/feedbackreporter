@@ -19,14 +19,23 @@
 
 @implementation Uploader
 
-- (id) initWithTarget:(NSString*)pTarget;
+- (id) initWithTarget:(NSString*)pTarget delegate:(id)pDelegate
 {
     self = [super init];
     if (self != nil) {
         target = pTarget;
+        delegate = pDelegate;
+        responseData = [[NSMutableData alloc] init];
     }
     
     return self;
+}
+
+- (void) dealloc
+{
+    [responseData release];
+    
+    [super dealloc];
 }
 
 - (NSData *)generateFormData: (NSDictionary *)dict forBoundary:(NSString*)formBoundary
@@ -60,6 +69,7 @@
 	return [result autorelease];
 }
 
+/*
 - (NSString*) post:(NSDictionary*)dict
 {
     NSString *formBoundary = [[NSProcessInfo processInfo] globallyUniqueString];
@@ -88,7 +98,80 @@
     return [[[NSString alloc] initWithData:result
                                   encoding:NSUTF8StringEncoding] autorelease];
 }
+*/
+
+- (void) post:(NSDictionary*)dict
+{
+    NSString *formBoundary = [[NSProcessInfo processInfo] globallyUniqueString];
+
+	NSData *formData = [self generateFormData:dict forBoundary:formBoundary];
+
+    NSLog(@"Posting %d bytes to %@", [formData length], target);
+
+	NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:target]];
+	
+	NSString *boundaryString = [NSString stringWithFormat: @"multipart/form-data; boundary=%@", formBoundary];
+	[request addValue: boundaryString forHTTPHeaderField: @"Content-Type"];
+	[request setHTTPMethod: @"POST"];
+	[request setHTTPBody:formData];
+
+    connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+
+    if (connection != nil) {
+        if ([delegate respondsToSelector:@selector(uploaderStarted:)]) {
+            [delegate uploaderStarted:self];
+        }
+        
+    } else {
+        if ([delegate respondsToSelector:@selector(uploaderFailed:withError:)]) {
+            [delegate uploaderFailed:self
+                           withError:[NSError errorWithDomain:@"Failed to establish connection" code:0 userInfo:nil]];
+        }
+    }
+}
 
 
+
+- (void)connection: (NSURLConnection *)connection didReceiveData: (NSData *)data
+{
+    NSLog(@"Connection received data");
+
+	[responseData appendData:data];
+}
+
+- (void)connection:(NSURLConnection *)pConnection didFailWithError:(NSError *)pError
+{
+    NSLog(@"Connection failed");
+    
+	if ([delegate respondsToSelector:@selector(uploaderFailed:withError:)]) {
+		[delegate uploaderFailed:self withError:pError];
+	}
+		
+	[connection autorelease];
+}
+
+- (void)connectionDidFinishLoading: (NSURLConnection *)pConnection
+{
+    NSLog(@"Connection finished");
+
+	if ([delegate respondsToSelector: @selector(uploaderFinished:)]) {
+		[delegate uploaderFinished:self];
+	}
+	
+	[connection autorelease];
+}
+
+
+- (void) cancel
+{
+    [connection cancel];
+    [connection autorelease], connection = nil;
+}
+
+- (NSString*) response
+{
+    return [[[NSString alloc] initWithData:responseData
+                                  encoding:NSUTF8StringEncoding] autorelease];
+}
 
 @end

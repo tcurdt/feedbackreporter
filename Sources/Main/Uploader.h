@@ -19,9 +19,17 @@
 
 @interface Uploader : NSObject {
     NSString *target;
+    id delegate;
+
+    NSURLConnection *connection;
+    NSMutableData *responseData;
 }
 
-- (id) initWithTarget:(NSString*)target;
-- (NSString*) post:(NSDictionary*)dict;
+- (id) initWithTarget:(NSString*)target delegate:(id)delegate;
+- (void) post:(NSDictionary*)dict;
+- (void) cancel;
+- (NSString*) response;
+
+
 
 @end

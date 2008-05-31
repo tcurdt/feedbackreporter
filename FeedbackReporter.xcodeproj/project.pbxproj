@@ -13,6 +13,7 @@
 		9D0EC0230DF00F250045EB76 /* FRExceptionReportingApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EC0210DF00F250045EB76 /* FRExceptionReportingApplication.m */; };
 		9D0EC0290DF011DB0045EB76 /* NSException+Callstack.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0EC0270DF011DB0045EB76 /* NSException+Callstack.h */; };
 		9D0EC02A0DF011DB0045EB76 /* NSException+Callstack.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EC0280DF011DB0045EB76 /* NSException+Callstack.m */; };
+		9D291E8E0DF167BB009F859B /* UploaderTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D291E8D0DF167BB009F859B /* UploaderTestCase.m */; };
 		9D4347000DD3B712000F1E48 /* FeedbackReporter.nib in Resources */ = {isa = PBXBuildFile; fileRef = 9D4346FF0DD3B712000F1E48 /* FeedbackReporter.nib */; };
 		9D8700290DDC1F9C003249C0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9D8700270DDC1F9C003249C0 /* Localizable.strings */; };
 		9DA7D6B70DEB8A7800C3B586 /* FeedbackReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* FeedbackReporter.framework */; };
@@ -55,6 +56,8 @@
 		9D0EC0210DF00F250045EB76 /* FRExceptionReportingApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FRExceptionReportingApplication.m; path = Sources/Main/FRExceptionReportingApplication.m; sourceTree = "<group>"; };
 		9D0EC0270DF011DB0045EB76 /* NSException+Callstack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSException+Callstack.h"; path = "Sources/Main/NSException+Callstack.h"; sourceTree = "<group>"; };
 		9D0EC0280DF011DB0045EB76 /* NSException+Callstack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSException+Callstack.m"; path = "Sources/Main/NSException+Callstack.m"; sourceTree = "<group>"; };
+		9D291E8C0DF167BB009F859B /* UploaderTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UploaderTestCase.h; path = Sources/Tests/UploaderTestCase.h; sourceTree = "<group>"; };
+		9D291E8D0DF167BB009F859B /* UploaderTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UploaderTestCase.m; path = Sources/Tests/UploaderTestCase.m; sourceTree = "<group>"; };
 		9D4346FF0DD3B712000F1E48 /* FeedbackReporter.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = FeedbackReporter.nib; path = Resources/FeedbackReporter.nib; sourceTree = "<group>"; };
 		9D8700280DDC1F9C003249C0 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9D90077A0DEB96C10000330E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Sources/Main/Info.plist; sourceTree = "<group>"; };
@@ -201,6 +204,8 @@
 				9DA7D6FD0DEB8E9100C3B586 /* CommandTestCase.m */,
 				9DCF52A70DEC0D8A00EBF810 /* SystemDiscoveryTestCase.h */,
 				9DCF52A80DEC0D8A00EBF810 /* SystemDiscoveryTestCase.m */,
+				9D291E8C0DF167BB009F859B /* UploaderTestCase.h */,
+				9D291E8D0DF167BB009F859B /* UploaderTestCase.m */,
 				9D90077F0DEB96D40000330E /* Tests-Info.plist */,
 			);
 			name = Tests;
@@ -344,6 +349,7 @@
 			files = (
 				9DA7D6FF0DEB8E9100C3B586 /* CommandTestCase.m in Sources */,
 				9DCF52A90DEC0D8A00EBF810 /* SystemDiscoveryTestCase.m in Sources */,
+				9D291E8E0DF167BB009F859B /* UploaderTestCase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

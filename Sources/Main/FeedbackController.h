@@ -15,6 +15,7 @@
  */
 
 #import <Cocoa/Cocoa.h>
+#import "Uploader.h"
 
 @interface FeedbackController : NSWindowController {
 
@@ -40,6 +41,8 @@
     NSString *user;
     NSString *comment;
     NSString *exception;
+    
+    Uploader *uploader;
 }
 
 - (void) setUser:(NSString*)user;
