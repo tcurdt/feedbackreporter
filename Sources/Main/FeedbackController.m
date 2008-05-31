@@ -169,7 +169,6 @@ BOOL terminated = NO;
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     while(!terminated) {
         if (![[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:100000]]) {
-            NSLog(@"break");
             break;
         }
         [pool release];
@@ -179,7 +178,7 @@ BOOL terminated = NO;
     
     NSLog(@"done");
 
-    //[dict autorelease];
+    [dict release];
 }
 
 - (void) uploaderStarted:(Uploader*)pUploader
@@ -217,7 +216,7 @@ BOOL terminated = NO;
 
     terminated = YES;
 
-    NSString *response = [[uploader response] copy];
+    NSString *response = [uploader response];
 
     [uploader release], uploader = nil;
 
@@ -231,8 +230,20 @@ BOOL terminated = NO;
     while(i--) {
         NSString *line = [lines objectAtIndex:i];
         
+        if ([line length] == 0) {
+            continue;
+        }
+        
         if (![line hasPrefix:@"OK "]) {
-            NSLog(@"Error!");
+
+            NSAlert *alert = [[NSAlert alloc] init];
+            [alert addButtonWithTitle:@"OK"];
+            [alert setMessageText:@"Sorry, failed to submit your feedback to the server."];
+            [alert setInformativeText:[NSString stringWithFormat:@"Error: %@", line]];
+            [alert setAlertStyle:NSWarningAlertStyle];
+            [alert runModal];
+            [alert release];
+            
             return;
         }
     }
