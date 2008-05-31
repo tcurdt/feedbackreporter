@@ -205,6 +205,15 @@ BOOL terminated = NO;
 
     [commentView setEditable:YES];
     [sendButton setEnabled:YES];
+
+    NSAlert *alert = [[NSAlert alloc] init];
+    [alert addButtonWithTitle:@"OK"];
+    [alert setMessageText:@"Sorry, failed to submit your feedback to the server."];
+    [alert setInformativeText:[NSString stringWithFormat:@"Error: %@", [error localizedDescription]]];
+    [alert setAlertStyle:NSWarningAlertStyle];
+    [alert runModal];
+    [alert release];
+
 }
 
 - (void) uploaderFinished:(Uploader*)pUploader
