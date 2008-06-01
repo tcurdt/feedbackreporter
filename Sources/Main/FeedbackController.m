@@ -160,6 +160,7 @@ BOOL terminated = NO;
     [dict setObject:[crashesView string] forKey:@"crashes"];
     [dict setObject:[shellView string] forKey:@"shell"];
     [dict setObject:[preferencesView string] forKey:@"preferences"];
+    [dict setObject:[exceptionView string] forKey:@"exception"];
     //[dict setObject:[NSURL fileURLWithPath: @"/var/log/fsck_hfs.log"] forKey:@"file"];
     
     [uploader post:dict];

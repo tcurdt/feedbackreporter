@@ -19,7 +19,7 @@
 $feedback_dir = '/path/to/feedback/';
 
 # fields that get stored as files
-$feedback_files = array('user', 'version', 'comment', 'email', 'system', 'console', 'crashes', 'preferences', 'shell');
+$feedback_files = array('user', 'version', 'comment', 'email', 'exception', 'system', 'console', 'crashes', 'preferences', 'shell');
 
 // --------------------------------------
 $feedback_max_files = 20;
