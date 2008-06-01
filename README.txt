@@ -10,11 +10,8 @@ The source code is available through git at
 
 Enjoy!
 
-TODO:
- - error handling
- - asynch upload
- - cancel upload
 
-Credits:  
+Credits:
  - Fraser Speirs, Multipart/Form construction, BSD License
  - Jens Alfke, Exception handling and callstack, BSD License
+ - Torsten Curdt, initial codebase, ASL2.0 License
