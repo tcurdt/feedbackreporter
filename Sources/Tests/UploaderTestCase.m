@@ -27,7 +27,7 @@ BOOL terminated;
 
     Uploader *uploader = [[Uploader alloc] initWithTarget:@"http://vafer.org/feedback.php?project=TestCase" delegate:self];
     
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     [dict setObject:@"test" forKey:@"test"];
 
     [uploader post:dict];
@@ -45,7 +45,7 @@ BOOL terminated;
     [pool release];
 
     [dict release];
-
+    
     NSLog(@"done");
 }
 

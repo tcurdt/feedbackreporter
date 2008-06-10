@@ -119,32 +119,35 @@
 
     if (connection != nil) {
         if ([delegate respondsToSelector:@selector(uploaderStarted:)]) {
-            [delegate uploaderStarted:self];
+            [delegate performSelector:@selector(uploaderStarted:) withObject:self];
         }
         
     } else {
         if ([delegate respondsToSelector:@selector(uploaderFailed:withError:)]) {
-            [delegate uploaderFailed:self
-                           withError:[NSError errorWithDomain:@"Failed to establish connection" code:0 userInfo:nil]];
+
+            [delegate performSelector:@selector(uploaderFailed:withError:) withObject:self
+                withObject:[NSError errorWithDomain:@"Failed to establish connection" code:0 userInfo:nil]];
+
         }
     }
 }
 
 
 
-- (void)connection: (NSURLConnection *)connection didReceiveData: (NSData *)data
+- (void)connection: (NSURLConnection *)pConnection didReceiveData: (NSData *)data
 {
     NSLog(@"Connection received data");
 
 	[responseData appendData:data];
 }
 
-- (void)connection:(NSURLConnection *)pConnection didFailWithError:(NSError *)pError
+- (void)connection:(NSURLConnection *)pConnection didFailWithError:(NSError *)error
 {
     NSLog(@"Connection failed");
     
 	if ([delegate respondsToSelector:@selector(uploaderFailed:withError:)]) {
-		[delegate uploaderFailed:self withError:pError];
+
+        [delegate performSelector:@selector(uploaderFailed:withError:) withObject:self withObject:error];
 	}
 		
 	[connection autorelease];
@@ -155,7 +158,7 @@
     NSLog(@"Connection finished");
 
 	if ([delegate respondsToSelector: @selector(uploaderFinished:)]) {
-		[delegate uploaderFinished:self];
+        [delegate performSelector:@selector(uploaderFinished:) withObject:self];
 	}
 	
 	[connection autorelease];
