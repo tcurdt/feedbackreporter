@@ -408,6 +408,16 @@ BOOL terminated = NO;
     
     if (sender == nil) {
         sender = @"anonymous";
+
+/*
+        ABAddressBook *book = [ABAddressBook sharedAddressBook];
+        ABMultiValue *addrs = [[book me] valueForProperty:kABEmailProperty];
+        int count           = [addrs count];  // Determining the number of values
+        
+        if (count > 0) {
+            email = [addrs valueAtIndex:0];
+        }
+*/
     }
 
     [emailField setStringValue:sender];

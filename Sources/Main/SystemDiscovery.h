@@ -23,4 +23,14 @@
 
 - (NSDictionary*) discover;
 
+
+- (NSString*) cputype;
+- (NSString*) osversion;
+- (NSString*) cpu;
+- (int) cpucount;
+- (NSString*) machinemodel;
+- (NSString*) language;
+- (long) cpuspeed;
+- (long) ramsize;
+
 @end

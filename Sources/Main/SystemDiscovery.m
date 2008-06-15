@@ -23,88 +23,184 @@
 {
     NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:5];
 
-    OSType error;
-    long result;
+    NSString *osversion = [NSString stringWithFormat:@"%@", [self osversion]];
+    [dict setObject:osversion forKey:@"OS_VERSION"];
+    NSLog(@"OS_VERSION=%@", osversion);
 
+    NSString *ramsize = [NSString stringWithFormat:@"%d MB", [self ramsize]];
+    [dict setObject:ramsize forKey:@"RAM_SIZE"];
+    NSLog(@"RAM_SIZE=%@", ramsize);
+
+    NSString *cputype = [NSString stringWithFormat:@"%@ %@", [self cpu]];
+    [dict setObject:cputype forKey:@"CPU_TYPE"];
+    NSLog(@"CPU_TYPE=%@", cputype);
+
+    NSString *cpucount = [NSString stringWithFormat:@"%d", [self cpucount]];
+    NSLog(@"CPU_COUNT=%@", cpucount);
+    [dict setObject:cpucount forKey:@"CPU_COUNT"];
+    
+    NSString *cpuspeed = [NSString stringWithFormat:@"%d MHz", [self cpuspeed]];
+    NSLog(@"CPU_SPEED=%@", cpuspeed);
+    [dict setObject:cpuspeed forKey:@"CPU_SPEED"];
+
+    NSString *machinemodel = [NSString stringWithFormat:@"%@", [self machinemodel]];
+    [dict setObject:machinemodel forKey:@"MACHINE_MODEL"];
+    NSLog(@"MACHINE_MODEL=%@", machinemodel);
+
+    NSString *language = [NSString stringWithFormat:@"%@", [self language]];
+    [dict setObject:language forKey:@"LANGUAGE"];
+    NSLog(@"LANGUAGE=%@", language);
+
+    return dict;
+}
+
+- (NSString*) cputype
+{
+    int error = 0;
+    int value = 0;
+    size_t length = sizeof(value);
+    error = sysctlbyname("hw.cpusubtype", &value, &length, NULL, 0);
+    
+    if (error != 0) {
+        NSLog(@"Failed to obtain CPU type");
+        return nil;
+    }
+    
+    switch (value) {
+        case 4:
+            return @"Core2 Duo";
+        case 9:
+            return @"G3";
+        case 10:
+        case 11:
+            return @"G4";
+        case 100:
+            return @"G5";
+    }
+
+    NSLog(@"Unknown CPU type %d", value);
+
+    return nil;
+}
+
+- (NSString*) osversion
+{
     NSProcessInfo *info = [NSProcessInfo processInfo];
-
     NSString *version = [info operatingSystemVersionString];
     
     if ([version hasPrefix:@"Version "]) {
         version = [version substringFromIndex:8];
     }
 
-    [dict setObject:version forKey:@"OS_VERSION"];
-    NSLog(@"OS_VERSION=%@", version);
-    
-    error = Gestalt(gestaltPhysicalRAMSizeInMegabytes, &result);
-    if (!error) {
-        [dict setObject:[NSString stringWithFormat:@"%d", result] forKey:@"RAM"];
-        NSLog(@"RAM=%d", result);
-    } else {
-        NSLog(@"Failed to detect RAM. Error %d", error);
-    }
-    
-    error = Gestalt(gestaltNativeCPUtype, &result);
-    if (!error) {
-    
-        NSString *p = nil;
-        
-        switch(result) {
-            case gestaltCPU601:        p = @"PowerPC 601"; break;
-            case gestaltCPU603:        p = @"PowerPC 603"; break;
-            case gestaltCPU603e:       p = @"PowerPC 603e"; break;
-            case gestaltCPU603ev:      p = @"PowerPC 603ev"; break;
-            case gestaltCPU604:        p = @"PowerPC 604"; break;
-            case gestaltCPU604e:       p = @"PowerPC 604e"; break;
-            case gestaltCPU604ev:      p = @"PowerPC 604ev"; break;
-            case gestaltCPU750:        p = @"G3"; break;
-            case 275:
-            case gestaltCPUG4:         p = @"G4"; break;
-            case gestaltCPU970:        p = @"G5 (970)"; break;
-            case gestaltCPU970FX:      p = @"G5 (970 FX)"; break;
-            case gestaltCPU486 :       p = @"Intel 486"; break;
-            case gestaltCPUPentium:    p = @"Intel Pentium"; break;
-            case gestaltCPUPentiumPro: p = @"Intel Pentium Pro"; break;
-            case gestaltCPUPentiumII:  p = @"Intel Pentium II"; break;
-            case gestaltCPUX86:        p = @"Intel x86"; break;
-            case gestaltCPUPentium4:   p = @"Intel Pentium 4"; break;
-            case 2028621756:           p = @"Intel Core 2 Duo"; break;
-            default:                   p = @"???"; break;
-        }
-
-        if (p != nil) {
-            NSString *s = [NSString stringWithFormat:@"%@ (%d)", p, result];
-            [dict setObject:s forKey:@"CPU_TYPE"];
-            NSLog(@"CPU_TYPE=%@", s);
-        } else {
-            NSLog(@"Unknown cpu type %d", result);
-        }
-        
-    } else {
-        NSLog(@"Failed to detect cpu type. Error %d", error);
-    }
-
-    int     count;
-    size_t  size = sizeof(count);
-
-    if (sysctlbyname("hw.ncpu", &count, &size, NULL, 0)) {
-        count = 1;
-    }
-    
-    NSLog(@"CPU_COUNT=%d", count);
-    [dict setObject:[NSNumber numberWithInt:count] forKey:@"CPU_COUNT"];
-    
-    error = Gestalt(gestaltProcClkSpeed, &result);
-    if (!error) {
-        NSString *s = [NSString stringWithFormat:@"%d MHz", (result/1000000)];
-        [dict setObject:s forKey:@"CPU_SPEED"];
-        NSLog(@"CPU_SPEED=%@", s);
-    } else {
-        NSLog(@"Error detecting cpu speed. Error %d", error);
-    }
-
-    return dict;
+    return version;
 }
+
+- (NSString*) cpu
+{
+    int error = 0;
+    int value = 0;
+    size_t length = sizeof(value);
+    error = sysctlbyname("hw.cputype", &value, &length, NULL, 0);
+    
+    if (error != 0) {
+        NSLog(@"Failed to obtain CPU type");
+        return nil;
+    }
+    
+    switch (value) {
+        case 7:
+            return [NSString stringWithFormat:@"Intel %@", [self cputype]];
+        case 18:
+            return [NSString stringWithFormat:@"PowerPC %@", [self cputype]];
+    }
+
+    NSLog(@"Unknown CPU %d", value);
+
+    return nil;
+}
+
+- (int) cpucount
+{
+    int error = 0;
+    int value = 0;
+    size_t length = sizeof(value);
+    error = sysctlbyname("hw.ncpu", &value, &length, NULL, 0);
+    
+    if (error != 0) {
+        NSLog(@"Failed to obtain CPU count");
+        return 1;
+    }
+    
+    return value;
+}
+
+- (NSString*) machinemodel
+{
+    int error = 0;
+    size_t length;
+    error = sysctlbyname("hw.model", NULL, &length, NULL, 0);
+    
+    if (error != 0) {
+        NSLog(@"Failed to obtain CPU model");
+        return nil;
+    }
+
+    char *p = malloc(sizeof(char) * length);
+    error = sysctlbyname("hw.model", p, &length, NULL, 0);
+    
+    if (error != 0) {
+        NSLog(@"Failed to obtain machine model");
+        free(p);
+        return nil;
+    }
+
+    NSString *machinemodel = [NSString stringWithFormat:@"%s", p];
+    
+    free(p);
+
+    return machinemodel;
+}
+
+- (NSString*) language
+{
+    NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+    NSArray *languages = [defs objectForKey:@"AppleLanguages"];
+
+    if (!languages || ([languages count]  == 0)) {
+        NSLog(@"Failed to obtain preferred language");
+        return nil;
+    }
+    
+    return [languages objectAtIndex:0];
+}
+
+- (long) cpuspeed
+{
+    OSType error;
+    long result;
+
+    error = Gestalt(gestaltProcClkSpeed, &result);
+    if (error) {
+        NSLog(@"Failed to obtain CPU speed");
+        return -1;
+    }
+    
+    return result / 1000000;
+}
+
+- (long) ramsize
+{
+    OSType error;
+    long result;
+
+    error = Gestalt(gestaltPhysicalRAMSizeInMegabytes, &result);
+    if (error) {
+        NSLog(@"Failed to obtain RAM size");
+        return -1;
+    }
+    
+    return result;
+}
+
 
 @end

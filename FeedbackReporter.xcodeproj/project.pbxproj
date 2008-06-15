@@ -77,6 +77,7 @@
 		9DA7D6EE0DEB8E5D00C3B586 /* Uploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Uploader.m; path = Sources/Main/Uploader.m; sourceTree = SOURCE_ROOT; };
 		9DA7D6FC0DEB8E9100C3B586 /* CommandTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommandTestCase.h; path = Sources/Tests/CommandTestCase.h; sourceTree = "<group>"; };
 		9DA7D6FD0DEB8E9100C3B586 /* CommandTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommandTestCase.m; path = Sources/Tests/CommandTestCase.m; sourceTree = "<group>"; };
+		9DBE1E1D0E019FA3007DA531 /* TestApp-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TestApp-Info.plist"; sourceTree = "<group>"; };
 		9DCF52A70DEC0D8A00EBF810 /* SystemDiscoveryTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SystemDiscoveryTestCase.h; path = Sources/Tests/SystemDiscoveryTestCase.h; sourceTree = "<group>"; };
 		9DCF52A80DEC0D8A00EBF810 /* SystemDiscoveryTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SystemDiscoveryTestCase.m; path = Sources/Tests/SystemDiscoveryTestCase.m; sourceTree = "<group>"; };
 		9DCF52AA0DEC0E4300EBF810 /* SystemDiscovery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SystemDiscovery.h; path = Sources/Main/SystemDiscovery.h; sourceTree = "<group>"; };
@@ -122,6 +123,7 @@
 				089C1665FE841158C02AAC07 /* Resources */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
 				034768DFFF38A50411DB9C8B /* Products */,
+				9DBE1E1D0E019FA3007DA531 /* TestApp-Info.plist */,
 			);
 			name = FeedbackReporter;
 			sourceTree = "<group>";
@@ -404,7 +406,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = FeedbackReporter_Prefix.pch;
 				INFOPLIST_FILE = Sources/Main/Info.plist;
-				INSTALL_PATH = "@executable_path/../Frameworks.";
+				INSTALL_PATH = "@executable_path/../Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = FeedbackReporter;
 				SDKROOT = macosx10.4;
@@ -469,7 +471,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
@@ -501,7 +502,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
