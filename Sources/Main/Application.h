@@ -23,5 +23,6 @@
 + (NSString*) applicationVersion;
 + (NSString*) applicationName;
 + (NSString*) applicationIdentifier;
++ (NSString*) feedbackURL;
 
 @end

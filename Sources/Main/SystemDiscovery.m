@@ -31,7 +31,7 @@
     [dict setObject:ramsize forKey:@"RAM_SIZE"];
     NSLog(@"RAM_SIZE=%@", ramsize);
 
-    NSString *cputype = [NSString stringWithFormat:@"%@ %@", [self cpu]];
+    NSString *cputype = [NSString stringWithFormat:@"%@", [self cputype]];
     [dict setObject:cputype forKey:@"CPU_TYPE"];
     NSLog(@"CPU_TYPE=%@", cputype);
 
@@ -68,7 +68,7 @@
     
     switch (value) {
         case 4:
-            return @"Core2 Duo";
+            return @"Intel Core2 Duo";
         case 9:
             return @"G3";
         case 10:
@@ -95,7 +95,7 @@
     return version;
 }
 
-- (NSString*) cpu
+- (NSString*) architecture
 {
     int error = 0;
     int value = 0;
@@ -109,9 +109,9 @@
     
     switch (value) {
         case 7:
-            return [NSString stringWithFormat:@"Intel %@", [self cputype]];
+            return @"Intel";
         case 18:
-            return [NSString stringWithFormat:@"PowerPC %@", [self cputype]];
+            return @"PPC";
     }
 
     NSLog(@"Unknown CPU %d", value);

@@ -20,14 +20,11 @@
 #import "Application.h"
 #import "CrashLogFinder.h"
 #import "SystemDiscovery.h"
+#import "Constants.h"
 
 #import <asl.h>
 #import <unistd.h>
 
-static NSString *FILE_SHELLSCRIPT= @"FRFeedbackReporter";
-static NSString *KEY_SENDEREMAIL = @"FRFeedbackReporter.sender";
-static NSString *KEY_LASTSUBMISSIONDATE = @"FRFeedbackReporter.lastSubmissionDate";
-static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
 
 @implementation FeedbackController
 
@@ -118,17 +115,6 @@ static NSString *KEY_TARGETURL = @"FRFeedbacReporter.targetURL";
     [NSApp stopModalWithCode:NSCancelButton];
 }
 
-- (NSString*) target
-{
-    NSString *target = [[[NSBundle mainBundle] infoDictionary] valueForKey: KEY_TARGETURL];
-
-    if (target == nil) {
-        return nil;
-    }
-
-    return [NSString stringWithFormat:target, [Application applicationName]];
-}
-
 BOOL terminated = NO;
 
 - (IBAction)send:(id)sender
@@ -138,7 +124,7 @@ BOOL terminated = NO;
         return;
     }
             
-    NSString *target = [self target];
+    NSString *target = [Application feedbackURL];
     
     if (target == nil) {
         NSLog(@"You are missing the %@ key in your Info.plist!", KEY_TARGETURL);
@@ -147,7 +133,7 @@ BOOL terminated = NO;
 
     NSLog(@"Sending feedback to %@", target);
     
-    uploader = [[Uploader alloc] initWithTarget:target delegate:self];
+    uploader = [[Uploader alloc] initWithTarget:[Application feedbackURL] delegate:self];
     
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:5];
 
@@ -336,7 +322,7 @@ BOOL terminated = NO;
     NSDictionary *dict = [discovery discover];
 
     [system appendFormat:@"os version = %@\n", [dict valueForKey:@"OS_VERSION"]];
-    [system appendFormat:@"ram = %@\n", [dict valueForKey:@"RAM"]];
+    [system appendFormat:@"ram = %@\n", [dict valueForKey:@"RAM_SIZE"]];
     [system appendFormat:@"cpu type = %@\n", [dict valueForKey:@"CPU_TYPE"]];
     [system appendFormat:@"cpu count = %@\n", [dict valueForKey:@"CPU_COUNT"]];
     [system appendFormat:@"cpu speed = %@\n", [dict valueForKey:@"CPU_SPEED"]];

@@ -26,6 +26,7 @@
 + (int) reportFeedback;
 + (int) reportIfCrash;
 + (int) reportException:(NSException *)exception;
++ (int) reportSystemStatistics;
 
 // deprecated
 + (void) reportAsUser:(NSString*)user;

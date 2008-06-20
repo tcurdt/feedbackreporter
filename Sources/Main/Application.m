@@ -15,7 +15,7 @@
  */
 
 #import "Application.h"
-
+#import "Constants.h"
 
 @implementation Application
 
@@ -47,5 +47,17 @@
 
     return applicationIdentifier;
 }
+
++ (NSString*) feedbackURL
+{
+    NSString *target = [[[NSBundle mainBundle] infoDictionary] valueForKey: KEY_TARGETURL];
+
+    if (target == nil) {
+        return nil;
+    }
+
+    return [NSString stringWithFormat:target, [Application applicationName]];
+}
+
 
 @end

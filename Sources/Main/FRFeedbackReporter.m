@@ -17,13 +17,19 @@
 #import "FRFeedbackReporter.h"
 #import "FeedbackController.h"
 #import "CrashLogFinder.h"
+#import "SystemDiscovery.h"
 #import "NSException+Callstack.h"
+#import "Uploader.h"
+#import "Constants.h"
 
-static NSString *KEY_LASTCRASHCHECKDATE = @"FRFeedbackReporter.lastCrashCheckDate";
+#import <uuid/uuid.h>
+
+
 
 @implementation FRFeedbackReporter
 
 static NSString* user = nil;
+static NSTimeInterval statisticsInterval = 7*24*60*60; // once a week
 
 + (void) setUser:(NSString*)pUser
 {
@@ -95,6 +101,65 @@ static NSString* user = nil;
     return ret;
 }
 
++ (int) reportSystemStatistics
+{
+    int ret = -1;
+
+	NSDate* now = [[NSDate alloc] init];
+
+    NSDate *lastStatisticsDate = [[NSUserDefaults standardUserDefaults] valueForKey:KEY_LASTSTATISTICSDATE];
+    NSDate *nextStatisticsDate = [lastStatisticsDate addTimeInterval:statisticsInterval];
+    
+    if (lastStatisticsDate == nil || [now earlierDate:nextStatisticsDate] == nextStatisticsDate) {
+        
+        NSString *uuid = [[NSUserDefaults standardUserDefaults] valueForKey:KEY_UUID];
+
+        if (uuid == nil) {
+            if (lastStatisticsDate != nil) {
+                NSLog(@"UUID is missing");
+            }
+            
+            uuid_t buffer;
+            
+            uuid_generate(buffer);
+
+            char str[36];
+
+            uuid_unparse_upper(buffer, str);
+            
+            uuid = [NSString stringWithFormat:@"%s", str];
+
+            NSLog(@"Generated UUID %@", uuid);
+            
+            [[NSUserDefaults standardUserDefaults] setValue: uuid
+                                                     forKey: KEY_UUID];
+
+        }
+
+        SystemDiscovery *discovery = [[SystemDiscovery alloc] init];
+        
+        NSDictionary *system = [discovery discover];
+        
+        [discovery release];
+
+        NSLog(@"Reporting system statistics for %@ (%@)", uuid, [system description]);
+
+        /*
+        Uploader *uploader = [[Uploader alloc] initWithTarget:@"" delegate:nil];
+        
+        [uploader post:system];
+        
+        [uploader autorelease];
+        */
+    }
+
+    [now release];
+
+    [[NSUserDefaults standardUserDefaults] setValue: [NSDate date]
+                                             forKey: KEY_LASTSTATISTICSDATE];
+
+    return ret;
+}
 
 
 // deprected

@@ -26,7 +26,7 @@
 
 - (NSString*) cputype;
 - (NSString*) osversion;
-- (NSString*) cpu;
+- (NSString*) architecture;
 - (int) cpucount;
 - (NSString*) machinemodel;
 - (NSString*) language;
