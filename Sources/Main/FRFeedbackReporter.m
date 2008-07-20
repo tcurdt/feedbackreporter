@@ -28,16 +28,26 @@
 
 @implementation FRFeedbackReporter
 
-static NSString* user = nil;
-static NSTimeInterval statisticsInterval = 7*24*60*60; // once a week
 
-+ (void) setUser:(NSString*)pUser
+static FRFeedbackReporter *sharedReporter = nil;
+
++ (FRFeedbackReporter *)sharedReporter
+{
+	if (sharedReporter == nil)
+		sharedReporter = [[[self class] alloc] init];
+	return sharedReporter;
+}
+
+NSString* user = nil;
+
+- (void) setUser:(NSString*)pUser
 {
     user = pUser;
 }
 
-+ (int) reportFeedback
+- (int) reportFeedback
 {
+    // TODO use non-modal window
     FeedbackController *controller = [[FeedbackController alloc] init];
 
     [controller setUser:user];
@@ -47,9 +57,10 @@ static NSTimeInterval statisticsInterval = 7*24*60*60; // once a week
     [controller release];
     
     return ret;
+
 }
 
-+ (int) reportIfCrash
+- (int) reportIfCrash
 {
     int ret = NSCancelButton;
     
@@ -78,7 +89,7 @@ static NSTimeInterval statisticsInterval = 7*24*60*60; // once a week
     return ret;
 }
 
-+ (int) reportException:(NSException *)exception
+- (int) reportException:(NSException *)exception
 {
     FeedbackController *controller = [[FeedbackController alloc] init];
 
@@ -101,8 +112,12 @@ static NSTimeInterval statisticsInterval = 7*24*60*60; // once a week
     return ret;
 }
 
-+ (int) reportSystemStatistics
+- (int) reportSystemStatistics
 {
+    // TODO make configurable
+
+    NSTimeInterval statisticsInterval = 7*24*60*60; // once a week
+
     int ret = -1;
 
 	NSDate* now = [[NSDate alloc] init];
@@ -162,6 +177,31 @@ static NSTimeInterval statisticsInterval = 7*24*60*60; // once a week
 
 
 // deprected
+
++ (int) reportFeedback
+{
+    return [[FRFeedbackReporter sharedReporter] reportFeedback];
+}
+
++ (int) reportIfCrash
+{
+    return [[FRFeedbackReporter sharedReporter] reportIfCrash];
+}
+
++ (int) reportException:(NSException *)exception
+{
+    return [[FRFeedbackReporter sharedReporter] reportException:exception];
+}
+
++ (int) reportSystemStatistics
+{
+    return [[FRFeedbackReporter sharedReporter] reportSystemStatistics];
+}
+
++ (void) setUser:(NSString*)pUser
+{
+    [[FRFeedbackReporter sharedReporter] setUser: pUser];
+}
 
 + (void) reportAsUser:(NSString*)user
 {

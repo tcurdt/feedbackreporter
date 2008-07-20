@@ -32,16 +32,17 @@ void MYReportException( NSException *x, NSString *where, ... )
     where = [[NSString alloc] initWithFormat: where arguments: args];
     va_end(args);
     if( sExceptionReporter ) {
-        NSLog(@"Exception caught in %@:\n\t%@",where,x);
+        NSLog(@"Exception caught in %@:\n\t%@", where, x);
         sExceptionReporter(x);
     } else {
-        NSLog(@"Exception caught in %@:\n\t%@\n%@",where,x,x.my_callStack);
+        NSLog(@"Exception caught in %@:\n\t%@\n%@",where, x, x.my_callStack);
     }
     [where release];
 }
 
 
 @implementation FRExceptionReportingApplication
+
 
 static void report( NSException *x ) {
     [NSApp reportException: x];
@@ -57,15 +58,15 @@ static void report( NSException *x ) {
 }
 
 
-- (void)reportException:(NSException *)x
+- (void) reportException:(NSException *)x
 {
     [super reportException: x];
     
     MYSetExceptionReporter(NULL);     // ignore further exceptions till alert is dismissed
 
-    [FRFeedbackReporter reportException:x];
+    [[FRFeedbackReporter sharedReporter] reportException:x];
 
-    MYSetExceptionReporter(&report);    
+    MYSetExceptionReporter(&report);  // turn it back on
 }
 
 

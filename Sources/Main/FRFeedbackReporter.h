@@ -20,7 +20,16 @@
 @interface FRFeedbackReporter : NSObject
 {
 }
++ (FRFeedbackReporter *)sharedReporter;
 
+- (void) setUser:(NSString*)user;
+- (int) reportFeedback;
+- (int) reportIfCrash;
+- (int) reportException:(NSException *)exception;
+- (int) reportSystemStatistics;
+
+
+// deprecated
 + (void) setUser:(NSString*)user;
 
 + (int) reportFeedback;
@@ -28,7 +37,6 @@
 + (int) reportException:(NSException *)exception;
 + (int) reportSystemStatistics;
 
-// deprecated
 + (void) reportAsUser:(NSString*)user;
 + (void) reportCrashAsUser:(NSString*)user;
 
