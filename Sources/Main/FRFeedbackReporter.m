@@ -144,6 +144,7 @@ static NSTimeInterval statisticsInterval = 7*24*60*60; // once a week
 
         NSLog(@"Reporting system statistics for %@ (%@)", uuid, [system description]);
 
+        // TODO async upload
         Uploader *uploader = [[Uploader alloc] initWithTarget:@"" delegate:nil];
         
         [uploader post:system];
