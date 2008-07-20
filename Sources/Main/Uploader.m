@@ -69,7 +69,7 @@
 	return [result autorelease];
 }
 
-/*
+
 - (NSString*) post:(NSDictionary*)dict
 {
     NSString *formBoundary = [[NSProcessInfo processInfo] globallyUniqueString];
@@ -98,9 +98,8 @@
     return [[[NSString alloc] initWithData:result
                                   encoding:NSUTF8StringEncoding] autorelease];
 }
-*/
 
-- (void) post:(NSDictionary*)dict
+- (void) postAndNotify:(NSDictionary*)dict
 {
     NSString *formBoundary = [[NSProcessInfo processInfo] globallyUniqueString];
 

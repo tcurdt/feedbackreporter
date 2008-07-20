@@ -9,12 +9,14 @@
 /* Begin PBXBuildFile section */
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
+		9D006DF60E1438F6000B6AFC /* ConsoleLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D006DF50E1438F6000B6AFC /* ConsoleLog.m */; };
 		9D0EC0220DF00F250045EB76 /* FRExceptionReportingApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0EC0200DF00F250045EB76 /* FRExceptionReportingApplication.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9D0EC0230DF00F250045EB76 /* FRExceptionReportingApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EC0210DF00F250045EB76 /* FRExceptionReportingApplication.m */; };
 		9D0EC0290DF011DB0045EB76 /* NSException+Callstack.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0EC0270DF011DB0045EB76 /* NSException+Callstack.h */; };
 		9D0EC02A0DF011DB0045EB76 /* NSException+Callstack.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EC0280DF011DB0045EB76 /* NSException+Callstack.m */; };
 		9D291E8E0DF167BB009F859B /* UploaderTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D291E8D0DF167BB009F859B /* UploaderTestCase.m */; };
 		9D4347000DD3B712000F1E48 /* FeedbackReporter.nib in Resources */ = {isa = PBXBuildFile; fileRef = 9D4346FF0DD3B712000F1E48 /* FeedbackReporter.nib */; };
+		9D4C743D0E33A5D000B5F3BF /* ConsoleLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D006DF50E1438F6000B6AFC /* ConsoleLog.m */; };
 		9D8700290DDC1F9C003249C0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9D8700270DDC1F9C003249C0 /* Localizable.strings */; };
 		9DA7D6B70DEB8A7800C3B586 /* FeedbackReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* FeedbackReporter.framework */; };
 		9DA7D6EF0DEB8E5D00C3B586 /* Application.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA7D6E20DEB8E5D00C3B586 /* Application.h */; };
@@ -52,6 +54,8 @@
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		32DBCF5E0370ADEE00C91783 /* FeedbackReporter_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackReporter_Prefix.pch; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* FeedbackReporter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FeedbackReporter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D006DF40E1438F6000B6AFC /* ConsoleLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConsoleLog.h; path = Sources/Main/ConsoleLog.h; sourceTree = "<group>"; };
+		9D006DF50E1438F6000B6AFC /* ConsoleLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ConsoleLog.m; path = Sources/Main/ConsoleLog.m; sourceTree = "<group>"; };
 		9D0EC0200DF00F250045EB76 /* FRExceptionReportingApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FRExceptionReportingApplication.h; path = Sources/Main/FRExceptionReportingApplication.h; sourceTree = "<group>"; };
 		9D0EC0210DF00F250045EB76 /* FRExceptionReportingApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FRExceptionReportingApplication.m; path = Sources/Main/FRExceptionReportingApplication.m; sourceTree = "<group>"; };
 		9D0EC0270DF011DB0045EB76 /* NSException+Callstack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSException+Callstack.h"; path = "Sources/Main/NSException+Callstack.h"; sourceTree = "<group>"; };
@@ -155,6 +159,8 @@
 				9DA7D6E30DEB8E5D00C3B586 /* Application.m */,
 				9DA7D6E40DEB8E5D00C3B586 /* Command.h */,
 				9DA7D6E50DEB8E5D00C3B586 /* Command.m */,
+				9D006DF40E1438F6000B6AFC /* ConsoleLog.h */,
+				9D006DF50E1438F6000B6AFC /* ConsoleLog.m */,
 				9DA7D6E60DEB8E5D00C3B586 /* CrashLogFinder.h */,
 				9DA7D6E70DEB8E5D00C3B586 /* CrashLogFinder.m */,
 				9DCF52AA0DEC0E4300EBF810 /* SystemDiscovery.h */,
@@ -337,11 +343,12 @@
 			files = (
 				9DA7D6F00DEB8E5D00C3B586 /* Application.m in Sources */,
 				9DA7D6F20DEB8E5D00C3B586 /* Command.m in Sources */,
+				9D4C743D0E33A5D000B5F3BF /* ConsoleLog.m in Sources */,
 				9DA7D6F40DEB8E5D00C3B586 /* CrashLogFinder.m in Sources */,
-				9DA7D6F60DEB8E5D00C3B586 /* FeedbackController.m in Sources */,
-				9DA7D6F80DEB8E5D00C3B586 /* FRFeedbackReporter.m in Sources */,
-				9DA7D6FB0DEB8E5D00C3B586 /* Uploader.m in Sources */,
 				9DCF52AD0DEC0E4300EBF810 /* SystemDiscovery.m in Sources */,
+				9DA7D6F60DEB8E5D00C3B586 /* FeedbackController.m in Sources */,
+				9DA7D6FB0DEB8E5D00C3B586 /* Uploader.m in Sources */,
+				9DA7D6F80DEB8E5D00C3B586 /* FRFeedbackReporter.m in Sources */,
 				9D0EC0230DF00F250045EB76 /* FRExceptionReportingApplication.m in Sources */,
 				9D0EC02A0DF011DB0045EB76 /* NSException+Callstack.m in Sources */,
 			);
@@ -354,6 +361,7 @@
 				9DA7D6FF0DEB8E9100C3B586 /* CommandTestCase.m in Sources */,
 				9DCF52A90DEC0D8A00EBF810 /* SystemDiscoveryTestCase.m in Sources */,
 				9D291E8E0DF167BB009F859B /* UploaderTestCase.m in Sources */,
+				9D006DF60E1438F6000B6AFC /* ConsoleLog.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -452,7 +460,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
-				SDKROOT = macosx10.5;
+				SDKROOT = macosx10.4;
 			};
 			name = Debug;
 		};
@@ -465,7 +473,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = macosx10.5;
+				SDKROOT = macosx10.4;
 			};
 			name = Release;
 		};

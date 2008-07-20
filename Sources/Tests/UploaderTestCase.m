@@ -30,7 +30,7 @@ BOOL terminated;
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     [dict setObject:@"test" forKey:@"test"];
 
-    [uploader post:dict];
+    [uploader postAndNotify:dict];
 
     terminated = NO;
 

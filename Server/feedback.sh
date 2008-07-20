@@ -3,9 +3,9 @@
 # requires the sharutils (uuencode) to be installed
 
 DIR=/home/tcurdt/feedback
-EMAIL_FROM=root@vafer.org
+EMAIL_FROM=noreply@vafer.org
 EMAIL_TO=tcurdt@vafer.org
-EMAIL_SUBJECT="[FeedbackReporter] New feedback for PROJECT (SIZE bytes)"
+EMAIL_SUBJECT="[FeedbackReporter] Feedback for PROJECT"
 
 # do not touch below
 

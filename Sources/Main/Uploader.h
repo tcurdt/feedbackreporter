@@ -26,7 +26,8 @@
 }
 
 - (id) initWithTarget:(NSString*)target delegate:(id)delegate;
-- (void) post:(NSDictionary*)dict;
+- (NSString*) post:(NSDictionary*)dict;
+- (void) postAndNotify:(NSDictionary*)dict;
 - (void) cancel;
 - (NSString*) response;
 

@@ -17,21 +17,10 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface SystemDiscovery : NSObject {
+@interface ConsoleLog : NSObject {
 
 }
 
-- (NSDictionary*) discover;
-
-
-- (NSString*) cputype;
-- (BOOL) is64bit;
-- (NSString*) osversion;
-- (NSString*) architecture;
-- (int) cpucount;
-- (NSString*) machinemodel;
-- (NSString*) language;
-- (long) cpuspeed;
-- (long) ramsize;
+- (NSString*) log;
 
 @end

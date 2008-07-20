@@ -21,10 +21,7 @@
 #import "CrashLogFinder.h"
 #import "SystemDiscovery.h"
 #import "Constants.h"
-
-#import <asl.h>
-#import <unistd.h>
-
+#import "ConsoleLog.h"
 
 @implementation FeedbackController
 
@@ -149,7 +146,7 @@ BOOL terminated = NO;
     [dict setObject:[exceptionView string] forKey:@"exception"];
     //[dict setObject:[NSURL fileURLWithPath: @"/var/log/fsck_hfs.log"] forKey:@"file"];
     
-    [uploader post:dict];
+    [uploader postAndNotify:dict];
 
     terminated = NO;
 
@@ -257,59 +254,13 @@ BOOL terminated = NO;
 
 - (NSString*) console
 {
-    NSMutableString *console = [[[NSMutableString alloc] init] autorelease];
+    ConsoleLog *console = [[ConsoleLog alloc] init];
 
-/* Leopard: */
-
-    [console appendString:@"ASL:\n"];
-
-
-    aslmsg query = asl_new(ASL_TYPE_QUERY);
-    asl_set_query(query, ASL_KEY_SENDER, [[Application applicationName] lossyCString], ASL_QUERY_OP_EQUAL);
-
-    // FIXME restrict to logs no older than 2 hours
-
-    aslresponse response = asl_search(NULL, query);
-
-    asl_free(query);
-
-    //NSDateFormatter *formatter = [[[NSDateFormatter alloc] initWithDateFormat:@"%Y.%m.%d %H:%M:%S %Z" allowNaturalLanguage:NO] autorelease];
-
-    aslmsg msg;
-    while ((msg = aslresponse_next(response))) {
-
-        const char* time = asl_get(msg, ASL_KEY_TIME);
-
-        NSDate *date = [NSDate dateWithTimeIntervalSince1970:atof(time)];
-
-        [console appendFormat:@"%@: %s\n", date, asl_get(msg, ASL_KEY_MSG)];
-    }
-
-    aslresponse_free(response);
-
-/*  Tiger: */
-
-    [console appendString:@"LOG:\n"];
-
-    NSString *logPath = [NSString stringWithFormat: @"/Library/Logs/Console/%@/console.log", [NSNumber numberWithUnsignedInt:getuid()]];
-
-    NSString *log = [NSString stringWithContentsOfFile:logPath];
-
-    NSString *filter = [NSString stringWithFormat: @"%@[", [Application applicationName]];
-
-
-    NSEnumerator *lineEnum = [[log componentsSeparatedByString: @"\n"] objectEnumerator];
-
-    NSString* currentObject;
-
-    while (currentObject = [lineEnum nextObject]) {
-
-        if ([currentObject rangeOfString:filter].location != NSNotFound) {        
-            [console appendFormat:@"%@\n", currentObject];
-        }  
-    }
-
-    return console;
+    NSString *log = [console log];
+    
+    [console release];
+    
+    return log;
 }
 
 

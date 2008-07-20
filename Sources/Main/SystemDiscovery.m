@@ -35,6 +35,10 @@
     [dict setObject:cputype forKey:@"CPU_TYPE"];
     NSLog(@"CPU_TYPE=%@", cputype);
 
+    NSString *is64bit = [NSString stringWithFormat:@"%@", [self is64bit]];
+    [dict setObject:cputype forKey:@"CPU_64BIT"];
+    NSLog(@"CPU_64BIT=%@", is64bit);
+
     NSString *cpucount = [NSString stringWithFormat:@"%d", [self cpucount]];
     NSLog(@"CPU_COUNT=%@", cpucount);
     [dict setObject:cpucount forKey:@"CPU_COUNT"];
@@ -54,6 +58,31 @@
     return dict;
 }
 
+- (BOOL) is64bit
+{
+    int error = 0;
+    int value = 0;
+    size_t length = sizeof(value);
+
+	error = sysctlbyname("hw.cpu64bit_capable", &value, &length, NULL, 0);
+	
+    if(error != 0) {
+		error = sysctlbyname("hw.optional.x86_64", &value, &length, NULL, 0); //x86 specific
+    }
+	
+    if(error != 0) {
+		error = sysctlbyname("hw.optional.64bitops", &value, &length, NULL, 0); //PPC specific
+    }
+	
+	BOOL is64bit = NO;
+	
+	if (error == 0) {
+		is64bit = value == 1;
+	}
+    
+    return is64bit;
+ }
+
 - (NSString*) cputype
 {
     int error = 0;
@@ -65,10 +94,14 @@
         NSLog(@"Failed to obtain CPU type");
         return nil;
     }
-    
+
     switch (value) {
         case 4:
-            return @"Intel Core2 Duo";
+            if ([self is64bit]) {
+                return @"Intel Core2 Duo";
+            } else {
+                return @"Intel Core";
+            }
         case 9:
             return @"G3";
         case 10:
