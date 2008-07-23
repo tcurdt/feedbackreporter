@@ -87,7 +87,7 @@
 
                 if ([file hasSuffix:@".crash"] && [file hasPrefix:[Application applicationName]]) {
 
-                    file = [[libraryDirectory stringByAppendingPathComponent:file] stringByExpandingTildeInPath];
+                    file = [[log2 stringByAppendingPathComponent:file] stringByExpandingTildeInPath];
 
                     if ([self file:file isNewerThan:date]) {
                         [files addObject:file];

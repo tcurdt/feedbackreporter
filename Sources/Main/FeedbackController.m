@@ -335,10 +335,15 @@ BOOL terminated = NO;
     return [NSString stringWithFormat:@"%@", [preferences persistentDomainForName:[Application applicationIdentifier]]];
 }
 
+- (void) windowWillClose: (NSNotification *) n
+{
+	[uploader cancel];
+    [NSApp stopModalWithCode:NSCancelButton];
+}
 
 - (void) windowDidLoad
 {
-
+	[[self window] setDelegate:self];
     [commentView setString:comment];
 
     NSString *sender = [[NSUserDefaults standardUserDefaults] stringForKey:KEY_SENDEREMAIL];
