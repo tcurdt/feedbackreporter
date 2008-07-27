@@ -53,8 +53,6 @@
 - (NSString*) comment;
 - (NSString*) exception;
 
-- (int) runModal;
-
 - (IBAction)showDetails:(id)sender;
 
 - (IBAction)cancel:(id)sender;

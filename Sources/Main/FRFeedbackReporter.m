@@ -47,17 +47,10 @@ NSString* user = nil;
 
 - (int) reportFeedback
 {
-    // TODO use non-modal window
     FeedbackController *controller = [[FeedbackController alloc] init];
-
     [controller setUser:user];
-
-    int ret = [controller runModal];
-    
-    [controller release];
-    
-    return ret;
-
+    [controller showWindow:self];
+    return 0;
 }
 
 - (int) reportIfCrash

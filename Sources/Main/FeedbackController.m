@@ -109,10 +109,8 @@
 {
     [uploader cancel];
     
-    [NSApp stopModalWithCode:NSCancelButton];
+    [self close];
 }
-
-BOOL terminated = NO;
 
 - (IBAction)send:(id)sender
 {
@@ -148,20 +146,6 @@ BOOL terminated = NO;
     
     [uploader postAndNotify:dict];
 
-    terminated = NO;
-
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    while(!terminated) {
-        if (![[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:100000]]) {
-            break;
-        }
-        [pool release];
-        pool = [[NSAutoreleasePool alloc] init];
-    }
-    [pool release];
-    
-    NSLog(@"done");
-
     [dict release];
 }
 
@@ -185,8 +169,6 @@ BOOL terminated = NO;
 
     [uploader release], uploader = nil;
     
-    terminated = YES;
-
     [commentView setEditable:YES];
     [sendButton setEnabled:YES];
 
@@ -198,6 +180,7 @@ BOOL terminated = NO;
     [alert runModal];
     [alert release];
 
+    [self close];
 }
 
 - (void) uploaderFinished:(Uploader*)pUploader
@@ -206,8 +189,6 @@ BOOL terminated = NO;
 
     [indicator stopAnimation:self];
     [indicator setHidden:YES];
-
-    terminated = YES;
 
     NSString *response = [uploader response];
 
@@ -247,8 +228,7 @@ BOOL terminated = NO;
     [[NSUserDefaults standardUserDefaults] setObject:[emailField stringValue]
                                               forKey:KEY_SENDEREMAIL];
 
-    [NSApp stopModalWithCode:NSOKButton];
-
+    [self close];
 }
 
 
@@ -338,7 +318,6 @@ BOOL terminated = NO;
 - (void) windowWillClose: (NSNotification *) n
 {
 	[uploader cancel];
-    [NSApp stopModalWithCode:NSCancelButton];
 }
 
 - (void) windowDidLoad
@@ -384,12 +363,5 @@ BOOL terminated = NO;
     }
     
 }
-
-- (int) runModal
-{
-    [self showWindow:self];
-    return [NSApp runModalForWindow:[self window]];
-}
-
 
 @end

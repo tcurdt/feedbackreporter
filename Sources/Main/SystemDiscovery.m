@@ -35,7 +35,7 @@
     [dict setObject:cputype forKey:@"CPU_TYPE"];
     NSLog(@"CPU_TYPE=%@", cputype);
 
-    NSString *is64bit = [NSString stringWithFormat:@"%@", [self is64bit]];
+    NSString *is64bit = [NSString stringWithFormat:@"%@", ([self is64bit])?@"YES":@"NO"];
     [dict setObject:cputype forKey:@"CPU_64BIT"];
     NSLog(@"CPU_64BIT=%@", is64bit);
 
