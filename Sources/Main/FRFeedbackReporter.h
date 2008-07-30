@@ -16,11 +16,10 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface FRFeedbackReporter : NSObject 
-{
-@private
-        id feedbackController;
+@interface FRFeedbackReporter : NSObject {
 
+    @private
+        id feedbackController;
 }
 
 + (FRFeedbackReporter *)sharedReporter;

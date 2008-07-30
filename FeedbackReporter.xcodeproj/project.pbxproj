@@ -122,6 +122,7 @@
 		0867D691FE84028FC02AAC07 /* FeedbackReporter */ = {
 			isa = PBXGroup;
 			children = (
+				9DD9DDEB0E4125460054105A /* App */,
 				9DA7D6900DEB87B300C3B586 /* Tests */,
 				08FB77AEFE84172EC02AAC07 /* Main */,
 				32C88DFF0371C24200C91783 /* Other Sources */,
@@ -219,6 +220,13 @@
 				9D90077F0DEB96D40000330E /* Tests-Info.plist */,
 			);
 			name = Tests;
+			sourceTree = "<group>";
+		};
+		9DD9DDEB0E4125460054105A /* App */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = App;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

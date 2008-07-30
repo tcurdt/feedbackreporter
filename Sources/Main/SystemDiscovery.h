@@ -17,12 +17,9 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface SystemDiscovery : NSObject {
-
-}
+@interface SystemDiscovery : NSObject
 
 - (NSDictionary*) discover;
-
 
 - (NSString*) cputype;
 - (BOOL) is64bit;

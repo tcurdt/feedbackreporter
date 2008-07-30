@@ -45,6 +45,8 @@
     Uploader *uploader;
 }
 
+#pragma mark Accessors
+
 - (void) setUser:(NSString*)user;
 - (void) setComment:(NSString*)comment;
 - (void) setException:(NSString*)exception;
@@ -53,11 +55,15 @@
 - (NSString*) comment;
 - (NSString*) exception;
 
-- (IBAction)showDetails:(id)sender;
+#pragma mark Other
 
-- (IBAction)cancel:(id)sender;
-- (IBAction)send:(id)sender;
+- (IBAction) showDetails:(id)sender;
+- (IBAction) cancel:(id)sender;
+- (IBAction) send:(id)sender;
 
+- (BOOL) show;
+
+// FIXME show not be required
 - (NSString*) applicationName;
 
 @end

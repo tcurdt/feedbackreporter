@@ -25,6 +25,8 @@
 
 @implementation FeedbackController
 
+#pragma mark Construction
+
 - (id) init
 {
     self = [super initWithWindowNibName:@"FeedbackReporter"];
@@ -35,6 +37,8 @@
     }
     return self;
 }
+
+#pragma mark Accessors
 
 - (void) setUser:(NSString*)pUser
 {
@@ -68,13 +72,7 @@
     return exception;
 }
 
-
-// FIXME just for the display pattern binding
-- (NSString*) applicationName
-{
-    return [Application applicationName];
-}
-
+#pragma mark UI Actions
 
 - (void) showDetails:(BOOL)show animate:(BOOL)animate
 {
@@ -272,7 +270,7 @@
 
     NSLog(@"Checking for crash files earlier than %@", lastSubmissionDate);
 
-    NSArray *crashFiles = [CrashLogFinder findCrashLogsBefore:lastSubmissionDate];
+    NSArray *crashFiles = [CrashLogFinder findCrashLogsSince:lastSubmissionDate];
 
     int i = [crashFiles count];
     while(i--) {
@@ -361,7 +359,23 @@
         // select system tab
         [tabView selectTabViewItemWithIdentifier:@"Exception"];
     }
+}
+
+- (BOOL) show
+{
+    if ([[self window] isVisible]) {
+        return NO;
+    }
     
+    [self showWindow:self];
+    
+    return YES;
+}
+
+// FIXME just for the display pattern binding
+- (NSString*) applicationName
+{
+    return [Application applicationName];
 }
 
 @end

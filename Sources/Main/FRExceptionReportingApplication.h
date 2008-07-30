@@ -17,8 +17,6 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface FRExceptionReportingApplication : NSApplication {
-
-}
+@interface FRExceptionReportingApplication : NSApplication
 
 @end

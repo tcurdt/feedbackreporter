@@ -17,10 +17,8 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface CrashLogFinder : NSObject {
+@interface CrashLogFinder : NSObject
 
-}
-
-+ (NSArray*) findCrashLogsBefore:(NSDate*)date;
++ (NSArray*) findCrashLogsSince:(NSDate*)date;
 
 @end

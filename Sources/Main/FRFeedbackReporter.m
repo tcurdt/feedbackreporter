@@ -71,7 +71,11 @@ static FRFeedbackReporter *sharedReporter = nil;
 {
     FeedbackController *controller = [self feedbackController];
     
-    [controller showWindow:self];
+    if ([[controller window] isVisible]) {
+        return NO;
+    }
+    
+    [controller showWindow:nil];
 
     return YES;
 }
@@ -83,7 +87,7 @@ static FRFeedbackReporter *sharedReporter = nil;
     NSDate *lastCrashCheckDate = [[NSUserDefaults standardUserDefaults] valueForKey:KEY_LASTCRASHCHECKDATE];
     
     if (lastCrashCheckDate != nil) {
-        NSArray *crashFiles = [CrashLogFinder findCrashLogsBefore:lastCrashCheckDate];
+        NSArray *crashFiles = [CrashLogFinder findCrashLogsSince:lastCrashCheckDate];
         
         if ([crashFiles count] > 0) {
             NSLog(@"Found new crash files");

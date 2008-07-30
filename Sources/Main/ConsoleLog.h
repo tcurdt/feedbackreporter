@@ -17,9 +17,7 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface ConsoleLog : NSObject {
-
-}
+@interface ConsoleLog : NSObject
 
 - (NSString*) log;
 

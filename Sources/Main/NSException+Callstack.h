@@ -19,7 +19,7 @@
 
 @interface NSException (Callstack)
 
-/** Returns a textual, human-readable backtrace of the point where the exception was thrown. */
+// Returns a textual, human-readable backtrace of the point where the exception was thrown
 - (NSString*) my_callStack;
 
 @end

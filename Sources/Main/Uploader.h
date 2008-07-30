@@ -18,6 +18,7 @@
 
 
 @interface Uploader : NSObject {
+
     NSString *target;
     id delegate;
 
@@ -30,7 +31,5 @@
 - (void) postAndNotify:(NSDictionary*)dict;
 - (void) cancel;
 - (NSString*) response;
-
-
 
 @end

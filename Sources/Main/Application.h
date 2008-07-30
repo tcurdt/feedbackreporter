@@ -16,9 +16,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface Application : NSObject {
-
-}
+@interface Application : NSObject
 
 + (NSString*) applicationVersion;
 + (NSString*) applicationName;

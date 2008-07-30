@@ -40,7 +40,7 @@
     return YES;
 }
 
-+ (NSArray*) findCrashLogsBefore:(NSDate*)date
++ (NSArray*) findCrashLogsSince:(NSDate*)date
 {
 
     NSMutableArray *files = [NSMutableArray array];
