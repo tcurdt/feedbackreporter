@@ -16,29 +16,20 @@
 
 #import <Cocoa/Cocoa.h>
 
-
-@interface FRFeedbackReporter : NSObject
+@interface FRFeedbackReporter : NSObject 
 {
+@private
+        id feedbackController;
+
 }
+
 + (FRFeedbackReporter *)sharedReporter;
 
 - (void) setUser:(NSString*)user;
-- (int) reportFeedback;
-- (int) reportIfCrash;
-- (int) reportException:(NSException *)exception;
-- (int) reportSystemStatistics;
 
-
-// deprecated
-+ (void) setUser:(NSString*)user;
-
-+ (int) reportFeedback;
-+ (int) reportIfCrash;
-+ (int) reportException:(NSException *)exception;
-+ (int) reportSystemStatistics;
-
-+ (void) reportAsUser:(NSString*)user;
-+ (void) reportCrashAsUser:(NSString*)user;
-
+- (BOOL) reportFeedback;
+- (BOOL) reportIfCrash;
+- (BOOL) reportException:(NSException *)exception;
+- (BOOL) reportSystemStatistics;
 
 @end

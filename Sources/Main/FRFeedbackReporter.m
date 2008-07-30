@@ -24,10 +24,9 @@
 
 #import <uuid/uuid.h>
 
-
-
 @implementation FRFeedbackReporter
 
+#pragma mark Construction
 
 static FRFeedbackReporter *sharedReporter = nil;
 
@@ -38,24 +37,48 @@ static FRFeedbackReporter *sharedReporter = nil;
 	return sharedReporter;
 }
 
-NSString* user = nil;
+#pragma mark Destruction
 
-- (void) setUser:(NSString*)pUser
+- (void) dealloc
 {
-    user = pUser;
+    [feedbackController release];
+    
+    [super dealloc];
 }
 
-- (int) reportFeedback
+#pragma mark Variable Accessors
+
+- (void) setUser:(NSString*)user
 {
-    FeedbackController *controller = [[FeedbackController alloc] init];
-    [controller setUser:user];
+    [feedbackController setUser:user];
+}
+
+
+
+- (FeedbackController*) feedbackController
+{
+    if (feedbackController == nil) {
+        feedbackController = [[FeedbackController alloc] init];
+    }
+    
+    return feedbackController;
+}
+
+
+#pragma mark Reports
+
+- (BOOL) reportFeedback
+{
+    FeedbackController *controller = [self feedbackController];
+    
     [controller showWindow:self];
-    return 0;
+
+    return YES;
 }
 
-- (int) reportIfCrash
+- (BOOL) reportIfCrash
 {
-    int ret = NSCancelButton;
+    BOOL ret = NO;
     
     NSDate *lastCrashCheckDate = [[NSUserDefaults standardUserDefaults] valueForKey:KEY_LASTCRASHCHECKDATE];
     
@@ -65,14 +88,13 @@ NSString* user = nil;
         if ([crashFiles count] > 0) {
             NSLog(@"Found new crash files");
 
-            FeedbackController *controller = [[FeedbackController alloc] init];
+            FeedbackController *controller = [self feedbackController];
 
-            [controller setUser:user];
             [controller setComment:NSLocalizedString(@"The application crashed after I...", nil)];
-
-            ret = [controller runModal];
+            [controller showWindow:self];
             
-            [controller release];
+            ret = YES;
+
         }
     }
     
@@ -82,11 +104,9 @@ NSString* user = nil;
     return ret;
 }
 
-- (int) reportException:(NSException *)exception
+- (BOOL) reportException:(NSException *)exception
 {
-    FeedbackController *controller = [[FeedbackController alloc] init];
-
-    [controller setUser:user];
+    FeedbackController *controller = [self feedbackController];
 
     [controller setComment:NSLocalizedString(@"Uncought exception", nil)];
 
@@ -98,20 +118,18 @@ NSString* user = nil;
 
     [controller setException:s];
 
-    int ret = [controller runModal];
-    
-    [controller release];
+    [controller showWindow:self];
 
-    return ret;
+    return YES;
 }
 
-- (int) reportSystemStatistics
+- (BOOL) reportSystemStatistics
 {
     // TODO make configurable
 
     NSTimeInterval statisticsInterval = 7*24*60*60; // once a week
 
-    int ret = -1;
+    BOOL ret = NO;
 
 	NSDate* now = [[NSDate alloc] init];
 
@@ -158,6 +176,8 @@ NSString* user = nil;
         [uploader post:system];
         
         [uploader release];
+        
+        ret = YES;
     }
 
     [now release];
@@ -166,46 +186,6 @@ NSString* user = nil;
                                              forKey: KEY_LASTSTATISTICSDATE];
 
     return ret;
-}
-
-
-// deprected
-
-+ (int) reportFeedback
-{
-    return [[FRFeedbackReporter sharedReporter] reportFeedback];
-}
-
-+ (int) reportIfCrash
-{
-    return [[FRFeedbackReporter sharedReporter] reportIfCrash];
-}
-
-+ (int) reportException:(NSException *)exception
-{
-    return [[FRFeedbackReporter sharedReporter] reportException:exception];
-}
-
-+ (int) reportSystemStatistics
-{
-    return [[FRFeedbackReporter sharedReporter] reportSystemStatistics];
-}
-
-+ (void) setUser:(NSString*)pUser
-{
-    [[FRFeedbackReporter sharedReporter] setUser: pUser];
-}
-
-+ (void) reportAsUser:(NSString*)user
-{
-    [self setUser:user];
-    [self reportFeedback];
-}
-
-+ (void) reportCrashAsUser:(NSString*)user
-{
-    [self setUser:user];
-    [self reportIfCrash];
 }
 
 @end

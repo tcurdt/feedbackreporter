@@ -45,7 +45,8 @@ void MYReportException( NSException *x, NSString *where, ... )
 
 
 static void report( NSException *x ) {
-    [NSApp reportException: x];
+    [[NSApplication sharedApplication] reportException: x];
+    //[NSApp reportException: x];
 }
 
 - (id) init
