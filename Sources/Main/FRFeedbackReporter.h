@@ -20,15 +20,21 @@
 
     @private
         id feedbackController;
+        id delegate;
 }
 
 + (FRFeedbackReporter *)sharedReporter;
 
-- (void) setUser:(NSString*)user;
+- (id) delegate;
+- (void) setDelegate:(id) delegate;
 
 - (BOOL) reportFeedback;
 - (BOOL) reportIfCrash;
 - (BOOL) reportException:(NSException *)exception;
-- (BOOL) reportSystemStatistics;
+//- (BOOL) reportSystemStatistics;
 
+@end
+
+@interface NSObject (FRFeedbackReporterDelegate)
+- (NSDictionary*) customParametersForFeedbackReport;
 @end

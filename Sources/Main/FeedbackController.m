@@ -32,24 +32,22 @@
     self = [super initWithWindowNibName:@"FeedbackReporter"];
     if (self != nil) {
         comment = @"";
-        user = @"unknown";
         exception = @"";
+        detailsShown = YES;
     }
     return self;
 }
 
 #pragma mark Accessors
 
-- (void) setUser:(NSString*)pUser
+- (id) delegate
 {
-    if (pUser != nil) {
-        user = pUser;
-    }
+	return delegate;
 }
 
-- (NSString*)user
+- (void) setDelegate:(id) pDelegate
 {
-    return user;
+	delegate = pDelegate;
 }
 
 - (void) setComment:(NSString*)pComment
@@ -76,6 +74,10 @@
 
 - (void) showDetails:(BOOL)show animate:(BOOL)animate
 {
+    if (show == detailsShown) {
+        return;
+    }
+    
     NSSize fullSize = NSMakeSize(455, 302);
     
     NSRect windowFrame = [[self window] frame];
@@ -96,6 +98,8 @@
                         animate: animate];
         
     }
+    
+    detailsShown = show;
 }
 
 - (IBAction)showDetails:(id)sender
@@ -130,7 +134,10 @@
     
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:5];
 
-    [dict setObject:user forKey:@"user"];
+	if ([delegate respondsToSelector:@selector(customParametersForFeedbackReport)]) {
+        [dict addEntriesFromDictionary:[delegate customParametersForFeedbackReport]];
+    }
+
     [dict setObject:[emailField stringValue] forKey:@"email"];
     [dict setObject:[Application applicationVersion] forKey:@"version"];
     [dict setObject:[commentView string] forKey:@"comment"];
@@ -140,7 +147,6 @@
     [dict setObject:[shellView string] forKey:@"shell"];
     [dict setObject:[preferencesView string] forKey:@"preferences"];
     [dict setObject:[exceptionView string] forKey:@"exception"];
-    //[dict setObject:[NSURL fileURLWithPath: @"/var/log/fsck_hfs.log"] forKey:@"file"];
     
     [uploader postAndNotify:dict];
 
@@ -321,6 +327,11 @@
 - (void) windowDidLoad
 {
 	[[self window] setDelegate:self];
+}
+
+
+- (void) gatherInformation
+{
     [commentView setString:comment];
 
     NSString *sender = [[NSUserDefaults standardUserDefaults] stringForKey:KEY_SENDEREMAIL];
@@ -331,7 +342,7 @@
 /*
         ABAddressBook *book = [ABAddressBook sharedAddressBook];
         ABMultiValue *addrs = [[book me] valueForProperty:kABEmailProperty];
-        int count           = [addrs count];  // Determining the number of values
+        int count = [addrs count];
         
         if (count > 0) {
             email = [addrs valueAtIndex:0];
@@ -359,15 +370,25 @@
         // select system tab
         [tabView selectTabViewItemWithIdentifier:@"Exception"];
     }
+
+}
+
+- (BOOL) isShown
+{
+    return [[self window] isVisible];
 }
 
 - (BOOL) show
 {
-    if ([[self window] isVisible]) {
+    if ([self isShown]) {
         return NO;
     }
     
+    [self gatherInformation];
+    
     [self showWindow:self];
+    
+    //[NSApp requestUserAttention:NSInformationalRequest];
     
     return YES;
 }

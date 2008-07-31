@@ -32,8 +32,10 @@ static FRFeedbackReporter *sharedReporter = nil;
 
 + (FRFeedbackReporter *)sharedReporter
 {
-	if (sharedReporter == nil)
+	if (sharedReporter == nil) {
 		sharedReporter = [[[self class] alloc] init];
+    }
+
 	return sharedReporter;
 }
 
@@ -48,13 +50,6 @@ static FRFeedbackReporter *sharedReporter = nil;
 
 #pragma mark Variable Accessors
 
-- (void) setUser:(NSString*)user
-{
-    [feedbackController setUser:user];
-}
-
-
-
 - (FeedbackController*) feedbackController
 {
     if (feedbackController == nil) {
@@ -64,20 +59,33 @@ static FRFeedbackReporter *sharedReporter = nil;
     return feedbackController;
 }
 
+- (id) delegate
+{
+	return delegate;
+}
+
+- (void) setDelegate:(id) pDelegate
+{
+	delegate = pDelegate;
+}
+
 
 #pragma mark Reports
 
 - (BOOL) reportFeedback
 {
     FeedbackController *controller = [self feedbackController];
-    
-    if ([[controller window] isVisible]) {
+
+    if ([controller isShown]) {
+        NSLog(@"Controller already shown");
         return NO;
     }
     
-    [controller showWindow:nil];
-
-    return YES;
+    [controller setComment:@""];
+    [controller setException:@""];
+    [controller setDelegate:delegate];
+    
+    return [controller show];
 }
 
 - (BOOL) reportIfCrash
@@ -93,9 +101,17 @@ static FRFeedbackReporter *sharedReporter = nil;
             NSLog(@"Found new crash files");
 
             FeedbackController *controller = [self feedbackController];
+            
+            if ([controller isShown]) {
+                NSLog(@"Controller already shown");
+                return NO;
+            }
 
             [controller setComment:NSLocalizedString(@"The application crashed after I...", nil)];
-            [controller showWindow:self];
+            [controller setException:@""];
+            [controller setDelegate:delegate];
+            
+            [controller show];
             
             ret = YES;
 
@@ -112,21 +128,24 @@ static FRFeedbackReporter *sharedReporter = nil;
 {
     FeedbackController *controller = [self feedbackController];
 
-    [controller setComment:NSLocalizedString(@"Uncought exception", nil)];
-
+    if ([controller isShown]) {
+        NSLog(@"Controller already shown");
+        return NO;
+    }
 
     NSString *s = [NSString stringWithFormat: @"%@\n\n%@\n\n%@",
                              [exception name],
                              [exception reason],
                              [exception my_callStack] ?:@""];
 
+    [controller setComment:NSLocalizedString(@"Uncought exception", nil)];
     [controller setException:s];
+    [controller setDelegate:delegate];
 
-    [controller showWindow:self];
-
-    return YES;
+    return [controller show];
 }
 
+/*
 - (BOOL) reportSystemStatistics
 {
     // TODO make configurable
@@ -191,5 +210,6 @@ static FRFeedbackReporter *sharedReporter = nil;
 
     return ret;
 }
+*/
 
 @end

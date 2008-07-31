@@ -46,7 +46,6 @@ void MYReportException( NSException *x, NSString *where, ... )
 
 static void report( NSException *x ) {
     [[NSApplication sharedApplication] reportException: x];
-    //[NSApp reportException: x];
 }
 
 - (id) init
@@ -63,11 +62,11 @@ static void report( NSException *x ) {
 {
     [super reportException: x];
     
-    MYSetExceptionReporter(NULL);     // ignore further exceptions till alert is dismissed
+    //MYSetExceptionReporter(NULL);     // ignore further exceptions till alert is dismissed
 
     [[FRFeedbackReporter sharedReporter] reportException:x];
 
-    MYSetExceptionReporter(&report);  // turn it back on
+    //MYSetExceptionReporter(&report);  // turn it back on
 }
 
 

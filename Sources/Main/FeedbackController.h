@@ -24,7 +24,7 @@
 
     IBOutlet NSTabView *tabView;
 
-    BOOL showDetails;
+    BOOL detailsShown;
 
     IBOutlet NSTextView *systemView;
     IBOutlet NSTextView *consoleView;
@@ -43,15 +43,18 @@
     NSString *exception;
     
     Uploader *uploader;
+    
+    id delegate;
 }
 
 #pragma mark Accessors
 
-- (void) setUser:(NSString*)user;
+- (id) delegate;
+- (void) setDelegate:(id) delegate;
+
 - (void) setComment:(NSString*)comment;
 - (void) setException:(NSString*)exception;
 
-- (NSString*) user;
 - (NSString*) comment;
 - (NSString*) exception;
 
@@ -61,6 +64,7 @@
 - (IBAction) cancel:(id)sender;
 - (IBAction) send:(id)sender;
 
+- (BOOL) isShown;
 - (BOOL) show;
 
 // FIXME show not be required
