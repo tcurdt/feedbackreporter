@@ -81,11 +81,13 @@ static FRFeedbackReporter *sharedReporter = nil;
         return NO;
     }
     
-    [controller setComment:@""];
-    [controller setException:@""];
+    [controller reset];
+    
     [controller setDelegate:delegate];
     
-    return [controller show];
+    [controller showWindow:self];
+    
+    return YES;
 }
 
 - (BOOL) reportIfCrash
@@ -107,11 +109,13 @@ static FRFeedbackReporter *sharedReporter = nil;
                 return NO;
             }
 
+            [controller reset];
+
             [controller setComment:NSLocalizedString(@"The application crashed after I...", nil)];
-            [controller setException:@""];
+
             [controller setDelegate:delegate];
-            
-            [controller show];
+
+            [controller showWindow:self];
             
             ret = YES;
 
@@ -133,16 +137,20 @@ static FRFeedbackReporter *sharedReporter = nil;
         return NO;
     }
 
-    NSString *s = [NSString stringWithFormat: @"%@\n\n%@\n\n%@",
-                             [exception name],
-                             [exception reason],
-                             [exception my_callStack] ?:@""];
-
+    [controller reset];
+    
     [controller setComment:NSLocalizedString(@"Uncought exception", nil)];
-    [controller setException:s];
+
+    [controller setException:[NSString stringWithFormat: @"%@\n\n%@\n\n%@",
+                                [exception name],
+                                [exception reason],
+                                [exception my_callStack] ?:@""]];
+
     [controller setDelegate:delegate];
 
-    return [controller show];
+    [controller showWindow:self];
+    
+    return YES;
 }
 
 /*

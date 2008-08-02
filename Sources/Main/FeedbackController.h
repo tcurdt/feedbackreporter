@@ -19,6 +19,7 @@
 
 @interface FeedbackController : NSWindowController {
 
+    IBOutlet NSTextField *messageField;
     IBOutlet NSTextView *commentView;
     IBOutlet NSTextField *emailField;
 
@@ -37,10 +38,6 @@
 
     IBOutlet NSButton *cancelButton;
     IBOutlet NSButton *sendButton;
-
-    NSString *user;
-    NSString *comment;
-    NSString *exception;
     
     Uploader *uploader;
     
@@ -64,10 +61,7 @@
 - (IBAction) cancel:(id)sender;
 - (IBAction) send:(id)sender;
 
+- (void) reset;
 - (BOOL) isShown;
-- (BOOL) show;
-
-// FIXME show not be required
-- (NSString*) applicationName;
 
 @end

@@ -13,6 +13,12 @@
 			<string>NSObject</string>
 		</dict>
 		<dict>
+			<key>CLASS</key>
+			<string>NSObject</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+		</dict>
+		<dict>
 			<key>ACTIONS</key>
 			<dict>
 				<key>cancel</key>
@@ -40,12 +46,16 @@
 				<string>NSTextField</string>
 				<key>crashesView</key>
 				<string>NSTextView</string>
+				<key>delegate</key>
+				<string>id</string>
 				<key>emailField</key>
 				<string>NSTextField</string>
 				<key>exceptionView</key>
 				<string>NSTextView</string>
 				<key>indicator</key>
 				<string>NSProgressIndicator</string>
+				<key>messageField</key>
+				<string>NSTextField</string>
 				<key>preferencesView</key>
 				<string>NSTextView</string>
 				<key>sendButton</key>

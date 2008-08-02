@@ -15,6 +15,7 @@
  */
 
 #import "FeedbackController.h"
+#import "FRFeedbackReporter.h"
 #import "Uploader.h"
 #import "Command.h"
 #import "Application.h"
@@ -31,8 +32,6 @@
 {
     self = [super initWithWindowNibName:@"FeedbackReporter"];
     if (self != nil) {
-        comment = @"";
-        exception = @"";
         detailsShown = YES;
     }
     return self;
@@ -50,24 +49,24 @@
 	delegate = pDelegate;
 }
 
-- (void) setComment:(NSString*)pComment
+- (void) setComment:(NSString*)comment
 {
-    comment = pComment;
+    [commentView setString:comment];
 }
 
 - (NSString*) comment
 {
-    return comment;
+    return [commentView string];
 }
 
-- (void) setException:(NSString*)pException
+- (void) setException:(NSString*)exception
 {
-    exception = pException;
+    [exceptionView setString:exception];
 }
 
 - (NSString*) exception
 {
-    return exception;
+    return [exceptionView string];
 }
 
 #pragma mark UI Actions
@@ -330,10 +329,8 @@
 }
 
 
-- (void) gatherInformation
+- (void) reset
 {
-    [commentView setString:comment];
-
     NSString *sender = [[NSUserDefaults standardUserDefaults] stringForKey:KEY_SENDEREMAIL];
     
     if (sender == nil) {
@@ -350,8 +347,17 @@
 */
     }
 
-    [emailField setStringValue:sender];
 
+    [messageField setStringValue:[NSString stringWithFormat:
+        NSLocalizedString(@"Encountered a problem with %@?\n\n"
+                           "Please provide some comments of what happened.\n"
+                           "See below the information that will get send along.", nil),
+        [Application applicationName]]];
+
+
+    [emailField setStringValue:sender];
+    [exceptionView setString:@""];
+    [commentView setString:@""];
     [systemView setString:[self system]];
     [consoleView setString:[self console]];
     [crashesView setString:[self crashes]];
@@ -363,7 +369,7 @@
 
     [self showDetails:NO animate:NO];
     
-    if ([exception length] == 0) {
+    if ([[exceptionView string] length] == 0) {
         // select exception tab
         [tabView selectTabViewItemWithIdentifier:@"System"];
     } else {
@@ -376,27 +382,6 @@
 - (BOOL) isShown
 {
     return [[self window] isVisible];
-}
-
-- (BOOL) show
-{
-    if ([self isShown]) {
-        return NO;
-    }
-    
-    [self gatherInformation];
-    
-    [self showWindow:self];
-    
-    //[NSApp requestUserAttention:NSInformationalRequest];
-    
-    return YES;
-}
-
-// FIXME just for the display pattern binding
-- (NSString*) applicationName
-{
-    return [Application applicationName];
 }
 
 @end
