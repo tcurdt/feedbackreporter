@@ -66,6 +66,18 @@
 				<string>NSTextField</string>
 				<key>systemView</key>
 				<string>NSTableView</string>
+				<key>tabConsole</key>
+				<string>NSTabViewItem</string>
+				<key>tabCrashes</key>
+				<string>NSTabViewItem</string>
+				<key>tabException</key>
+				<string>NSTabViewItem</string>
+				<key>tabPreferences</key>
+				<string>NSTabViewItem</string>
+				<key>tabShell</key>
+				<string>NSTabViewItem</string>
+				<key>tabSystem</key>
+				<string>NSTabViewItem</string>
 				<key>tabView</key>
 				<string>NSTabView</string>
 			</dict>

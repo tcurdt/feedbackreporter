@@ -24,6 +24,13 @@
     IBOutlet NSTextField *emailField;
 
     IBOutlet NSTabView *tabView;
+    IBOutlet NSTabViewItem *tabSystem;
+    IBOutlet NSTabViewItem *tabConsole;
+    IBOutlet NSTabViewItem *tabCrashes;
+    IBOutlet NSTabViewItem *tabShell;
+    IBOutlet NSTabViewItem *tabPreferences;
+    IBOutlet NSTabViewItem *tabException;
+    
 
     BOOL detailsShown;
 

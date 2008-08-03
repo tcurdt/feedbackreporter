@@ -294,9 +294,13 @@
 
 - (NSString*) preferences
 {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSDictionary *preferences = [[NSUserDefaults standardUserDefaults] persistentDomainForName:[Application applicationIdentifier]];
     
-    return [NSString stringWithFormat:@"%@", [preferences persistentDomainForName:[Application applicationIdentifier]]];
+    if (preferences == nil) {
+        return @"";
+    }
+    
+    return [NSString stringWithFormat:@"%@", preferences];
 }
 
 - (void) windowWillClose: (NSNotification *) n
@@ -307,11 +311,23 @@
 - (void) windowDidLoad
 {
 	[[self window] setDelegate:self];
+
+    [tabConsole retain];
+    [tabCrashes retain];
+    [tabShell retain];
+    [tabPreferences retain];
+    [tabException retain];
 }
 
 
 - (void) reset
 {
+    [tabView removeTabViewItem:tabConsole];
+    [tabView removeTabViewItem:tabCrashes];
+    [tabView removeTabViewItem:tabShell];
+    [tabView removeTabViewItem:tabPreferences];
+    [tabView removeTabViewItem:tabException];
+
     NSString *email = [[NSUserDefaults standardUserDefaults] stringForKey:KEY_SENDEREMAIL];
     
     if (email == nil) {
@@ -328,6 +344,7 @@
 */
     }
 
+    [emailField setStringValue:email];
 
     [messageField setStringValue:[NSString stringWithFormat:
         NSLocalizedString(@"Encountered a problem with %@?\n\n"
@@ -336,7 +353,6 @@
         [Application applicationName]]];
 
 
-    [emailField setStringValue:email];
     [exceptionView setString:@""];
     [commentView setString:@""];
     //[systemView setString:[self system]];
@@ -354,16 +370,28 @@
 
 - (void) showWindow:(id)sender
 {
-    // TODO show/hide tabs according to what information is there
-
-    if ([[exceptionView string] length] == 0) {
-        // select exception tab
-        [tabView selectTabViewItemWithIdentifier:@"System"];
-    } else {
-        // select system tab
-        [tabView selectTabViewItemWithIdentifier:@"Exception"];
+    if ([[consoleView string] length] != 0) {
+        [tabView insertTabViewItem:tabConsole atIndex:1];
     }
 
+    if ([[crashesView string] length] != 0) {
+        [tabView insertTabViewItem:tabCrashes atIndex:1];
+    }
+
+    if ([[shellView string] length] != 0) {
+        [tabView insertTabViewItem:tabShell atIndex:1];
+    }
+
+    if ([[preferencesView string] length] != 0) {
+        [tabView insertTabViewItem:tabPreferences atIndex:1];
+    }
+
+    if ([[exceptionView string] length] != 0) {
+        [tabView insertTabViewItem:tabException atIndex:1];
+        [tabView selectTabViewItemWithIdentifier:@"Exception"];
+    } else {
+        [tabView selectTabViewItemWithIdentifier:@"System"];
+    }
 
     [super showWindow:sender];
 }
