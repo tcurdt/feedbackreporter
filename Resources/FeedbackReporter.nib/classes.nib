@@ -65,7 +65,7 @@
 				<key>status</key>
 				<string>NSTextField</string>
 				<key>systemView</key>
-				<string>NSTextView</string>
+				<string>NSTableView</string>
 				<key>tabView</key>
 				<string>NSTabView</string>
 			</dict>

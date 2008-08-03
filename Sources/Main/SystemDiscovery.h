@@ -19,16 +19,16 @@
 
 @interface SystemDiscovery : NSObject
 
-- (NSDictionary*) discover;
++ (NSArray*) discover;
 
-- (NSString*) cputype;
-- (BOOL) is64bit;
-- (NSString*) osversion;
-- (NSString*) architecture;
-- (int) cpucount;
-- (NSString*) machinemodel;
-- (NSString*) language;
-- (long) cpuspeed;
-- (long) ramsize;
++ (NSString*) cputype;
++ (BOOL) is64bit;
++ (NSString*) osversion;
++ (NSString*) architecture;
++ (int) cpucount;
++ (NSString*) machinemodel;
++ (NSString*) language;
++ (long) cpuspeed;
++ (long) ramsize;
 
 @end

@@ -27,7 +27,7 @@
 
     BOOL detailsShown;
 
-    IBOutlet NSTextView *systemView;
+    IBOutlet NSTableView *systemView;
     IBOutlet NSTextView *consoleView;
     IBOutlet NSTextView *crashesView;
     IBOutlet NSTextView *shellView;

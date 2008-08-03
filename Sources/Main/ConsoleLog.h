@@ -19,6 +19,6 @@
 
 @interface ConsoleLog : NSObject
 
-- (NSString*) log;
++ (NSString*) log;
 
 @end

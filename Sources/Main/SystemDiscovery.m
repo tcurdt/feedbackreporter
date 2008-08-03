@@ -19,46 +19,55 @@
 
 @implementation SystemDiscovery
 
-- (NSDictionary*) discover
++ (NSArray*) discover
 {
-    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:5];
+	NSMutableArray *discoveryArray = [NSMutableArray array];
+	NSArray *discoveryKeys = [NSArray arrayWithObjects:@"key", @"visibleKey", @"value", @"visibleValue", nil];
 
     NSString *osversion = [NSString stringWithFormat:@"%@", [self osversion]];
-    [dict setObject:osversion forKey:@"OS_VERSION"];
-    NSLog(@"OS_VERSION=%@", osversion);
-
-    NSString *ramsize = [NSString stringWithFormat:@"%d MB", [self ramsize]];
-    [dict setObject:ramsize forKey:@"RAM_SIZE"];
-    NSLog(@"RAM_SIZE=%@", ramsize);
-
-    NSString *cputype = [NSString stringWithFormat:@"%@", [self cputype]];
-    [dict setObject:cputype forKey:@"CPU_TYPE"];
-    NSLog(@"CPU_TYPE=%@", cputype);
-
-    NSString *is64bit = [NSString stringWithFormat:@"%@", ([self is64bit])?@"YES":@"NO"];
-    [dict setObject:cputype forKey:@"CPU_64BIT"];
-    NSLog(@"CPU_64BIT=%@", is64bit);
-
-    NSString *cpucount = [NSString stringWithFormat:@"%d", [self cpucount]];
-    NSLog(@"CPU_COUNT=%@", cpucount);
-    [dict setObject:cpucount forKey:@"CPU_COUNT"];
-    
-    NSString *cpuspeed = [NSString stringWithFormat:@"%d MHz", [self cpuspeed]];
-    NSLog(@"CPU_SPEED=%@", cpuspeed);
-    [dict setObject:cpuspeed forKey:@"CPU_SPEED"];
+    [discoveryArray addObject:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:
+        @"OS_VERSION", @"OS Version", osversion, osversion, nil]
+        forKeys:discoveryKeys]];
 
     NSString *machinemodel = [NSString stringWithFormat:@"%@", [self machinemodel]];
-    [dict setObject:machinemodel forKey:@"MACHINE_MODEL"];
-    NSLog(@"MACHINE_MODEL=%@", machinemodel);
+    [discoveryArray addObject:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:
+        @"MACHINE_MODEL", @"Machine Model", machinemodel, machinemodel, nil]
+        forKeys:discoveryKeys]];
+
+    NSString *ramsize = [NSString stringWithFormat:@"%d", [self ramsize]];
+    [discoveryArray addObject:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:
+        @"RAM_SIZE", @"Memory in (MB)", ramsize, ramsize, nil]
+        forKeys:discoveryKeys]];
+
+    NSString *cputype = [NSString stringWithFormat:@"%@", [self cputype]];
+    [discoveryArray addObject:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:
+        @"CPU_TYPE", @"CPU Type", cputype, cputype, nil]
+        forKeys:discoveryKeys]];
+
+    NSString *cpuspeed = [NSString stringWithFormat:@"%d", [self cpuspeed]];
+    [discoveryArray addObject:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:
+        @"CPU_SPEED", @"CPU Speed (MHz)", cpuspeed, cpuspeed, nil]
+        forKeys:discoveryKeys]];
+
+    NSString *cpucount = [NSString stringWithFormat:@"%d", [self cpucount]];
+    [discoveryArray addObject:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:
+        @"CPU_COUNT", @"Number of CPUs", cpucount, cpucount, nil]
+        forKeys:discoveryKeys]];
+
+    NSString *is64bit = [NSString stringWithFormat:@"%@", ([self is64bit])?@"YES":@"NO"];
+    [discoveryArray addObject:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:
+        @"CPU_64BIT", @"CPU is 64-Bit", is64bit, is64bit, nil]
+        forKeys:discoveryKeys]];
 
     NSString *language = [NSString stringWithFormat:@"%@", [self language]];
-    [dict setObject:language forKey:@"LANGUAGE"];
-    NSLog(@"LANGUAGE=%@", language);
+    [discoveryArray addObject:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:
+        @"LANGUAGE", @"Preferred Language", language, language, nil]
+        forKeys:discoveryKeys]];
 
-    return dict;
+    return discoveryArray;
 }
 
-- (BOOL) is64bit
++ (BOOL) is64bit
 {
     int error = 0;
     int value = 0;
@@ -83,7 +92,7 @@
     return is64bit;
  }
 
-- (NSString*) cputype
++ (NSString*) cputype
 {
     int error = 0;
     int value = 0;
@@ -116,7 +125,7 @@
     return nil;
 }
 
-- (NSString*) osversion
++ (NSString*) osversion
 {
     NSProcessInfo *info = [NSProcessInfo processInfo];
     NSString *version = [info operatingSystemVersionString];
@@ -128,7 +137,7 @@
     return version;
 }
 
-- (NSString*) architecture
++ (NSString*) architecture
 {
     int error = 0;
     int value = 0;
@@ -152,7 +161,7 @@
     return nil;
 }
 
-- (int) cpucount
++ (int) cpucount
 {
     int error = 0;
     int value = 0;
@@ -167,7 +176,7 @@
     return value;
 }
 
-- (NSString*) machinemodel
++ (NSString*) machinemodel
 {
     int error = 0;
     size_t length;
@@ -194,7 +203,7 @@
     return machinemodel;
 }
 
-- (NSString*) language
++ (NSString*) language
 {
     NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
     NSArray *languages = [defs objectForKey:@"AppleLanguages"];
@@ -207,7 +216,7 @@
     return [languages objectAtIndex:0];
 }
 
-- (long) cpuspeed
++ (long) cpuspeed
 {
     OSType error;
     long result;
@@ -221,7 +230,7 @@
     return result / 1000000;
 }
 
-- (long) ramsize
++ (long) ramsize
 {
     OSType error;
     long result;

@@ -24,7 +24,7 @@
 
 @implementation ConsoleLog
 
-- (NSString*) log
++ (NSString*) log
 {
     NSMutableString *console = [[[NSMutableString alloc] init] autorelease];
 

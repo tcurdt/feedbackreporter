@@ -138,7 +138,7 @@
     [dict setObject:[emailField stringValue] forKey:@"email"];
     [dict setObject:[Application applicationVersion] forKey:@"version"];
     [dict setObject:[commentView string] forKey:@"comment"];
-    [dict setObject:[systemView string] forKey:@"system"];
+    //[dict setObject:[systemView string] forKey:@"system"];
     [dict setObject:[consoleView string] forKey:@"console"];
     [dict setObject:[crashesView string] forKey:@"crashes"];
     [dict setObject:[shellView string] forKey:@"shell"];
@@ -237,33 +237,14 @@
 
 - (NSString*) console
 {
-    ConsoleLog *console = [[ConsoleLog alloc] init];
-
-    NSString *log = [console log];
-    
-    [console release];
-    
+    NSString *log = [ConsoleLog log];
     return log;
 }
 
 
-- (NSString*) system
+- (NSArray*) system
 {
-    NSMutableString *system = [[[NSMutableString alloc] init] autorelease];
-
-    SystemDiscovery *discovery = [[SystemDiscovery alloc] init];
-
-    NSDictionary *dict = [discovery discover];
-
-    [system appendFormat:@"os version = %@\n", [dict valueForKey:@"OS_VERSION"]];
-    [system appendFormat:@"ram = %@\n", [dict valueForKey:@"RAM_SIZE"]];
-    [system appendFormat:@"cpu type = %@\n", [dict valueForKey:@"CPU_TYPE"]];
-    [system appendFormat:@"cpu count = %@\n", [dict valueForKey:@"CPU_COUNT"]];
-    [system appendFormat:@"cpu speed = %@\n", [dict valueForKey:@"CPU_SPEED"]];
-
-    [discovery release];
-
-    return system;
+    return [SystemDiscovery discover];
 }
 
 
@@ -358,7 +339,7 @@
     [emailField setStringValue:email];
     [exceptionView setString:@""];
     [commentView setString:@""];
-    [systemView setString:[self system]];
+    //[systemView setString:[self system]];
     [consoleView setString:[self console]];
     [crashesView setString:[self crashes]];
     [shellView setString:[self shell]];
