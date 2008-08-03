@@ -23,6 +23,8 @@
     IBOutlet NSTextView *commentView;
     IBOutlet NSTextField *emailField;
 
+    IBOutlet NSButton *detailsButton;
+
     IBOutlet NSTabView *tabView;
     IBOutlet NSTabViewItem *tabSystem;
     IBOutlet NSTabViewItem *tabConsole;

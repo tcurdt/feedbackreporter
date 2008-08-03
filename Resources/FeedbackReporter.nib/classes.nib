@@ -48,6 +48,8 @@
 				<string>NSTextView</string>
 				<key>delegate</key>
 				<string>id</string>
+				<key>detailsButton</key>
+				<string>NSButton</string>
 				<key>emailField</key>
 				<string>NSTextField</string>
 				<key>exceptionView</key>

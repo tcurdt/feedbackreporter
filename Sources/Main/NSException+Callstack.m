@@ -94,7 +94,6 @@
             [result appendString: @"\n"];
         }
 
-        [result appendString: @"\t"];
         [result appendString: line];
 
         // Don't show the "__start" frame below "main":

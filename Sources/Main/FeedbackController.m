@@ -37,6 +37,20 @@
     return self;
 }
 
+#pragma mark Destruction
+
+- (void) dealloc
+{
+    [tabConsole release];
+    [tabCrashes release];
+    [tabShell release];
+    [tabPreferences release];
+    [tabException release];
+    
+    [super dealloc];
+}
+
+
 #pragma mark Accessors
 
 - (id) delegate
@@ -69,11 +83,80 @@
     return [exceptionView string];
 }
 
+#pragma mark information gathering
+
+- (NSString*) console
+{
+    return [ConsoleLog log];
+}
+
+- (NSArray*) system
+{
+    return [SystemDiscovery discover];
+}
+
+- (NSString*) crashes
+{
+    NSMutableString *crashes = [NSMutableString string];
+
+    NSDate *lastSubmissionDate = [[NSUserDefaults standardUserDefaults] valueForKey:KEY_LASTSUBMISSIONDATE];
+
+    NSArray *crashFiles = [CrashLogFinder findCrashLogsSince:lastSubmissionDate];
+
+    int i = [crashFiles count];
+
+    NSLog(@"Found %d crash files earlier than %@", i, lastSubmissionDate);
+
+    while(i--) {
+        NSString *crashFile = [crashFiles objectAtIndex:i];
+        [crashes appendFormat:@"File: %@\n", crashFile];
+        [crashes appendString:[NSString stringWithContentsOfFile:crashFile]];
+        [crashes appendString:@"\n"];
+    }
+
+    return crashes;
+}
+
+- (NSString*) shell
+{
+    NSMutableString *shell = [NSMutableString string];
+
+    NSString *scriptPath = [[NSBundle mainBundle] pathForResource:FILE_SHELLSCRIPT ofType:@"sh"];
+
+    if ([[NSFileManager defaultManager] fileExistsAtPath:scriptPath]) {
+
+        Command *cmd = [[Command alloc] initWithPath:scriptPath];
+        [cmd setOutput:shell];
+        [cmd setError:shell];
+        int ret = [cmd execute];
+        [cmd release];
+
+        NSLog(@"Script returned code = %d", ret);
+        
+    } else {
+        NSLog(@"No custom script to execute");
+    }
+
+    return shell;
+}
+
+- (NSString*) preferences
+{
+    NSDictionary *preferences = [[NSUserDefaults standardUserDefaults] persistentDomainForName:[Application applicationIdentifier]];
+    
+    if (preferences == nil) {
+        return @"";
+    }
+    
+    return [NSString stringWithFormat:@"%@", preferences];
+}
+
+
 #pragma mark UI Actions
 
 - (void) showDetails:(BOOL)show animate:(BOOL)animate
 {
-    if (show == detailsShown) {
+    if (detailsShown == show) {
         return;
     }
     
@@ -98,7 +181,7 @@
         
     }
     
-    detailsShown = show;
+    detailsShown = show;    
 }
 
 - (IBAction)showDetails:(id)sender
@@ -176,9 +259,9 @@
     [sendButton setEnabled:YES];
 
     NSAlert *alert = [[NSAlert alloc] init];
-    [alert addButtonWithTitle:@"OK"];
-    [alert setMessageText:@"Sorry, failed to submit your feedback to the server."];
-    [alert setInformativeText:[NSString stringWithFormat:@"Error: %@", [error localizedDescription]]];
+    [alert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+    [alert setMessageText:NSLocalizedString(@"Sorry, failed to submit your feedback to the server.", nil)];
+    [alert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"Error: %@", nil), [error localizedDescription]]];
     [alert setAlertStyle:NSWarningAlertStyle];
     [alert runModal];
     [alert release];
@@ -214,9 +297,9 @@
         if (![line hasPrefix:@"OK "]) {
 
             NSAlert *alert = [[NSAlert alloc] init];
-            [alert addButtonWithTitle:@"OK"];
-            [alert setMessageText:@"Sorry, failed to submit your feedback to the server."];
-            [alert setInformativeText:[NSString stringWithFormat:@"Error: %@", line]];
+            [alert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+            [alert setMessageText:NSLocalizedString(@"Sorry, failed to submit your feedback to the server.", nil)];
+            [alert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"Error: %@", nil), line]];
             [alert setAlertStyle:NSWarningAlertStyle];
             [alert runModal];
             [alert release];
@@ -235,74 +318,6 @@
 }
 
 
-- (NSString*) console
-{
-    NSString *log = [ConsoleLog log];
-    return log;
-}
-
-
-- (NSArray*) system
-{
-    return [SystemDiscovery discover];
-}
-
-
-- (NSString*) crashes
-{
-    NSMutableString *crashes = [NSMutableString string];
-
-    NSDate *lastSubmissionDate = [[NSUserDefaults standardUserDefaults] valueForKey:KEY_LASTSUBMISSIONDATE];
-
-    NSLog(@"Checking for crash files earlier than %@", lastSubmissionDate);
-
-    NSArray *crashFiles = [CrashLogFinder findCrashLogsSince:lastSubmissionDate];
-
-    int i = [crashFiles count];
-    while(i--) {
-        NSString *crashFile = [crashFiles objectAtIndex:i];
-        [crashes appendFormat:@"File: %@\n", crashFile];
-        [crashes appendString:[NSString stringWithContentsOfFile:crashFile]];
-        [crashes appendString:@"\n"];
-    }
-
-    return crashes;
-}
-
-- (NSString*) shell
-{
-    NSMutableString *shell = [NSMutableString string];
-
-    NSString *scriptPath = [[NSBundle mainBundle] pathForResource:FILE_SHELLSCRIPT ofType:@"sh"];
-
-    if ([[NSFileManager defaultManager] fileExistsAtPath:scriptPath]) {
-
-        Command *cmd = [[Command alloc] initWithPath:scriptPath];
-        [cmd setOutput:shell];
-        [cmd setError:shell];
-        int ret = [cmd execute];
-        [cmd release];
-
-        NSLog(@"Script returned code = %d", ret);
-        
-    } else {
-        NSLog(@"No custom script to execute");
-    }
-
-    return shell;
-}
-
-- (NSString*) preferences
-{
-    NSDictionary *preferences = [[NSUserDefaults standardUserDefaults] persistentDomainForName:[Application applicationIdentifier]];
-    
-    if (preferences == nil) {
-        return @"";
-    }
-    
-    return [NSString stringWithFormat:@"%@", preferences];
-}
-
 - (void) windowWillClose: (NSNotification *) n
 {
 	[uploader cancel];
@@ -317,6 +332,19 @@
     [tabShell retain];
     [tabPreferences retain];
     [tabException retain];
+
+
+    // FIXME do this in IB
+    [[consoleView textContainer] setContainerSize:NSMakeSize(FLT_MAX, FLT_MAX)];
+    [[consoleView textContainer] setWidthTracksTextView:NO];
+    [[crashesView textContainer] setContainerSize:NSMakeSize(FLT_MAX, FLT_MAX)];
+    [[crashesView textContainer] setWidthTracksTextView:NO];
+    [[shellView textContainer] setContainerSize:NSMakeSize(FLT_MAX, FLT_MAX)];
+    [[shellView textContainer] setWidthTracksTextView:NO];
+    [[preferencesView textContainer] setContainerSize:NSMakeSize(FLT_MAX, FLT_MAX)];
+    [[preferencesView textContainer] setWidthTracksTextView:NO];
+    [[exceptionView textContainer] setContainerSize:NSMakeSize(FLT_MAX, FLT_MAX)];
+    [[exceptionView textContainer] setWidthTracksTextView:NO];
 }
 
 
@@ -331,7 +359,7 @@
     NSString *email = [[NSUserDefaults standardUserDefaults] stringForKey:KEY_SENDEREMAIL];
     
     if (email == nil) {
-        email = @"anonymous";
+        email = NSLocalizedString(@"anonymous", nil);
 
 /*
         ABAddressBook *book = [ABAddressBook sharedAddressBook];
@@ -355,7 +383,6 @@
 
     [exceptionView setString:@""];
     [commentView setString:@""];
-    //[systemView setString:[self system]];
     [consoleView setString:[self console]];
     [crashesView setString:[self crashes]];
     [shellView setString:[self shell]];
@@ -365,7 +392,7 @@
     [indicator setHidden:YES];
 
     [self showDetails:NO animate:NO];
-    
+    [detailsButton setIntValue:NO];    
 }
 
 - (void) showWindow:(id)sender
@@ -400,5 +427,6 @@
 {
     return [[self window] isVisible];
 }
+
 
 @end

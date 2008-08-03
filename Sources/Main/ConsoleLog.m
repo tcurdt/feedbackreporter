@@ -32,12 +32,10 @@
 
 /* Leopard: */
 
-    //[console appendString:@"ASL:\n"];
-
     aslmsg query = asl_new(ASL_TYPE_QUERY);
 
     asl_set_query(query, ASL_KEY_SENDER, [[Application applicationName] UTF8String], ASL_QUERY_OP_EQUAL);
-    asl_set_query(query, ASL_KEY_TIME, [[NSString stringWithFormat:@"%01f", since] UTF8String], ASL_QUERY_OP_GREATER_EQUAL);
+    asl_set_query(query, ASL_KEY_TIME, [[NSString stringWithFormat:@"%01f", [since timeIntervalSince1970]] UTF8String], ASL_QUERY_OP_GREATER_EQUAL);
 
     aslresponse response = asl_search(NULL, query);
 
@@ -57,8 +55,6 @@
 
 /*  Tiger: */
 
-    //[console appendString:@"LOG:\n"];
-
     NSString *logPath = [NSString stringWithFormat: @"/Library/Logs/Console/%@/console.log", [NSNumber numberWithUnsignedInt:getuid()]];
 
     // TODO read and filter line by line
@@ -76,6 +72,10 @@
         if ([currentObject rangeOfString:filter].location != NSNotFound) {        
             [console appendFormat:@"%@\n", currentObject];
         }  
+    }
+
+    if ([console length] != 0) {
+        [console appendString:@"..."];
     }
 
     return console;
