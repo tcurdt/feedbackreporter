@@ -127,8 +127,6 @@
         return;        
     }
 
-    NSLog(@"Sending feedback to %@", target);
-    
     uploader = [[Uploader alloc] initWithTarget:[Application feedbackURL] delegate:self];
     
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:5];
@@ -146,6 +144,8 @@
     [dict setObject:[shellView string] forKey:@"shell"];
     [dict setObject:[preferencesView string] forKey:@"preferences"];
     [dict setObject:[exceptionView string] forKey:@"exception"];
+    
+    NSLog(@"Sending feedback to %@", target);
     
     [uploader postAndNotify:dict];
 
@@ -331,10 +331,10 @@
 
 - (void) reset
 {
-    NSString *sender = [[NSUserDefaults standardUserDefaults] stringForKey:KEY_SENDEREMAIL];
+    NSString *email = [[NSUserDefaults standardUserDefaults] stringForKey:KEY_SENDEREMAIL];
     
-    if (sender == nil) {
-        sender = @"anonymous";
+    if (email == nil) {
+        email = @"anonymous";
 
 /*
         ABAddressBook *book = [ABAddressBook sharedAddressBook];
@@ -355,7 +355,7 @@
         [Application applicationName]]];
 
 
-    [emailField setStringValue:sender];
+    [emailField setStringValue:email];
     [exceptionView setString:@""];
     [commentView setString:@""];
     [systemView setString:[self system]];
@@ -369,6 +369,12 @@
 
     [self showDetails:NO animate:NO];
     
+}
+
+- (void) showWindow:(id)sender
+{
+    // TODO show/hide tabs according to what information is there
+
     if ([[exceptionView string] length] == 0) {
         // select exception tab
         [tabView selectTabViewItemWithIdentifier:@"System"];
@@ -377,6 +383,8 @@
         [tabView selectTabViewItemWithIdentifier:@"Exception"];
     }
 
+
+    [super showWindow:sender];
 }
 
 - (BOOL) isShown
