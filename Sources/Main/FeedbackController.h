@@ -58,11 +58,9 @@
 - (id) delegate;
 - (void) setDelegate:(id) delegate;
 
+- (void) setMessage:(NSString*)message;
 - (void) setComment:(NSString*)comment;
 - (void) setException:(NSString*)exception;
-
-- (NSString*) comment;
-- (NSString*) exception;
 
 #pragma mark Other
 

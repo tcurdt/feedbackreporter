@@ -17,7 +17,7 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface SystemDiscovery : NSObject
+@interface SystemProfile : NSObject
 
 + (NSArray*) discover;
 

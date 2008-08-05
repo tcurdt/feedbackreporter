@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-#import "SystemDiscovery.h"
+#import "SystemProfile.h"
 #import <sys/sysctl.h>
 
-@implementation SystemDiscovery
+@implementation SystemProfile
 
 + (NSArray*) discover
 {

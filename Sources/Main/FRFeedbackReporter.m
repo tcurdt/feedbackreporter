@@ -17,9 +17,10 @@
 #import "FRFeedbackReporter.h"
 #import "FeedbackController.h"
 #import "CrashLogFinder.h"
-#import "SystemDiscovery.h"
+#import "SystemProfile.h"
 #import "NSException+Callstack.h"
 #import "Uploader.h"
+#import "Application.h"
 #import "Constants.h"
 
 #import <uuid/uuid.h>
@@ -82,6 +83,12 @@ static FRFeedbackReporter *sharedReporter = nil;
     }
     
     [controller reset];
+
+    [controller setMessage:[NSString stringWithFormat:
+        NSLocalizedString(@"Encountered a problem with %@?\n\n"
+                           "Please provide some comments of what happened.\n"
+                           "See below the information that will get send along.", nil),
+        [Application applicationName]]];
     
     [controller setDelegate:delegate];
     
@@ -92,12 +99,13 @@ static FRFeedbackReporter *sharedReporter = nil;
 
 - (BOOL) reportIfCrash
 {
-    BOOL ret = NO;
-    
     NSDate *lastCrashCheckDate = [[NSUserDefaults standardUserDefaults] valueForKey:KEY_LASTCRASHCHECKDATE];
     
     if (lastCrashCheckDate != nil) {
         NSArray *crashFiles = [CrashLogFinder findCrashLogsSince:lastCrashCheckDate];
+
+        [[NSUserDefaults standardUserDefaults] setValue: [NSDate date]
+                                                 forKey: KEY_LASTCRASHCHECKDATE];
         
         if ([crashFiles count] > 0) {
             NSLog(@"Found new crash files");
@@ -111,21 +119,25 @@ static FRFeedbackReporter *sharedReporter = nil;
 
             [controller reset];
 
+            [controller setMessage:[NSString stringWithFormat:
+                NSLocalizedString(@"Encountered a problem with %@?\n\n"
+                                   "Please provide some comments of what happened.\n"
+                                   "See below the information that will get send along.", nil),
+                [Application applicationName]]];
+
             [controller setComment:NSLocalizedString(@"The application crashed after I...", nil)];
 
             [controller setDelegate:delegate];
 
             [controller showWindow:self];
-            
-            ret = YES;
+
+            return YES;
 
         }
+            
     }
     
-    [[NSUserDefaults standardUserDefaults] setValue: [NSDate date]
-                                             forKey: KEY_LASTCRASHCHECKDATE];
-
-    return ret;
+    return NO;
 }
 
 - (BOOL) reportException:(NSException *)exception
@@ -139,6 +151,12 @@ static FRFeedbackReporter *sharedReporter = nil;
 
     [controller reset];
     
+    [controller setMessage:[NSString stringWithFormat:
+        NSLocalizedString(@"Encountered a problem with %@?\n\n"
+                           "Please provide some comments of what happened.\n"
+                           "See below the information that will get send along.", nil),
+        [Application applicationName]]];
+
     [controller setComment:NSLocalizedString(@"Uncought exception", nil)];
 
     [controller setException:[NSString stringWithFormat: @"%@\n\n%@\n\n%@",

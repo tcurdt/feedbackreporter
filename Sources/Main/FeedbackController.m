@@ -20,7 +20,7 @@
 #import "Command.h"
 #import "Application.h"
 #import "CrashLogFinder.h"
-#import "SystemDiscovery.h"
+#import "SystemProfile.h"
 #import "Constants.h"
 #import "ConsoleLog.h"
 
@@ -63,14 +63,14 @@
 	delegate = pDelegate;
 }
 
+- (void) setMessage:(NSString*)message
+{
+    [messageField setStringValue:message];
+}
+
 - (void) setComment:(NSString*)comment
 {
     [commentView setString:comment];
-}
-
-- (NSString*) comment
-{
-    return [commentView string];
 }
 
 - (void) setException:(NSString*)exception
@@ -78,10 +78,6 @@
     [exceptionView setString:exception];
 }
 
-- (NSString*) exception
-{
-    return [exceptionView string];
-}
 
 #pragma mark information gathering
 
@@ -90,14 +86,30 @@
     return [ConsoleLog log];
 }
 
-- (NSArray*) system
+
+static NSArray *systemProfile = nil;
+- (NSArray*) systemProfile
 {
-    return [SystemDiscovery discover];
+    if (systemProfile == nil) {
+        systemProfile = [SystemProfile discover];
+    }
+    return systemProfile;
 }
 
-- (NSString*) crashes
+- (NSString*) systemProfileAsString
 {
-    NSMutableString *crashes = [NSMutableString string];
+    NSMutableString *string = [NSMutableString string];
+    NSArray *dicts = [self systemProfile];
+    int i = [dicts count];
+    while(i--) {
+        NSDictionary *dict = [dicts objectAtIndex:i];
+        [string appendFormat:@"%@ = %@\n", [dict objectForKey:@"key"], [dict objectForKey:@"value"]];
+    }
+    return string;
+}
+
+- (NSString*) crashLog
+{
 
     NSDate *lastSubmissionDate = [[NSUserDefaults standardUserDefaults] valueForKey:KEY_LASTSUBMISSIONDATE];
 
@@ -105,16 +117,31 @@
 
     int i = [crashFiles count];
 
-    NSLog(@"Found %d crash files earlier than %@", i, lastSubmissionDate);
+    NSLog(@"Found %d crash files earlier than latest submission on %@", i, lastSubmissionDate);
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+
+    NSDate *newest = nil;
+    int newestIndex = -1;
 
     while(i--) {
+    
         NSString *crashFile = [crashFiles objectAtIndex:i];
-        [crashes appendFormat:@"File: %@\n", crashFile];
-        [crashes appendString:[NSString stringWithContentsOfFile:crashFile]];
-        [crashes appendString:@"\n"];
+        NSDictionary *fileAttributes = [fileManager fileAttributesAtPath:crashFile traverseLink:YES];
+        NSDate *fileModDate = [fileAttributes objectForKey:NSFileModificationDate];
+        
+        if ([fileModDate earlierDate:newest] == fileModDate) {
+            newest = fileModDate;
+            newestIndex = i;
+        }
+
+    }
+    
+    if (newestIndex != -1) {
+        return [NSString stringWithContentsOfFile:[crashFiles objectAtIndex:newestIndex]];
     }
 
-    return crashes;
+    return @"";
 }
 
 - (NSString*) shell
@@ -218,15 +245,32 @@
         [dict addEntriesFromDictionary:[delegate customParametersForFeedbackReport]];
     }
 
-    [dict setObject:[emailField stringValue] forKey:@"email"];
-    [dict setObject:[Application applicationVersion] forKey:@"version"];
-    [dict setObject:[commentView string] forKey:@"comment"];
-    //[dict setObject:[systemView string] forKey:@"system"];
-    [dict setObject:[consoleView string] forKey:@"console"];
-    [dict setObject:[crashesView string] forKey:@"crashes"];
-    [dict setObject:[shellView string] forKey:@"shell"];
-    [dict setObject:[preferencesView string] forKey:@"preferences"];
-    [dict setObject:[exceptionView string] forKey:@"exception"];
+    [dict setObject:[emailField stringValue]
+             forKey:POST_KEY_EMAIL];
+
+    [dict setObject:[Application applicationVersion]
+             forKey:POST_KEY_VERSION];
+
+    [dict setObject:[commentView string]
+             forKey:POST_KEY_COMMENT];
+
+    [dict setObject:[self systemProfileAsString]
+             forKey:POST_KEY_SYSTEM];
+
+    [dict setObject:[consoleView string]
+             forKey:POST_KEY_CONSOLE];
+
+    [dict setObject:[crashesView string]
+             forKey:POST_KEY_CRASHES];
+
+    [dict setObject:[shellView string]
+             forKey:POST_KEY_SHELL];
+
+    [dict setObject:[preferencesView string]
+             forKey:POST_KEY_PREFERENCES];
+
+    [dict setObject:[exceptionView string]
+             forKey:POST_KEY_EXCEPTION];
     
     NSLog(@"Sending feedback to %@", target);
     
@@ -372,22 +416,21 @@
 */
     }
 
-    [emailField setStringValue:email];
+    [emailField   setStringValue:email];
 
-    [messageField setStringValue:[NSString stringWithFormat:
-        NSLocalizedString(@"Encountered a problem with %@?\n\n"
-                           "Please provide some comments of what happened.\n"
-                           "See below the information that will get send along.", nil),
-        [Application applicationName]]];
+    [messageField setStringValue:@""];
+    [commentView       setString:@""];
+    [exceptionView     setString:@""];
 
-
-    [exceptionView setString:@""];
-    [commentView setString:@""];
-    [consoleView setString:[self console]];
-    [crashesView setString:[self crashes]];
-    [shellView setString:[self shell]];
-    [preferencesView setString:[self preferences]];
-    [exceptionView setString:[self exception]];
+    NSLog(@"console");
+    [consoleView       setString:[self console]];
+    NSLog(@"crashes");
+    [crashesView       setString:[self crashLog]];
+    NSLog(@"shell");
+    [shellView         setString:[self shell]];
+    NSLog(@"preferences");
+    [preferencesView   setString:[self preferences]];
+    NSLog(@"ready");
     
     [indicator setHidden:YES];
 

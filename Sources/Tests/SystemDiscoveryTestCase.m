@@ -15,13 +15,13 @@
  */
 
 #import "SystemDiscoveryTestCase.h"
-#import "SystemDiscovery.h"
+#import "SystemProfile.h"
 
 @implementation SystemDiscoveryTestCase
 
 - (void) testDiscovery
 {
-    SystemDiscovery *discovery = [[SystemDiscovery alloc] init];
+    SystemProfile *discovery = [[SystemProfile alloc] init];
     
     NSDictionary *dict = [discovery discover];
     
