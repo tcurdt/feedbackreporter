@@ -22,6 +22,7 @@
 #import "Uploader.h"
 #import "Application.h"
 #import "Constants.h"
+#import "Localizable.h"
 
 #import <uuid/uuid.h>
 
@@ -85,9 +86,7 @@ static FRFeedbackReporter *sharedReporter = nil;
     [controller reset];
 
     [controller setMessage:[NSString stringWithFormat:
-        NSLocalizedString(@"Got a problem with %@?\n\n"
-                           "Please describe what is wrong and how to reproduce it.\n"
-                           "See below the information that will get send along.", nil),
+        FRLocalizedString(@"Got a problem with %@?", nil),
         [Application applicationName]]];
     
     [controller setDelegate:delegate];
@@ -120,9 +119,7 @@ static FRFeedbackReporter *sharedReporter = nil;
             [controller reset];
 
             [controller setMessage:[NSString stringWithFormat:
-                NSLocalizedString(@"%@ has recently crashed!\n\n"
-                                   "Please describe how this happened.\n"
-                                   "See below the information that will get send along.", nil),
+                FRLocalizedString(@"%@ has recently crashed!", nil),
                 [Application applicationName]]];
 
             [controller setDelegate:delegate];
@@ -150,10 +147,7 @@ static FRFeedbackReporter *sharedReporter = nil;
     [controller reset];
     
     [controller setMessage:[NSString stringWithFormat:
-        NSLocalizedString(@"%@ has encountered an exception!\n\n"
-                           "Please describe how this happened.\n"
-                           "It might be safer to restart the application.\n"
-                           "See below the information that will get send along.", nil),
+        FRLocalizedString(@"%@ has encountered an exception!", nil),
         [Application applicationName]]];
 
     [controller setException:[NSString stringWithFormat: @"%@\n\n%@\n\n%@",

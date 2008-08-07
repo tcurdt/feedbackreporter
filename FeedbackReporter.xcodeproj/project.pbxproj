@@ -15,6 +15,7 @@
 		9D0EC02A0DF011DB0045EB76 /* NSException+Callstack.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EC0280DF011DB0045EB76 /* NSException+Callstack.m */; };
 		9D291E8E0DF167BB009F859B /* UploaderTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D291E8D0DF167BB009F859B /* UploaderTestCase.m */; };
 		9D4C743D0E33A5D000B5F3BF /* ConsoleLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D006DF50E1438F6000B6AFC /* ConsoleLog.m */; };
+		9D7094EE0E4BAD68007AB741 /* Localizable.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D7094EC0E4BAD68007AB741 /* Localizable.h */; };
 		9D7DADC40E4B89C300014CB6 /* FeedbackReporter.nib in Resources */ = {isa = PBXBuildFile; fileRef = 9D4346FF0DD3B712000F1E48 /* FeedbackReporter.nib */; };
 		9DA7D6B70DEB8A7800C3B586 /* FeedbackReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* FeedbackReporter.framework */; };
 		9DA7D6EF0DEB8E5D00C3B586 /* Application.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA7D6E20DEB8E5D00C3B586 /* Application.h */; };
@@ -33,7 +34,7 @@
 		9DCF52A90DEC0D8A00EBF810 /* SystemDiscoveryTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DCF52A80DEC0D8A00EBF810 /* SystemDiscoveryTestCase.m */; };
 		9DCF52AC0DEC0E4300EBF810 /* SystemProfile.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DCF52AA0DEC0E4300EBF810 /* SystemProfile.h */; };
 		9DCF52AD0DEC0E4300EBF810 /* SystemProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DCF52AB0DEC0E4300EBF810 /* SystemProfile.m */; };
-		9DD4D9C30E4B934500B26451 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9DD4D9C20E4B934500B26451 /* Localizable.strings */; };
+		9DD4D9C30E4B934500B26451 /* FeedbackReporter.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9DD4D9C20E4B934500B26451 /* FeedbackReporter.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +63,7 @@
 		9D291E8D0DF167BB009F859B /* UploaderTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UploaderTestCase.m; path = Sources/Tests/UploaderTestCase.m; sourceTree = "<group>"; };
 		9D4346FF0DD3B712000F1E48 /* FeedbackReporter.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = FeedbackReporter.nib; path = Resources/FeedbackReporter.nib; sourceTree = "<group>"; };
 		9D5FB36B0E0B269900CF1BE0 /* Constants.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = Constants.h; path = Sources/Main/Constants.h; sourceTree = "<group>"; };
+		9D7094EC0E4BAD68007AB741 /* Localizable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Localizable.h; path = Sources/Main/Localizable.h; sourceTree = "<group>"; };
 		9D90077A0DEB96C10000330E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Sources/Main/Info.plist; sourceTree = "<group>"; };
 		9D90077F0DEB96D40000330E /* Tests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Tests-Info.plist"; path = "Sources/Tests/Tests-Info.plist"; sourceTree = SOURCE_ROOT; };
 		9DA7D6B10DEB8A3500C3B586 /* Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -83,8 +85,8 @@
 		9DCF52A80DEC0D8A00EBF810 /* SystemDiscoveryTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SystemDiscoveryTestCase.m; path = Sources/Tests/SystemDiscoveryTestCase.m; sourceTree = "<group>"; };
 		9DCF52AA0DEC0E4300EBF810 /* SystemProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SystemProfile.h; path = Sources/Main/SystemProfile.h; sourceTree = "<group>"; };
 		9DCF52AB0DEC0E4300EBF810 /* SystemProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SystemProfile.m; path = Sources/Main/SystemProfile.m; sourceTree = "<group>"; };
-		9DD4D9BF0E4B933A00B26451 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = Resources/English.lproj/Localizable.strings; sourceTree = "<group>"; };
-		9DD4D9C40E4B934A00B26451 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = Resources/German.lproj/Localizable.strings; sourceTree = "<group>"; };
+		9DD4D9BF0E4B933A00B26451 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = Resources/English.lproj/FeedbackReporter.strings; sourceTree = "<group>"; };
+		9DD4D9C40E4B934A00B26451 /* German */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = German; path = Resources/German.lproj/FeedbackReporter.strings; sourceTree = "<group>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -144,7 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				9D4346FF0DD3B712000F1E48 /* FeedbackReporter.nib */,
-				9DD4D9C20E4B934500B26451 /* Localizable.strings */,
+				9DD4D9C20E4B934500B26451 /* FeedbackReporter.strings */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -174,6 +176,7 @@
 				9D0EC0270DF011DB0045EB76 /* NSException+Callstack.h */,
 				9D0EC0280DF011DB0045EB76 /* NSException+Callstack.m */,
 				9D5FB36B0E0B269900CF1BE0 /* Constants.h */,
+				9D7094EC0E4BAD68007AB741 /* Localizable.h */,
 			);
 			name = Main;
 			sourceTree = "<group>";
@@ -241,6 +244,7 @@
 				9DCF52AC0DEC0E4300EBF810 /* SystemProfile.h in Headers */,
 				9D0EC0220DF00F250045EB76 /* FRExceptionReportingApplication.h in Headers */,
 				9D0EC0290DF011DB0045EB76 /* NSException+Callstack.h in Headers */,
+				9D7094EE0E4BAD68007AB741 /* Localizable.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,7 +314,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D7DADC40E4B89C300014CB6 /* FeedbackReporter.nib in Resources */,
-				9DD4D9C30E4B934500B26451 /* Localizable.strings in Resources */,
+				9DD4D9C30E4B934500B26451 /* FeedbackReporter.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -379,13 +383,13 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		9DD4D9C20E4B934500B26451 /* Localizable.strings */ = {
+		9DD4D9C20E4B934500B26451 /* FeedbackReporter.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				9DD4D9BF0E4B933A00B26451 /* English */,
 				9DD4D9C40E4B934A00B26451 /* German */,
 			);
-			name = Localizable.strings;
+			name = FeedbackReporter.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

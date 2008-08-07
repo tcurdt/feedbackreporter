@@ -23,6 +23,7 @@
 #import "SystemProfile.h"
 #import "Constants.h"
 #import "ConsoleLog.h"
+#import "Localizable.h"
 
 @implementation FeedbackController
 
@@ -306,9 +307,9 @@ static NSArray *systemProfile = nil;
     [sendButton setEnabled:YES];
 
     NSAlert *alert = [[NSAlert alloc] init];
-    [alert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-    [alert setMessageText:NSLocalizedString(@"Sorry, failed to submit your feedback to the server.", nil)];
-    [alert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"Error: %@", nil), [error localizedDescription]]];
+    [alert addButtonWithTitle:FRLocalizedString(@"OK", nil)];
+    [alert setMessageText:FRLocalizedString(@"Sorry, failed to submit your feedback to the server.", nil)];
+    [alert setInformativeText:[NSString stringWithFormat:FRLocalizedString(@"Error: %@", nil), [error localizedDescription]]];
     [alert setAlertStyle:NSWarningAlertStyle];
     [alert runModal];
     [alert release];
@@ -344,9 +345,9 @@ static NSArray *systemProfile = nil;
         if (![line hasPrefix:@"OK "]) {
 
             NSAlert *alert = [[NSAlert alloc] init];
-            [alert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-            [alert setMessageText:NSLocalizedString(@"Sorry, failed to submit your feedback to the server.", nil)];
-            [alert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"Error: %@", nil), line]];
+            [alert addButtonWithTitle:FRLocalizedString(@"OK", nil)];
+            [alert setMessageText:FRLocalizedString(@"Sorry, failed to submit your feedback to the server.", nil)];
+            [alert setInformativeText:[NSString stringWithFormat:FRLocalizedString(@"Error: %@", nil), line]];
             [alert setAlertStyle:NSWarningAlertStyle];
             [alert runModal];
             [alert release];
@@ -381,17 +382,17 @@ static NSArray *systemProfile = nil;
     [tabException retain];
 
 
-    [commentLabel setStringValue:NSLocalizedString(@"Comments:", nil)];
-    [addressLabel setStringValue:NSLocalizedString(@"Email address:", nil)];
+    [commentLabel setStringValue:FRLocalizedString(@"Comments:", nil)];
+    [addressLabel setStringValue:FRLocalizedString(@"Email address:", nil)];
     
-    [tabConsole setLabel:NSLocalizedString(@"Console", nil)];
-    [tabCrash setLabel:NSLocalizedString(@"CrashLog", nil)];
-    [tabScript setLabel:NSLocalizedString(@"Script", nil)];
-    [tabPreferences setLabel:NSLocalizedString(@"Preferences", nil)];
-    [tabException setLabel:NSLocalizedString(@"Exception", nil)];
+    [tabConsole setLabel:FRLocalizedString(@"Console", nil)];
+    [tabCrash setLabel:FRLocalizedString(@"CrashLog", nil)];
+    [tabScript setLabel:FRLocalizedString(@"Script", nil)];
+    [tabPreferences setLabel:FRLocalizedString(@"Preferences", nil)];
+    [tabException setLabel:FRLocalizedString(@"Exception", nil)];
     
-    [sendButton setStringValue:NSLocalizedString(@"Send", nil)];
-    [cancelButton setStringValue:NSLocalizedString(@"Cancel", nil)];
+    [sendButton setTitle:FRLocalizedString(@"Send", nil)];
+    [cancelButton setTitle:FRLocalizedString(@"Cancel", nil)];
 
 
     // FIXME do this in IB
@@ -420,7 +421,7 @@ static NSArray *systemProfile = nil;
     NSString *email = [[NSUserDefaults standardUserDefaults] stringForKey:KEY_SENDEREMAIL];
     
     if (email == nil) {
-        email = NSLocalizedString(@"anonymous", nil);
+        email = FRLocalizedString(@"anonymous", nil);
 
 /*
         ABAddressBook *book = [ABAddressBook sharedAddressBook];

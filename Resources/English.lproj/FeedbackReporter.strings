@@ -1,10 +1,10 @@
 ﻿/* English */
 
 /* No comment provided by engineer. */
-"%@ has encountered an exception!\n\nPlease describe how this happened.\nIt might be safer to restart the application.\nSee below the information that will get send along." = "%@ has encountered an exception!\n\nPlease describe how this happened.\nIt might be safer to restart the application.\nSee below the information that will get send along.";
+"%@ has encountered an exception!" = "%@ has encountered an exception!\n\nPlease describe how this happened.\nIt might be safer to restart the application.\nSee below the information that will get send along.";
 
 /* No comment provided by engineer. */
-"%@ has recently crashed!\n\nPlease describe how this happened.\nSee below the information that will get send along." = "%@ has recently crashed!\n\nPlease describe how this happened.\nSee below the information that will get send along.";
+"%@ has recently crashed!" = "%@ has recently crashed!\n\nPlease describe how this happened.\nSee below the information that will get send along.";
 
 /* No comment provided by engineer. */
 "anonymous" = "anonymous";
@@ -31,7 +31,7 @@
 "Exception" = "Exception";
 
 /* No comment provided by engineer. */
-"Got a problem with %@?\n\nPlease describe what is wrong and how to reproduce it.\nSee below the information that will get send along." = "Got a problem with %@?\n\nPlease describe what is wrong and how to reproduce it.\nSee below the information that will get send along.";
+"Got a problem with %@?" = "Got a problem with %@?\n\nPlease describe what is wrong and how to reproduce it.\nSee below the information that will get send along.";
 
 /* No comment provided by engineer. */
 "OK" = "OK";
