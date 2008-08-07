@@ -1,21 +1,25 @@
 <html>
 <body>
     <p>
-        A critical bug fix release in terms of the CPU detection. Quite a few
-        other additions. Please note that the API has slightly changed.
+        This is a release with some major changes. A non-modal window makes it more user friendly.
+		The UI has been refined a bit. Deprecated API methods have been removed and a German localization
+		has been added. Please contact me for localization in other languages.
     </p>
 
     <ul>
-        <li>[FIX] CPU detection caused crashes on PPC.</li>
-        <li>[FIX] Script output sometimes did not get fully included.</li>
-        <li>[CHANGE] Slightly changed the API and deprecated the old hooks.</li>
-        <li>[CHANGE] No dialog on successful transmission.</li>
-        <li>[ADD] Support for catching uncaught exceptions.</li>
-        <li>[ADD] Auto-select tab.</li>
-        <li>[ADD] Upload data asynchronously.</li>
-        <li>[ADD] Cancel data transmission.</li>
-        <li>[ADD] Alert dialog if transmission failed.</li>
-        <li>[ADD] Report number of CPUs.</li>
+        <li>[CHANGE] Uses a non-modal window now!</li>
+        <li>[CHANGE] Different messages depending on how invoked.</li>
+        <li>[CHANGE] Only send the latest crash report.</li>
+        <li>[CHANGE] Only show relevant tabs.</li>
+        <li>[CHANGE] Restrict the ASL log information.</li>
+        <li>[CHANGE] Show system profile in table.</li>
+        <li>[CHANGE] Use scrollers and don't break the lines.</li>
+        <li>[CHANGE] Server script can now auto-add new project.</li>
+        <li>[CHANGE] FRFeedbackReport should now be used as a Singleton.</li>
+        <li>[REMOVED] Removed deprecated methods.</li>
+        <li>[REMOVED] Removed a dedicated user attribute.</li>
+        <li>[ADD] Now supports delegation. Custom values can be send along.</li>
+        <li>[ADD] German localization.</li>
     </ul>
 </body>
 </html>

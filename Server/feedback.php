@@ -15,19 +15,8 @@
  * limitations under the License.
  */
 
-# destination directory needs to be writable by web server
-$feedback_dir = '/path/to/feedback/';
-
-# fields that get stored as files
-$feedback_files = array('user', 'version', 'comment', 'email', 'exception', 'system', 'console', 'crashes', 'preferences', 'shell');
-
-// --------------------------------------
-$feedback_max_files = 20;
-
-function uniq()
-{
-    return date('Y-m-d\\TH:i:s-') . md5(getmypid().uniqid(rand()).$_SERVER[‘SERVER_NAME’]);
-}
+include 'config.php';
+include 'errorlog.php';
 
 function dirs($dir)
 {
@@ -44,23 +33,48 @@ function dirs($dir)
     return $dirArray;
 }
 
-$projects = dirs($feedback_dir);
-
-if (!$projects[$_GET['project']]) {
-    echo "ERR 001\n";
-    exit;
+function uniq()
+{
+    return date('Y-m-d\\TH:i:s-') . md5(getmypid().uniqid(rand()).$_SERVER[‘SERVER_NAME’]);
 }
 
-$project_dir  = $feedback_dir . $projects[$_GET['project']] . '/';
+$project_raw = $_GET['project'];
+$project = preg_replace('/[^(0-9A-Za-z)]*/', '', $project_raw);
+
+if ($project != $project_raw) {
+    echo "ERR 007\n";
+    exit;    
+}
+
+$project_dir = $feedback_dir . $project . '/';
 
 if(!is_dir($project_dir)) {
-    echo "ERR 002\n";
-    exit;    
+    // no project directory
+    
+    if (!$create_project_dirs) {
+        // no project directory (and not configured to create one)
+        echo "ERR 002\n";
+        exit;        
+    }
+    
+    if (count(dirs($feedback_dir)) > $feedback_max_project) {
+        // too many projects
+        echo "ERR 009\n";
+        exit;                
+    }
+    
+    // create project dir
+    if (!mkdir($project_dir)) {
+        // failed to create project directory
+        echo "ERR 008\n";
+        exit;
+    }
 }
 
 $submission_dir = $project_dir . uniq() . '/';
 
 if (!mkdir($submission_dir)) {
+    // failed to create submission directory
     echo "ERR 003\n";
     exit;
 }
@@ -72,6 +86,7 @@ foreach($feedback_files as $file) {
    $fh = fopen($dest, "w");
    
    if (!$fh) {
+       // failed to create file
        echo "ERR 004 $file\n";
        continue;
    }
@@ -84,6 +99,7 @@ foreach($feedback_files as $file) {
 }
 
 if (count($_FILES) > $feedback_max_files) {
+    // too many files submitted
     echo "ERR 005\n";
     exit;
 }
@@ -95,12 +111,13 @@ foreach($_FILES as $file) {
     $dest = $submission_dir . "file-$i";
     
     if(!move_uploaded_file($file['tmp_name'], $dest)){
+        // failed to move uploaded file
         echo 'ERR 006 ' . $file['error'] . "\n";
     } else {
         echo 'OK 006 ' . $file['name'] . "\n";
     }
     
-    @chmod($dest, 0644);
+    chmod($dest, 0644);
 }
 
 ?>

@@ -62,11 +62,7 @@ static void report( NSException *x ) {
 {
     [super reportException: x];
     
-    //MYSetExceptionReporter(NULL);     // ignore further exceptions till alert is dismissed
-
     [[FRFeedbackReporter sharedReporter] reportException:x];
-
-    //MYSetExceptionReporter(&report);  // turn it back on
 }
 
 

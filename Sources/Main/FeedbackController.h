@@ -28,18 +28,20 @@
     IBOutlet NSTabView *tabView;
     IBOutlet NSTabViewItem *tabSystem;
     IBOutlet NSTabViewItem *tabConsole;
-    IBOutlet NSTabViewItem *tabCrashes;
-    IBOutlet NSTabViewItem *tabShell;
+    IBOutlet NSTabViewItem *tabCrash;
+    IBOutlet NSTabViewItem *tabScript;
     IBOutlet NSTabViewItem *tabPreferences;
     IBOutlet NSTabViewItem *tabException;
-    
 
+    IBOutlet NSTextField *commentLabel;
+    IBOutlet NSTextField *addressLabel;    
+    IBOutlet NSTextField *detailsLabel;
     BOOL detailsShown;
 
     IBOutlet NSTableView *systemView;
     IBOutlet NSTextView *consoleView;
     IBOutlet NSTextView *crashesView;
-    IBOutlet NSTextView *shellView;
+    IBOutlet NSTextView *scriptView;
     IBOutlet NSTextView *preferencesView;
     IBOutlet NSTextView *exceptionView;
 
@@ -62,11 +64,13 @@
 - (void) setComment:(NSString*)comment;
 - (void) setException:(NSString*)exception;
 
-#pragma mark Other
+#pragma mark UI
 
 - (IBAction) showDetails:(id)sender;
 - (IBAction) cancel:(id)sender;
 - (IBAction) send:(id)sender;
+
+#pragma mark Other
 
 - (void) reset;
 - (BOOL) isShown;

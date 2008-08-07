@@ -1,3 +1,4 @@
+<?php
 /*
  * Copyright 2008, Torsten Curdt
  *
@@ -14,11 +15,24 @@
  * limitations under the License.
  */
 
-#import <Cocoa/Cocoa.h>
+include 'config.php';
+include 'errorlog.php';
 
+$project_raw = $_GET['project'];
+$project = preg_replace('/[^(0-9A-Za-z)]*/', '', $project_raw);
 
-@interface ConsoleLog : NSObject
+$submission_raw = $_GET['submission'];
+$submission = preg_replace('/[^(0-9A-Za-z\-\:)]*/', '', $submission_raw);
 
-+ (NSString*) logSince:(NSDate*)date;
+$submission_dir = $feedback_dir . $project . '/' . $submission;
 
-@end
+if(!is_dir($submission_dir)) {
+    // no submission directory
+    header("HTTP/1.1 404 Not Found"); 
+    print("<html><body>HTTP 404 - Not Found</body></html>");
+    exit;
+}
+
+echo "Found $submission";
+
+?>

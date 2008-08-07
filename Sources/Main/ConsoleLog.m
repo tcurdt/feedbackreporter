@@ -24,11 +24,9 @@
 
 @implementation ConsoleLog
 
-+ (NSString*) log
++ (NSString*) logSince:(NSDate*)since;
 {
     NSMutableString *console = [[[NSMutableString alloc] init] autorelease];
-
-    NSDate* since = [[NSCalendarDate calendarDate] dateByAddingYears:0 months:0 days:-1 hours:0 minutes:0 seconds:0];
 
 /* Leopard: */
 

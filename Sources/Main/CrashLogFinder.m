@@ -54,9 +54,7 @@
         NSString* libraryDirectory = [libraryDirectories objectAtIndex:i];
 
 
-/* Tiger:
-    [NSString stringWithFormat: @"~/Library/Logs/CrashReporter/%@.crash.log", [Application applicationName]],
-*/
+        /* Tiger */
         NSString* log1 = [NSString stringWithFormat: @"Logs/CrashReporter/%@.crash.log", [Application applicationName]];
         log1 = [[libraryDirectory stringByAppendingPathComponent:log1] stringByExpandingTildeInPath];
 
@@ -66,16 +64,11 @@
             [files addObject:log1];
         }
                 
-/*  Leppard:
-    .Fossi_shodan_CrashHistory.plist
-    [NSString stringWithFormat: @"~/Library/Logs/CrashReporter/%@_2008-05-09-012401_shodan.crash", [self applicationName]],
-    [NSString stringWithFormat: @"/Library/Logs/HangReporter/%@/2008-04-24-132937-Mail.hang", [self applicationName]],
-*/
-        
+        /*  Leppard */        
         NSDirectoryEnumerator *enumerator;
         NSString *file;
         
-        NSString* log2 = [NSString stringWithFormat: @"Logs/CrashReporter/", [Application applicationName]];
+        NSString* log2 = @"Logs/CrashReporter/";
         log2 = [[libraryDirectory stringByAppendingPathComponent:log2] stringByExpandingTildeInPath];
 
         NSLog(@"Searching for crash files at %@", log2);

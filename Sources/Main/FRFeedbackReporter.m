@@ -85,8 +85,8 @@ static FRFeedbackReporter *sharedReporter = nil;
     [controller reset];
 
     [controller setMessage:[NSString stringWithFormat:
-        NSLocalizedString(@"Encountered a problem with %@?\n\n"
-                           "Please provide some comments of what happened.\n"
+        NSLocalizedString(@"Got a problem with %@?\n\n"
+                           "Please describe what is wrong and how to reproduce it.\n"
                            "See below the information that will get send along.", nil),
         [Application applicationName]]];
     
@@ -120,12 +120,10 @@ static FRFeedbackReporter *sharedReporter = nil;
             [controller reset];
 
             [controller setMessage:[NSString stringWithFormat:
-                NSLocalizedString(@"Encountered a problem with %@?\n\n"
-                                   "Please provide some comments of what happened.\n"
+                NSLocalizedString(@"%@ has recently crashed!\n\n"
+                                   "Please describe how this happened.\n"
                                    "See below the information that will get send along.", nil),
                 [Application applicationName]]];
-
-            [controller setComment:NSLocalizedString(@"The application crashed after I...", nil)];
 
             [controller setDelegate:delegate];
 
@@ -152,12 +150,11 @@ static FRFeedbackReporter *sharedReporter = nil;
     [controller reset];
     
     [controller setMessage:[NSString stringWithFormat:
-        NSLocalizedString(@"Encountered a problem with %@?\n\n"
-                           "Please provide some comments of what happened.\n"
+        NSLocalizedString(@"%@ has encountered an exception!\n\n"
+                           "Please describe how this happened.\n"
+                           "It might be safer to restart the application.\n"
                            "See below the information that will get send along.", nil),
         [Application applicationName]]];
-
-    [controller setComment:NSLocalizedString(@"Uncought exception", nil)];
 
     [controller setException:[NSString stringWithFormat: @"%@\n\n%@\n\n%@",
                                 [exception name],

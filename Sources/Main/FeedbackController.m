@@ -42,8 +42,8 @@
 - (void) dealloc
 {
     [tabConsole release];
-    [tabCrashes release];
-    [tabShell release];
+    [tabCrash release];
+    [tabScript release];
     [tabPreferences release];
     [tabException release];
     
@@ -81,9 +81,12 @@
 
 #pragma mark information gathering
 
-- (NSString*) console
+- (NSString*) consoleLog
 {
-    return [ConsoleLog log];
+    // TODO make configurable
+    NSDate* since = [[NSCalendarDate calendarDate] dateByAddingYears:0 months:0 days:-1 hours:0 minutes:0 seconds:0];
+
+    return [ConsoleLog logSince:since];
 }
 
 
@@ -144,17 +147,17 @@ static NSArray *systemProfile = nil;
     return @"";
 }
 
-- (NSString*) shell
+- (NSString*) scriptLog
 {
-    NSMutableString *shell = [NSMutableString string];
+    NSMutableString *log = [NSMutableString string];
 
     NSString *scriptPath = [[NSBundle mainBundle] pathForResource:FILE_SHELLSCRIPT ofType:@"sh"];
 
     if ([[NSFileManager defaultManager] fileExistsAtPath:scriptPath]) {
 
         Command *cmd = [[Command alloc] initWithPath:scriptPath];
-        [cmd setOutput:shell];
-        [cmd setError:shell];
+        [cmd setOutput:log];
+        [cmd setError:log];
         int ret = [cmd execute];
         [cmd release];
 
@@ -164,7 +167,7 @@ static NSArray *systemProfile = nil;
         NSLog(@"No custom script to execute");
     }
 
-    return shell;
+    return log;
 }
 
 - (NSString*) preferences
@@ -263,7 +266,7 @@ static NSArray *systemProfile = nil;
     [dict setObject:[crashesView string]
              forKey:POST_KEY_CRASHES];
 
-    [dict setObject:[shellView string]
+    [dict setObject:[scriptView string]
              forKey:POST_KEY_SHELL];
 
     [dict setObject:[preferencesView string]
@@ -372,10 +375,23 @@ static NSArray *systemProfile = nil;
 	[[self window] setDelegate:self];
 
     [tabConsole retain];
-    [tabCrashes retain];
-    [tabShell retain];
+    [tabCrash retain];
+    [tabScript retain];
     [tabPreferences retain];
     [tabException retain];
+
+
+    [commentLabel setStringValue:NSLocalizedString(@"Comments:", nil)];
+    [addressLabel setStringValue:NSLocalizedString(@"Email address:", nil)];
+    
+    [tabConsole setLabel:NSLocalizedString(@"Console", nil)];
+    [tabCrash setLabel:NSLocalizedString(@"CrashLog", nil)];
+    [tabScript setLabel:NSLocalizedString(@"Script", nil)];
+    [tabPreferences setLabel:NSLocalizedString(@"Preferences", nil)];
+    [tabException setLabel:NSLocalizedString(@"Exception", nil)];
+    
+    [sendButton setStringValue:NSLocalizedString(@"Send", nil)];
+    [cancelButton setStringValue:NSLocalizedString(@"Cancel", nil)];
 
 
     // FIXME do this in IB
@@ -383,20 +399,21 @@ static NSArray *systemProfile = nil;
     [[consoleView textContainer] setWidthTracksTextView:NO];
     [[crashesView textContainer] setContainerSize:NSMakeSize(FLT_MAX, FLT_MAX)];
     [[crashesView textContainer] setWidthTracksTextView:NO];
-    [[shellView textContainer] setContainerSize:NSMakeSize(FLT_MAX, FLT_MAX)];
-    [[shellView textContainer] setWidthTracksTextView:NO];
+    [[scriptView textContainer] setContainerSize:NSMakeSize(FLT_MAX, FLT_MAX)];
+    [[scriptView textContainer] setWidthTracksTextView:NO];
     [[preferencesView textContainer] setContainerSize:NSMakeSize(FLT_MAX, FLT_MAX)];
     [[preferencesView textContainer] setWidthTracksTextView:NO];
     [[exceptionView textContainer] setContainerSize:NSMakeSize(FLT_MAX, FLT_MAX)];
     [[exceptionView textContainer] setWidthTracksTextView:NO];
+    
 }
 
 
 - (void) reset
 {
     [tabView removeTabViewItem:tabConsole];
-    [tabView removeTabViewItem:tabCrashes];
-    [tabView removeTabViewItem:tabShell];
+    [tabView removeTabViewItem:tabCrash];
+    [tabView removeTabViewItem:tabScript];
     [tabView removeTabViewItem:tabPreferences];
     [tabView removeTabViewItem:tabException];
 
@@ -423,11 +440,11 @@ static NSArray *systemProfile = nil;
     [exceptionView     setString:@""];
 
     NSLog(@"console");
-    [consoleView       setString:[self console]];
+    [consoleView       setString:[self consoleLog]];
     NSLog(@"crashes");
     [crashesView       setString:[self crashLog]];
     NSLog(@"shell");
-    [shellView         setString:[self shell]];
+    [scriptView         setString:[self scriptLog]];
     NSLog(@"preferences");
     [preferencesView   setString:[self preferences]];
     NSLog(@"ready");
@@ -445,11 +462,11 @@ static NSArray *systemProfile = nil;
     }
 
     if ([[crashesView string] length] != 0) {
-        [tabView insertTabViewItem:tabCrashes atIndex:1];
+        [tabView insertTabViewItem:tabCrash atIndex:1];
     }
 
-    if ([[shellView string] length] != 0) {
-        [tabView insertTabViewItem:tabShell atIndex:1];
+    if ([[scriptView string] length] != 0) {
+        [tabView insertTabViewItem:tabScript atIndex:1];
     }
 
     if ([[preferencesView string] length] != 0) {
