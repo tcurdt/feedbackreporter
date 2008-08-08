@@ -23,7 +23,6 @@
 #import "SystemProfile.h"
 #import "Constants.h"
 #import "ConsoleLog.h"
-#import "Localizable.h"
 
 @implementation FeedbackController
 

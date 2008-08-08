@@ -22,7 +22,6 @@
 #import "Uploader.h"
 #import "Application.h"
 #import "Constants.h"
-#import "Localizable.h"
 
 #import <uuid/uuid.h>
 
