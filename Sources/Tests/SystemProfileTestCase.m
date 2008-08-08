@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-#import "SystemDiscoveryTestCase.h"
+#import "SystemProfileTestCase.h"
 #import "SystemProfile.h"
 
-@implementation SystemDiscoveryTestCase
+@implementation SystemProfileTestCase
 
 - (void) testDiscovery
 {

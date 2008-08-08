@@ -18,10 +18,10 @@
 
 #define KEY_LASTCRASHCHECKDATE @"FRFeedbackReporter.lastCrashCheckDate"
 #define KEY_LASTSTATISTICSDATE @"FRFeedbackReporter.lastStatisticsDate"
-#define KEY_UUID               @"FRFeedbackReporter.uuid"
-#define KEY_SENDEREMAIL        @"FRFeedbackReporter.sender"
 #define KEY_LASTSUBMISSIONDATE @"FRFeedbackReporter.lastSubmissionDate"
+#define KEY_SENDEREMAIL        @"FRFeedbackReporter.sender"
 #define KEY_TARGETURL          @"FRFeedbackReporter.targetURL"
+#define KEY_UUID               @"FRFeedbackReporter.uuid"
 
 #define POST_KEY_EMAIL         @"email"
 #define POST_KEY_VERSION       @"version"

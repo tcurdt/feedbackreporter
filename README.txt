@@ -8,6 +8,10 @@ The source code is available through git at
 
  git://vafer.org/FeedbackReporter.git
 
+or via web interface
+
+ http://vafer.org/gitweb/FeedbackReporter.git
+
 Enjoy!
 
 

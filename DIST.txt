@@ -1,5 +1,5 @@
 LICENSE.txt
 RELEASENOTES.html
 README.txt
-Server/feedback.php
-Server/feedback.html
+Server/*
+Sources/*

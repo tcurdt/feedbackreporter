@@ -36,6 +36,7 @@
     IBOutlet NSTextField *commentLabel;
     IBOutlet NSTextField *addressLabel;    
     IBOutlet NSTextField *detailsLabel;
+
     BOOL detailsShown;
 
     IBOutlet NSTableView *systemView;

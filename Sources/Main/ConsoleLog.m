@@ -28,7 +28,7 @@
 {
     NSMutableString *console = [[[NSMutableString alloc] init] autorelease];
 
-/* Leopard: */
+    /* Leopard: */
 
     aslmsg query = asl_new(ASL_TYPE_QUERY);
 
@@ -51,7 +51,7 @@
 
     aslresponse_free(response);
 
-/*  Tiger: */
+    /*  Tiger: */
 
     NSString *logPath = [NSString stringWithFormat: @"/Library/Logs/Console/%@/console.log", [NSNumber numberWithUnsignedInt:getuid()]];
 

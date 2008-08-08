@@ -17,7 +17,7 @@
 #import <SenTestingKit/SenTestingKit.h>
 
 
-@interface SystemDiscoveryTestCase : SenTestCase {
+@interface SystemProfileTestCase : SenTestCase {
 
 }
 
