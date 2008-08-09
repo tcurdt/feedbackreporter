@@ -99,36 +99,33 @@ static FRFeedbackReporter *sharedReporter = nil;
 {
     NSDate *lastCrashCheckDate = [[NSUserDefaults standardUserDefaults] valueForKey:KEY_LASTCRASHCHECKDATE];
     
-    if (lastCrashCheckDate != nil) {
-        NSArray *crashFiles = [CrashLogFinder findCrashLogsSince:lastCrashCheckDate];
+    NSArray *crashFiles = [CrashLogFinder findCrashLogsSince:lastCrashCheckDate];
 
-        [[NSUserDefaults standardUserDefaults] setValue: [NSDate date]
-                                                 forKey: KEY_LASTCRASHCHECKDATE];
+    [[NSUserDefaults standardUserDefaults] setValue: [NSDate date]
+                                             forKey: KEY_LASTCRASHCHECKDATE];
+    
+    if ([crashFiles count] > 0) {
+        NSLog(@"Found new crash files");
+
+        FeedbackController *controller = [self feedbackController];
         
-        if ([crashFiles count] > 0) {
-            NSLog(@"Found new crash files");
-
-            FeedbackController *controller = [self feedbackController];
-            
-            if ([controller isShown]) {
-                NSLog(@"Controller already shown");
-                return NO;
-            }
-
-            [controller reset];
-
-            [controller setMessage:[NSString stringWithFormat:
-                FRLocalizedString(@"%@ has recently crashed!", nil),
-                [Application applicationName]]];
-
-            [controller setDelegate:delegate];
-
-            [controller showWindow:self];
-
-            return YES;
-
+        if ([controller isShown]) {
+            NSLog(@"Controller already shown");
+            return NO;
         }
-            
+
+        [controller reset];
+
+        [controller setMessage:[NSString stringWithFormat:
+            FRLocalizedString(@"%@ has recently crashed!", nil),
+            [Application applicationName]]];
+
+        [controller setDelegate:delegate];
+
+        [controller showWindow:self];
+
+        return YES;
+
     }
     
     return NO;

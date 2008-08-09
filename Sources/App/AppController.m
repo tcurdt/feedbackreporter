@@ -19,6 +19,12 @@
 
 @implementation AppController
 
+- (void) awakeFromNib
+{
+    NSLog(@"checking for crash");
+    [[FRFeedbackReporter sharedReporter] reportIfCrash];
+}
+
 - (IBAction) buttonFeedback:(id)sender
 {
     NSLog(@"button");
