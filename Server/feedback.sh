@@ -6,6 +6,7 @@ DIR=/home/tcurdt/feedback
 EMAIL_FROM=noreply@vafer.org
 EMAIL_TO=tcurdt@vafer.org
 EMAIL_SUBJECT="[FeedbackReporter] Feedback for PROJECT"
+SHOW_URL=http://vafer.org/feedback/show.php
 
 # do not touch below
 
@@ -66,8 +67,11 @@ SUBMISSIONS=`find $DIR -type d -name "2*" $NEWER`
 
 for S in $SUBMISSIONS; do
 
-    echo "Found `basename $S`"
-    ARCHIVE=/tmp/`basename "$S"`.zip
+    SUBMISSION=`basename "$S"`
+
+    echo "Found $SUBMISSION"
+
+    ARCHIVE="/tmp/${SUBMISSION}.zip"
     
     if [ -f $ARCHIVE ]; then
         rm $ARCHIVE
@@ -88,7 +92,7 @@ for S in $SUBMISSIONS; do
 
     REPLYTO=`cat $S/email`
     
-    CONTENT=`cat $S/comment`
+    CONTENT="Feedback at ${SHOW_URL}?project=${PROJECT}&submission=${SUBMISSION}"
 
     (
         email "$EMAIL_FROM" "$EMAIL_TO" $REPLYTO "$SUBJECT" "$CONTENT" "$ARCHIVE"

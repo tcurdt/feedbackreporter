@@ -32,7 +32,67 @@ if(!is_dir($submission_dir)) {
     print("<html><body>HTTP 404 - Not Found</body></html>");
     exit;
 }
+?><!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+	<head>
+		<title>Feedback Report - <?php echo "$submission"; ?></title>
+		<style type="text/css" media="screen">
+pre {
+    white-space: pre-wrap;       /* css-3 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+    margin: 0;
+    padding: 0;
+}
+div {
+	border: 1px solid;    
+	background-color: #ccc;
+	margin: 5px;
+	padding: 5px;
+}
 
-echo "Found $submission";
+#comment {
+	width: 500px;
+}
+#email {
+	width: 250px;
+}	
+#system {
+	width: 500px;
+}	
+#version {
+	width: 500px;
+}	
+#console {
+	width: 1000px;
+}	
+#crashlog {
+	width: 1000px;
+}	
+#exception {
+	width: 500px;
+}	
+#preferences {
+	width: 500px;
+}	
+#shell {
+	width: 500px;
+}	
+		</style>
+	</head>
+<body>
 
-?>
+<div id="version"><pre><?php readfile($submission_dir . '/version'); ?></pre></div>
+<div id="email"><pre><?php readfile($submission_dir . '/email'); ?></pre></div>
+<div id="system"><pre><?php readfile($submission_dir . '/system'); ?></pre></div>
+<div id="comment"><pre><?php readfile($submission_dir . '/comment'); ?></pre></div>
+<div id="console"><pre><?php readfile($submission_dir . '/console'); ?></pre></div>
+<div id="crashlog"><pre><?php readfile($submission_dir . '/crashes'); ?></pre></div>
+<div id="exception"><pre><?php readfile($submission_dir . '/exception'); ?></pre></div>
+<div id="preferences"><pre><?php readfile($submission_dir . '/preferences'); ?></pre></div>
+<div id="shell"><pre><?php readfile($submission_dir . '/shell'); ?></pre></div>
+
+</body>
+</html>

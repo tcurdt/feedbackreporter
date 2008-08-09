@@ -21,6 +21,6 @@
 	<key>NSPrincipalClass</key>
 	<string>FRExceptionReportingApplication</string>
 	<key>FRFeedbackReporter.targetURL</key>
-	<string>http://vafer.org/feedback.php?project=%@</string>
+	<string>http://vafer.org/feedback/feedback.php?project=%@</string>
 </dict>
 </plist>
