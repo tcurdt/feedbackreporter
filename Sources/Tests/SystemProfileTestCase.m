@@ -21,15 +21,10 @@
 
 - (void) testDiscovery
 {
-    SystemProfile *discovery = [[SystemProfile alloc] init];
+    NSArray *profile = [SystemProfile discover];
     
-    NSDictionary *dict = [discovery discover];
-    
-    NSString *cpu_type = [dict valueForKey:@"CPU_TYPE"];
-    
-    STAssertTrue([cpu_type length] > 0, @"No CPU type found");
+    STAssertTrue([profile count] > 0, @"No profile data");
 
-    [discovery release];
 }
 
 
