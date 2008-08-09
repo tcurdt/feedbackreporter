@@ -21,8 +21,25 @@
 
 - (void) awakeFromNib
 {
+    [[FRFeedbackReporter sharedReporter] setDelegate:self];
+
     NSLog(@"checking for crash");
     [[FRFeedbackReporter sharedReporter] reportIfCrash];
+}
+
+- (NSDictionary*) customParametersForFeedbackReport
+{
+    NSLog(@"adding custom parameters");
+
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+
+    [dict setObject:@"tcurdt"
+             forKey:@"user"];
+
+    [dict setObject:@"1234-1234-1234-1234"
+             forKey:@"license"];
+
+    return dict;
 }
 
 - (IBAction) buttonFeedback:(id)sender
