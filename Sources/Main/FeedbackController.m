@@ -132,8 +132,10 @@ static NSArray *systemProfile = nil;
         NSString *crashFile = [crashFiles objectAtIndex:i];
         NSDictionary *fileAttributes = [fileManager fileAttributesAtPath:crashFile traverseLink:YES];
         NSDate *fileModDate = [fileAttributes objectForKey:NSFileModificationDate];
-        
-        if ([fileModDate earlierDate:newest] == fileModDate) {
+
+        NSLog(@"CrashLog: %@", crashFile);
+
+        if ([fileModDate laterDate:newest] == fileModDate) {
             newest = fileModDate;
             newestIndex = i;
         }
@@ -141,7 +143,11 @@ static NSArray *systemProfile = nil;
     }
     
     if (newestIndex != -1) {
-        return [NSString stringWithContentsOfFile:[crashFiles objectAtIndex:newestIndex]];
+        NSString *newestCrashFile = [crashFiles objectAtIndex:newestIndex];
+
+        NSLog(@"Picking CrashLog: %@", newestCrashFile);
+
+        return [NSString stringWithContentsOfFile:newestCrashFile];
     }
 
     return @"";
