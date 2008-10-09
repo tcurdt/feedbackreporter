@@ -6,11 +6,11 @@ see the screencast and the documentation section at
 Suggestions, bug reports and fixes are much welcome.
 The source code is available through git at
 
- git://vafer.org/FeedbackReporter.git
+ git clone git://github.com/tcurdt/feedbackreporter.git
 
 or via web interface
 
- http://vafer.org/gitweb/FeedbackReporter.git
+ http://github.com/tcurdt/feedbackreporter/tree/master
 
 Enjoy!
 
