@@ -37,6 +37,15 @@
     return self;
 }
 
+- (void) awakeFromNib
+{
+    [tabConsole retain];
+    [tabCrash retain];
+    [tabScript retain];
+    [tabPreferences retain];
+    [tabException retain];
+}
+
 #pragma mark Destruction
 
 - (void) dealloc
@@ -227,7 +236,7 @@ static NSArray *systemProfile = nil;
 
 - (IBAction)cancel:(id)sender
 {
-    [uploader cancel];
+    [uploader cancel], uploader = nil;
     
     [self close];
 }
@@ -379,13 +388,6 @@ static NSArray *systemProfile = nil;
 - (void) windowDidLoad
 {
 	[[self window] setDelegate:self];
-
-    [tabConsole retain];
-    [tabCrash retain];
-    [tabScript retain];
-    [tabPreferences retain];
-    [tabException retain];
-
 
     [commentLabel setStringValue:FRLocalizedString(@"Comments:", nil)];
     [addressLabel setStringValue:FRLocalizedString(@"Email address:", nil)];
