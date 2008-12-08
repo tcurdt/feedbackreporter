@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-#import "ConsoleLog.h"
-#import "Constants.h"
-#import "Application.h"
+#import "FRConsoleLog.h"
+#import "FRConstants.h"
+#import "FRApplication.h"
 
 #import <asl.h>
 #import <unistd.h>
 
 
-@implementation ConsoleLog
+@implementation FRConsoleLog
 
 + (NSString*) logSince:(NSDate*)since;
 {
@@ -32,7 +32,7 @@
 
     aslmsg query = asl_new(ASL_TYPE_QUERY);
 
-    asl_set_query(query, ASL_KEY_SENDER, [[Application applicationName] UTF8String], ASL_QUERY_OP_EQUAL);
+    asl_set_query(query, ASL_KEY_SENDER, [[FRApplication applicationName] UTF8String], ASL_QUERY_OP_EQUAL);
     asl_set_query(query, ASL_KEY_TIME, [[NSString stringWithFormat:@"%01f", [since timeIntervalSince1970]] UTF8String], ASL_QUERY_OP_GREATER_EQUAL);
 
     aslresponse response = asl_search(NULL, query);
@@ -58,7 +58,7 @@
     // TODO read and filter line by line
     NSString *log = [NSString stringWithContentsOfFile:logPath];
 
-    NSString *filter = [NSString stringWithFormat: @"%@[", [Application applicationName]];
+    NSString *filter = [NSString stringWithFormat: @"%@[", [FRApplication applicationName]];
 
 
     NSEnumerator *lineEnum = [[log componentsSeparatedByString: @"\n"] objectEnumerator];

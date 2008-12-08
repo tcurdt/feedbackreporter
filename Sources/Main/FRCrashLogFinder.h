@@ -17,19 +17,8 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface Uploader : NSObject {
+@interface FRCrashLogFinder : NSObject
 
-    NSString *target;
-    id delegate;
-
-    NSURLConnection *connection;
-    NSMutableData *responseData;
-}
-
-- (id) initWithTarget:(NSString*)target delegate:(id)delegate;
-- (NSString*) post:(NSDictionary*)dict;
-- (void) postAndNotify:(NSDictionary*)dict;
-- (void) cancel;
-- (NSString*) response;
++ (NSArray*) findCrashLogsSince:(NSDate*)date;
 
 @end

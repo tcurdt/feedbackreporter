@@ -15,13 +15,13 @@
  */
 
 #import "SystemProfileTestCase.h"
-#import "SystemProfile.h"
+#import "FRSystemProfile.h"
 
 @implementation SystemProfileTestCase
 
 - (void) testDiscovery
 {
-    NSArray *profile = [SystemProfile discover];
+    NSArray *profile = [FRSystemProfile discover];
     
     STAssertTrue([profile count] > 0, @"No profile data");
 

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-#import "CrashLogFinder.h"
-#import "Application.h"
+#import "FRCrashLogFinder.h"
+#import "FRApplication.h"
 
-@implementation CrashLogFinder
+@implementation FRCrashLogFinder
 
 + (BOOL)file:(NSString*)path isNewerThan:(NSDate*)date
 {
@@ -55,7 +55,7 @@
 
 
         /* Tiger */
-        NSString* log1 = [NSString stringWithFormat: @"Logs/CrashReporter/%@.crash.log", [Application applicationName]];
+        NSString* log1 = [NSString stringWithFormat: @"Logs/CrashReporter/%@.crash.log", [FRApplication applicationName]];
         log1 = [[libraryDirectory stringByAppendingPathComponent:log1] stringByExpandingTildeInPath];
 
         NSLog(@"Searching for crash files at %@", log1);
@@ -78,7 +78,7 @@
             enumerator  = [fileManager enumeratorAtPath:log2];
             while ((file = [enumerator nextObject])) {
 
-                if ([file hasSuffix:@".crash"] && [file hasPrefix:[Application applicationName]]) {
+                if ([file hasSuffix:@".crash"] && [file hasPrefix:[FRApplication applicationName]]) {
 
                     file = [[log2 stringByAppendingPathComponent:file] stringByExpandingTildeInPath];
 
@@ -90,7 +90,7 @@
         }
 
 
-        NSString* log3 = [NSString stringWithFormat: @"Logs/HangReporter/%@/", [Application applicationName]];
+        NSString* log3 = [NSString stringWithFormat: @"Logs/HangReporter/%@/", [FRApplication applicationName]];
         log3 = [[libraryDirectory stringByAppendingPathComponent:log3] stringByExpandingTildeInPath];
 
         NSLog(@"Searching for hang files at %@", log3);

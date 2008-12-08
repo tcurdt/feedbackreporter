@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-#import "FeedbackController.h"
+#import "FRFeedbackController.h"
 #import "FRFeedbackReporter.h"
-#import "Uploader.h"
-#import "Command.h"
-#import "Application.h"
-#import "CrashLogFinder.h"
-#import "SystemProfile.h"
-#import "Constants.h"
-#import "ConsoleLog.h"
+#import "FRUploader.h"
+#import "FRCommand.h"
+#import "FRApplication.h"
+#import "FRCrashLogFinder.h"
+#import "FRSystemProfile.h"
+#import "FRConstants.h"
+#import "FRConsoleLog.h"
 
-@implementation FeedbackController
+@implementation FRFeedbackController
 
 #pragma mark Construction
 
@@ -95,7 +95,7 @@
     // TODO make configurable
     NSDate* since = [[NSCalendarDate calendarDate] dateByAddingYears:0 months:0 days:-1 hours:0 minutes:0 seconds:0];
 
-    return [ConsoleLog logSince:since];
+    return [FRConsoleLog logSince:since];
 }
 
 
@@ -103,7 +103,7 @@ static NSArray *systemProfile = nil;
 - (NSArray*) systemProfile
 {
     if (systemProfile == nil) {
-        systemProfile = [SystemProfile discover];
+        systemProfile = [FRSystemProfile discover];
     }
     return systemProfile;
 }
@@ -125,7 +125,7 @@ static NSArray *systemProfile = nil;
 
     NSDate *lastSubmissionDate = [[NSUserDefaults standardUserDefaults] valueForKey:KEY_LASTSUBMISSIONDATE];
 
-    NSArray *crashFiles = [CrashLogFinder findCrashLogsSince:lastSubmissionDate];
+    NSArray *crashFiles = [FRCrashLogFinder findCrashLogsSince:lastSubmissionDate];
 
     int i = [crashFiles count];
 
@@ -170,7 +170,7 @@ static NSArray *systemProfile = nil;
 
     if ([[NSFileManager defaultManager] fileExistsAtPath:scriptPath]) {
 
-        Command *cmd = [[Command alloc] initWithPath:scriptPath];
+        FRCommand *cmd = [[FRCommand alloc] initWithPath:scriptPath];
         [cmd setOutput:log];
         [cmd setError:log];
         int ret = [cmd execute];
@@ -187,7 +187,7 @@ static NSArray *systemProfile = nil;
 
 - (NSString*) preferences
 {
-    NSDictionary *preferences = [[NSUserDefaults standardUserDefaults] persistentDomainForName:[Application applicationIdentifier]];
+    NSDictionary *preferences = [[NSUserDefaults standardUserDefaults] persistentDomainForName:[FRApplication applicationIdentifier]];
     
     if (preferences == nil) {
         return @"";
@@ -248,14 +248,14 @@ static NSArray *systemProfile = nil;
         return;
     }
             
-    NSString *target = [Application feedbackURL];
+    NSString *target = [FRApplication feedbackURL];
     
     if (target == nil) {
         NSLog(@"You are missing the %@ key in your Info.plist!", KEY_TARGETURL);
         return;        
     }
 
-    uploader = [[Uploader alloc] initWithTarget:[Application feedbackURL] delegate:self];
+    uploader = [[FRUploader alloc] initWithTarget:[FRApplication feedbackURL] delegate:self];
     
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:5];
 
@@ -266,7 +266,7 @@ static NSArray *systemProfile = nil;
     [dict setObject:[emailField stringValue]
              forKey:POST_KEY_EMAIL];
 
-    [dict setObject:[Application applicationVersion]
+    [dict setObject:[FRApplication applicationVersion]
              forKey:POST_KEY_VERSION];
 
     [dict setObject:[commentView string]
@@ -297,7 +297,7 @@ static NSArray *systemProfile = nil;
     [dict release];
 }
 
-- (void) uploaderStarted:(Uploader*)pUploader
+- (void) uploaderStarted:(FRUploader*)pUploader
 {
     NSLog(@"Upload started");
 
@@ -308,7 +308,7 @@ static NSArray *systemProfile = nil;
     [sendButton setEnabled:NO];
 }
 
-- (void) uploaderFailed:(Uploader*)pUploader withError:(NSError*)error
+- (void) uploaderFailed:(FRUploader*)pUploader withError:(NSError*)error
 {
     NSLog(@"Upload failed: %@", error);
 
@@ -331,7 +331,7 @@ static NSArray *systemProfile = nil;
     [self close];
 }
 
-- (void) uploaderFinished:(Uploader*)pUploader
+- (void) uploaderFinished:(FRUploader*)pUploader
 {
     NSLog(@"Upload finished");
 

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-#import "Application.h"
-#import "Constants.h"
+#import "FRApplication.h"
+#import "FRConstants.h"
 
-@implementation Application
+@implementation FRApplication
 
 + (NSString*) applicationVersion
 {
@@ -56,7 +56,7 @@
         return nil;
     }
 
-    return [NSString stringWithFormat:target, [Application applicationName]];
+    return [NSString stringWithFormat:target, [FRApplication applicationName]];
 }
 
 

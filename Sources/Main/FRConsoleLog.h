@@ -17,18 +17,8 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface SystemProfile : NSObject
+@interface FRConsoleLog : NSObject
 
-+ (NSArray*) discover;
-
-+ (NSString*) cputype;
-+ (BOOL) is64bit;
-+ (NSString*) osversion;
-+ (NSString*) architecture;
-+ (int) cpucount;
-+ (NSString*) machinemodel;
-+ (NSString*) language;
-+ (long) cpuspeed;
-+ (long) ramsize;
++ (NSString*) logSince:(NSDate*)date;
 
 @end

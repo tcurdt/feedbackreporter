@@ -15,9 +15,9 @@
  */
 
 #import <Cocoa/Cocoa.h>
-#import "Uploader.h"
+#import "FRUploader.h"
 
-@interface FeedbackController : NSWindowController {
+@interface FRFeedbackController : NSWindowController {
 
     IBOutlet NSTextField *messageField;
     IBOutlet NSTextView *commentView;
@@ -51,7 +51,7 @@
     IBOutlet NSButton *cancelButton;
     IBOutlet NSButton *sendButton;
     
-    Uploader *uploader;
+    FRUploader *uploader;
     
     id delegate;
 }

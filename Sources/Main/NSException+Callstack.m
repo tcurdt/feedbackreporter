@@ -15,7 +15,7 @@
  */
 
 #import "NSException+Callstack.h"
-#import "Command.h"
+#import "FRCommand.h"
 #import <unistd.h>
 
 @implementation NSException (Callstack)
@@ -68,7 +68,7 @@
     
     NSMutableString *output =[NSMutableString string];
 
-    Command *cmd = [[Command alloc] initWithPath:@"/usr/bin/atos"];
+    FRCommand *cmd = [[FRCommand alloc] initWithPath:@"/usr/bin/atos"];
     [cmd setArgs:args];
     [cmd setOutput:output];
     if([cmd execute] != 0) {

@@ -15,13 +15,13 @@
  */
 
 #import "FRFeedbackReporter.h"
-#import "FeedbackController.h"
-#import "CrashLogFinder.h"
-#import "SystemProfile.h"
+#import "FRFeedbackController.h"
+#import "FRCrashLogFinder.h"
+#import "FRSystemProfile.h"
 #import "NSException+Callstack.h"
-#import "Uploader.h"
-#import "Application.h"
-#import "Constants.h"
+#import "FRUploader.h"
+#import "FRApplication.h"
+#import "FRConstants.h"
 
 #import <uuid/uuid.h>
 
@@ -51,10 +51,10 @@ static FRFeedbackReporter *sharedReporter = nil;
 
 #pragma mark Variable Accessors
 
-- (FeedbackController*) feedbackController
+- (FRFeedbackController*) feedbackController
 {
     if (feedbackController == nil) {
-        feedbackController = [[FeedbackController alloc] init];
+        feedbackController = [[FRFeedbackController alloc] init];
     }
     
     return feedbackController;
@@ -75,7 +75,7 @@ static FRFeedbackReporter *sharedReporter = nil;
 
 - (BOOL) reportFeedback
 {
-    FeedbackController *controller = [self feedbackController];
+    FRFeedbackController *controller = [self feedbackController];
 
     if ([controller isShown]) {
         NSLog(@"Controller already shown");
@@ -86,7 +86,7 @@ static FRFeedbackReporter *sharedReporter = nil;
 
     [controller setMessage:[NSString stringWithFormat:
         FRLocalizedString(@"Got a problem with %@?", nil),
-        [Application applicationName]]];
+        [FRApplication applicationName]]];
     
     [controller setDelegate:delegate];
     
@@ -99,7 +99,7 @@ static FRFeedbackReporter *sharedReporter = nil;
 {
     NSDate *lastCrashCheckDate = [[NSUserDefaults standardUserDefaults] valueForKey:KEY_LASTCRASHCHECKDATE];
     
-    NSArray *crashFiles = [CrashLogFinder findCrashLogsSince:lastCrashCheckDate];
+    NSArray *crashFiles = [FRCrashLogFinder findCrashLogsSince:lastCrashCheckDate];
 
     [[NSUserDefaults standardUserDefaults] setValue: [NSDate date]
                                              forKey: KEY_LASTCRASHCHECKDATE];
@@ -107,7 +107,7 @@ static FRFeedbackReporter *sharedReporter = nil;
     if ([crashFiles count] > 0) {
         NSLog(@"Found new crash files");
 
-        FeedbackController *controller = [self feedbackController];
+        FRFeedbackController *controller = [self feedbackController];
         
         if ([controller isShown]) {
             NSLog(@"Controller already shown");
@@ -118,7 +118,7 @@ static FRFeedbackReporter *sharedReporter = nil;
 
         [controller setMessage:[NSString stringWithFormat:
             FRLocalizedString(@"%@ has recently crashed!", nil),
-            [Application applicationName]]];
+            [FRApplication applicationName]]];
 
         [controller setDelegate:delegate];
 
@@ -133,7 +133,7 @@ static FRFeedbackReporter *sharedReporter = nil;
 
 - (BOOL) reportException:(NSException *)exception
 {
-    FeedbackController *controller = [self feedbackController];
+    FRFeedbackController *controller = [self feedbackController];
 
     if ([controller isShown]) {
         NSLog(@"Controller already shown");
@@ -144,7 +144,7 @@ static FRFeedbackReporter *sharedReporter = nil;
     
     [controller setMessage:[NSString stringWithFormat:
         FRLocalizedString(@"%@ has encountered an exception!", nil),
-        [Application applicationName]]];
+        [FRApplication applicationName]]];
 
     [controller setException:[NSString stringWithFormat: @"%@\n\n%@\n\n%@",
                                 [exception name],

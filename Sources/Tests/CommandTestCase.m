@@ -15,13 +15,13 @@
  */
 
 #import "CommandTestCase.h"
-#import "Command.h"
+#import "FRCommand.h"
 
 @implementation CommandTestCase
 
 - (void) testSimple
 {
-    Command *cmd = [[Command alloc] initWithPath:@"/bin/ls"];
+    FRCommand *cmd = [[FRCommand alloc] initWithPath:@"/bin/ls"];
     
     NSMutableString *err = [[NSMutableString alloc] init];
     NSMutableString *out = [[NSMutableString alloc] init];

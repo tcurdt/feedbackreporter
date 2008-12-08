@@ -15,7 +15,7 @@
  */
 
 #import "UploaderTestCase.h"
-#import "Uploader.h"
+#import "FRUploader.h"
 
 @implementation UploaderTestCase
 
@@ -25,7 +25,7 @@ BOOL terminated;
 {
     NSLog(@"Uploading");
 
-    Uploader *uploader = [[Uploader alloc] initWithTarget:@"http://vafer.org/feedback.php?project=TestCase" delegate:self];
+    FRUploader *uploader = [[FRUploader alloc] initWithTarget:@"http://vafer.org/feedback.php?project=TestCase" delegate:self];
     
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     [dict setObject:@"test" forKey:@"test"];
@@ -49,12 +49,12 @@ BOOL terminated;
     NSLog(@"done");
 }
 
-- (void) uploaderStarted:(Uploader*)uploader
+- (void) uploaderStarted:(FRUploader*)uploader
 {
     NSLog(@"Upload started");
 }
 
-- (void) uploaderFailed:(Uploader*)uploader withError:(NSError*)error
+- (void) uploaderFailed:(FRUploader*)uploader withError:(NSError*)error
 {
     NSLog(@"Upload failed: %@", error);
 
@@ -63,7 +63,7 @@ BOOL terminated;
     terminated = YES;
 }
 
-- (void) uploaderFinished:(Uploader*)uploader
+- (void) uploaderFinished:(FRUploader*)uploader
 {
     NSLog(@"Upload finished");
 

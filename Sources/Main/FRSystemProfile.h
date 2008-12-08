@@ -17,28 +17,18 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface Command : NSObject {
+@interface FRSystemProfile : NSObject
 
-    NSTask *task;
++ (NSArray*) discover;
 
-    NSString *path;
-    NSArray *args;
-    
-    NSMutableString *output;
-    NSMutableString *error;
-    
-    BOOL terminated;
-}
-
-
-- (id) initWithPath:(NSString*)path;
-
-- (void) setArgs:(NSArray*)args;
-
-- (void) setError:(NSMutableString*)error;
-- (void) setOutput:(NSMutableString*)output;
-
-- (int) execute;
-
++ (NSString*) cputype;
++ (BOOL) is64bit;
++ (NSString*) osversion;
++ (NSString*) architecture;
++ (int) cpucount;
++ (NSString*) machinemodel;
++ (NSString*) language;
++ (long) cpuspeed;
++ (long) ramsize;
 
 @end

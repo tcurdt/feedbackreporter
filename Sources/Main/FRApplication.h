@@ -16,9 +16,11 @@
 
 #import <Cocoa/Cocoa.h>
 
+@interface FRApplication : NSObject
 
-@interface ConsoleLog : NSObject
-
-+ (NSString*) logSince:(NSDate*)date;
++ (NSString*) applicationVersion;
++ (NSString*) applicationName;
++ (NSString*) applicationIdentifier;
++ (NSString*) feedbackURL;
 
 @end

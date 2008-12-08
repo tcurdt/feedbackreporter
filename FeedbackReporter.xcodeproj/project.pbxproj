@@ -8,27 +8,27 @@
 
 /* Begin PBXBuildFile section */
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
-		9D006DF60E1438F6000B6AFC /* ConsoleLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D006DF50E1438F6000B6AFC /* ConsoleLog.m */; };
+		9D006DF60E1438F6000B6AFC /* FRConsoleLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D006DF50E1438F6000B6AFC /* FRConsoleLog.m */; };
 		9D0EC0220DF00F250045EB76 /* FRExceptionReportingApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0EC0200DF00F250045EB76 /* FRExceptionReportingApplication.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9D0EC0230DF00F250045EB76 /* FRExceptionReportingApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EC0210DF00F250045EB76 /* FRExceptionReportingApplication.m */; };
 		9D0EC0290DF011DB0045EB76 /* NSException+Callstack.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0EC0270DF011DB0045EB76 /* NSException+Callstack.h */; };
 		9D0EC02A0DF011DB0045EB76 /* NSException+Callstack.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EC0280DF011DB0045EB76 /* NSException+Callstack.m */; };
 		9D1732470E4DE9B600DC17D6 /* FeedbackReporter.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* FeedbackReporter.framework */; };
 		9D291E8E0DF167BB009F859B /* UploaderTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D291E8D0DF167BB009F859B /* UploaderTestCase.m */; };
-		9D4C743D0E33A5D000B5F3BF /* ConsoleLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D006DF50E1438F6000B6AFC /* ConsoleLog.m */; };
+		9D4C743D0E33A5D000B5F3BF /* FRConsoleLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D006DF50E1438F6000B6AFC /* FRConsoleLog.m */; };
 		9DA7D6B70DEB8A7800C3B586 /* FeedbackReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* FeedbackReporter.framework */; };
-		9DA7D6EF0DEB8E5D00C3B586 /* Application.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA7D6E20DEB8E5D00C3B586 /* Application.h */; };
-		9DA7D6F00DEB8E5D00C3B586 /* Application.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DA7D6E30DEB8E5D00C3B586 /* Application.m */; };
-		9DA7D6F10DEB8E5D00C3B586 /* Command.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA7D6E40DEB8E5D00C3B586 /* Command.h */; };
-		9DA7D6F20DEB8E5D00C3B586 /* Command.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DA7D6E50DEB8E5D00C3B586 /* Command.m */; };
-		9DA7D6F30DEB8E5D00C3B586 /* CrashLogFinder.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA7D6E60DEB8E5D00C3B586 /* CrashLogFinder.h */; };
-		9DA7D6F40DEB8E5D00C3B586 /* CrashLogFinder.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DA7D6E70DEB8E5D00C3B586 /* CrashLogFinder.m */; };
-		9DA7D6F50DEB8E5D00C3B586 /* FeedbackController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA7D6E80DEB8E5D00C3B586 /* FeedbackController.h */; };
-		9DA7D6F60DEB8E5D00C3B586 /* FeedbackController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DA7D6E90DEB8E5D00C3B586 /* FeedbackController.m */; };
+		9DA7D6EF0DEB8E5D00C3B586 /* FRApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA7D6E20DEB8E5D00C3B586 /* FRApplication.h */; };
+		9DA7D6F00DEB8E5D00C3B586 /* FRApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DA7D6E30DEB8E5D00C3B586 /* FRApplication.m */; };
+		9DA7D6F10DEB8E5D00C3B586 /* FRCommand.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA7D6E40DEB8E5D00C3B586 /* FRCommand.h */; };
+		9DA7D6F20DEB8E5D00C3B586 /* FRCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DA7D6E50DEB8E5D00C3B586 /* FRCommand.m */; };
+		9DA7D6F30DEB8E5D00C3B586 /* FRCrashLogFinder.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA7D6E60DEB8E5D00C3B586 /* FRCrashLogFinder.h */; };
+		9DA7D6F40DEB8E5D00C3B586 /* FRCrashLogFinder.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DA7D6E70DEB8E5D00C3B586 /* FRCrashLogFinder.m */; };
+		9DA7D6F50DEB8E5D00C3B586 /* FRFeedbackController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA7D6E80DEB8E5D00C3B586 /* FRFeedbackController.h */; };
+		9DA7D6F60DEB8E5D00C3B586 /* FRFeedbackController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DA7D6E90DEB8E5D00C3B586 /* FRFeedbackController.m */; };
 		9DA7D6F70DEB8E5D00C3B586 /* FRFeedbackReporter.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA7D6EA0DEB8E5D00C3B586 /* FRFeedbackReporter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9DA7D6F80DEB8E5D00C3B586 /* FRFeedbackReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DA7D6EB0DEB8E5D00C3B586 /* FRFeedbackReporter.m */; };
-		9DA7D6FA0DEB8E5D00C3B586 /* Uploader.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA7D6ED0DEB8E5D00C3B586 /* Uploader.h */; };
-		9DA7D6FB0DEB8E5D00C3B586 /* Uploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DA7D6EE0DEB8E5D00C3B586 /* Uploader.m */; };
+		9DA7D6FA0DEB8E5D00C3B586 /* FRUploader.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA7D6ED0DEB8E5D00C3B586 /* FRUploader.h */; };
+		9DA7D6FB0DEB8E5D00C3B586 /* FRUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DA7D6EE0DEB8E5D00C3B586 /* FRUploader.m */; };
 		9DA7D6FF0DEB8E9100C3B586 /* CommandTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DA7D6FD0DEB8E9100C3B586 /* CommandTestCase.m */; };
 		9DB634F20E4DD6F500C72888 /* FeedbackReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* FeedbackReporter.framework */; };
 		9DB634F70E4DD8C200C72888 /* FeedbackReporter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9DB634F60E4DD8C200C72888 /* FeedbackReporter.xib */; };
@@ -37,8 +37,8 @@
 		9DB6353C0E4DDCB700C72888 /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DB6353A0E4DDCB700C72888 /* AppController.m */; };
 		9DC077910E4CE75E00014424 /* FeedbackReporter.pch in Resources */ = {isa = PBXBuildFile; fileRef = 9DC077900E4CE75E00014424 /* FeedbackReporter.pch */; };
 		9DCF52A90DEC0D8A00EBF810 /* SystemProfileTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DCF52A80DEC0D8A00EBF810 /* SystemProfileTestCase.m */; };
-		9DCF52AC0DEC0E4300EBF810 /* SystemProfile.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DCF52AA0DEC0E4300EBF810 /* SystemProfile.h */; };
-		9DCF52AD0DEC0E4300EBF810 /* SystemProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DCF52AB0DEC0E4300EBF810 /* SystemProfile.m */; };
+		9DCF52AC0DEC0E4300EBF810 /* FRSystemProfile.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DCF52AA0DEC0E4300EBF810 /* FRSystemProfile.h */; };
+		9DCF52AD0DEC0E4300EBF810 /* FRSystemProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DCF52AB0DEC0E4300EBF810 /* FRSystemProfile.m */; };
 		9DD4D9C30E4B934500B26451 /* FeedbackReporter.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9DD4D9C20E4B934500B26451 /* FeedbackReporter.strings */; };
 /* End PBXBuildFile section */
 
@@ -78,30 +78,30 @@
 		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		8DC2EF5B0486A6940098B216 /* FeedbackReporter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FeedbackReporter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9D006DF40E1438F6000B6AFC /* ConsoleLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConsoleLog.h; path = Sources/Main/ConsoleLog.h; sourceTree = "<group>"; };
-		9D006DF50E1438F6000B6AFC /* ConsoleLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ConsoleLog.m; path = Sources/Main/ConsoleLog.m; sourceTree = "<group>"; };
+		9D006DF40E1438F6000B6AFC /* FRConsoleLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FRConsoleLog.h; path = Sources/Main/FRConsoleLog.h; sourceTree = "<group>"; };
+		9D006DF50E1438F6000B6AFC /* FRConsoleLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FRConsoleLog.m; path = Sources/Main/FRConsoleLog.m; sourceTree = "<group>"; };
 		9D0EC0200DF00F250045EB76 /* FRExceptionReportingApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FRExceptionReportingApplication.h; path = Sources/Main/FRExceptionReportingApplication.h; sourceTree = "<group>"; };
 		9D0EC0210DF00F250045EB76 /* FRExceptionReportingApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FRExceptionReportingApplication.m; path = Sources/Main/FRExceptionReportingApplication.m; sourceTree = "<group>"; };
 		9D0EC0270DF011DB0045EB76 /* NSException+Callstack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSException+Callstack.h"; path = "Sources/Main/NSException+Callstack.h"; sourceTree = "<group>"; };
 		9D0EC0280DF011DB0045EB76 /* NSException+Callstack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSException+Callstack.m"; path = "Sources/Main/NSException+Callstack.m"; sourceTree = "<group>"; };
 		9D291E8C0DF167BB009F859B /* UploaderTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UploaderTestCase.h; path = Sources/Tests/UploaderTestCase.h; sourceTree = "<group>"; };
 		9D291E8D0DF167BB009F859B /* UploaderTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UploaderTestCase.m; path = Sources/Tests/UploaderTestCase.m; sourceTree = "<group>"; };
-		9D5FB36B0E0B269900CF1BE0 /* Constants.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = Constants.h; path = Sources/Main/Constants.h; sourceTree = "<group>"; };
+		9D5FB36B0E0B269900CF1BE0 /* FRConstants.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = FRConstants.h; path = Sources/Main/FRConstants.h; sourceTree = "<group>"; };
 		9D90077A0DEB96C10000330E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Sources/Main/Info.plist; sourceTree = "<group>"; };
 		9D90077F0DEB96D40000330E /* Tests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Tests-Info.plist"; path = "Sources/Tests/Tests-Info.plist"; sourceTree = SOURCE_ROOT; };
 		9DA7D6B10DEB8A3500C3B586 /* Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		9DA7D6E20DEB8E5D00C3B586 /* Application.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Application.h; path = Sources/Main/Application.h; sourceTree = SOURCE_ROOT; };
-		9DA7D6E30DEB8E5D00C3B586 /* Application.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Application.m; path = Sources/Main/Application.m; sourceTree = SOURCE_ROOT; };
-		9DA7D6E40DEB8E5D00C3B586 /* Command.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Command.h; path = Sources/Main/Command.h; sourceTree = SOURCE_ROOT; };
-		9DA7D6E50DEB8E5D00C3B586 /* Command.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Command.m; path = Sources/Main/Command.m; sourceTree = SOURCE_ROOT; };
-		9DA7D6E60DEB8E5D00C3B586 /* CrashLogFinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CrashLogFinder.h; path = Sources/Main/CrashLogFinder.h; sourceTree = SOURCE_ROOT; };
-		9DA7D6E70DEB8E5D00C3B586 /* CrashLogFinder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CrashLogFinder.m; path = Sources/Main/CrashLogFinder.m; sourceTree = SOURCE_ROOT; };
-		9DA7D6E80DEB8E5D00C3B586 /* FeedbackController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedbackController.h; path = Sources/Main/FeedbackController.h; sourceTree = SOURCE_ROOT; };
-		9DA7D6E90DEB8E5D00C3B586 /* FeedbackController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedbackController.m; path = Sources/Main/FeedbackController.m; sourceTree = SOURCE_ROOT; };
+		9DA7D6E20DEB8E5D00C3B586 /* FRApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FRApplication.h; path = Sources/Main/FRApplication.h; sourceTree = "<group>"; };
+		9DA7D6E30DEB8E5D00C3B586 /* FRApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FRApplication.m; path = Sources/Main/FRApplication.m; sourceTree = "<group>"; };
+		9DA7D6E40DEB8E5D00C3B586 /* FRCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FRCommand.h; path = Sources/Main/FRCommand.h; sourceTree = "<group>"; };
+		9DA7D6E50DEB8E5D00C3B586 /* FRCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FRCommand.m; path = Sources/Main/FRCommand.m; sourceTree = "<group>"; };
+		9DA7D6E60DEB8E5D00C3B586 /* FRCrashLogFinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FRCrashLogFinder.h; path = Sources/Main/FRCrashLogFinder.h; sourceTree = "<group>"; };
+		9DA7D6E70DEB8E5D00C3B586 /* FRCrashLogFinder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FRCrashLogFinder.m; path = Sources/Main/FRCrashLogFinder.m; sourceTree = "<group>"; };
+		9DA7D6E80DEB8E5D00C3B586 /* FRFeedbackController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FRFeedbackController.h; path = Sources/Main/FRFeedbackController.h; sourceTree = "<group>"; };
+		9DA7D6E90DEB8E5D00C3B586 /* FRFeedbackController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FRFeedbackController.m; path = Sources/Main/FRFeedbackController.m; sourceTree = "<group>"; };
 		9DA7D6EA0DEB8E5D00C3B586 /* FRFeedbackReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FRFeedbackReporter.h; path = Sources/Main/FRFeedbackReporter.h; sourceTree = "<group>"; };
 		9DA7D6EB0DEB8E5D00C3B586 /* FRFeedbackReporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FRFeedbackReporter.m; path = Sources/Main/FRFeedbackReporter.m; sourceTree = "<group>"; };
-		9DA7D6ED0DEB8E5D00C3B586 /* Uploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Uploader.h; path = Sources/Main/Uploader.h; sourceTree = SOURCE_ROOT; };
-		9DA7D6EE0DEB8E5D00C3B586 /* Uploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Uploader.m; path = Sources/Main/Uploader.m; sourceTree = SOURCE_ROOT; };
+		9DA7D6ED0DEB8E5D00C3B586 /* FRUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FRUploader.h; path = Sources/Main/FRUploader.h; sourceTree = "<group>"; };
+		9DA7D6EE0DEB8E5D00C3B586 /* FRUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FRUploader.m; path = Sources/Main/FRUploader.m; sourceTree = "<group>"; };
 		9DA7D6FC0DEB8E9100C3B586 /* CommandTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommandTestCase.h; path = Sources/Tests/CommandTestCase.h; sourceTree = "<group>"; };
 		9DA7D6FD0DEB8E9100C3B586 /* CommandTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommandTestCase.m; path = Sources/Tests/CommandTestCase.m; sourceTree = "<group>"; };
 		9DB634E30E4DD64C00C72888 /* App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = App.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -114,8 +114,8 @@
 		9DC077900E4CE75E00014424 /* FeedbackReporter.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedbackReporter.pch; path = Sources/Main/FeedbackReporter.pch; sourceTree = "<group>"; };
 		9DCF52A70DEC0D8A00EBF810 /* SystemProfileTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SystemProfileTestCase.h; path = Sources/Tests/SystemProfileTestCase.h; sourceTree = "<group>"; };
 		9DCF52A80DEC0D8A00EBF810 /* SystemProfileTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SystemProfileTestCase.m; path = Sources/Tests/SystemProfileTestCase.m; sourceTree = "<group>"; };
-		9DCF52AA0DEC0E4300EBF810 /* SystemProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SystemProfile.h; path = Sources/Main/SystemProfile.h; sourceTree = "<group>"; };
-		9DCF52AB0DEC0E4300EBF810 /* SystemProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SystemProfile.m; path = Sources/Main/SystemProfile.m; sourceTree = "<group>"; };
+		9DCF52AA0DEC0E4300EBF810 /* FRSystemProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FRSystemProfile.h; path = Sources/Main/FRSystemProfile.h; sourceTree = "<group>"; };
+		9DCF52AB0DEC0E4300EBF810 /* FRSystemProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FRSystemProfile.m; path = Sources/Main/FRSystemProfile.m; sourceTree = "<group>"; };
 		9DD4D9BF0E4B933A00B26451 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = Resources/English.lproj/FeedbackReporter.strings; sourceTree = "<group>"; };
 		9DD4D9C40E4B934A00B26451 /* German */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = German; path = Resources/German.lproj/FeedbackReporter.strings; sourceTree = "<group>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
@@ -194,28 +194,25 @@
 		08FB77AEFE84172EC02AAC07 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				9DA7D6E20DEB8E5D00C3B586 /* Application.h */,
-				9DA7D6E30DEB8E5D00C3B586 /* Application.m */,
-				9DA7D6E40DEB8E5D00C3B586 /* Command.h */,
-				9DA7D6E50DEB8E5D00C3B586 /* Command.m */,
-				9D006DF40E1438F6000B6AFC /* ConsoleLog.h */,
-				9D006DF50E1438F6000B6AFC /* ConsoleLog.m */,
-				9DA7D6E60DEB8E5D00C3B586 /* CrashLogFinder.h */,
-				9DA7D6E70DEB8E5D00C3B586 /* CrashLogFinder.m */,
-				9DCF52AA0DEC0E4300EBF810 /* SystemProfile.h */,
-				9DCF52AB0DEC0E4300EBF810 /* SystemProfile.m */,
-				9DA7D6E80DEB8E5D00C3B586 /* FeedbackController.h */,
-				9DA7D6E90DEB8E5D00C3B586 /* FeedbackController.m */,
-				9DA7D6ED0DEB8E5D00C3B586 /* Uploader.h */,
-				9DA7D6EE0DEB8E5D00C3B586 /* Uploader.m */,
-				9DA7D6EA0DEB8E5D00C3B586 /* FRFeedbackReporter.h */,
-				9DA7D6EB0DEB8E5D00C3B586 /* FRFeedbackReporter.m */,
-				9D0EC0200DF00F250045EB76 /* FRExceptionReportingApplication.h */,
-				9D0EC0210DF00F250045EB76 /* FRExceptionReportingApplication.m */,
-				9D90077A0DEB96C10000330E /* Info.plist */,
+				9D543DD60EEDB79900B2B36B /* Exported */,
+				9DA7D6E20DEB8E5D00C3B586 /* FRApplication.h */,
+				9DA7D6E30DEB8E5D00C3B586 /* FRApplication.m */,
+				9DA7D6E40DEB8E5D00C3B586 /* FRCommand.h */,
+				9DA7D6E50DEB8E5D00C3B586 /* FRCommand.m */,
+				9D006DF40E1438F6000B6AFC /* FRConsoleLog.h */,
+				9D006DF50E1438F6000B6AFC /* FRConsoleLog.m */,
+				9DA7D6E60DEB8E5D00C3B586 /* FRCrashLogFinder.h */,
+				9DA7D6E70DEB8E5D00C3B586 /* FRCrashLogFinder.m */,
+				9DCF52AA0DEC0E4300EBF810 /* FRSystemProfile.h */,
+				9DCF52AB0DEC0E4300EBF810 /* FRSystemProfile.m */,
+				9DA7D6E80DEB8E5D00C3B586 /* FRFeedbackController.h */,
+				9DA7D6E90DEB8E5D00C3B586 /* FRFeedbackController.m */,
+				9DA7D6ED0DEB8E5D00C3B586 /* FRUploader.h */,
+				9DA7D6EE0DEB8E5D00C3B586 /* FRUploader.m */,
+				9D5FB36B0E0B269900CF1BE0 /* FRConstants.h */,
 				9D0EC0270DF011DB0045EB76 /* NSException+Callstack.h */,
 				9D0EC0280DF011DB0045EB76 /* NSException+Callstack.m */,
-				9D5FB36B0E0B269900CF1BE0 /* Constants.h */,
+				9D90077A0DEB96C10000330E /* Info.plist */,
 				9DC077900E4CE75E00014424 /* FeedbackReporter.pch */,
 			);
 			name = Main;
@@ -237,6 +234,17 @@
 				0867D69BFE84028FC02AAC07 /* Foundation.framework */,
 			);
 			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		9D543DD60EEDB79900B2B36B /* Exported */ = {
+			isa = PBXGroup;
+			children = (
+				9DA7D6EA0DEB8E5D00C3B586 /* FRFeedbackReporter.h */,
+				9DA7D6EB0DEB8E5D00C3B586 /* FRFeedbackReporter.m */,
+				9D0EC0200DF00F250045EB76 /* FRExceptionReportingApplication.h */,
+				9D0EC0210DF00F250045EB76 /* FRExceptionReportingApplication.m */,
+			);
+			name = Exported;
 			sourceTree = "<group>";
 		};
 		9DA7D6900DEB87B300C3B586 /* Tests */ = {
@@ -271,13 +279,13 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9DA7D6EF0DEB8E5D00C3B586 /* Application.h in Headers */,
-				9DA7D6F10DEB8E5D00C3B586 /* Command.h in Headers */,
-				9DA7D6F30DEB8E5D00C3B586 /* CrashLogFinder.h in Headers */,
-				9DA7D6F50DEB8E5D00C3B586 /* FeedbackController.h in Headers */,
+				9DA7D6EF0DEB8E5D00C3B586 /* FRApplication.h in Headers */,
+				9DA7D6F10DEB8E5D00C3B586 /* FRCommand.h in Headers */,
+				9DA7D6F30DEB8E5D00C3B586 /* FRCrashLogFinder.h in Headers */,
+				9DA7D6F50DEB8E5D00C3B586 /* FRFeedbackController.h in Headers */,
 				9DA7D6F70DEB8E5D00C3B586 /* FRFeedbackReporter.h in Headers */,
-				9DA7D6FA0DEB8E5D00C3B586 /* Uploader.h in Headers */,
-				9DCF52AC0DEC0E4300EBF810 /* SystemProfile.h in Headers */,
+				9DA7D6FA0DEB8E5D00C3B586 /* FRUploader.h in Headers */,
+				9DCF52AC0DEC0E4300EBF810 /* FRSystemProfile.h in Headers */,
 				9D0EC0220DF00F250045EB76 /* FRExceptionReportingApplication.h in Headers */,
 				9D0EC0290DF011DB0045EB76 /* NSException+Callstack.h in Headers */,
 			);
@@ -412,13 +420,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9DA7D6F00DEB8E5D00C3B586 /* Application.m in Sources */,
-				9DA7D6F20DEB8E5D00C3B586 /* Command.m in Sources */,
-				9D4C743D0E33A5D000B5F3BF /* ConsoleLog.m in Sources */,
-				9DA7D6F40DEB8E5D00C3B586 /* CrashLogFinder.m in Sources */,
-				9DCF52AD0DEC0E4300EBF810 /* SystemProfile.m in Sources */,
-				9DA7D6F60DEB8E5D00C3B586 /* FeedbackController.m in Sources */,
-				9DA7D6FB0DEB8E5D00C3B586 /* Uploader.m in Sources */,
+				9DA7D6F00DEB8E5D00C3B586 /* FRApplication.m in Sources */,
+				9DA7D6F20DEB8E5D00C3B586 /* FRCommand.m in Sources */,
+				9D4C743D0E33A5D000B5F3BF /* FRConsoleLog.m in Sources */,
+				9DA7D6F40DEB8E5D00C3B586 /* FRCrashLogFinder.m in Sources */,
+				9DCF52AD0DEC0E4300EBF810 /* FRSystemProfile.m in Sources */,
+				9DA7D6F60DEB8E5D00C3B586 /* FRFeedbackController.m in Sources */,
+				9DA7D6FB0DEB8E5D00C3B586 /* FRUploader.m in Sources */,
 				9DA7D6F80DEB8E5D00C3B586 /* FRFeedbackReporter.m in Sources */,
 				9D0EC0230DF00F250045EB76 /* FRExceptionReportingApplication.m in Sources */,
 				9D0EC02A0DF011DB0045EB76 /* NSException+Callstack.m in Sources */,
@@ -432,7 +440,7 @@
 				9DA7D6FF0DEB8E9100C3B586 /* CommandTestCase.m in Sources */,
 				9DCF52A90DEC0D8A00EBF810 /* SystemProfileTestCase.m in Sources */,
 				9D291E8E0DF167BB009F859B /* UploaderTestCase.m in Sources */,
-				9D006DF60E1438F6000B6AFC /* ConsoleLog.m in Sources */,
+				9D006DF60E1438F6000B6AFC /* FRConsoleLog.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

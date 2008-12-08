@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.02">
+<archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.03">
 	<data>
 		<int key="IBDocument.SystemTarget">1050</int>
-		<string key="IBDocument.SystemVersion">9E17</string>
-		<string key="IBDocument.InterfaceBuilderVersion">670</string>
-		<string key="IBDocument.AppKitVersion">949.33</string>
+		<string key="IBDocument.SystemVersion">9F33</string>
+		<string key="IBDocument.InterfaceBuilderVersion">677</string>
+		<string key="IBDocument.AppKitVersion">949.34</string>
 		<string key="IBDocument.HIToolboxVersion">352.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -13,10 +13,19 @@
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 		</object>
+		<object class="NSMutableDictionary" key="IBDocument.Metadata">
+			<bool key="EncodedWithXMLCoder">YES</bool>
+			<object class="NSArray" key="dict.sortedKeys">
+				<bool key="EncodedWithXMLCoder">YES</bool>
+			</object>
+			<object class="NSMutableArray" key="dict.values">
+				<bool key="EncodedWithXMLCoder">YES</bool>
+			</object>
+		</object>
 		<object class="NSMutableArray" key="IBDocument.RootObjects" id="291705076">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<object class="NSCustomObject" id="749086398">
-				<string key="NSClassName">FeedbackController</string>
+				<string key="NSClassName">FRFeedbackController</string>
 			</object>
 			<object class="NSCustomObject" id="744251850">
 				<string key="NSClassName">FirstResponder</string>
@@ -137,7 +146,7 @@ c2VuZCBhbG9uZy4KA</string>
 													<string>WebURLsWithTitlesPboardType</string>
 												</object>
 											</object>
-											<string key="NSFrameSize">{424, 95}</string>
+											<string key="NSFrameSize">{439, 18}</string>
 											<reference key="NSSuperview" ref="855088819"/>
 											<object class="NSTextContainer" key="NSTextContainer" id="153105469">
 												<object class="NSLayoutManager" key="NSLayoutManager">
@@ -155,7 +164,7 @@ c2VuZCBhbG9uZy4KA</string>
 													<nil key="NSDelegate"/>
 												</object>
 												<reference key="NSTextView" ref="828827968"/>
-												<double key="NSWidth">4.240000e+02</double>
+												<double key="NSWidth">4.390000e+02</double>
 												<int key="NSTCFlags">1</int>
 											</object>
 											<object class="NSTextViewSharedData" key="NSSharedData">
@@ -208,13 +217,12 @@ c2VuZCBhbG9uZy4KA</string>
 												<nil key="NSDefaultParagraphStyle"/>
 											</object>
 											<int key="NSTVFlags">6</int>
-											<string key="NSMaxSize">{463, 1e+07}</string>
-											<string key="NSMinize">{223, 95}</string>
+											<string key="NSMaxSize">{880, 1e+07}</string>
+											<string key="NSMinize">{223, 18}</string>
 											<nil key="NSDelegate"/>
 										</object>
 									</object>
-									<string key="NSFrame">{{1, 1}, {424, 75}}</string>
-									<string key="NSBounds">{{0, 12}, {424, 75}}</string>
+									<string key="NSFrame">{{1, 1}, {439, 75}}</string>
 									<reference key="NSSuperview" ref="579707548"/>
 									<reference key="NSNextKeyView" ref="828827968"/>
 									<reference key="NSDocView" ref="828827968"/>
@@ -227,14 +235,13 @@ c2VuZCBhbG9uZy4KA</string>
 								</object>
 								<object class="NSScroller" id="470669603">
 									<reference key="NSNextResponder" ref="579707548"/>
-									<int key="NSvFlags">256</int>
-									<string key="NSFrame">{{425, 1}, {15, 75}}</string>
+									<int key="NSvFlags">-2147483392</int>
+									<string key="NSFrame">{{866, 1}, {15, 152}}</string>
 									<reference key="NSSuperview" ref="579707548"/>
-									<bool key="NSEnabled">YES</bool>
 									<reference key="NSTarget" ref="579707548"/>
 									<string key="NSAction">_doScroller:</string>
 									<double key="NSCurValue">6.000000e-01</double>
-									<double key="NSPercent">7.894737e-01</double>
+									<double key="NSPercent">8.837209e-01</double>
 								</object>
 								<object class="NSScroller" id="365792830">
 									<reference key="NSNextResponder" ref="579707548"/>
@@ -251,7 +258,7 @@ c2VuZCBhbG9uZy4KA</string>
 							<string key="NSFrame">{{19, 408}, {441, 77}}</string>
 							<reference key="NSSuperview" ref="689770422"/>
 							<reference key="NSNextKeyView" ref="855088819"/>
-							<int key="NSsFlags">594</int>
+							<int key="NSsFlags">530</int>
 							<reference key="NSVScroller" ref="470669603"/>
 							<reference key="NSHScroller" ref="365792830"/>
 							<reference key="NSContentView" ref="855088819"/>
@@ -594,7 +601,7 @@ c2VuZCBhbG9uZy4KA</string>
 															<object class="NSTextView" id="220750041">
 																<reference key="NSNextResponder" ref="62283744"/>
 																<int key="NSvFlags">2322</int>
-																<string key="NSFrameSize">{0, 21}</string>
+																<string key="NSFrameSize">{0, 0}</string>
 																<reference key="NSSuperview" ref="62283744"/>
 																<object class="NSTextContainer" key="NSTextContainer" id="47200834">
 																	<object class="NSLayoutManager" key="NSLayoutManager">
@@ -835,7 +842,7 @@ c2VuZCBhbG9uZy4KA</string>
 															<object class="NSTextView" id="635554554">
 																<reference key="NSNextResponder" ref="800571027"/>
 																<int key="NSvFlags">2322</int>
-																<string key="NSFrameSize">{223, 13}</string>
+																<string key="NSFrameSize">{0, 0}</string>
 																<reference key="NSSuperview" ref="800571027"/>
 																<object class="NSTextContainer" key="NSTextContainer" id="523196444">
 																	<object class="NSLayoutManager" key="NSLayoutManager">
@@ -854,7 +861,7 @@ c2VuZCBhbG9uZy4KA</string>
 																		<nil key="NSDelegate"/>
 																	</object>
 																	<reference key="NSTextView" ref="635554554"/>
-																	<double key="NSWidth">2.230000e+02</double>
+																	<double key="NSWidth">0.000000e+00</double>
 																	<int key="NSTCFlags">1</int>
 																</object>
 																<object class="NSTextViewSharedData" key="NSSharedData">
@@ -891,7 +898,7 @@ c2VuZCBhbG9uZy4KA</string>
 																	<nil key="NSDefaultParagraphStyle"/>
 																</object>
 																<int key="NSTVFlags">7</int>
-																<string key="NSMaxSize">{463, 1e+07}</string>
+																<string key="NSMaxSize">{624, 1e+07}</string>
 																<nil key="NSDelegate"/>
 															</object>
 														</object>
@@ -959,7 +966,7 @@ c2VuZCBhbG9uZy4KA</string>
 															<object class="NSTextView" id="418323568">
 																<reference key="NSNextResponder" ref="534959021"/>
 																<int key="NSvFlags">2322</int>
-																<string key="NSFrameSize">{223, 13}</string>
+																<string key="NSFrameSize">{0, 0}</string>
 																<reference key="NSSuperview" ref="534959021"/>
 																<object class="NSTextContainer" key="NSTextContainer" id="912379396">
 																	<object class="NSLayoutManager" key="NSLayoutManager">
@@ -993,7 +1000,7 @@ c2VuZCBhbG9uZy4KA</string>
 																		<nil key="NSDelegate"/>
 																	</object>
 																	<reference key="NSTextView" ref="418323568"/>
-																	<double key="NSWidth">2.230000e+02</double>
+																	<double key="NSWidth">0.000000e+00</double>
 																	<int key="NSTCFlags">1</int>
 																</object>
 																<object class="NSTextViewSharedData" key="NSSharedData">
@@ -1030,7 +1037,7 @@ c2VuZCBhbG9uZy4KA</string>
 																	<nil key="NSDefaultParagraphStyle"/>
 																</object>
 																<int key="NSTVFlags">7</int>
-																<string key="NSMaxSize">{463, 1e+07}</string>
+																<string key="NSMaxSize">{624, 1e+07}</string>
 																<nil key="NSDelegate"/>
 															</object>
 														</object>
@@ -1098,7 +1105,7 @@ c2VuZCBhbG9uZy4KA</string>
 															<object class="NSTextView" id="648005218">
 																<reference key="NSNextResponder" ref="647862807"/>
 																<int key="NSvFlags">2322</int>
-																<string key="NSFrameSize">{223, 12}</string>
+																<string key="NSFrameSize">{0, 0}</string>
 																<reference key="NSSuperview" ref="647862807"/>
 																<object class="NSTextContainer" key="NSTextContainer" id="583593274">
 																	<object class="NSLayoutManager" key="NSLayoutManager">
@@ -1117,7 +1124,7 @@ c2VuZCBhbG9uZy4KA</string>
 																		<nil key="NSDelegate"/>
 																	</object>
 																	<reference key="NSTextView" ref="648005218"/>
-																	<double key="NSWidth">2.230000e+02</double>
+																	<double key="NSWidth">0.000000e+00</double>
 																	<int key="NSTCFlags">1</int>
 																</object>
 																<object class="NSTextViewSharedData" key="NSSharedData">
@@ -1154,8 +1161,7 @@ c2VuZCBhbG9uZy4KA</string>
 																	<nil key="NSDefaultParagraphStyle"/>
 																</object>
 																<int key="NSTVFlags">7</int>
-																<string key="NSMaxSize">{463, 1e+07}</string>
-																<string key="NSMinize">{223, 0}</string>
+																<string key="NSMaxSize">{624, 1e+07}</string>
 																<nil key="NSDelegate"/>
 															</object>
 														</object>
@@ -1223,7 +1229,7 @@ c2VuZCBhbG9uZy4KA</string>
 															<object class="NSTextView" id="340010226">
 																<reference key="NSNextResponder" ref="459337938"/>
 																<int key="NSvFlags">2322</int>
-																<string key="NSFrameSize">{223, 12}</string>
+																<string key="NSFrameSize">{0, 0}</string>
 																<reference key="NSSuperview" ref="459337938"/>
 																<object class="NSTextContainer" key="NSTextContainer" id="168864947">
 																	<object class="NSLayoutManager" key="NSLayoutManager">
@@ -1242,7 +1248,7 @@ c2VuZCBhbG9uZy4KA</string>
 																		<nil key="NSDelegate"/>
 																	</object>
 																	<reference key="NSTextView" ref="340010226"/>
-																	<double key="NSWidth">2.230000e+02</double>
+																	<double key="NSWidth">0.000000e+00</double>
 																	<int key="NSTCFlags">1</int>
 																</object>
 																<object class="NSTextViewSharedData" key="NSSharedData">
@@ -1279,8 +1285,7 @@ c2VuZCBhbG9uZy4KA</string>
 																	<nil key="NSDefaultParagraphStyle"/>
 																</object>
 																<int key="NSTVFlags">7</int>
-																<string key="NSMaxSize">{463, 1e+07}</string>
-																<string key="NSMinize">{223, 4}</string>
+																<string key="NSMaxSize">{624, 1e+07}</string>
 																<nil key="NSDelegate"/>
 															</object>
 														</object>
@@ -2241,7 +2246,6 @@ c2VuZCBhbG9uZy4KA</string>
 					<string>419.ImportedFromIB2</string>
 					<string>467.IBPluginDependency</string>
 					<string>467.ImportedFromIB2</string>
-					<string>5.IBPluginDependency</string>
 					<string>5.ImportedFromIB2</string>
 					<string>5.windowTemplate.hasMaxSize</string>
 					<string>5.windowTemplate.hasMinSize</string>
@@ -2285,19 +2289,42 @@ c2VuZCBhbG9uZy4KA</string>
 					<string>681.ImportedFromIB2</string>
 					<string>72.IBPluginDependency</string>
 					<string>72.ImportedFromIB2</string>
+					<string>951.IBPluginDependency</string>
+					<string>952.IBPluginDependency</string>
+					<string>953.IBPluginDependency</string>
+					<string>954.IBPluginDependency</string>
+					<string>955.IBPluginDependency</string>
+					<string>956.IBPluginDependency</string>
+					<string>957.IBPluginDependency</string>
+					<string>958.IBPluginDependency</string>
+					<string>959.IBPluginDependency</string>
+					<string>960.IBPluginDependency</string>
 					<string>960.IBShouldRemoveOnLegacySave</string>
+					<string>961.IBPluginDependency</string>
 					<string>961.IBShouldRemoveOnLegacySave</string>
+					<string>962.IBPluginDependency</string>
 					<string>962.IBShouldRemoveOnLegacySave</string>
+					<string>963.IBPluginDependency</string>
 					<string>963.IBShouldRemoveOnLegacySave</string>
+					<string>964.IBPluginDependency</string>
 					<string>964.IBShouldRemoveOnLegacySave</string>
+					<string>965.IBPluginDependency</string>
 					<string>965.IBShouldRemoveOnLegacySave</string>
+					<string>966.IBPluginDependency</string>
 					<string>966.IBShouldRemoveOnLegacySave</string>
+					<string>967.IBPluginDependency</string>
 					<string>967.IBShouldRemoveOnLegacySave</string>
+					<string>968.IBPluginDependency</string>
 					<string>968.IBShouldRemoveOnLegacySave</string>
+					<string>969.IBPluginDependency</string>
 					<string>969.IBShouldRemoveOnLegacySave</string>
+					<string>970.IBPluginDependency</string>
 					<string>970.IBShouldRemoveOnLegacySave</string>
+					<string>971.IBPluginDependency</string>
 					<string>971.IBShouldRemoveOnLegacySave</string>
+					<string>972.IBPluginDependency</string>
 					<string>972.IBShouldRemoveOnLegacySave</string>
+					<string>973.IBPluginDependency</string>
 					<string>973.IBShouldRemoveOnLegacySave</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
@@ -2305,115 +2332,137 @@ c2VuZCBhbG9uZy4KA</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<integer value="1" id="5"/>
+					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
+					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
+					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
+					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
+					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
+					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
+					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
+					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
+					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
+					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
+					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
+					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
+					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
+					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
+					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
+					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
+					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
+					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
+					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
+					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
+					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
+					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
+					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
+					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
+					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
-					<reference ref="5"/>
-					<reference ref="5"/>
+					<reference ref="9"/>
+					<reference ref="9"/>
+					<reference ref="9"/>
+					<reference ref="9"/>
 					<string>{480, 618}</string>
 					<string>{480, 618}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
+					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
+					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
+					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
+					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
+					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
+					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
+					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
+					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
+					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
+					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
+					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
+					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
+					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
+					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
+					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
+					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
+					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
+					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<reference ref="5"/>
-					<reference ref="5"/>
-					<reference ref="5"/>
-					<reference ref="5"/>
-					<reference ref="5"/>
-					<reference ref="5"/>
-					<reference ref="5"/>
-					<reference ref="5"/>
-					<reference ref="5"/>
-					<reference ref="5"/>
-					<reference ref="5"/>
-					<reference ref="5"/>
-					<reference ref="5"/>
-					<reference ref="5"/>
-					<reference ref="5"/>
+					<reference ref="9"/>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<reference ref="9"/>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<reference ref="9"/>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<reference ref="9"/>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<reference ref="9"/>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<reference ref="9"/>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<reference ref="9"/>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<reference ref="9"/>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<reference ref="9"/>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<reference ref="9"/>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<reference ref="9"/>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<reference ref="9"/>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<reference ref="9"/>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<reference ref="9"/>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<reference ref="9"/>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -2442,7 +2491,7 @@ c2VuZCBhbG9uZy4KA</string>
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<object class="IBPartialClassDescription">
-					<string key="className">FeedbackController</string>
+					<string key="className">FRFeedbackController</string>
 					<string key="superclassName">NSWindowController</string>
 					<object class="NSMutableDictionary" key="actions">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -2450,10 +2499,12 @@ c2VuZCBhbG9uZy4KA</string>
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>cancel:</string>
 							<string>send:</string>
+							<string>showCrash:</string>
 							<string>showDetails:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -2468,6 +2519,7 @@ c2VuZCBhbG9uZy4KA</string>
 							<string>commentLabel</string>
 							<string>commentView</string>
 							<string>consoleView</string>
+							<string>crashField</string>
 							<string>crashesView</string>
 							<string>delegate</string>
 							<string>detailsButton</string>
@@ -2479,6 +2531,7 @@ c2VuZCBhbG9uZy4KA</string>
 							<string>preferencesView</string>
 							<string>scriptView</string>
 							<string>sendButton</string>
+							<string>status</string>
 							<string>systemView</string>
 							<string>tabConsole</string>
 							<string>tabCrash</string>
@@ -2495,6 +2548,7 @@ c2VuZCBhbG9uZy4KA</string>
 							<string>NSTextField</string>
 							<string>NSTextView</string>
 							<string>NSTextView</string>
+							<string>NSTextField</string>
 							<string>NSTextView</string>
 							<string>id</string>
 							<string>NSButton</string>
@@ -2506,6 +2560,7 @@ c2VuZCBhbG9uZy4KA</string>
 							<string>NSTextView</string>
 							<string>NSTextView</string>
 							<string>NSButton</string>
+							<string>NSTextField</string>
 							<string>NSTableView</string>
 							<string>NSTabViewItem</string>
 							<string>NSTabViewItem</string>
@@ -2517,37 +2572,13 @@ c2VuZCBhbG9uZy4KA</string>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Sources/Main/FeedbackController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">FeedbackController</string>
-					<string key="superclassName">NSWindowController</string>
-					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">showCrash:</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="outlets">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSMutableArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>crashField</string>
-							<string>status</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>NSTextField</string>
-							<string>NSTextField</string>
-						</object>
-					</object>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBUserSource</string>
 						<string key="minorKey"/>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">FirstResponder</string>
+					<string key="superclassName">NSObject</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBUserSource</string>
 						<string key="minorKey"/>

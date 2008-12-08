@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-#import "Command.h"
+#import "FRCommand.h"
 
 
-@implementation Command
+@implementation FRCommand
 
 - (id) initWithPath:(NSString*)pPath
 {

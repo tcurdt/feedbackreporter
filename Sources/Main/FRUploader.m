@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-#import "Uploader.h"
+#import "FRUploader.h"
 
 
-@implementation Uploader
+@implementation FRUploader
 
 - (id) initWithTarget:(NSString*)pTarget delegate:(id)pDelegate
 {
