@@ -4,7 +4,7 @@
 "%@ has encountered an exception!" = "%@ has encountered an exception!\n\nPlease describe how this happened.\nIt might be safer to restart the application.\nSee below the information that will get send along.";
 
 /* No comment provided by engineer. */
-"%@ has recently crashed!" = "%@ has recently crashed!\n\nPlease describe how this happened.\nSee below the information that will get send along.";
+"%@ has recently crashed!" = "%@ has recently crashed!\n\nPlease describe how this happened.\nSee below the information that will get sent along.";
 
 /* No comment provided by engineer. */
 "anonymous" = "anonymous";
