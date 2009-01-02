@@ -248,14 +248,14 @@ static NSArray *systemProfile = nil;
         return;
     }
             
-    NSString *target = [FRApplication feedbackURL];
+    NSString *target = [[FRApplication feedbackURL] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] ;
     
     if (target == nil) {
         NSLog(@"You are missing the %@ key in your Info.plist!", KEY_TARGETURL);
         return;        
     }
 
-    uploader = [[FRUploader alloc] initWithTarget:[FRApplication feedbackURL] delegate:self];
+    uploader = [[FRUploader alloc] initWithTarget:target delegate:self];
     
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:5];
 
