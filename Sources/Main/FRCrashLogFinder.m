@@ -58,7 +58,7 @@
         NSString* log1 = [NSString stringWithFormat: @"Logs/CrashReporter/%@.crash.log", [FRApplication applicationName]];
         log1 = [[libraryDirectory stringByAppendingPathComponent:log1] stringByExpandingTildeInPath];
 
-        NSLog(@"Searching for crash files at %@", log1);
+        // NSLog(@"Searching for crash files at %@", log1);
 
         if ([self file:log1 isNewerThan:date]) {
             [files addObject:log1];
@@ -71,7 +71,7 @@
         NSString* log2 = @"Logs/CrashReporter/";
         log2 = [[libraryDirectory stringByAppendingPathComponent:log2] stringByExpandingTildeInPath];
 
-        NSLog(@"Searching for crash files at %@", log2);
+        // NSLog(@"Searching for crash files at %@", log2);
 
         if ([fileManager fileExistsAtPath:log2]) {
 
@@ -93,7 +93,7 @@
         NSString* log3 = [NSString stringWithFormat: @"Logs/HangReporter/%@/", [FRApplication applicationName]];
         log3 = [[libraryDirectory stringByAppendingPathComponent:log3] stringByExpandingTildeInPath];
 
-        NSLog(@"Searching for hang files at %@", log3);
+        // NSLog(@"Searching for hang files at %@", log3);
 
         if ([fileManager fileExistsAtPath:log3]) {
 
