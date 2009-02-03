@@ -19,7 +19,7 @@
 
 @implementation AppController
 
-- (void) awakeFromNib
+-(void)applicationDidFinishLaunching:(NSNotification*)aNotification
 {
     [[FRFeedbackReporter sharedReporter] setDelegate:self];
 
