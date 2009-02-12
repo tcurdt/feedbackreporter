@@ -105,7 +105,7 @@ static FRFeedbackReporter *sharedReporter = nil;
                                              forKey: KEY_LASTCRASHCHECKDATE];
     
     if ([crashFiles count] > 0) {
-        NSLog(@"Found new crash files");
+        // NSLog(@"Found new crash files");
 
         FRFeedbackController *controller = [self feedbackController];
         

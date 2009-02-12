@@ -64,7 +64,7 @@
             [files addObject:log1];
         }
                 
-        /*  Leppard */        
+        /*  Leopard */        
         NSDirectoryEnumerator *enumerator;
         NSString *file;
         
@@ -78,11 +78,16 @@
             enumerator  = [fileManager enumeratorAtPath:log2];
             while ((file = [enumerator nextObject])) {
 
+                // NSLog(@"Checking crash file %@", file);
+
                 if ([file hasSuffix:@".crash"] && [file hasPrefix:[FRApplication applicationName]]) {
 
                     file = [[log2 stringByAppendingPathComponent:file] stringByExpandingTildeInPath];
 
                     if ([self file:file isNewerThan:date]) {
+
+                        // NSLog(@"Found crash file %@", file);
+
                         [files addObject:file];
                     }
                 }

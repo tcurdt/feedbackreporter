@@ -87,7 +87,7 @@
 
 - (void) terminated: (NSNotification *)notification
 {
-    NSLog(@"Task terminated");
+    // NSLog(@"Task terminated");
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     terminated = YES;

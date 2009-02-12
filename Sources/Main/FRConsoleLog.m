@@ -63,7 +63,7 @@
 
     NSEnumerator *lineEnum = [[log componentsSeparatedByString: @"\n"] objectEnumerator];
 
-    NSString* currentObject;
+    NSString *currentObject;
 
     while (currentObject = [lineEnum nextObject]) {
 

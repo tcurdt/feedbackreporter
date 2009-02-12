@@ -92,8 +92,15 @@
 
 - (NSString*) consoleLog
 {
-    // TODO make configurable
-    NSDate* since = [[NSCalendarDate calendarDate] dateByAddingYears:0 months:0 days:-1 hours:0 minutes:0 seconds:0];
+    NSNumber *hours = [[NSUserDefaults standardUserDefaults] valueForKey:KEY_LOGHOURS];
+
+    int h = 24;
+
+    if (hours != nil) {
+        h = [hours intValue];
+    }
+    
+    NSDate* since = [[NSCalendarDate calendarDate] dateByAddingYears:0 months:0 days:0 hours:-h minutes:0 seconds:0];
 
     return [FRConsoleLog logSince:since];
 }
@@ -128,6 +135,11 @@ static NSArray *systemProfile = nil;
     NSArray *crashFiles = [FRCrashLogFinder findCrashLogsSince:lastSubmissionDate];
 
     int i = [crashFiles count];
+
+    if (i == 1) {
+        NSLog(@"Found a crash file earlier than latest submission on %@", lastSubmissionDate);
+        return [NSString stringWithContentsOfFile:[crashFiles lastObject]];
+    }
 
     NSLog(@"Found %d crash files earlier than latest submission on %@", i, lastSubmissionDate);
     
@@ -176,11 +188,12 @@ static NSArray *systemProfile = nil;
         int ret = [cmd execute];
         [cmd release];
 
-        NSLog(@"Script returned code = %d", ret);
+        NSLog(@"Script exit code = %d", ret);
         
-    } else {
+    } /* else {
         NSLog(@"No custom script to execute");
     }
+    */
 
     return log;
 }
@@ -299,7 +312,7 @@ static NSArray *systemProfile = nil;
 
 - (void) uploaderStarted:(FRUploader*)pUploader
 {
-    NSLog(@"Upload started");
+    // NSLog(@"Upload started");
 
     [indicator setHidden:NO];
     [indicator startAnimation:self];    
@@ -333,7 +346,7 @@ static NSArray *systemProfile = nil;
 
 - (void) uploaderFinished:(FRUploader*)pUploader
 {
-    NSLog(@"Upload finished");
+    // NSLog(@"Upload finished");
 
     [indicator stopAnimation:self];
     [indicator setHidden:YES];
@@ -345,7 +358,7 @@ static NSArray *systemProfile = nil;
     [commentView setEditable:YES];
     [sendButton setEnabled:YES];
 
-    NSLog(@"response = %@", response);
+    // NSLog(@"response = %@", response);
 
     NSArray *lines = [response componentsSeparatedByString:@"\n"];
     int i = [lines count];
@@ -447,15 +460,15 @@ static NSArray *systemProfile = nil;
     [commentView       setString:@""];
     [exceptionView     setString:@""];
 
-    NSLog(@"console");
+    // NSLog(@"console");
     [consoleView       setString:[self consoleLog]];
-    NSLog(@"crashes");
+    // NSLog(@"crashes");
     [crashesView       setString:[self crashLog]];
-    NSLog(@"shell");
+    // NSLog(@"shell");
     [scriptView         setString:[self scriptLog]];
-    NSLog(@"preferences");
+    // NSLog(@"preferences");
     [preferencesView   setString:[self preferences]];
-    NSLog(@"ready");
+    // NSLog(@"ready");
     
     [indicator setHidden:YES];
 

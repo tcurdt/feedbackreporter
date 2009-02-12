@@ -154,7 +154,7 @@
 
 - (void)connectionDidFinishLoading: (NSURLConnection *)pConnection
 {
-    NSLog(@"Connection finished");
+    // NSLog(@"Connection finished");
 
 	if ([delegate respondsToSelector: @selector(uploaderFinished:)]) {
         [delegate performSelector:@selector(uploaderFinished:) withObject:self];
