@@ -97,7 +97,7 @@
     int error = 0;
     int value = 0;
     size_t length = sizeof(value);
-    error = sysctlbyname("hw.cpusubtype", &value, &length, NULL, 0);
+    error = sysctlbyname("hw.cpufamily", &value, &length, NULL, 0);
     
     if (error != 0) {
         NSLog(@"Failed to obtain CPU type");
@@ -105,19 +105,20 @@
     }
 
     switch (value) {
-        case 4:
-            if ([self is64bit]) {
-                return @"Intel Core2 Duo";
-            } else {
-                return @"Intel Core";
-            }
-        case 9:
+        case CPUFAMILY_POWERPC_G3:
             return @"G3";
-        case 10:
-        case 11:
+        case CPUFAMILY_POWERPC_G4:
             return @"G4";
-        case 100:
+        case CPUFAMILY_POWERPC_G5:
             return @"G5";
+        case CPUFAMILY_INTEL_CORE:
+            return @"Intel Core Duo";
+        case CPUFAMILY_INTEL_CORE2:
+            return @"Intel Core 2 Duo";
+        case CPUFAMILY_INTEL_PENRYN:
+            return @"Intel Core 2 Duo (Penryn)";
+        case CPUFAMILY_INTEL_NEHALEM:
+            return @"Intel Xeon (Nehalem)";
     }
 
     NSLog(@"Unknown CPU type %d", value);
@@ -221,13 +222,13 @@
     OSType error;
     long result;
 
-    error = Gestalt(gestaltProcClkSpeed, &result);
+    error = Gestalt(gestaltProcClkSpeedMHz, &result);
     if (error) {
         NSLog(@"Failed to obtain CPU speed");
         return -1;
     }
     
-    return result / 1000000;
+    return result;
 }
 
 + (long) ramsize
