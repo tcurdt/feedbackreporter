@@ -32,24 +32,43 @@
 
     aslmsg query = asl_new(ASL_TYPE_QUERY);
 
-    asl_set_query(query, ASL_KEY_SENDER, [[FRApplication applicationName] UTF8String], ASL_QUERY_OP_EQUAL);
-    asl_set_query(query, ASL_KEY_TIME, [[NSString stringWithFormat:@"%01f", [since timeIntervalSince1970]] UTF8String], ASL_QUERY_OP_GREATER_EQUAL);
+    if (query != NULL) {
 
-    aslresponse response = asl_search(NULL, query);
+        asl_set_query(query, ASL_KEY_SENDER, [[FRApplication applicationName] UTF8String], ASL_QUERY_OP_EQUAL);
+        asl_set_query(query, ASL_KEY_TIME, [[NSString stringWithFormat:@"%01f", [since timeIntervalSince1970]] UTF8String], ASL_QUERY_OP_GREATER_EQUAL);
 
-    asl_free(query);
+        aslresponse response = asl_search(NULL, query);
 
-    aslmsg msg;
-    while ((msg = aslresponse_next(response))) {
+        asl_free(query);
 
-        const char* time = asl_get(msg, ASL_KEY_TIME);
+        if (response != NULL) {
 
-        NSDate *date = [NSDate dateWithTimeIntervalSince1970:atof(time)];
+            aslmsg msg;
 
-        [console appendFormat:@"%@: %s\n", date, asl_get(msg, ASL_KEY_MSG)];
+            while (NULL != (msg = aslresponse_next(response))) {
+
+                const char* time = asl_get(msg, ASL_KEY_TIME);
+                
+                if (time == NULL) {
+                    continue;
+                }
+                
+                const char* text = asl_get(msg, ASL_KEY_MSG);
+
+                if (text == NULL) {
+                    continue;
+                }
+
+                NSDate *date = [NSDate dateWithTimeIntervalSince1970:atof(time)];
+
+                [console appendFormat:@"%@: %s\n", date, text];
+            }
+
+            aslresponse_free(response);
+        }
+
     }
 
-    aslresponse_free(response);
 
     /*  Tiger: */
 
