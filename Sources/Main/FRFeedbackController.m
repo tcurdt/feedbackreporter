@@ -110,7 +110,7 @@ static NSArray *systemProfile = nil;
 - (NSArray*) systemProfile
 {
     if (systemProfile == nil) {
-        systemProfile = [FRSystemProfile discover];
+        systemProfile = [[FRSystemProfile discover] retain];
     }
     return systemProfile;
 }
