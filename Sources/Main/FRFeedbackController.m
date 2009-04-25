@@ -24,6 +24,9 @@
 #import "FRConstants.h"
 #import "FRConsoleLog.h"
 
+#import <AddressBook/ABAddressBook.h>
+#import <AddressBook/ABMultiValue.h>
+
 @implementation FRFeedbackController
 
 #pragma mark Construction
@@ -451,10 +454,8 @@ static NSArray *systemProfile = nil;
 
     NSString *email = [[NSUserDefaults standardUserDefaults] stringForKey:KEY_SENDEREMAIL];
     
-    if (email == nil) {
-        email = FRLocalizedString(@"anonymous", nil);
-
-/*
+    if (email == nil && [[NSUserDefaults standardUserDefaults] boolForKey:KEY_ADDRESSBOOKEMAIL]) {
+    
         ABAddressBook *book = [ABAddressBook sharedAddressBook];
         ABMultiValue *addrs = [[book me] valueForProperty:kABEmailProperty];
         int count = [addrs count];
@@ -462,7 +463,11 @@ static NSArray *systemProfile = nil;
         if (count > 0) {
             email = [addrs valueAtIndex:0];
         }
-*/
+
+    }
+
+    if (email == nil) {
+        email = FRLocalizedString(@"anonymous", nil);
     }
 
     [emailField   setStringValue:email];

@@ -23,6 +23,7 @@
 #define KEY_TARGETURL          @"FRFeedbackReporter.targetURL"
 #define KEY_UUID               @"FRFeedbackReporter.uuid"
 #define KEY_LOGHOURS           @"FRFeedbackReporter.logHours"
+#define KEY_ADDRESSBOOKEMAIL   @"FRFeedbackReporter.addressbookEmail"
 
 #define POST_KEY_TYPE          @"type"
 #define POST_KEY_EMAIL         @"email"
