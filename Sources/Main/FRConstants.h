@@ -24,6 +24,7 @@
 #define KEY_UUID               @"FRFeedbackReporter.uuid"
 #define KEY_LOGHOURS           @"FRFeedbackReporter.logHours"
 
+#define POST_KEY_TYPE          @"type"
 #define POST_KEY_EMAIL         @"email"
 #define POST_KEY_VERSION       @"version"
 #define POST_KEY_COMMENT       @"comment"

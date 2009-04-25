@@ -17,6 +17,10 @@
 #import <Cocoa/Cocoa.h>
 #import "FRUploader.h"
 
+#define FR_FEEDBACK  @"feedback"
+#define FR_EXCEPTION @"exception"
+#define FR_CRASH     @"crash"
+
 @interface FRFeedbackController : NSWindowController {
 
     IBOutlet NSTextField *messageField;
@@ -54,6 +58,8 @@
     FRUploader *uploader;
     
     id delegate;
+    
+    NSString *type;
 }
 
 #pragma mark Accessors
@@ -64,6 +70,7 @@
 - (void) setMessage:(NSString*)message;
 - (void) setComment:(NSString*)comment;
 - (void) setException:(NSString*)exception;
+- (void) setType:(NSString*)type;
 
 #pragma mark UI
 

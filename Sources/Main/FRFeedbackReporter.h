@@ -31,7 +31,6 @@
 - (BOOL) reportFeedback;
 - (BOOL) reportIfCrash;
 - (BOOL) reportException:(NSException *)exception;
-//- (BOOL) reportSystemStatistics;
 
 @end
 

@@ -87,6 +87,8 @@ static FRFeedbackReporter *sharedReporter = nil;
     [controller setMessage:[NSString stringWithFormat:
         FRLocalizedString(@"Got a problem with %@?", nil),
         [FRApplication applicationName]]];
+        
+    [controller setType:FR_FEEDBACK];
     
     [controller setDelegate:delegate];
     
@@ -120,6 +122,8 @@ static FRFeedbackReporter *sharedReporter = nil;
             FRLocalizedString(@"%@ has recently crashed!", nil),
             [FRApplication applicationName]]];
 
+        [controller setType:FR_CRASH];
+
         [controller setDelegate:delegate];
 
         [controller showWindow:self];
@@ -151,78 +155,13 @@ static FRFeedbackReporter *sharedReporter = nil;
                                 [exception reason],
                                 [exception my_callStack] ?:@""]];
 
+    [controller setType:FR_EXCEPTION];
+
     [controller setDelegate:delegate];
 
     [controller showWindow:self];
     
     return YES;
 }
-
-/*
-- (BOOL) reportSystemStatistics
-{
-    // TODO make configurable
-
-    NSTimeInterval statisticsInterval = 7*24*60*60; // once a week
-
-    BOOL ret = NO;
-
-	NSDate* now = [[NSDate alloc] init];
-
-    NSDate *lastStatisticsDate = [[NSUserDefaults standardUserDefaults] valueForKey:KEY_LASTSTATISTICSDATE];
-    NSDate *nextStatisticsDate = [lastStatisticsDate addTimeInterval:statisticsInterval];
-    
-    if (lastStatisticsDate == nil || [now earlierDate:nextStatisticsDate] == nextStatisticsDate) {
-        
-        NSString *uuid = [[NSUserDefaults standardUserDefaults] valueForKey:KEY_UUID];
-
-        if (uuid == nil) {
-            if (lastStatisticsDate != nil) {
-                NSLog(@"UUID is missing");
-            }
-            
-            uuid_t buffer;
-            
-            uuid_generate(buffer);
-
-            char str[36];
-
-            uuid_unparse_upper(buffer, str);
-            
-            uuid = [NSString stringWithFormat:@"%s", str];
-
-            NSLog(@"Generated UUID %@", uuid);
-            
-            [[NSUserDefaults standardUserDefaults] setValue: uuid
-                                                     forKey: KEY_UUID];
-
-        }
-
-        SystemDiscovery *discovery = [[SystemDiscovery alloc] init];
-        
-        NSDictionary *system = [discovery discover];
-        
-        [discovery release];
-
-        NSLog(@"Reporting system statistics for %@ (%@)", uuid, [system description]);
-
-        // TODO async upload
-        Uploader *uploader = [[Uploader alloc] initWithTarget:@"" delegate:nil];
-        
-        [uploader post:system];
-        
-        [uploader release];
-        
-        ret = YES;
-    }
-
-    [now release];
-
-    [[NSUserDefaults standardUserDefaults] setValue: [NSDate date]
-                                             forKey: KEY_LASTSTATISTICSDATE];
-
-    return ret;
-}
-*/
 
 @end

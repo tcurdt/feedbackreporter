@@ -50,6 +50,8 @@
 
 - (void) dealloc
 {
+    [type release];
+
     [tabConsole release];
     [tabCrash release];
     [tabScript release];
@@ -87,6 +89,12 @@
     [exceptionView setString:exception];
 }
 
+- (void) setType:(NSString*)theType
+{
+    [theType retain];
+    [type release];
+    type = theType;
+}
 
 #pragma mark information gathering
 
@@ -275,6 +283,9 @@ static NSArray *systemProfile = nil;
 	if ([delegate respondsToSelector:@selector(customParametersForFeedbackReport)]) {
         [dict addEntriesFromDictionary:[delegate customParametersForFeedbackReport]];
     }
+
+    [dict setObject:type
+             forKey:POST_KEY_TYPE];
 
     [dict setObject:[emailField stringValue]
              forKey:POST_KEY_EMAIL];
