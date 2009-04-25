@@ -21,7 +21,7 @@
 
 + (NSArray*) discover
 {
-	NSMutableArray *discoveryArray = [NSMutableArray array];
+	NSMutableArray *discoveryArray = [[[NSMutableArray alloc] init] autorelease];
 	NSArray *discoveryKeys = [NSArray arrayWithObjects:@"key", @"visibleKey", @"value", @"visibleValue", nil];
 
     NSString *osversion = [NSString stringWithFormat:@"%@", [self osversion]];
@@ -95,36 +95,71 @@
 + (NSString*) cputype
 {
     int error = 0;
-    int value = 0;
-    size_t length = sizeof(value);
-    error = sysctlbyname("hw.cpufamily", &value, &length, NULL, 0);
+
+
+    int cpufamily = -1;
+    size_t length = sizeof(cpufamily);
+    error = sysctlbyname("hw.cpufamily", &cpufamily, &length, NULL, 0);
     
+    if (error == 0) {
+        // 10.5+
+        switch (cpufamily) {
+            case CPUFAMILY_POWERPC_G3:
+                return @"PowerPC G3";
+            case CPUFAMILY_POWERPC_G4:
+                return @"PowerPC G4";
+            case CPUFAMILY_POWERPC_G5:
+                return @"PowerPC G5";
+            case CPUFAMILY_INTEL_CORE:
+                return @"Intel Core Duo";
+            case CPUFAMILY_INTEL_CORE2:
+                return @"Intel Core 2 Duo";
+            case CPUFAMILY_INTEL_PENRYN:
+                return @"Intel Core 2 Duo (Penryn)";
+            case CPUFAMILY_INTEL_NEHALEM:
+                return @"Intel Xeon (Nehalem)";
+        }
+        return nil;
+    }
+
+
+    int cputype = -1;
+    error = sysctlbyname("hw.cputype", &cputype, &length, NULL, 0);
+
     if (error != 0) {
         NSLog(@"Failed to obtain CPU type");
         return nil;
     }
 
-    switch (value) {
-        case CPUFAMILY_POWERPC_G3:
-            return @"G3";
-        case CPUFAMILY_POWERPC_G4:
-            return @"G4";
-        case CPUFAMILY_POWERPC_G5:
-            return @"G5";
-        case CPUFAMILY_INTEL_CORE:
-            return @"Intel Core Duo";
-        case CPUFAMILY_INTEL_CORE2:
-            return @"Intel Core 2 Duo";
-        case CPUFAMILY_INTEL_PENRYN:
-            return @"Intel Core 2 Duo (Penryn)";
-        case CPUFAMILY_INTEL_NEHALEM:
-            return @"Intel Xeon (Nehalem)";
+    int cpusubtype = -1;
+    error = sysctlbyname("hw.cpusubtype", &cpusubtype, &length, NULL, 0);
+
+    if (error != 0) {
+        NSLog(@"Failed to obtain CPU subtype");
+        return nil;
     }
 
-    NSLog(@"Unknown CPU type %d", value);
+    switch (cputype) {
+        case 7:
+            return @"Intel";
+        case 18:
+            switch (cpusubtype) {
+                case 9:
+                    return @"PowerPC G3";
+                case 10:
+                case 11:
+                    return @"PowerPC G4";
+                case 100:
+                    return @"PowerPC G5";
+            }
+            break;
+    }
+
+    NSLog(@"Unknown CPU type %d, CPU subtype %d", cputype, cpusubtype);
 
     return nil;
 }
+
 
 + (NSString*) osversion
 {
