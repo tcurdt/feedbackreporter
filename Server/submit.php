@@ -43,6 +43,7 @@ $project = preg_replace('/[^(0-9A-Za-z)]*/', '', $project_raw);
 
 if ($project != $project_raw) {
     echo "ERR 007\n";
+    echo "project name mismatch";
     exit;    
 }
 
@@ -54,12 +55,14 @@ if(!is_dir($project_dir)) {
     if (!$create_project_dirs) {
         // no project directory (and not configured to create one)
         echo "ERR 002\n";
+        echo "no such project";
         exit;        
     }
     
     if (count(dirs($feedback_dir)) > $feedback_max_project) {
         // too many projects
         echo "ERR 009\n";
+        echo "too many projects";
         exit;                
     }
     
@@ -67,6 +70,7 @@ if(!is_dir($project_dir)) {
     if (!mkdir($project_dir)) {
         // failed to create project directory
         echo "ERR 008\n";
+        echo "could not create project dir";
         exit;
     }
 }
@@ -76,6 +80,7 @@ $submission_dir = $project_dir . uniq() . '/';
 if (!mkdir($submission_dir)) {
     // failed to create submission directory
     echo "ERR 003\n";
+    echo "failed to create submission directory";
     exit;
 }
 
@@ -88,6 +93,7 @@ foreach($feedback_files as $file) {
    if (!$fh) {
        // failed to create file
        echo "ERR 004 $file\n";
+       echo "failed to create file";
        continue;
    }
 
@@ -101,6 +107,7 @@ foreach($feedback_files as $file) {
 if (count($_FILES) > $feedback_max_files) {
     // too many files submitted
     echo "ERR 005\n";
+    echo "too many files";
     exit;
 }
 
@@ -113,6 +120,7 @@ foreach($_FILES as $file) {
     if(!move_uploaded_file($file['tmp_name'], $dest)){
         // failed to move uploaded file
         echo 'ERR 006 ' . $file['error'] . "\n";
+        echo "failed to move file"
     } else {
         echo 'OK 006 ' . $file['name'] . "\n";
     }

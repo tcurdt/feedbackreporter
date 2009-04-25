@@ -5,6 +5,7 @@ $feedback_dir = '/home/tcurdt/feedback/';
 
 # fields that get stored as files
 $feedback_files = array(
+    'type',
     'version',
     'comment',
     'email',

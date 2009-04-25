@@ -5,7 +5,7 @@
 DIR=/home/tcurdt/feedback
 EMAIL_FROM=noreply@vafer.org
 EMAIL_TO=tcurdt@vafer.org
-EMAIL_SUBJECT="[FeedbackReporter] Feedback for PROJECT"
+EMAIL_SUBJECT="[FeedbackReporter] TYPE for PROJECT"
 SHOW_URL=http://vafer.org/feedback/show.php
 
 # do not touch below
@@ -86,16 +86,19 @@ for S in $SUBMISSIONS; do
 
     SIZE=`ls -la $ARCHIVE | awk '{ print $5 }'`
 
+    TYPE=`cat $S/type 2>/dev/null`
+
     SUBJECT=$EMAIL_SUBJECT
     SUBJECT=`echo "$SUBJECT" | sed s/PROJECT/$PROJECT/`	
     SUBJECT=`echo "$SUBJECT" | sed s/SIZE/$SIZE/`	
+    SUBJECT=`echo "$SUBJECT" | sed s/TYPE/$TYPE/`	
 
     REPLYTO=`cat $S/email`
-    
+        
     CONTENT="Feedback at ${SHOW_URL}?project=${PROJECT}&submission=${SUBMISSION}"
 
     (
-        email "$EMAIL_FROM" "$EMAIL_TO" $REPLYTO "$SUBJECT" "$CONTENT" "$ARCHIVE"
+        email "$EMAIL_FROM" "$EMAIL_TO" "$REPLYTO" "$SUBJECT" "$CONTENT" "$ARCHIVE"
     ) | sendmail -t
 
     rm $ARCHIVE
