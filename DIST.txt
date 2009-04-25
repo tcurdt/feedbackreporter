@@ -3,3 +3,4 @@ RELEASENOTES.html
 README.txt
 Server/*
 Sources/*
+FeedbackReporter.xcodeproj/project.pbxproj
