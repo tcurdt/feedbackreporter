@@ -26,7 +26,7 @@
 
 + (NSString*) logSince:(NSDate*)since;
 {
-    NSMutableString *console = [[[NSMutableString alloc] init] autorelease];
+    NSMutableString *console = [[NSMutableString alloc] init];
 
     /* Leopard: */
 
@@ -95,7 +95,7 @@
         [console appendString:@"..."];
     }
 
-    return console;
+    return [console autorelease];
 }
 
 @end
