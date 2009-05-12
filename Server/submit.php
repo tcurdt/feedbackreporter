@@ -120,7 +120,7 @@ foreach($_FILES as $file) {
     if(!move_uploaded_file($file['tmp_name'], $dest)){
         // failed to move uploaded file
         echo 'ERR 006 ' . $file['error'] . "\n";
-        echo "failed to move file"
+        echo "failed to move file";
     } else {
         echo 'OK 006 ' . $file['name'] . "\n";
     }

@@ -31,7 +31,7 @@
 "Exception" = "Exception";
 
 /* No comment provided by engineer. */
-"Got a problem with %@?" = "Got a problem with %@?\n\nPlease describe what is wrong and how to reproduce it.\nSee below the information that will get send along.";
+"Got a problem with %@?" = "Got a problem with %@?\n\nPlease describe what is wrong and how to reproduce it.\nSee the details below that will be sent along with your comments.";
 
 /* No comment provided by engineer. */
 "OK" = "OK";

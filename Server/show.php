@@ -84,15 +84,15 @@ div {
 	</head>
 <body>
 
-<div id="version"><pre><?php readfile($submission_dir . '/version'); ?></pre></div>
-<div id="email"><pre><?php readfile($submission_dir . '/email'); ?></pre></div>
-<div id="system"><pre><?php readfile($submission_dir . '/system'); ?></pre></div>
-<div id="comment"><pre><?php readfile($submission_dir . '/comment'); ?></pre></div>
-<div id="console"><pre><?php readfile($submission_dir . '/console'); ?></pre></div>
-<div id="crashlog"><pre><?php readfile($submission_dir . '/crashes'); ?></pre></div>
-<div id="exception"><pre><?php readfile($submission_dir . '/exception'); ?></pre></div>
-<div id="preferences"><pre><?php readfile($submission_dir . '/preferences'); ?></pre></div>
-<div id="shell"><pre><?php readfile($submission_dir . '/shell'); ?></pre></div>
+<div id="version"><pre><?php print htmlspecialchars(file_get_contents($submission_dir . '/version')); ?></pre></div>
+<div id="email"><pre><?php print htmlspecialchars(file_get_contents($submission_dir . '/email')); ?></pre></div>
+<div id="system"><pre><?php print htmlspecialchars(file_get_contents($submission_dir . '/system')); ?></pre></div>
+<div id="comment"><pre><?php print htmlspecialchars(file_get_contents($submission_dir . '/comment')); ?></pre></div>
+<div id="console"><pre><?php print htmlspecialchars(file_get_contents($submission_dir . '/console')); ?></pre></div>
+<div id="crashlog"><pre><?php print htmlspecialchars(file_get_contents($submission_dir . '/crashes')); ?></pre></div>
+<div id="exception"><pre><?php print htmlspecialchars(file_get_contents($submission_dir . '/exception')); ?></pre></div>
+<div id="preferences"><pre><?php print htmlspecialchars(file_get_contents($submission_dir . '/preferences')); ?></pre></div>
+<div id="shell"><pre><?php print htmlspecialchars(file_get_contents($submission_dir . '/shell')); ?></pre></div>
 
 </body>
 </html>
