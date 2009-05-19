@@ -47,3 +47,15 @@
 
 /* No comment provided by engineer. */
 "Sorry, failed to submit your feedback to the server." = "Leider konnte der Report nicht zum Server übertragen werden.";
+
+/* No comment provided by engineer. */
+"You may not be able to send feedback because %@ isn't reachable." = "Der Server %@ scheint nicht erreichbar zu sein.\n\nStellen Sie sicher, dass Sie mit dem Internet verbunden sind.\n";
+
+/* No comment provided by engineer. */
+"Feedback Host Not Reachable" = "Feedback Server nicht erreichbar";
+
+/* No comment provided by engineer. */
+"Proceed Anyway" = "Trotzdem versuchen";
+
+/* No comment provided by engineer. */
+"Cancel" = "Abbrechen";

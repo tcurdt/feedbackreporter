@@ -26,6 +26,7 @@
 
 #import <AddressBook/ABAddressBook.h>
 #import <AddressBook/ABMultiValue.h>
+#import <SystemConfiguration/SCNetwork.h>
 
 @implementation FRFeedbackController
 
@@ -279,6 +280,30 @@ static NSArray *systemProfile = nil;
         return;        
     }
 
+    NSURL *url = [NSURL URLWithString:target];
+
+    SCNetworkConnectionFlags reachabilityFlags;
+    Boolean reachabilityResult = SCNetworkCheckReachabilityByName([[url host] UTF8String], &reachabilityFlags);
+    
+    BOOL reachable = reachabilityResult
+        &&  (reachabilityFlags & kSCNetworkFlagsReachable)
+        && !(reachabilityFlags & kSCNetworkFlagsConnectionRequired)
+        && !(reachabilityFlags & kSCNetworkFlagsConnectionAutomatic)
+        && !(reachabilityFlags & kSCNetworkFlagsInterventionRequired);
+    
+    if (!reachable) {
+        int alertResult = [[NSAlert alertWithMessageText:FRLocalizedString(@"Feedback Host Not Reachable", nil)
+                                           defaultButton:FRLocalizedString(@"Proceed Anyway", nil)
+                                         alternateButton:FRLocalizedString(@"Cancel", nil)
+                                             otherButton:nil
+                               informativeTextWithFormat:FRLocalizedString(@"You may not be able to send feedback because %@ isn't reachable.", nil), [url host]
+                            ] runModal];
+
+        if (alertResult != NSAlertDefaultReturn) {
+            return;
+        }
+    }
+
     uploader = [[FRUploader alloc] initWithTarget:target delegate:self];
     
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:5];
@@ -443,6 +468,26 @@ static NSArray *systemProfile = nil;
     
 }
 
+- (void) stopSpinner
+{
+    [indicator stopAnimation:self];
+    [indicator setHidden:YES];
+    [sendButton setEnabled:YES];
+}
+
+- (void) populate
+{
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+
+    [consoleView setString:[self consoleLog]];
+    [crashesView setString:[self crashLog]];
+    [scriptView setString:[self scriptLog]];
+    [preferencesView setString:[self preferences]];
+        
+    [self performSelectorOnMainThread:@selector(stopSpinner) withObject:self waitUntilDone:YES];
+    
+    [pool release];
+}
 
 - (void) reset
 {
@@ -452,44 +497,47 @@ static NSArray *systemProfile = nil;
     [tabView removeTabViewItem:tabPreferences];
     [tabView removeTabViewItem:tabException];
 
+    ABPerson *me = [[ABAddressBook sharedAddressBook] me];
+    ABMutableMultiValue *emailAddresses = [me valueForProperty:kABEmailProperty];
+
+    int i, count = [emailAddresses count];
+    
+    [emailField removeAllItems];
+
+    [emailField addItemWithObjectValue:FRLocalizedString(@"anonymous", nil)];
+
+    for(i=0; i<count; i++) {
+//        NSString *emailAddress = [NSString stringWithFormat:@"%@ %@ <%@>",
+//            [me valueForProperty:kABFirstNameProperty],
+//            [me valueForProperty:kABLastNameProperty],
+//            [emailAddresses valueAtIndex:i]];
+
+        NSString *emailAddress = [emailAddresses valueAtIndex:i];
+
+        [emailField addItemWithObjectValue:emailAddress];
+    }
+    
     NSString *email = [[NSUserDefaults standardUserDefaults] stringForKey:KEY_SENDEREMAIL];
-    
-    if (email == nil && [[NSUserDefaults standardUserDefaults] boolForKey:KEY_ADDRESSBOOKEMAIL]) {
-    
-        ABAddressBook *book = [ABAddressBook sharedAddressBook];
-        ABMultiValue *addrs = [[book me] valueForProperty:kABEmailProperty];
-        int count = [addrs count];
-        
-        if (count > 0) {
-            email = [addrs valueAtIndex:0];
-        }
 
+    int found = [emailField indexOfItemWithObjectValue:email];
+    if (found != NSNotFound) {
+        [emailField selectItemAtIndex:found];
+    } else {
+        [emailField selectItemAtIndex:0];
     }
-
-    if (email == nil) {
-        email = FRLocalizedString(@"anonymous", nil);
-    }
-
-    [emailField   setStringValue:email];
 
     [messageField setStringValue:@""];
-    [commentView       setString:@""];
-    [exceptionView     setString:@""];
-
-    // NSLog(@"console");
-    [consoleView       setString:[self consoleLog]];
-    // NSLog(@"crashes");
-    [crashesView       setString:[self crashLog]];
-    // NSLog(@"shell");
-    [scriptView         setString:[self scriptLog]];
-    // NSLog(@"preferences");
-    [preferencesView   setString:[self preferences]];
-    // NSLog(@"ready");
-    
-    [indicator setHidden:YES];
+    [commentView setString:@""];
+    [exceptionView setString:@""];
 
     [self showDetails:NO animate:NO];
     [detailsButton setIntValue:NO];    
+
+    [indicator setHidden:NO];
+    [indicator startAnimation:self];    
+    [sendButton setEnabled:NO];
+
+    [NSThread detachNewThreadSelector:@selector(populate) toTarget:self withObject:nil];    
 }
 
 - (void) showWindow:(id)sender

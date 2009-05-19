@@ -25,7 +25,7 @@
 
     IBOutlet NSTextField *messageField;
     IBOutlet NSTextView *commentView;
-    IBOutlet NSTextField *emailField;
+    IBOutlet NSComboBox *emailField;
 
     IBOutlet NSButton *detailsButton;
 

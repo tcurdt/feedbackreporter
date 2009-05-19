@@ -48,3 +48,14 @@
 /* No comment provided by engineer. */
 "Sorry, failed to submit your feedback to the server." = "Sorry, failed to submit your feedback to the server.";
 
+/* No comment provided by engineer. */
+"You may not be able to send feedback because %@ isn't reachable." = "You may not be able to send feedback because %@ isn't reachable.\n\nPlease ensure you have a network connection before proceeding.\n";
+
+/* No comment provided by engineer. */
+"Feedback Host Not Reachable" = "Feedback Host Not Reachable";
+
+/* No comment provided by engineer. */
+"Proceed Anyway" = "Proceed Anyway";
+
+/* No comment provided by engineer. */
+"Cancel" = "Cancel";
