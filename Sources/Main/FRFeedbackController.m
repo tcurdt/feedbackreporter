@@ -479,11 +479,11 @@ static NSArray *systemProfile = nil;
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
-    [consoleView setString:[self consoleLog]];
-    [crashesView setString:[self crashLog]];
-    [scriptView setString:[self scriptLog]];
-    [preferencesView setString:[self preferences]];
-        
+    [consoleView performSelectorOnMainThread:@selector(setString:) withObject:[self consoleLog] waitUntilDone:YES];
+    [crashesView performSelectorOnMainThread:@selector(setString:) withObject:[self crashLog] waitUntilDone:YES];
+    [scriptView performSelectorOnMainThread:@selector(setString:) withObject:[self scriptLog] waitUntilDone:YES];
+    [preferencesView performSelectorOnMainThread:@selector(setString:) withObject:[self preferences] waitUntilDone:YES];
+
     [self performSelectorOnMainThread:@selector(stopSpinner) withObject:self waitUntilDone:YES];
     
     [pool release];
