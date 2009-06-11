@@ -29,10 +29,11 @@
 
 #pragma mark Construction
 
-static FRFeedbackReporter *sharedReporter = nil;
 
 + (FRFeedbackReporter *)sharedReporter
 {
+    static FRFeedbackReporter *sharedReporter = nil;
+
 	if (sharedReporter == nil) {
 		sharedReporter = [[[self class] alloc] init];
     }

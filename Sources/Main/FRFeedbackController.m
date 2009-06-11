@@ -118,12 +118,14 @@
 }
 
 
-static NSArray *systemProfile = nil;
 - (NSArray*) systemProfile
 {
+    static NSArray *systemProfile = nil;
+
     if (systemProfile == nil) {
         systemProfile = [[FRSystemProfile discover] retain];
     }
+
     return systemProfile;
 }
 
@@ -453,8 +455,6 @@ static NSArray *systemProfile = nil;
     [sendButton setTitle:FRLocalizedString(@"Send", nil)];
     [cancelButton setTitle:FRLocalizedString(@"Cancel", nil)];
 
-
-    // FIXME do this in IB
     [[consoleView textContainer] setContainerSize:NSMakeSize(FLT_MAX, FLT_MAX)];
     [[consoleView textContainer] setWidthTracksTextView:NO];
     [[crashesView textContainer] setContainerSize:NSMakeSize(FLT_MAX, FLT_MAX)];
@@ -475,14 +475,38 @@ static NSArray *systemProfile = nil;
     [sendButton setEnabled:YES];
 }
 
+- (void) addTabViewItem:(NSTabViewItem*)theTabViewItem
+{
+    [tabView insertTabViewItem:theTabViewItem atIndex:1];
+}
+
 - (void) populate
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
-    [consoleView performSelectorOnMainThread:@selector(setString:) withObject:[self consoleLog] waitUntilDone:YES];
-    [crashesView performSelectorOnMainThread:@selector(setString:) withObject:[self crashLog] waitUntilDone:YES];
-    [scriptView performSelectorOnMainThread:@selector(setString:) withObject:[self scriptLog] waitUntilDone:YES];
-    [preferencesView performSelectorOnMainThread:@selector(setString:) withObject:[self preferences] waitUntilDone:YES];
+    NSString *consoleLog = [self consoleLog];
+    if ([consoleLog length] > 0) {
+        [self performSelectorOnMainThread:@selector(addTabViewItem:) withObject:tabConsole waitUntilDone:YES];
+        [consoleView performSelectorOnMainThread:@selector(setString:) withObject:consoleLog waitUntilDone:YES];
+    }
+
+    NSString *crashLog = [self crashLog];
+    if ([crashLog length] > 0) {
+        [self performSelectorOnMainThread:@selector(addTabViewItem:) withObject:tabCrash waitUntilDone:YES];
+        [crashesView performSelectorOnMainThread:@selector(setString:) withObject:crashLog waitUntilDone:YES];
+    }
+
+    NSString *scriptLog = [self scriptLog];
+    if ([scriptLog length] > 0) {
+        [self performSelectorOnMainThread:@selector(addTabViewItem:) withObject:tabScript waitUntilDone:YES];
+        [scriptView performSelectorOnMainThread:@selector(setString:) withObject:scriptLog waitUntilDone:YES];
+    }
+
+    NSString *preferences = [self preferences];
+    if ([preferences length] > 0) {
+        [self performSelectorOnMainThread:@selector(addTabViewItem:) withObject:tabPreferences waitUntilDone:YES];
+        [preferencesView performSelectorOnMainThread:@selector(setString:) withObject:preferences waitUntilDone:YES];
+    }
 
     [self performSelectorOnMainThread:@selector(stopSpinner) withObject:self waitUntilDone:YES];
     
@@ -507,10 +531,6 @@ static NSArray *systemProfile = nil;
     [emailField addItemWithObjectValue:FRLocalizedString(@"anonymous", nil)];
 
     for(i=0; i<count; i++) {
-//        NSString *emailAddress = [NSString stringWithFormat:@"%@ %@ <%@>",
-//            [me valueForProperty:kABFirstNameProperty],
-//            [me valueForProperty:kABLastNameProperty],
-//            [emailAddresses valueAtIndex:i]];
 
         NSString *emailAddress = [emailAddresses valueAtIndex:i];
 
@@ -537,27 +557,10 @@ static NSArray *systemProfile = nil;
     [indicator startAnimation:self];    
     [sendButton setEnabled:NO];
 
-    [NSThread detachNewThreadSelector:@selector(populate) toTarget:self withObject:nil];    
 }
 
 - (void) showWindow:(id)sender
 {
-    if ([[consoleView string] length] != 0) {
-        [tabView insertTabViewItem:tabConsole atIndex:1];
-    }
-
-    if ([[crashesView string] length] != 0) {
-        [tabView insertTabViewItem:tabCrash atIndex:1];
-    }
-
-    if ([[scriptView string] length] != 0) {
-        [tabView insertTabViewItem:tabScript atIndex:1];
-    }
-
-    if ([[preferencesView string] length] != 0) {
-        [tabView insertTabViewItem:tabPreferences atIndex:1];
-    }
-
     if ([[exceptionView string] length] != 0) {
         [tabView insertTabViewItem:tabException atIndex:1];
         [tabView selectTabViewItemWithIdentifier:@"Exception"];
@@ -565,6 +568,8 @@ static NSArray *systemProfile = nil;
         [tabView selectTabViewItemWithIdentifier:@"System"];
     }
 
+    [NSThread detachNewThreadSelector:@selector(populate) toTarget:self withObject:nil];
+    
     [super showWindow:sender];
 }
 
