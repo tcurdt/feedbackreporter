@@ -18,45 +18,7 @@
 #import "NSException+Callstack.h"
 #import "FRFeedbackReporter.h"
 
-static void (*sExceptionReporter)(NSException*);
-
-void MYSetExceptionReporter( void (*reporter)(NSException*) )
-{
-    sExceptionReporter = reporter;
-}
-
-void MYReportException( NSException *x, NSString *where, ... )
-{
-    va_list args;
-    va_start(args,where);
-    where = [[NSString alloc] initWithFormat: where arguments: args];
-    va_end(args);
-    if( sExceptionReporter ) {
-        NSLog(@"Exception caught in %@:\n\t%@", where, x);
-        sExceptionReporter(x);
-    } else {
-        NSLog(@"Exception caught in %@:\n\t%@\n%@",where, x, x.my_callStack);
-    }
-    [where release];
-}
-
-
 @implementation FRExceptionReportingApplication
-
-
-static void report( NSException *x ) {
-    [[NSApplication sharedApplication] reportException: x];
-}
-
-- (id) init
-{
-    self = [super init];
-    if (self != nil) {
-        MYSetExceptionReporter(&report);
-    }
-    return self;
-}
-
 
 - (void) reportException:(NSException *)x
 {

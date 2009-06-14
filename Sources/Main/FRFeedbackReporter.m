@@ -78,22 +78,26 @@
 {
     FRFeedbackController *controller = [self feedbackController];
 
-    if ([controller isShown]) {
-        NSLog(@"Controller already shown");
-        return NO;
-    }
+    @synchronized (controller) {
     
-    [controller reset];
-
-    [controller setMessage:[NSString stringWithFormat:
-        FRLocalizedString(@"Got a problem with %@?", nil),
-        [FRApplication applicationName]]];
+        if ([controller isShown]) {
+            NSLog(@"Controller already shown");
+            return NO;
+        }
         
-    [controller setType:FR_FEEDBACK];
-    
-    [controller setDelegate:delegate];
-    
-    [controller showWindow:self];
+        [controller reset];
+
+        [controller setMessage:[NSString stringWithFormat:
+            FRLocalizedString(@"Got a problem with %@?", nil),
+            [FRApplication applicationName]]];
+            
+        [controller setType:FR_FEEDBACK];
+        
+        [controller setDelegate:delegate];
+        
+        [controller showWindow:self];
+
+    }
     
     return YES;
 }
@@ -111,24 +115,28 @@
         // NSLog(@"Found new crash files");
 
         FRFeedbackController *controller = [self feedbackController];
+
+        @synchronized (controller) {
         
-        if ([controller isShown]) {
-            NSLog(@"Controller already shown");
-            return NO;
+            if ([controller isShown]) {
+                NSLog(@"Controller already shown");
+                return NO;
+            }
+
+            [controller reset];
+
+            [controller setMessage:[NSString stringWithFormat:
+                FRLocalizedString(@"%@ has recently crashed!", nil),
+                [FRApplication applicationName]]];
+
+            [controller setType:FR_CRASH];
+
+            [controller setDelegate:delegate];
+
+            [controller showWindow:self];
+
         }
-
-        [controller reset];
-
-        [controller setMessage:[NSString stringWithFormat:
-            FRLocalizedString(@"%@ has recently crashed!", nil),
-            [FRApplication applicationName]]];
-
-        [controller setType:FR_CRASH];
-
-        [controller setDelegate:delegate];
-
-        [controller showWindow:self];
-
+        
         return YES;
 
     }
@@ -140,27 +148,31 @@
 {
     FRFeedbackController *controller = [self feedbackController];
 
-    if ([controller isShown]) {
-        NSLog(@"Controller already shown");
-        return NO;
+    @synchronized (controller) {
+
+        if ([controller isShown]) {
+            NSLog(@"Controller already shown");
+            return NO;
+        }
+
+        [controller reset];
+        
+        [controller setMessage:[NSString stringWithFormat:
+            FRLocalizedString(@"%@ has encountered an exception!", nil),
+            [FRApplication applicationName]]];
+
+        [controller setException:[NSString stringWithFormat: @"%@\n\n%@\n\n%@",
+                                    [exception name],
+                                    [exception reason],
+                                    [exception my_callStack] ?:@""]];
+
+        [controller setType:FR_EXCEPTION];
+
+        [controller setDelegate:delegate];
+
+        [controller showWindow:self];
+
     }
-
-    [controller reset];
-    
-    [controller setMessage:[NSString stringWithFormat:
-        FRLocalizedString(@"%@ has encountered an exception!", nil),
-        [FRApplication applicationName]]];
-
-    [controller setException:[NSString stringWithFormat: @"%@\n\n%@\n\n%@",
-                                [exception name],
-                                [exception reason],
-                                [exception my_callStack] ?:@""]];
-
-    [controller setType:FR_EXCEPTION];
-
-    [controller setDelegate:delegate];
-
-    [controller showWindow:self];
     
     return YES;
 }
