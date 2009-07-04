@@ -1,18 +1,16 @@
 <html>
 <body>
     <p>
-        Fixex some reported crashes, improved CPU detection,
-        added the option to use addressbook email instead of anonymous
+        Asynchronous gathering of system information.
+        Shows all email addresses.
+        Fixed some bugs/crashes.
     </p>
 
     <ul>
-        <li>[FIX] Improperly retained log information caused crashes.</li>
-        <li>[FIX] Not checking for ASL results caused crashes.</li>
-        <li>[FIX] Read-only tableview.</li>
-        <li>[CHANGE] More detailed CPU detection on 10.5+.</li>
-        <li>[ADD] Preset email address from addressbook if key <em>FRFeedbackReporter.addressbookEmail</em> is present.</li>
-        <li>[ADD] Send along the type of the report (feedback/exception/crash).</li>
-        <li>[ADD] Include full Xcode project into release.</li>
+        <li>[FIX] Properly synchronize dialog composition.</li>
+        <li>[FIX] Only catch the first exception.</li>
+        <li>[CHANGE] Show all email addresses from addressbook.</li>
+        <li>[ADD] Asynchronous gathering of system information.</li>
     </ul>
 </body>
 </html>
