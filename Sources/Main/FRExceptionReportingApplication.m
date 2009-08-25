@@ -24,7 +24,14 @@
 {
     [super reportException: x];
     
-    [[FRFeedbackReporter sharedReporter] reportException:x];
+    @try {
+        [[FRFeedbackReporter sharedReporter] reportException:x];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"Problem within FeedbackReporter %@: %@", [exception name], [exception  reason]);
+    }
+    @finally {
+    }
 }
 
 
