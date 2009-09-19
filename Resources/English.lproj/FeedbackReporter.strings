@@ -1,10 +1,13 @@
 ﻿/* English */
 
-/* No comment provided by engineer. */
-"%@ has encountered an exception!" = "%@ has encountered an exception!\n\nPlease describe how this happened.\nIt might be safer to restart the application.\nSee below the information that will get send along.";
+/* Uncaught exception message */
+"%@ has encountered an exception!" = "%@ encountered an unexpected error.";
 
-/* No comment provided by engineer. */
-"%@ has recently crashed!" = "%@ has recently crashed!\n\nPlease describe how this happened.\nSee below the information that will get sent along.";
+/* Message text for crash report */
+"%@ has recently crashed!" = "%@ recently quit unexpectedly.\n\n";
+
+/* Informative text for crash report */
+"Send feedback" = "To help us fix the problem, please send us this feedback report. Click Details to see what information is sent to us.";
 
 /* No comment provided by engineer. */
 "anonymous" = "anonymous";
@@ -12,8 +15,8 @@
 /* No comment provided by engineer. */
 "Cancel" = "Cancel";
 
-/* No comment provided by engineer. */
-"Comments:" = "Comments:";
+/* Comments text view label */
+"Comments:" = "What you did just before the problem occurred:";
 
 /* No comment provided by engineer. */
 "Console" = "Console";
@@ -22,7 +25,7 @@
 "CrashLog" = "CrashLog";
 
 /* No comment provided by engineer. */
-"Email address:" = "Email address:";
+"Email address:" = "Your email address if you would like us to get in touch with you:";
 
 /* No comment provided by engineer. */
 "Error: %@" = "Error: %@";
@@ -30,8 +33,8 @@
 /* No comment provided by engineer. */
 "Exception" = "Exception";
 
-/* No comment provided by engineer. */
-"Got a problem with %@?" = "Got a problem with %@?\n\nPlease describe what is wrong and how to reproduce it.\nSee the details below that will be sent along with your comments.";
+/* Feedback message text */
+"Got a problem with %@?" = "Experiencing problems with %@?";
 
 /* No comment provided by engineer. */
 "OK" = "OK";
@@ -46,7 +49,7 @@
 "Send" = "Send";
 
 /* No comment provided by engineer. */
-"Sorry, failed to submit your feedback to the server." = "Sorry, failed to submit your feedback to the server.";
+"Sorry, failed to submit your feedback to the server." = "Error submitting your feedback to the server.";
 
 /* No comment provided by engineer. */
 "You may not be able to send feedback because %@ isn't reachable." = "You may not be able to send feedback because %@ isn't reachable.\n\nPlease ensure you have a network connection before proceeding.\n";

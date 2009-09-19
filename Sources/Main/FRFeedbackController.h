@@ -24,6 +24,7 @@
 @interface FRFeedbackController : NSWindowController {
 
     IBOutlet NSTextField *messageField;
+	IBOutlet NSTextField *informativeTextField;
     IBOutlet NSTextView *commentView;
     IBOutlet NSComboBox *emailField;
 
@@ -68,6 +69,7 @@
 - (void) setDelegate:(id) delegate;
 
 - (void) setMessage:(NSString*)message;
+- (void) setInformativeText:(NSString *)informativeText;
 - (void) setComment:(NSString*)comment;
 - (void) setException:(NSString*)exception;
 - (void) setType:(NSString*)type;

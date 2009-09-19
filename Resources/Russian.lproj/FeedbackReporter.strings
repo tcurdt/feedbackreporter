@@ -1,0 +1,61 @@
+﻿/* Russian */
+ 
+/* No comment provided by engineer. */
+"%@ has encountered an exception!" = "В приложении %@ произошла исключительная ситуация!\n\nПожалуйста, опишите как это произошло.\nНастоятельно советуем Вам перезапустить приложение.\nНиже отображены технические детали которые могут помочь разработчикам исправить проблему. Отправте их им.";
+ 
+/* No comment provided by engineer. */
+"%@ has recently crashed!" = "В приложении %@ недавно произошла критическая ошибка!\n\nПожалуйста, опишите как это произошло.\nНиже отображены технические детали которые могут помочь разработчикам исправить проблему. Отправте их им.";
+ 
+/* No comment provided by engineer. */
+"anonymous" = "аноним";
+ 
+/* No comment provided by engineer. */
+"Cancel" = "Отмена";
+ 
+/* No comment provided by engineer. */
+"Comments:" = "Комментарии:";
+ 
+/* No comment provided by engineer. */
+"Console" = "Консоль";
+ 
+/* No comment provided by engineer. */
+"CrashLog" = "Журнал ошибок";
+ 
+/* No comment provided by engineer. */
+"Email address:" = "Адрес электронной почты:";
+ 
+/* No comment provided by engineer. */
+"Error: %@" = "Ошибка: %@";
+ 
+/* No comment provided by engineer. */
+"Exception" = "Исключение";
+ 
+/* No comment provided by engineer. */
+"Got a problem with %@?" = "У Вас возникли проблемы с приложением %@?\n\nПожалуйста, опишите в чем проблема и как она у Вас возникла.\nНиже отображены технические детали которые могут помочь разработчикам исправить проблему. Отправте их им.";
+ 
+/* No comment provided by engineer. */
+"OK" = "Oк";
+ 
+/* No comment provided by engineer. */
+"Preferences" = "Настройки";
+ 
+/* No comment provided by engineer. */
+"Script" = "Скрипт";
+ 
+/* No comment provided by engineer. */
+"Send" = "Отправить";
+ 
+/* No comment provided by engineer. */
+"Sorry, failed to submit your feedback to the server." = "К сожалению, не удалось отправить Ваше сообщение.";
+ 
+/* No comment provided by engineer. */
+"You may not be able to send feedback because %@ isn't reachable." = "Вы не можете отправить сообщение потому, что %@ не доступен.\n\nПожалуйста, убедитесь что Вы подключены к Интернету прежде чем продолжить.\n";
+ 
+/* No comment provided by engineer. */
+"Feedback Host Not Reachable" = "Сервер для обработки сообщений не доступен";
+ 
+/* No comment provided by engineer. */
+"Proceed Anyway" = "Все равно продолжить";
+ 
+/* No comment provided by engineer. */
+"Cancel" = "Отмена";

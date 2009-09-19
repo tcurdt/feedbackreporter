@@ -83,6 +83,11 @@
     [messageField setStringValue:message];
 }
 
+- (void) setInformativeText:(NSString *)informativeText
+{
+	[informativeTextField setStringValue:informativeText];
+}
+
 - (void) setComment:(NSString*)comment
 {
     [commentView setString:comment];
