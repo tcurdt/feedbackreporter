@@ -157,7 +157,13 @@
 
     if (i == 1) {
         NSLog(@"Found a crash file earlier than latest submission on %@", lastSubmissionDate);
-        return [NSString stringWithContentsOfFile:[crashFiles lastObject]];
+        NSError *error = nil;
+        NSString *result = [NSString stringWithContentsOfFile:[crashFiles lastObject] encoding: NSUTF8StringEncoding error:&error];
+        if (error != nil) {
+            NSLog(@"Failed to read crash file: %@", error);
+            return @"";
+        }
+        return result;
     }
 
     NSLog(@"Found %d crash files earlier than latest submission on %@", i, lastSubmissionDate);
@@ -187,7 +193,13 @@
 
         NSLog(@"Picking CrashLog: %@", newestCrashFile);
 
-        return [NSString stringWithContentsOfFile:newestCrashFile];
+        NSError *error = nil;
+        NSString *result = [NSString stringWithContentsOfFile:newestCrashFile encoding: NSUTF8StringEncoding error:&error];
+        if (error != nil) {
+            NSLog(@"Failed to read crash file: %@", error);
+            return @"";
+        }
+        return result;
     }
 
     return @"";
@@ -544,7 +556,7 @@
     
     NSString *email = [[NSUserDefaults standardUserDefaults] stringForKey:KEY_SENDEREMAIL];
 
-    int found = [emailField indexOfItemWithObjectValue:email];
+    NSInteger found = [emailField indexOfItemWithObjectValue:email];
     if (found != NSNotFound) {
         [emailField selectItemAtIndex:found];
     } else {

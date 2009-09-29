@@ -273,7 +273,7 @@
 + (long) cpuspeed
 {
     OSType error;
-    long result;
+    SInt32 result;
 
     error = Gestalt(gestaltProcClkSpeedMHz, &result);
     if (error) {
@@ -287,7 +287,7 @@
 + (long) ramsize
 {
     OSType error;
-    long result;
+    SInt32 result;
 
     error = Gestalt(gestaltPhysicalRAMSizeInMegabytes, &result);
     if (error) {

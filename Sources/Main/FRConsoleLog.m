@@ -28,6 +28,34 @@
 {
     NSMutableString *console = [[NSMutableString alloc] init];
 
+
+    /*  Tiger: */
+
+    NSString *logPath = [NSString stringWithFormat: @"/Library/Logs/Console/%@/console.log", [NSNumber numberWithUnsignedInt:getuid()]];
+
+    // TODO read and filter line by line
+    NSError *error = nil;
+    NSString *log = [NSString stringWithContentsOfFile:logPath encoding: NSUTF8StringEncoding error:&error];
+    if (error == nil) {
+        NSString *filter = [NSString stringWithFormat: @"%@[", [FRApplication applicationName]];
+
+        NSEnumerator *lineEnum = [[log componentsSeparatedByString: @"\n"] objectEnumerator];
+
+        NSString *currentObject;
+
+        while (currentObject = [lineEnum nextObject]) {
+
+            if ([currentObject rangeOfString:filter].location != NSNotFound) {        
+                [console appendFormat:@"%@\n", currentObject];
+            }  
+        }
+
+        if ([console length] != 0) {
+            [console appendString:@"..."];
+        }
+    }
+
+
     /* Leopard: */
 
     aslmsg query = asl_new(ASL_TYPE_QUERY);
@@ -69,31 +97,7 @@
 
     }
 
-
-    /*  Tiger: */
-
-    NSString *logPath = [NSString stringWithFormat: @"/Library/Logs/Console/%@/console.log", [NSNumber numberWithUnsignedInt:getuid()]];
-
-    // TODO read and filter line by line
-    NSString *log = [NSString stringWithContentsOfFile:logPath];
-
-    NSString *filter = [NSString stringWithFormat: @"%@[", [FRApplication applicationName]];
-
-
-    NSEnumerator *lineEnum = [[log componentsSeparatedByString: @"\n"] objectEnumerator];
-
-    NSString *currentObject;
-
-    while (currentObject = [lineEnum nextObject]) {
-
-        if ([currentObject rangeOfString:filter].location != NSNotFound) {        
-            [console appendFormat:@"%@\n", currentObject];
-        }  
-    }
-
-    if ([console length] != 0) {
-        [console appendString:@"..."];
-    }
+    /* Snow Leopard */
 
     return [console autorelease];
 }
