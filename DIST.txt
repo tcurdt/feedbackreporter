@@ -1,7 +1,9 @@
 LICENSE.txt
 RELEASENOTES.html
 README.txt
-"Server/*"
+Server/Email
+Server/Mantis
+Server/Store\ and\ Email\ Link
 Sources/*
 Resources/*
 FeedbackReporter.xcodeproj/project.pbxproj
