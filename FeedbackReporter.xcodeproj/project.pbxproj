@@ -544,7 +544,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = (
+					x86_64,
+					i386,
+					ppc7400,
+				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_ENABLE_SYMBOL_SEPARATION = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -564,7 +568,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = (
+					x86_64,
+					i386,
+					ppc7400,
+				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_ENABLE_SYMBOL_SEPARATION = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
