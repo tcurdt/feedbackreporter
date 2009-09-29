@@ -425,7 +425,8 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+			shellScript = "# Run the unit tests in this test bundle.\n\nif [ -x '/Applications/OCRunner.app' ]; then\n\topen \"ocrunner://${TARGET_BUILD_DIR}/${PRODUCT_NAME}.octest\"\nelse\n\t\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\nfi";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -534,7 +535,7 @@
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = FeedbackReporter;
-				SDKROOT = macosx10.4;
+				SDKROOT = macosx10.5;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;
@@ -555,7 +556,7 @@
 				PREBINDING = NO;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				SDKROOT = macosx10.5;
-				VALID_ARCHS = "i386 x86_64";
+				VALID_ARCHS = "x86_64 i386 ppc7400";
 			};
 			name = Debug;
 		};
@@ -574,7 +575,7 @@
 				PREBINDING = NO;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				SDKROOT = macosx10.5;
-				VALID_ARCHS = "i386 x86_64";
+				VALID_ARCHS = "x86_64 i386 ppc7400";
 			};
 			name = Release;
 		};
@@ -604,7 +605,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = Tests;
-				SDKROOT = macosx10.4;
+				SDKROOT = macosx10.5;
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
@@ -633,7 +634,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = Tests;
-				SDKROOT = macosx10.4;
+				SDKROOT = macosx10.5;
 				WRAPPER_EXTENSION = octest;
 				ZERO_LINK = NO;
 			};
