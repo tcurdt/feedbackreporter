@@ -1,0 +1,64 @@
+/* French */
+ 
+/* Uncaught exception message */
+"%@ has encountered an exception!" = "%@ a rencontré une erreur imprévue:";
+
+/* Message text for crash report */
+"%@ has recently crashed!" = "%@ s'est terminée de façon inattendue.\n\n";
+ 
+/* Informative text for crash report */
+"Send feedback" = "Pour qu'on puisse fixer le problème, envoyez, s'il vous plaît, ce rapport feedback. Cliquez sur les Détails pour voir l'information envoyée.";
+ 
+/* No comment provided by engineer. */
+"anonymous" = "anonyme";
+ 
+/* No comment provided by engineer. */
+"Cancel" = "Annuler";
+ 
+/* Comments text view label */
+"Comments:" = "Ce que vous avez fait juste devant l'apparition du problème:";
+ 
+/* No comment provided by engineer. */
+"Console" = "Console";
+ 
+/* No comment provided by engineer. */
+"CrashLog" = "CrashLog";
+ 
+/* No comment provided by engineer. */
+"Email address:" = "Votre email, si vous voulez que nous vous contactions:";
+ 
+/* No comment provided by engineer. */
+"Error: %@" = "Erreur: %@";
+ 
+/* No comment provided by engineer. */
+"Exception" = "Exception";
+ 
+/* Feedback message text */
+"Got a problem with %@?" = "Il y a des problèmes avec %@ ?";
+ 
+/* No comment provided by engineer. */
+"OK" = "OK";
+ 
+/* No comment provided by engineer. */
+"Preferences" = "Préférences";
+ 
+/* No comment provided by engineer. */
+"Script" = "Script";
+ 
+/* No comment provided by engineer. */
+"Send" = "Envoyer";
+ 
+/* No comment provided by engineer. */
+"Sorry, failed to submit your feedback to the server." = "Erreur pendant la submission de votre rapport au serveur.";
+ 
+/* No comment provided by engineer. */
+"You may not be able to send feedback because %@ isn't reachable." = "Vous ne pouvez pas envoyer un rapport car %@ est inaccessible.\n\nAssurez vous de la connection au reseau avant continuer.\n";
+ 
+/* No comment provided by engineer. */
+"Feedback Host Not Reachable" = "L'hôte feedback est inaccessible";
+ 
+/* No comment provided by engineer. */
+"Proceed Anyway" = "Continuer";
+ 
+/* No comment provided by engineer. */
+"Cancel" = "Annuler";
