@@ -4,7 +4,7 @@
 "%@ has encountered an exception!" = "%@ encountered an unexpected error.";
 
 /* Message text for crash report */
-"%@ has recently crashed!" = "%@ recently quit unexpectedly.\n\n";
+"%@ has recently crashed!" = "%@ recently quit unexpectedly.";
 
 /* Informative text for crash report */
 "Send feedback" = "To help us fix the problem, please send us this feedback report. Click Details to see what information is sent to us.";

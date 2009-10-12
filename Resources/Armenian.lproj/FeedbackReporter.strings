@@ -4,7 +4,7 @@
 "%@ has encountered an exception!" = "%@-ի հետ առաջացել է չնախատեսված վթարային խնդիր:";
 
 /* Message text for crash report */
-"%@ has recently crashed!" = "%@-ի հանկարծակի անջատում.\n\n";
+"%@ has recently crashed!" = "%@-ի հանկարծակի անջատում.";
  
 /* Informative text for crash report */
 "Send feedback" = "Թերությունը վերացնելու համար հաղորդե՛ք մեզ դրա մասին: Սեղմե՛ք «Մանրամասներ»` տեսնելու մեզ ուղարկված տեղեկությունը:";
