@@ -113,12 +113,32 @@
 + (NSString*) cputype
 {
     int error = 0;
-
-
-    int cpufamily = -1;
-    size_t length = sizeof(cpufamily);
-    error = sysctlbyname("hw.cpufamily", &cpufamily, &length, NULL, 0);
     
+    int cputype = -1;
+    size_t length = sizeof(cputype);
+    error = sysctlbyname("hw.cputype", &cputype, &length, NULL, 0);
+    
+    if (error != 0) {
+        NSLog(@"Failed to obtain CPU type");
+        return nil;
+    }
+    
+    // Intel
+    if (cputype == CPU_TYPE_X86) {
+        char stringValue[255];
+        size_t stringLength = sizeof(stringValue);
+        error = sysctlbyname("machdep.cpu.brand_string", &stringValue, &stringLength, NULL, 0);
+        if ((error == 0) && (stringValue != NULL)) {
+            NSString *brandString = [NSString stringWithUTF8String:stringValue];
+            if (brandString)
+                return brandString;
+        }
+    }
+    
+    int cpufamily = -1;
+    length = sizeof(cpufamily);
+    error = sysctlbyname("hw.cpufamily", &cpufamily, &length, NULL, 0);
+        
     if (error == 0) {
         // 10.5+
         switch (cpufamily) {
@@ -135,21 +155,14 @@
             case CPUFAMILY_INTEL_PENRYN:
                 return @"Intel Core 2 Duo (Penryn)";
             case CPUFAMILY_INTEL_NEHALEM:
-                return @"Intel Xeon (Nehalem)";
+            	return @"Intel Xeon (Nehalem)";
         }
         return nil;
     }
 
 
-    int cputype = -1;
-    error = sysctlbyname("hw.cputype", &cputype, &length, NULL, 0);
-
-    if (error != 0) {
-        NSLog(@"Failed to obtain CPU type");
-        return nil;
-    }
-
     int cpusubtype = -1;
+    length = sizeof(cpusubtype);
     error = sysctlbyname("hw.cpusubtype", &cpusubtype, &length, NULL, 0);
 
     if (error != 0) {
@@ -158,16 +171,16 @@
     }
 
     switch (cputype) {
-        case 7:
+        case CPU_TYPE_X86:
             return @"Intel";
-        case 18:
+        case CPU_TYPE_POWERPC:
             switch (cpusubtype) {
-                case 9:
+                case CPU_SUBTYPE_POWERPC_750:
                     return @"PowerPC G3";
-                case 10:
-                case 11:
+                case CPU_SUBTYPE_POWERPC_7400:
+                case CPU_SUBTYPE_POWERPC_7450:
                     return @"PowerPC G4";
-                case 100:
+                case CPU_SUBTYPE_POWERPC_970:
                     return @"PowerPC G5";
             }
             break;
