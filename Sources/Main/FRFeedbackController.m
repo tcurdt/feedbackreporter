@@ -231,12 +231,18 @@
 
 - (NSString*) preferences
 {
-    NSDictionary *preferences = [[NSUserDefaults standardUserDefaults] persistentDomainForName:[FRApplication applicationIdentifier]];
+    NSMutableDictionary *preferences = [[[[NSUserDefaults standardUserDefaults] persistentDomainForName:[FRApplication applicationIdentifier]] mutableCopy] autorelease];
     
     if (preferences == nil) {
         return @"";
     }
-    
+
+    [preferences removeObjectForKey:KEY_SENDEREMAIL];
+
+	if ([delegate respondsToSelector:@selector(anonymizePreferencesForFeedbackReport:)]) {
+        preferences = [delegate anonymizePreferencesForFeedbackReport:preferences];
+    }
+
     return [NSString stringWithFormat:@"%@", preferences];
 }
 

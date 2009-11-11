@@ -37,4 +37,5 @@
 
 @interface NSObject (FRFeedbackReporterDelegate)
 - (NSDictionary*) customParametersForFeedbackReport;
+- (NSMutableDictionary*) anonymizePreferencesForFeedbackReport:(NSMutableDictionary *)preferences;
 @end
