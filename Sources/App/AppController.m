@@ -61,11 +61,11 @@
 
 - (void) threadWithException
 {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     NSLog(@"exception in thread");
-	[NSException raise:@"TestExceptionThread" format:@"Something went wrong"];
-	[NSThread exit];
-	[pool release];
+    [NSException raise:@"TestExceptionThread" format:@"Something went wrong"];
+    [NSThread exit];
+    [pool release];
 }
 
 - (IBAction) buttonCrash:(id)sender

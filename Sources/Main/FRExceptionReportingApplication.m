@@ -26,13 +26,13 @@
     [super reportException: x];
     
     @try {
-		if (!pthread_main_np()) {
-			[[FRFeedbackReporter sharedReporter] performSelectorOnMainThread:@selector(reportException:) withObject:x waitUntilDone:NO];
-			[NSThread exit];
-		}
-		else {
-			[[FRFeedbackReporter sharedReporter] reportException:x];
-		}
+        if (!pthread_main_np()) {
+            [[FRFeedbackReporter sharedReporter] performSelectorOnMainThread:@selector(reportException:) withObject:x waitUntilDone:NO];
+            [NSThread exit];
+        }
+        else {
+            [[FRFeedbackReporter sharedReporter] reportException:x];
+        }
     }
     @catch (NSException *exception) {
         NSLog(@"Problem within FeedbackReporter %@: %@", [exception name], [exception  reason]);
