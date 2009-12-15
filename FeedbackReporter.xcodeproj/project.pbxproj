@@ -117,6 +117,8 @@
 		9DB6353A0E4DDCB700C72888 /* AppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppController.m; path = Sources/App/AppController.m; sourceTree = SOURCE_ROOT; };
 		9DB6353B0E4DDCB700C72888 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppController.h; path = Sources/App/AppController.h; sourceTree = SOURCE_ROOT; };
 		9DC077900E4CE75E00014424 /* FeedbackReporter.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedbackReporter.pch; path = Sources/Main/FeedbackReporter.pch; sourceTree = "<group>"; };
+		9DC8130210BEE59C00748B92 /* Italian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Italian; path = Resources/Italian.lproj/FeedbackReporter.strings; sourceTree = "<group>"; };
+		9DC8130310BEE5E700748B92 /* Armenian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Armenian; path = Resources/Armenian.lproj/FeedbackReporter.strings; sourceTree = "<group>"; };
 		9DCF52A70DEC0D8A00EBF810 /* SystemProfileTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SystemProfileTestCase.h; path = Sources/Tests/SystemProfileTestCase.h; sourceTree = "<group>"; };
 		9DCF52A80DEC0D8A00EBF810 /* SystemProfileTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SystemProfileTestCase.m; path = Sources/Tests/SystemProfileTestCase.m; sourceTree = "<group>"; };
 		9DCF52AA0DEC0E4300EBF810 /* FRSystemProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FRSystemProfile.h; path = Sources/Main/FRSystemProfile.h; sourceTree = "<group>"; };
@@ -372,6 +374,8 @@
 				French,
 				German,
 				Russian,
+				Armenian,
+				Italian,
 			);
 			mainGroup = 0867D691FE84028FC02AAC07 /* FeedbackReporter */;
 			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
@@ -490,6 +494,8 @@
 				9DD4D9BF0E4B933A00B26451 /* English */,
 				9DD4D9C40E4B934A00B26451 /* German */,
 				9D73A5EC1064DE6D0001CF9E /* Russian */,
+				9DC8130210BEE59C00748B92 /* Italian */,
+				9DC8130310BEE5E700748B92 /* Armenian */,
 			);
 			name = FeedbackReporter.strings;
 			sourceTree = "<group>";

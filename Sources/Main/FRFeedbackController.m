@@ -302,8 +302,17 @@
     NSURL *url = [NSURL URLWithString:target];
 
     SCNetworkConnectionFlags reachabilityFlags;
-    Boolean reachabilityResult = SCNetworkCheckReachabilityByName([[url host] UTF8String], &reachabilityFlags);
     
+    const char *hostname = [[url host] UTF8String];  
+
+#ifdef MAC_OS_X_VERSION_10_6
+    SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithName(NULL, hostname);
+    Boolean reachabilityResult = SCNetworkReachabilityGetFlags(reachability, &reachabilityFlags);
+    CFRelease(reachability);
+#else  
+    Boolean reachabilityResult = SCNetworkCheckReachabilityByName(hostname, &reachabilityFlags);
+#endif
+        
     BOOL reachable = reachabilityResult
         &&  (reachabilityFlags & kSCNetworkFlagsReachable)
         && !(reachabilityFlags & kSCNetworkFlagsConnectionRequired)
