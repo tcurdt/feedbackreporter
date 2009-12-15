@@ -22,6 +22,7 @@
 
 - (IBAction) buttonFeedback:(id)sender;
 - (IBAction) buttonException:(id)sender;
+- (IBAction) buttonExceptionInThread:(id)sender;
 - (IBAction) buttonCrash:(id)sender;
 
 @end
