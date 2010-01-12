@@ -38,35 +38,36 @@
     [super dealloc];
 }
 
-- (NSData *)generateFormData: (NSDictionary *)dict forBoundary:(NSString*)formBoundary
+- (NSData *) generateFormData: (NSDictionary *)dict forBoundary:(NSString*)formBoundary
 {
-	NSString* boundary = formBoundary;
-	NSArray* keys = [dict allKeys];
-	NSMutableData* result = [[NSMutableData alloc] initWithCapacity:100];
-	
-	int i;
-	for (i = 0; i < [keys count]; i++) 
-	{
-		id value = [dict valueForKey: [keys objectAtIndex: i]];
-		
-		[result appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    NSString *boundary = formBoundary;
+    NSArray *keys = [dict allKeys];
+    NSMutableData *result = [[NSMutableData alloc] initWithCapacity:100];
+    
+    int i;
+    for (i = 0; i < [keys count]; i++) {
+        id value = [dict valueForKey: [keys objectAtIndex: i]];
+        
+        [result appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
 
-		if ([value class] != [NSURL class]) {
-			[result appendData:[[NSString stringWithFormat: @"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", [keys objectAtIndex:i]] dataUsingEncoding:NSUTF8StringEncoding]];
-			[result appendData:[[NSString stringWithFormat:@"%@",value] dataUsingEncoding:NSUTF8StringEncoding]];
-		}
-		else if ([value class] == [NSURL class] && [value isFileURL]) {
-			NSString *disposition = [NSString stringWithFormat: @"Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\n", [keys objectAtIndex:i], [[value path] lastPathComponent]];
-			[result appendData: [disposition dataUsingEncoding:NSUTF8StringEncoding]];
-			
-			[result appendData:[[NSString stringWithString: @"Content-Type: application/octet-stream\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-			[result appendData:[NSData dataWithContentsOfFile:[value path]]];
-		}
-		[result appendData:[[NSString stringWithString:@"\r\n"]
-       dataUsingEncoding:NSUTF8StringEncoding]];
-	}
-	
-	return [result autorelease];
+        if ([value class] != [NSURL class]) {
+            [result appendData:[[NSString stringWithFormat: @"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", [keys objectAtIndex:i]] dataUsingEncoding:NSUTF8StringEncoding]];
+            [result appendData:[[NSString stringWithFormat:@"%@",value] dataUsingEncoding:NSUTF8StringEncoding]];
+        }
+        else if ([value class] == [NSURL class] && [value isFileURL]) {
+            NSString *disposition = [NSString stringWithFormat: @"Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\n", [keys objectAtIndex:i], [[value path] lastPathComponent]];
+            [result appendData: [disposition dataUsingEncoding:NSUTF8StringEncoding]];
+            
+            [result appendData:[@"Content-Type: application/octet-stream\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+            [result appendData:[NSData dataWithContentsOfFile:[value path]]];
+        }
+
+        [result appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+    }
+
+    [result appendData:[[NSString stringWithFormat:@"--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    return [result autorelease];
 }
 
 
@@ -74,26 +75,26 @@
 {
     NSString *formBoundary = [[NSProcessInfo processInfo] globallyUniqueString];
 
-	NSData *formData = [self generateFormData:dict forBoundary:formBoundary];
+    NSData *formData = [self generateFormData:dict forBoundary:formBoundary];
 
     NSLog(@"Posting %d bytes to %@", [formData length], target);
 
-	NSMutableURLRequest* post = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:target]];
-	
-	NSString *boundaryString = [NSString stringWithFormat: @"multipart/form-data; boundary=%@", formBoundary];
-	[post addValue: boundaryString forHTTPHeaderField: @"Content-Type"];
-	[post setHTTPMethod: @"POST"];
-	[post setHTTPBody:formData];
+    NSMutableURLRequest *post = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:target]];
+    
+    NSString *boundaryString = [NSString stringWithFormat: @"multipart/form-data; boundary=%@", formBoundary];
+    [post addValue: boundaryString forHTTPHeaderField: @"Content-Type"];
+    [post setHTTPMethod: @"POST"];
+    [post setHTTPBody:formData];
 
-	NSURLResponse *response;
-	NSError *error;
-	NSData *result = [NSURLConnection sendSynchronousRequest: post
-										   returningResponse: &response
-													   error: &error];
+    NSURLResponse *response;
+    NSError *error;
+    NSData *result = [NSURLConnection sendSynchronousRequest: post
+                                           returningResponse: &response
+                                                       error: &error];
 
-	if(error != nil) {
-		NSLog(@"Post failed. Error: %d, Description: %@", [error code], [error localizedDescription]);
-	}
+    if(error != nil) {
+        NSLog(@"Post failed. Error: %d, Description: %@", [error code], [error localizedDescription]);
+    }
 
     return [[[NSString alloc] initWithData:result
                                   encoding:NSUTF8StringEncoding] autorelease];
@@ -103,16 +104,16 @@
 {
     NSString *formBoundary = [[NSProcessInfo processInfo] globallyUniqueString];
 
-	NSData *formData = [self generateFormData:dict forBoundary:formBoundary];
+    NSData *formData = [self generateFormData:dict forBoundary:formBoundary];
 
     NSLog(@"Posting %d bytes to %@", [formData length], target);
 
-	NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:target]];
-	
-	NSString *boundaryString = [NSString stringWithFormat: @"multipart/form-data; boundary=%@", formBoundary];
-	[request addValue: boundaryString forHTTPHeaderField: @"Content-Type"];
-	[request setHTTPMethod: @"POST"];
-	[request setHTTPBody:formData];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:target]];
+    
+    NSString *boundaryString = [NSString stringWithFormat: @"multipart/form-data; boundary=%@", formBoundary];
+    [request addValue: boundaryString forHTTPHeaderField: @"Content-Type"];
+    [request setHTTPMethod: @"POST"];
+    [request setHTTPBody:formData];
 
     connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
 
@@ -133,34 +134,34 @@
 
 
 
-- (void)connection: (NSURLConnection *)pConnection didReceiveData: (NSData *)data
+- (void) connection: (NSURLConnection *)pConnection didReceiveData: (NSData *)data
 {
     NSLog(@"Connection received data");
 
-	[responseData appendData:data];
+    [responseData appendData:data];
 }
 
-- (void)connection:(NSURLConnection *)pConnection didFailWithError:(NSError *)error
+- (void) connection:(NSURLConnection *)pConnection didFailWithError:(NSError *)error
 {
     NSLog(@"Connection failed");
     
-	if ([delegate respondsToSelector:@selector(uploaderFailed:withError:)]) {
+    if ([delegate respondsToSelector:@selector(uploaderFailed:withError:)]) {
 
         [delegate performSelector:@selector(uploaderFailed:withError:) withObject:self withObject:error];
-	}
-		
-	[connection autorelease];
+    }
+        
+    [connection autorelease];
 }
 
-- (void)connectionDidFinishLoading: (NSURLConnection *)pConnection
+- (void) connectionDidFinishLoading: (NSURLConnection *)pConnection
 {
     // NSLog(@"Connection finished");
 
-	if ([delegate respondsToSelector: @selector(uploaderFinished:)]) {
+    if ([delegate respondsToSelector: @selector(uploaderFinished:)]) {
         [delegate performSelector:@selector(uploaderFinished:) withObject:self];
-	}
-	
-	[connection autorelease];
+    }
+    
+    [connection autorelease];
 }
 
 

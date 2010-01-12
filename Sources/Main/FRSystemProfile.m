@@ -21,8 +21,8 @@
 
 + (NSArray*) discover
 {
-	NSMutableArray *discoveryArray = [[[NSMutableArray alloc] init] autorelease];
-	NSArray *discoveryKeys = [NSArray arrayWithObjects:@"key", @"visibleKey", @"value", @"visibleValue", nil];
+    NSMutableArray *discoveryArray = [[[NSMutableArray alloc] init] autorelease];
+    NSArray *discoveryKeys = [NSArray arrayWithObjects:@"key", @"visibleKey", @"value", @"visibleValue", nil];
 
     NSString *osversion = [NSString stringWithFormat:@"%@", [self osversion]];
     [discoveryArray addObject:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:
@@ -73,21 +73,21 @@
     int value = 0;
     size_t length = sizeof(value);
 
-	error = sysctlbyname("hw.cpu64bit_capable", &value, &length, NULL, 0);
-	
+    error = sysctlbyname("hw.cpu64bit_capable", &value, &length, NULL, 0);
+    
     if(error != 0) {
-		error = sysctlbyname("hw.optional.x86_64", &value, &length, NULL, 0); //x86 specific
+        error = sysctlbyname("hw.optional.x86_64", &value, &length, NULL, 0); //x86 specific
     }
-	
+    
     if(error != 0) {
-		error = sysctlbyname("hw.optional.64bitops", &value, &length, NULL, 0); //PPC specific
+        error = sysctlbyname("hw.optional.64bitops", &value, &length, NULL, 0); //PPC specific
     }
-	
-	BOOL is64bit = NO;
-	
-	if (error == 0) {
-		is64bit = value == 1;
-	}
+    
+    BOOL is64bit = NO;
+    
+    if (error == 0) {
+        is64bit = value == 1;
+    }
     
     return is64bit;
  }
@@ -101,13 +101,13 @@
 #define CPUFAMILY_ARM_9      0xe73283ae
 #define CPUFAMILY_ARM_11     0x8ff620d8
 
-#define CPUFAMILY_INTEL_YONAH	CPUFAMILY_INTEL_6_14
-#define CPUFAMILY_INTEL_MEROM	CPUFAMILY_INTEL_6_15
-#define CPUFAMILY_INTEL_PENRYN	CPUFAMILY_INTEL_6_23
-#define CPUFAMILY_INTEL_NEHALEM	CPUFAMILY_INTEL_6_26
+#define CPUFAMILY_INTEL_YONAH   CPUFAMILY_INTEL_6_14
+#define CPUFAMILY_INTEL_MEROM   CPUFAMILY_INTEL_6_15
+#define CPUFAMILY_INTEL_PENRYN  CPUFAMILY_INTEL_6_23
+#define CPUFAMILY_INTEL_NEHALEM CPUFAMILY_INTEL_6_26
 
-#define CPUFAMILY_INTEL_CORE	CPUFAMILY_INTEL_6_14
-#define CPUFAMILY_INTEL_CORE2	CPUFAMILY_INTEL_6_15
+#define CPUFAMILY_INTEL_CORE    CPUFAMILY_INTEL_6_14
+#define CPUFAMILY_INTEL_CORE2   CPUFAMILY_INTEL_6_15
 
 
 + (NSString*) cputype
@@ -155,7 +155,7 @@
             case CPUFAMILY_INTEL_PENRYN:
                 return @"Intel Core 2 Duo (Penryn)";
             case CPUFAMILY_INTEL_NEHALEM:
-            	return @"Intel Xeon (Nehalem)";
+                return @"Intel Xeon (Nehalem)";
         }
         return nil;
     }

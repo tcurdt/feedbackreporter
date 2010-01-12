@@ -23,7 +23,7 @@
 {
     self = [super init];
     if (self != nil) {
-    	task = [[NSTask alloc] init];
+        task = [[NSTask alloc] init];
         args = [NSArray array];
         path = pPath;
         error = nil;
@@ -95,18 +95,18 @@
 
 - (int) execute
 {
-	[task setLaunchPath:path];
-	[task setArguments:args];
+    [task setLaunchPath:path];
+    [task setArguments:args];
 
-	NSPipe *outPipe = [NSPipe pipe];
-	NSPipe *errPipe = [NSPipe pipe];
+    NSPipe *outPipe = [NSPipe pipe];
+    NSPipe *errPipe = [NSPipe pipe];
 
     [task setStandardInput:[NSFileHandle fileHandleWithNullDevice]];
     [task setStandardOutput:outPipe];
     [task setStandardError:errPipe];
 
     NSFileHandle *outFile = [outPipe fileHandleForReading];
-    NSFileHandle *errFile = [errPipe fileHandleForReading];	
+    NSFileHandle *errFile = [errPipe fileHandleForReading]; 
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(outData:)
@@ -126,7 +126,7 @@
     [outFile waitForDataInBackgroundAndNotify];
     [errFile waitForDataInBackgroundAndNotify];
 
-	[task launch];
+    [task launch];
 
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     while(!terminated) {
@@ -141,9 +141,9 @@
     [self appendDataFrom:outFile to:output];
     [self appendDataFrom:errFile to:error];
 
-	int result = [task terminationStatus];
+    int result = [task terminationStatus];
 
-	return result;
+    return result;
 }
 
 -(void)dealloc

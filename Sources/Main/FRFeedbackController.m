@@ -70,12 +70,12 @@
 
 - (id) delegate
 {
-	return delegate;
+    return delegate;
 }
 
 - (void) setDelegate:(id) pDelegate
 {
-	delegate = pDelegate;
+    delegate = pDelegate;
 }
 
 - (void) setMessage:(NSString*)message
@@ -85,7 +85,7 @@
 
 - (void) setInformativeText:(NSString *)informativeText
 {
-	[informativeTextField setStringValue:informativeText];
+    [informativeTextField setStringValue:informativeText];
 }
 
 - (void) setComment:(NSString*)comment
@@ -239,7 +239,7 @@
 
     [preferences removeObjectForKey:KEY_SENDEREMAIL];
 
-	if ([delegate respondsToSelector:@selector(anonymizePreferencesForFeedbackReport:)]) {
+    if ([delegate respondsToSelector:@selector(anonymizePreferencesForFeedbackReport:)]) {
         preferences = [delegate anonymizePreferencesForFeedbackReport:preferences];
     }
 
@@ -342,7 +342,7 @@
     
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:5];
 
-	if ([delegate respondsToSelector:@selector(customParametersForFeedbackReport)]) {
+    if ([delegate respondsToSelector:@selector(customParametersForFeedbackReport)]) {
         [dict addEntriesFromDictionary:[delegate customParametersForFeedbackReport]];
     }
 
@@ -468,12 +468,12 @@
 
 - (void) windowWillClose: (NSNotification *) n
 {
-	[uploader cancel];
+    [uploader cancel];
 }
 
 - (void) windowDidLoad
 {
-	[[self window] setDelegate:self];
+    [[self window] setDelegate:self];
 
     [commentLabel setStringValue:FRLocalizedString(@"Comments:", nil)];
     [addressLabel setStringValue:FRLocalizedString(@"Email address:", nil)];

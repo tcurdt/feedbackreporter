@@ -34,11 +34,11 @@
 {
     static FRFeedbackReporter *sharedReporter = nil;
 
-	if (sharedReporter == nil) {
-		sharedReporter = [[[self class] alloc] init];
+    if (sharedReporter == nil) {
+        sharedReporter = [[[self class] alloc] init];
     }
 
-	return sharedReporter;
+    return sharedReporter;
 }
 
 #pragma mark Destruction
@@ -63,12 +63,12 @@
 
 - (id) delegate
 {
-	return delegate;
+    return delegate;
 }
 
 - (void) setDelegate:(id) pDelegate
 {
-	delegate = pDelegate;
+    delegate = pDelegate;
 }
 
 
@@ -90,9 +90,9 @@
         [controller setMessage:[NSString stringWithFormat:
             FRLocalizedString(@"Got a problem with %@?", nil),
             [FRApplication applicationName]]];
-		
-		[controller setInformativeText:[NSString stringWithFormat:
-			FRLocalizedString(@"Send feedback", nil)]];
+        
+        [controller setInformativeText:[NSString stringWithFormat:
+            FRLocalizedString(@"Send feedback", nil)]];
             
         [controller setType:FR_FEEDBACK];
         
@@ -131,9 +131,9 @@
             [controller setMessage:[NSString stringWithFormat:
                 FRLocalizedString(@"%@ has recently crashed!", nil),
                 [FRApplication applicationName]]];
-			
-			[controller setInformativeText:[NSString stringWithFormat:							FRLocalizedString(@"Send feedback", nil)]];
-			
+            
+            [controller setInformativeText:[NSString stringWithFormat:                          FRLocalizedString(@"Send feedback", nil)]];
+            
             [controller setType:FR_CRASH];
 
             [controller setDelegate:delegate];
@@ -165,8 +165,8 @@
         [controller setMessage:[NSString stringWithFormat:
             FRLocalizedString(@"%@ has encountered an exception!", nil),
             [FRApplication applicationName]]];
-		
-		[controller setInformativeText:[NSString stringWithFormat:FRLocalizedString(@"Send feedback", nil)]];
+        
+        [controller setInformativeText:[NSString stringWithFormat:FRLocalizedString(@"Send feedback", nil)]];
 
         [controller setException:[NSString stringWithFormat: @"%@\n\n%@\n\n%@",
                                     [exception name],
