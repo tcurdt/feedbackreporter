@@ -27,6 +27,8 @@
 #import <AddressBook/ABAddressBook.h>
 #import <AddressBook/ABMultiValue.h>
 #import <SystemConfiguration/SCNetwork.h>
+#import <SystemConfiguration/SCNetworkReachability.h>
+
 
 @implementation FRFeedbackController
 
