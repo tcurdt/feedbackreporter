@@ -21,7 +21,11 @@
 #define FR_EXCEPTION @"exception"
 #define FR_CRASH     @"crash"
 
-@interface FRFeedbackController : NSWindowController {
+#ifdef MAC_OS_X_VERSION_10_6
+	@interface FRFeedbackController : NSWindowController <NSWindowDelegate> {
+#else
+	@interface FRFeedbackController : NSWindowController {
+#endif
 
     IBOutlet NSTextField *messageField;
     IBOutlet NSTextField *informativeTextField;

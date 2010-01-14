@@ -31,7 +31,11 @@
         return YES;
     }
 
-    NSDate* fileDate = [[fileManager fileAttributesAtPath:path traverseLink: YES] fileModificationDate];
+	NSError* error = nil;
+    NSDate* fileDate = [[fileManager attributesOfItemAtPath:path error:&error] fileModificationDate];
+	if (error) {
+		NSLog(@"Error while fetching file attributes: %@", [error localizedDescription]);
+	}
 
     if ([date compare:fileDate] == NSOrderedDescending) {
         return NO;

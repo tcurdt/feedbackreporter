@@ -178,7 +178,11 @@
     while(i--) {
     
         NSString *crashFile = [crashFiles objectAtIndex:i];
-        NSDictionary *fileAttributes = [fileManager fileAttributesAtPath:crashFile traverseLink:YES];
+		NSError* error = nil;
+		NSDictionary *fileAttributes = [fileManager attributesOfItemAtPath:crashFile error:&error];
+		if (error) {
+			NSLog(@"Error while fetching file attributes: %@", [error localizedDescription]);
+		}
         NSDate *fileModDate = [fileAttributes objectForKey:NSFileModificationDate];
 
         NSLog(@"CrashLog: %@", crashFile);

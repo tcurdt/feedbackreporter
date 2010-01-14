@@ -91,8 +91,7 @@
             FRLocalizedString(@"Got a problem with %@?", nil),
             [FRApplication applicationName]]];
         
-        [controller setInformativeText:[NSString stringWithFormat:
-            FRLocalizedString(@"Send feedback", nil)]];
+        [controller setInformativeText:FRLocalizedString(@"Send feedback", nil)];
             
         [controller setType:FR_FEEDBACK];
         
@@ -101,7 +100,7 @@
         [controller showWindow:self];
 
     }
-    
+	
     return YES;
 }
 
@@ -132,7 +131,7 @@
                 FRLocalizedString(@"%@ has recently crashed!", nil),
                 [FRApplication applicationName]]];
             
-            [controller setInformativeText:[NSString stringWithFormat:                          FRLocalizedString(@"Send feedback", nil)]];
+            [controller setInformativeText:FRLocalizedString(@"Send feedback", nil)];
             
             [controller setType:FR_CRASH];
 
@@ -166,7 +165,7 @@
             FRLocalizedString(@"%@ has encountered an exception!", nil),
             [FRApplication applicationName]]];
         
-        [controller setInformativeText:[NSString stringWithFormat:FRLocalizedString(@"Send feedback", nil)]];
+        [controller setInformativeText:FRLocalizedString(@"Send feedback", nil)];
 
         [controller setException:[NSString stringWithFormat: @"%@\n\n%@\n\n%@",
                                     [exception name],
