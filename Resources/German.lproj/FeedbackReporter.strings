@@ -7,6 +7,9 @@
 "%@ has recently crashed!" = "%@ wurde vor kurzem erwartet beendet.";
 
 /* Informative text for crash report */
+"Send feedback" = "Um uns zu helfen dass Problem zu beheben, schicken Sie uns bitte diesen Bericht. Klicken Sie auf Details um zu sehen welche Information an uns gesendet werden.";
+
+/* Informative text for crash report */
 "Send crash report" = "Um uns zu helfen dass Problem zu beheben, schicken Sie uns bitte diesen Bericht. Klicken Sie auf Details um zu sehen welche Information an uns gesendet werden.";
 
 /* No comment provided by engineer. */
@@ -59,3 +62,9 @@
 
 /* No comment provided by engineer. */
 "Proceed Anyway" = "Trotzdem versuchen";
+
+/* Comment label text for feedback */
+"Feedback comment label" = "Ihr Feedback:";
+
+/* No comment provided by engineer. */
+"Send details" = "Details senden";

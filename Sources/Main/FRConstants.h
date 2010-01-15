@@ -14,29 +14,39 @@
  * limitations under the License.
  */
 
-#define FILE_SHELLSCRIPT       @"FRFeedbackReporter"
+//  Filename of the script in the resource bundle to execute (optional)
+#define FILE_SHELLSCRIPT                @"FRFeedbackReporter"
 
-#define KEY_LASTCRASHCHECKDATE @"FRFeedbackReporter.lastCrashCheckDate"
-#define KEY_LASTSTATISTICSDATE @"FRFeedbackReporter.lastStatisticsDate"
-#define KEY_LASTSUBMISSIONDATE @"FRFeedbackReporter.lastSubmissionDate"
-#define KEY_SENDEREMAIL        @"FRFeedbackReporter.sender"
-#define KEY_TARGETURL          @"FRFeedbackReporter.targetURL"
-#define KEY_UUID               @"FRFeedbackReporter.uuid"
-#define KEY_LOGHOURS           @"FRFeedbackReporter.logHours"
+//  URL where to POST the result to (required)
+#define PLIST_KEY_TARGETURL             @"FRFeedbackReporter.targetURL"
+
+//  Truncates the console log to not send more than x hours into the past. (optinal)
+#define PLIST_KEY_LOGHOURS              @"FRFeedbackReporter.logHours"
+
 //	The default e-mail address to select in case there is no selection saved in 
 //	the preferences. The options are 'anonymous' and 'firstEmail'. If nothing
-//	is specified, 'anonymous' is selected.
-#define KEY_DEFAULTSENDER      @"FRFeedbackReporter.defaultSender"
+//	is specified, 'anonymous' is selected. (optional)
+#define PLIST_KEY_DEFAULTSENDER         @"FRFeedbackReporter.defaultSender"
+
 //	The number of characters a console log is truncated to. If not specified,
-//	no truncation takes place.
-#define KEY_MAXCONSOLELOGSIZE  @"FRFeedbackReporter.maxConsoleLogSize"
+//	no truncation takes place. (optional)
+#define PLIST_KEY_MAXCONSOLELOGSIZE     @"FRFeedbackReporter.maxConsoleLogSize"
+
 //	Set the value of this key to 'YES' to present a checkbox where the user
 //	can switch on and off the sending of details information. If not specified,
 //	defaults to 'NO', hence no checkbox is shown.
 //	If the user checks off the 'send details' option, just the e-mail address
-//	and the comment are transmitted to the server.
-#define KEY_SENDDETAILSISOPTIONAL  @"FRFeedbackReporter.sendDetailsIsOptional"
+//	and the comment are transmitted to the server. (optional)
+#define PLIST_KEY_SENDDETAILSISOPTIONAL @"FRFeedbackReporter.sendDetailsIsOptional"
 
+
+// Keys store in the user defaults
+#define DEFAULTS_KEY_LASTCRASHCHECKDATE @"FRFeedbackReporter.lastCrashCheckDate"
+#define DEFAULTS_KEY_LASTSUBMISSIONDATE @"FRFeedbackReporter.lastSubmissionDate"
+#define DEFAULTS_KEY_SENDEREMAIL        @"FRFeedbackReporter.sender"
+
+
+// POST fields filled by default
 #define POST_KEY_TYPE          @"type"
 #define POST_KEY_EMAIL         @"email"
 #define POST_KEY_VERSION       @"version"

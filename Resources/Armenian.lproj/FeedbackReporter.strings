@@ -8,6 +8,9 @@
  
 /* Informative text for crash report */
 "Send crash report" = "Թերությունը վերացնելու համար հաղորդե՛ք մեզ դրա մասին: Սեղմե՛ք «Մանրամասներ»` տեսնելու մեզ ուղարկված տեղեկությունը:";
+
+/* Informative text for crash report */
+"Send feedback" = "Թերությունը վերացնելու համար հաղորդե՛ք մեզ դրա մասին: Սեղմե՛ք «Մանրամասներ»` տեսնելու մեզ ուղարկված տեղեկությունը:";
  
 /* No comment provided by engineer. */
 "anonymous" = "անանուն";
@@ -59,3 +62,9 @@
  
 /* No comment provided by engineer. */
 "Proceed Anyway" = "Շարունակել";
+
+/* Comment label text for feedback */
+"Feedback comment label" = "Your feedback:";
+
+/* No comment provided by engineer. */
+"Send details" = "Send details";

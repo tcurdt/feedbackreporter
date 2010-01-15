@@ -108,12 +108,12 @@
 
 - (BOOL) reportIfCrash
 {
-    NSDate *lastCrashCheckDate = [[NSUserDefaults standardUserDefaults] valueForKey:KEY_LASTCRASHCHECKDATE];
+    NSDate *lastCrashCheckDate = [[NSUserDefaults standardUserDefaults] valueForKey:DEFAULTS_KEY_LASTCRASHCHECKDATE];
     
     NSArray *crashFiles = [FRCrashLogFinder findCrashLogsSince:lastCrashCheckDate];
 
     [[NSUserDefaults standardUserDefaults] setValue: [NSDate date]
-                                             forKey: KEY_LASTCRASHCHECKDATE];
+                                             forKey: DEFAULTS_KEY_LASTCRASHCHECKDATE];
     
     if ([crashFiles count] > 0) {
         // NSLog(@"Found new crash files");

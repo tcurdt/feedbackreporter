@@ -207,6 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				9D543DD60EEDB79900B2B36B /* Exported */,
+				9D1715581100E262007E738D /* Additions */,
 				9DA7D6E20DEB8E5D00C3B586 /* FRApplication.h */,
 				9DA7D6E30DEB8E5D00C3B586 /* FRApplication.m */,
 				9DA7D6E40DEB8E5D00C3B586 /* FRCommand.h */,
@@ -222,10 +223,6 @@
 				9DA7D6ED0DEB8E5D00C3B586 /* FRUploader.h */,
 				9DA7D6EE0DEB8E5D00C3B586 /* FRUploader.m */,
 				9D5FB36B0E0B269900CF1BE0 /* FRConstants.h */,
-				9D0EC0270DF011DB0045EB76 /* NSException+Callstack.h */,
-				9D0EC0280DF011DB0045EB76 /* NSException+Callstack.m */,
-				FC369CB91100D505004C27F8 /* NSMutableDictionary+Additions.h */,
-				FC369CBA1100D505004C27F8 /* NSMutableDictionary+Additions.m */,
 				9D90077A0DEB96C10000330E /* Info.plist */,
 				9DC077900E4CE75E00014424 /* FeedbackReporter.pch */,
 			);
@@ -249,6 +246,17 @@
 				0867D69BFE84028FC02AAC07 /* Foundation.framework */,
 			);
 			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		9D1715581100E262007E738D /* Additions */ = {
+			isa = PBXGroup;
+			children = (
+				9D0EC0270DF011DB0045EB76 /* NSException+Callstack.h */,
+				9D0EC0280DF011DB0045EB76 /* NSException+Callstack.m */,
+				FC369CB91100D505004C27F8 /* NSMutableDictionary+Additions.h */,
+				FC369CBA1100D505004C27F8 /* NSMutableDictionary+Additions.m */,
+			);
+			name = Additions;
 			sourceTree = "<group>";
 		};
 		9D543DD60EEDB79900B2B36B /* Exported */ = {

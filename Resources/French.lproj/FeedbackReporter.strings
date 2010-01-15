@@ -8,6 +8,9 @@
  
 /* Informative text for crash report */
 "Send feedback" = "Pour que nous puissions corriger le problème, merci de nous envoyer ce rapport. Cliquez sur Détails pour voir les informations qui seront envoyées.";
+
+/* Informative text for crash report */
+"Send crash report" = "Pour que nous puissions corriger le problème, merci de nous envoyer ce rapport. Cliquez sur Détails pour voir les informations qui seront envoyées.";
  
 /* No comment provided by engineer. */
 "anonymous" = "anonyme";
@@ -59,3 +62,9 @@
  
 /* No comment provided by engineer. */
 "Proceed Anyway" = "Continuer";
+
+/* Comment label text for feedback */
+"Feedback comment label" = "Your feedback:";
+
+/* No comment provided by engineer. */
+"Send details" = "Send details";

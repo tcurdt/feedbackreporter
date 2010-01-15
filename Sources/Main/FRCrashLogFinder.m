@@ -57,17 +57,6 @@
     while(i--) {
         NSString* libraryDirectory = [libraryDirectories objectAtIndex:i];
 
-
-        /* Tiger */
-        NSString* log1 = [NSString stringWithFormat: @"Logs/CrashReporter/%@.crash.log", [FRApplication applicationName]];
-        log1 = [[libraryDirectory stringByAppendingPathComponent:log1] stringByExpandingTildeInPath];
-
-        // NSLog(@"Searching for crash files at %@", log1);
-
-        if ([self file:log1 isNewerThan:date]) {
-            [files addObject:log1];
-        }
-                
         /*  Leopard */        
         NSDirectoryEnumerator *enumerator;
         NSString *file;

@@ -24,37 +24,9 @@
 
 @implementation FRConsoleLog
 
-+ (NSString*) logSince:(NSDate*)since;
++ (NSString*) logSince:(NSDate*)since maxSize:(NSNumber*)maxSize
 {
     NSMutableString *console = [[NSMutableString alloc] init];
-
-
-    /*  Tiger: */
-
-    NSString *logPath = [NSString stringWithFormat: @"/Library/Logs/Console/%@/console.log", [NSNumber numberWithUnsignedInt:getuid()]];
-
-    // TODO read and filter line by line
-    NSError *error = nil;
-    NSString *log = [NSString stringWithContentsOfFile:logPath encoding: NSUTF8StringEncoding error:&error];
-    if (error == nil) {
-        NSString *filter = [NSString stringWithFormat: @"%@[", [FRApplication applicationName]];
-
-        NSEnumerator *lineEnum = [[log componentsSeparatedByString: @"\n"] objectEnumerator];
-
-        NSString *currentObject;
-
-        while (currentObject = [lineEnum nextObject]) {
-
-            if ([currentObject rangeOfString:filter].location != NSNotFound) {        
-                [console appendFormat:@"%@\n", currentObject];
-            }  
-        }
-
-        if ([console length] != 0) {
-            [console appendString:@"..."];
-        }
-    }
-
 
     /* Leopard: */
 
@@ -90,6 +62,10 @@
                 NSDate *date = [NSDate dateWithTimeIntervalSince1970:atof(time)];
 
                 [console appendFormat:@"%@: %s\n", date, text];
+                
+                if (maxSize != nil && [console length] > [maxSize integerValue]) {
+                    break;
+                }
             }
 
             aslresponse_free(response);

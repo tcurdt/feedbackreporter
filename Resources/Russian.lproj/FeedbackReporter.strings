@@ -56,3 +56,15 @@
  
 /* No comment provided by engineer. */
 "Proceed Anyway" = "Все равно продолжить";
+
+/* Informative text for feedback */
+"Send feedback" = "To help us improve our software your feedback is highly welcome! Click Details to see what information is sent to us.";
+
+/* Informative text for crash report */
+"Send crash report" = "To help us fix the problem, please send us this feedback report. Click Details to see what information is sent to us.";
+
+/* Comment label text for feedback */
+"Feedback comment label" = "Your feedback:";
+
+/* No comment provided by engineer. */
+"Send details" = "Send details";

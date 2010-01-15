@@ -118,7 +118,7 @@
 
 - (NSString*) consoleLog
 {
-    NSNumber *hours = [[NSUserDefaults standardUserDefaults] valueForKey:KEY_LOGHOURS];
+    NSNumber *hours = [[NSUserDefaults standardUserDefaults] valueForKey:PLIST_KEY_LOGHOURS];
 
     int h = 24;
 
@@ -126,9 +126,11 @@
         h = [hours intValue];
     }
     
-    NSDate* since = [[NSCalendarDate calendarDate] dateByAddingYears:0 months:0 days:0 hours:-h minutes:0 seconds:0];
+    NSDate *since = [[NSCalendarDate calendarDate] dateByAddingYears:0 months:0 days:0 hours:-h minutes:0 seconds:0];
 
-    return [FRConsoleLog logSince:since];
+    NSNumber *maxSize = [[[NSBundle mainBundle] infoDictionary] valueForKey:PLIST_KEY_MAXCONSOLELOGSIZE];
+
+    return [FRConsoleLog logSince:since maxSize:maxSize];
 }
 
 
@@ -158,14 +160,18 @@
 - (NSString*) crashLog
 {
 
-    NSDate *lastSubmissionDate = [[NSUserDefaults standardUserDefaults] valueForKey:KEY_LASTSUBMISSIONDATE];
+    NSDate *lastSubmissionDate = [[NSUserDefaults standardUserDefaults] valueForKey:DEFAULTS_KEY_LASTSUBMISSIONDATE];
 
     NSArray *crashFiles = [FRCrashLogFinder findCrashLogsSince:lastSubmissionDate];
 
     int i = [crashFiles count];
 
     if (i == 1) {
-        NSLog(@"Found a crash file earlier than latest submission on %@", lastSubmissionDate);
+        if (lastSubmissionDate == nil) {
+            NSLog(@"Found a crash file");
+        } else {
+            NSLog(@"Found a crash file earlier than latest submission on %@", lastSubmissionDate);
+        }
         NSError *error = nil;
         NSString *result = [NSString stringWithContentsOfFile:[crashFiles lastObject] encoding: NSUTF8StringEncoding error:&error];
         if (error != nil) {
@@ -175,7 +181,11 @@
         return result;
     }
 
-    NSLog(@"Found %d crash files earlier than latest submission on %@", i, lastSubmissionDate);
+    if (lastSubmissionDate == nil) {
+        NSLog(@"Found %d crash files", i);
+    } else {
+        NSLog(@"Found %d crash files earlier than latest submission on %@", i, lastSubmissionDate);
+    }
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
 
@@ -242,20 +252,6 @@
     return log;
 }
 
-- (NSString*) truncateConsoleLog: (NSString*) string 
-{
-	NSString *maxLogSize = [[[NSBundle mainBundle] infoDictionary] valueForKey:KEY_MAXCONSOLELOGSIZE];
-	if (string && maxLogSize) {
-		NSInteger maxSize = [maxLogSize integerValue];
-		if (maxSize > 0) {
-			NSInteger index = MIN ([string length], maxSize);
-			return [string substringToIndex:index];
-		}
-	}
-							  
-	return string;
-}
-
 - (NSString*) preferences
 {
     NSMutableDictionary *preferences = [[[[NSUserDefaults standardUserDefaults] persistentDomainForName:[FRApplication applicationIdentifier]] mutableCopy] autorelease];
@@ -264,7 +260,7 @@
         return @"";
     }
 
-    [preferences removeObjectForKey:KEY_SENDEREMAIL];
+    [preferences removeObjectForKey:DEFAULTS_KEY_SENDEREMAIL];
 
     if ([delegate respondsToSelector:@selector(anonymizePreferencesForFeedbackReport:)]) {
         preferences = [delegate anonymizePreferencesForFeedbackReport:preferences];
@@ -306,19 +302,19 @@
     detailsShown = show;    
 }
 
-- (IBAction)showDetails:(id)sender
+- (IBAction) showDetails:(id)sender
 {
     [self showDetails:[sender intValue] animate:YES];
 }
 
-- (IBAction)cancel:(id)sender
+- (IBAction) cancel:(id)sender
 {
     [uploader cancel], uploader = nil;
     
     [self close];
 }
 
-- (IBAction)send:(id)sender
+- (IBAction) send:(id)sender
 {
     if (uploader != nil) {
         NSLog(@"Still uploading");
@@ -328,7 +324,7 @@
     NSString *target = [[FRApplication feedbackURL] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] ;
     
     if (target == nil) {
-        NSLog(@"You are missing the %@ key in your Info.plist!", KEY_TARGETURL);
+        NSLog(@"You are missing the %@ key in your Info.plist!", PLIST_KEY_LOGHOURS);
         return;        
     }
 
@@ -460,8 +456,6 @@
     [commentView setEditable:YES];
     [sendButton setEnabled:YES];
 
-    // NSLog(@"response = %@", response);
-
     NSArray *lines = [response componentsSeparatedByString:@"\n"];
     int i = [lines count];
     while(i--) {
@@ -472,7 +466,8 @@
         }
         
         if (![line hasPrefix:@"OK "]) {
-			NSLog (@"Response: %@", response);
+
+			NSLog (@"Failed to submit to server: %@", response);
 			
             NSAlert *alert = [[NSAlert alloc] init];
             [alert addButtonWithTitle:FRLocalizedString(@"OK", nil)];
@@ -487,10 +482,10 @@
     }
 
     [[NSUserDefaults standardUserDefaults] setValue:[NSDate date]
-                                             forKey:KEY_LASTSUBMISSIONDATE];
+                                             forKey:DEFAULTS_KEY_LASTSUBMISSIONDATE];
 
     [[NSUserDefaults standardUserDefaults] setObject:[emailField stringValue]
-                                              forKey:KEY_SENDEREMAIL];
+                                              forKey:DEFAULTS_KEY_SENDEREMAIL];
 
     [self close];
 }
@@ -602,13 +597,13 @@
         [emailField addItemWithObjectValue:emailAddress];
     }
 
-    NSString *email = [[NSUserDefaults standardUserDefaults] stringForKey:KEY_SENDEREMAIL];
+    NSString *email = [[NSUserDefaults standardUserDefaults] stringForKey:DEFAULTS_KEY_SENDEREMAIL];
 
     NSInteger found = [emailField indexOfItemWithObjectValue:email];
     if (found != NSNotFound) {
         [emailField selectItemAtIndex:found];
 	} else if ([emailField numberOfItems] >= 2) {
-		NSString *defaultSender = [[[NSBundle mainBundle] infoDictionary] valueForKey:KEY_DEFAULTSENDER];
+		NSString *defaultSender = [[[NSBundle mainBundle] infoDictionary] valueForKey:PLIST_KEY_DEFAULTSENDER];
 		NSUInteger index = (defaultSender && [defaultSender isEqualToString:@"firstEmail"]) ? 1 : 0;
 		[emailField selectItemAtIndex:index];
     }
@@ -627,7 +622,7 @@
 	//	setup 'send details' checkbox...
 	[sendDetailsCheckbox setTitle:FRLocalizedString(@"Send details", nil)];
 	[sendDetailsCheckbox setState:NSOnState];
-	NSString *sendDetailsIsOptional = [[[NSBundle mainBundle] infoDictionary] valueForKey:KEY_SENDDETAILSISOPTIONAL];
+	NSString *sendDetailsIsOptional = [[[NSBundle mainBundle] infoDictionary] valueForKey:PLIST_KEY_SENDDETAILSISOPTIONAL];
 	if (sendDetailsIsOptional && [sendDetailsIsOptional isEqualToString:@"YES"]) {
 		[detailsLabel setHidden:YES];
 		[sendDetailsCheckbox setHidden:NO];

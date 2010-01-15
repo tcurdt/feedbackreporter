@@ -19,6 +19,6 @@
 
 @interface FRConsoleLog : NSObject
 
-+ (NSString*) logSince:(NSDate*)date;
++ (NSString*) logSince:(NSDate*)since maxSize:(NSNumber*)maxSize;
 
 @end

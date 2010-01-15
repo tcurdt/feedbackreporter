@@ -50,7 +50,7 @@
 
 + (NSString*) feedbackURL
 {
-    NSString *target = [[[NSBundle mainBundle] infoDictionary] valueForKey: KEY_TARGETURL];
+    NSString *target = [[[NSBundle mainBundle] infoDictionary] valueForKey: PLIST_KEY_LOGHOURS];
 
     if (target == nil) {
         return nil;
