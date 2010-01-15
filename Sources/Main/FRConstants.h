@@ -27,6 +27,9 @@
 //	the preferences. The options are 'anonymous' and 'firstEmail'. If nothing
 //	is specified, 'anonymous' is selected.
 #define KEY_DEFAULTSENDER      @"FRFeedbackReporter.defaultSender"
+//	The number of characters a console log is truncated to. If not specified,
+//	no truncation takes place.
+#define KEY_MAXCONSOLELOGSIZE  @"FRFeedbackReporter.maxConsoleLogSize"
 
 #define POST_KEY_TYPE          @"type"
 #define POST_KEY_EMAIL         @"email"

@@ -240,6 +240,20 @@
     return log;
 }
 
+- (NSString*) truncateConsoleLog: (NSString*) string 
+{
+	NSString *maxLogSize = [[[NSBundle mainBundle] infoDictionary] valueForKey:KEY_MAXCONSOLELOGSIZE];
+	if (string && maxLogSize) {
+		NSInteger maxSize = [maxLogSize integerValue];
+		if (maxSize > 0) {
+			NSInteger index = MIN ([string length], maxSize);
+			return [string substringToIndex:index];
+		}
+	}
+							  
+	return string;
+}
+
 - (NSString*) preferences
 {
     NSMutableDictionary *preferences = [[[[NSUserDefaults standardUserDefaults] persistentDomainForName:[FRApplication applicationIdentifier]] mutableCopy] autorelease];
@@ -372,7 +386,7 @@
     [dict setObject:[self systemProfileAsString]
              forKey:POST_KEY_SYSTEM];
 	
-    [dict setObject:[consoleView string]
+    [dict setObject:[self truncateConsoleLog:[consoleView string]]
              forKey:POST_KEY_CONSOLE];
 	
     [dict setObject:[crashesView string]
