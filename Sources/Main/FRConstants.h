@@ -23,7 +23,10 @@
 #define KEY_TARGETURL          @"FRFeedbackReporter.targetURL"
 #define KEY_UUID               @"FRFeedbackReporter.uuid"
 #define KEY_LOGHOURS           @"FRFeedbackReporter.logHours"
-#define KEY_ADDRESSBOOKEMAIL   @"FRFeedbackReporter.addressbookEmail"
+//	The default e-mail address to select in case there is no selection saved in 
+//	the preferences. The options are 'anonymous' and 'firstEmail'. If nothing
+//	is specified, 'anonymous' is selected.
+#define KEY_DEFAULTSENDER      @"FRFeedbackReporter.defaultSender"
 
 #define POST_KEY_TYPE          @"type"
 #define POST_KEY_EMAIL         @"email"

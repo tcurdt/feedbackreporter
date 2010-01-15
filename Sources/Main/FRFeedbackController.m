@@ -462,15 +462,14 @@
         }
     }
 
-    [[NSUserDefaults standardUserDefaults] setValue: [NSDate date]
-                                             forKey: KEY_LASTSUBMISSIONDATE];
+    [[NSUserDefaults standardUserDefaults] setValue:[NSDate date]
+                                             forKey:KEY_LASTSUBMISSIONDATE];
 
     [[NSUserDefaults standardUserDefaults] setObject:[emailField stringValue]
                                               forKey:KEY_SENDEREMAIL];
 
     [self close];
 }
-
 
 - (void) windowWillClose: (NSNotification *) n
 {
@@ -503,7 +502,6 @@
     [[preferencesView textContainer] setWidthTracksTextView:NO];
     [[exceptionView textContainer] setContainerSize:NSMakeSize(FLT_MAX, FLT_MAX)];
     [[exceptionView textContainer] setWidthTracksTextView:NO];
-    
 }
 
 - (void) stopSpinner
@@ -574,14 +572,16 @@
 
         [emailField addItemWithObjectValue:emailAddress];
     }
-    
+
     NSString *email = [[NSUserDefaults standardUserDefaults] stringForKey:KEY_SENDEREMAIL];
 
     NSInteger found = [emailField indexOfItemWithObjectValue:email];
     if (found != NSNotFound) {
         [emailField selectItemAtIndex:found];
-    } else {
-        [emailField selectItemAtIndex:0];
+	} else if ([emailField numberOfItems] >= 2) {
+		NSString *defaultSender = [[[NSBundle mainBundle] infoDictionary] valueForKey:KEY_DEFAULTSENDER];
+		NSUInteger index = (defaultSender && [defaultSender isEqualToString:@"firstEmail"]) ? 1 : 0;
+		[emailField selectItemAtIndex:index];
     }
 
     [messageField setStringValue:@""];
@@ -594,7 +594,6 @@
     [indicator setHidden:NO];
     [indicator startAnimation:self];    
     [sendButton setEnabled:NO];
-
 }
 
 - (void) showWindow:(id)sender
