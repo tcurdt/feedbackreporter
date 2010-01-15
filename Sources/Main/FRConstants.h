@@ -30,6 +30,12 @@
 //	The number of characters a console log is truncated to. If not specified,
 //	no truncation takes place.
 #define KEY_MAXCONSOLELOGSIZE  @"FRFeedbackReporter.maxConsoleLogSize"
+//	Set the value of this key to 'YES' to present a checkbox where the user
+//	can switch on and off the sending of details information. If not specified,
+//	defaults to 'NO', hence no checkbox is shown.
+//	If the user checks off the 'send details' option, just the e-mail address
+//	and the comment are transmitted to the server.
+#define KEY_SENDDETAILSISOPTIONAL  @"FRFeedbackReporter.sendDetailsIsOptional"
 
 #define POST_KEY_TYPE          @"type"
 #define POST_KEY_EMAIL         @"email"

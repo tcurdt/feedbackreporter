@@ -367,39 +367,41 @@
     
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:5];
 	
-    if ([delegate respondsToSelector:@selector(customParametersForFeedbackReport)]) {
-        [dict addEntriesFromDictionary:[delegate customParametersForFeedbackReport]];
-    }
-	
-    [dict setObject:type
-             forKey:POST_KEY_TYPE];
-	
     [dict setObject:[emailField stringValue]
              forKey:POST_KEY_EMAIL];
-	
-    [dict setObject:[FRApplication applicationVersion]
-             forKey:POST_KEY_VERSION];
 	
     [dict setObject:[commentView string]
              forKey:POST_KEY_COMMENT];
 	
-    [dict setObject:[self systemProfileAsString]
-             forKey:POST_KEY_SYSTEM];
-	
-    [dict setObject:[self truncateConsoleLog:[consoleView string]]
-             forKey:POST_KEY_CONSOLE];
-	
-    [dict setObject:[crashesView string]
-             forKey:POST_KEY_CRASHES];
-	
-    [dict setObject:[scriptView string]
-             forKey:POST_KEY_SHELL];
-	
-    [dict setObject:[preferencesView string]
-             forKey:POST_KEY_PREFERENCES];
-	
-    [dict setObject:[exceptionView string]
-             forKey:POST_KEY_EXCEPTION];
+	if ([sendDetailsCheckbox state] == NSOnState) {
+		if ([delegate respondsToSelector:@selector(customParametersForFeedbackReport)]) {
+			[dict addEntriesFromDictionary:[delegate customParametersForFeedbackReport]];
+		}
+		
+		[dict setObject:type
+				 forKey:POST_KEY_TYPE];
+		
+		[dict setObject:[FRApplication applicationVersion]
+				 forKey:POST_KEY_VERSION];
+		
+		[dict setObject:[self systemProfileAsString]
+				 forKey:POST_KEY_SYSTEM];
+		
+		[dict setObject:[consoleView string]
+				 forKey:POST_KEY_CONSOLE];
+		
+		[dict setObject:[crashesView string]
+				 forKey:POST_KEY_CRASHES];
+		
+		[dict setObject:[scriptView string]
+				 forKey:POST_KEY_SHELL];
+		
+		[dict setObject:[preferencesView string]
+				 forKey:POST_KEY_PREFERENCES];
+		
+		[dict setObject:[exceptionView string]
+				 forKey:POST_KEY_EXCEPTION];		
+	}	
     
     NSLog(@"Sending feedback to %@", target);
     
@@ -614,6 +616,18 @@
     [indicator setHidden:NO];
     [indicator startAnimation:self];    
     [sendButton setEnabled:NO];
+
+	//	setup 'send details' checkbox...
+	[sendDetailsCheckbox setTitle:FRLocalizedString(@"Send details", nil)];
+	[sendDetailsCheckbox setState:NSOnState];
+	NSString *sendDetailsIsOptional = [[[NSBundle mainBundle] infoDictionary] valueForKey:KEY_SENDDETAILSISOPTIONAL];
+	if (sendDetailsIsOptional && [sendDetailsIsOptional isEqualToString:@"YES"]) {
+		[detailsLabel setHidden:YES];
+		[sendDetailsCheckbox setHidden:NO];
+	} else {
+		[detailsLabel setHidden:NO];
+		[sendDetailsCheckbox setHidden:YES];
+	}
 }
 
 - (void) showWindow:(id)sender

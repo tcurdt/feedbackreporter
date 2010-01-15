@@ -59,6 +59,8 @@
 
     IBOutlet NSButton *cancelButton;
     IBOutlet NSButton *sendButton;
+		
+	IBOutlet NSButton *sendDetailsCheckbox;
     
     FRUploader *uploader;
     
