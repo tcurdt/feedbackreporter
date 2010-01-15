@@ -75,6 +75,7 @@
 - (void) setMessage:(NSString*)message;
 - (void) setInformativeText:(NSString *)informativeText;
 - (void) setComment:(NSString*)comment;
+- (void) setCommentLabel:(NSString*)label;
 - (void) setException:(NSString*)exception;
 - (void) setType:(NSString*)type;
 

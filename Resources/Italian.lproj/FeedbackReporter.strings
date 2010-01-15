@@ -7,7 +7,7 @@
 "%@ has recently crashed!" = "%@ recentemente si è chiuso.\n\n";
 
 /* Informative text for crash report */
-"Send feedback" = "Per aiutarci a risolvere il problema, per favore spediscici questo report. Clicca su \"Dettagli\" per sapere le informazioni che verranno inviate.";
+"Send crash report" = "Per aiutarci a risolvere il problema, per favore spediscici questo report. Clicca su \"Dettagli\" per sapere le informazioni che verranno inviate.";
 
 /* No comment provided by engineer. */
 "anonymous" = "anonimo";
@@ -22,7 +22,7 @@
 "Console" = "Console";
 
 /* No comment provided by engineer. */
-"CrashLog" = "CrashLog";
+"CrashLog" = "Crash Log";
 
 /* No comment provided by engineer. */
 "Email address:" = "Il tuo indirizzo email se vuoi rimanere in contatto con noi:";

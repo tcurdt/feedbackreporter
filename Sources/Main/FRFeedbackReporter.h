@@ -19,7 +19,6 @@
 @interface FRFeedbackReporter : NSObject {
 
     @private
-        NSLock *modalLock;
         id feedbackController;
         id delegate;
 }

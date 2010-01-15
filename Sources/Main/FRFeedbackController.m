@@ -95,6 +95,11 @@
     [commentView setString:comment];
 }
 
+- (void) setCommentLabel:(NSString*)label 
+{
+    [commentLabel setStringValue:label];
+}
+
 - (void) setException:(NSString*)exception
 {
     [exceptionView setString:exception];
@@ -347,45 +352,45 @@
     uploader = [[FRUploader alloc] initWithTarget:target delegate:self];
     
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:5];
-
+	
     if ([delegate respondsToSelector:@selector(customParametersForFeedbackReport)]) {
         [dict addEntriesFromDictionary:[delegate customParametersForFeedbackReport]];
     }
-
+	
     [dict setObject:type
              forKey:POST_KEY_TYPE];
-
+	
     [dict setObject:[emailField stringValue]
              forKey:POST_KEY_EMAIL];
-
+	
     [dict setObject:[FRApplication applicationVersion]
              forKey:POST_KEY_VERSION];
-
+	
     [dict setObject:[commentView string]
              forKey:POST_KEY_COMMENT];
-
+	
     [dict setObject:[self systemProfileAsString]
              forKey:POST_KEY_SYSTEM];
-
+	
     [dict setObject:[consoleView string]
              forKey:POST_KEY_CONSOLE];
-
+	
     [dict setObject:[crashesView string]
              forKey:POST_KEY_CRASHES];
-
+	
     [dict setObject:[scriptView string]
              forKey:POST_KEY_SHELL];
-
+	
     [dict setObject:[preferencesView string]
              forKey:POST_KEY_PREFERENCES];
-
+	
     [dict setObject:[exceptionView string]
              forKey:POST_KEY_EXCEPTION];
     
     NSLog(@"Sending feedback to %@", target);
     
     [uploader postAndNotify:dict];
-
+	
     [dict release];
 }
 
@@ -449,7 +454,8 @@
         }
         
         if (![line hasPrefix:@"OK "]) {
-
+			NSLog (@"Response: %@", response);
+			
             NSAlert *alert = [[NSAlert alloc] init];
             [alert addButtonWithTitle:FRLocalizedString(@"OK", nil)];
             [alert setMessageText:FRLocalizedString(@"Sorry, failed to submit your feedback to the server.", nil)];

@@ -6,8 +6,14 @@
 /* Message text for crash report */
 "%@ has recently crashed!" = "%@ recently quit unexpectedly.";
 
+/* Informative text for feedback */
+"Send feedback" = "To help us improve our software your feedback is highly welcome! Click Details to see what information is sent to us.";
+
+/* Comment label text for feedback */
+"Feedback comment label" = "Your feedback:";
+
 /* Informative text for crash report */
-"Send feedback" = "To help us fix the problem, please send us this feedback report. Click Details to see what information is sent to us.";
+"Send crash report" = "To help us fix the problem, please send us this feedback report. Click Details to see what information is sent to us.";
 
 /* No comment provided by engineer. */
 "anonymous" = "anonymous";
@@ -22,7 +28,7 @@
 "Console" = "Console";
 
 /* No comment provided by engineer. */
-"CrashLog" = "CrashLog";
+"CrashLog" = "Crash Log";
 
 /* No comment provided by engineer. */
 "Email address:" = "Your email address if you would like us to get in touch with you:";
@@ -34,7 +40,7 @@
 "Exception" = "Exception";
 
 /* Feedback message text */
-"Got a problem with %@?" = "Experiencing problems with %@?";
+"Got a problem with %@?" = "Got an idea how to improve %@?";
 
 /* No comment provided by engineer. */
 "OK" = "OK";
