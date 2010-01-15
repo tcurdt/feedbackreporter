@@ -24,6 +24,8 @@
 #import "FRConstants.h"
 #import "FRConsoleLog.h"
 
+#import "NSMutableDictionary+Additions.h"
+
 #import <AddressBook/ABAddressBook.h>
 #import <AddressBook/ABMultiValue.h>
 #import <SystemConfiguration/SCNetwork.h>
@@ -367,40 +369,40 @@
     
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:5];
 	
-    [dict setObject:[emailField stringValue]
-             forKey:POST_KEY_EMAIL];
+    [dict setValidString:[emailField stringValue]
+				  forKey:POST_KEY_EMAIL];
 	
-    [dict setObject:[commentView string]
-             forKey:POST_KEY_COMMENT];
+    [dict setValidString:[commentView string]
+				  forKey:POST_KEY_COMMENT];
 	
 	if ([sendDetailsCheckbox state] == NSOnState) {
 		if ([delegate respondsToSelector:@selector(customParametersForFeedbackReport)]) {
 			[dict addEntriesFromDictionary:[delegate customParametersForFeedbackReport]];
 		}
 		
-		[dict setObject:type
-				 forKey:POST_KEY_TYPE];
+		[dict setValidString:type
+					  forKey:POST_KEY_TYPE];
 		
-		[dict setObject:[FRApplication applicationVersion]
-				 forKey:POST_KEY_VERSION];
+		[dict setValidString:[FRApplication applicationVersion]
+					  forKey:POST_KEY_VERSION];
 		
-		[dict setObject:[self systemProfileAsString]
-				 forKey:POST_KEY_SYSTEM];
+		[dict setValidString:[self systemProfileAsString]
+					  forKey:POST_KEY_SYSTEM];
 		
-		[dict setObject:[consoleView string]
-				 forKey:POST_KEY_CONSOLE];
+		[dict setValidString:[consoleView string]
+					  forKey:POST_KEY_CONSOLE];
 		
-		[dict setObject:[crashesView string]
-				 forKey:POST_KEY_CRASHES];
+		[dict setValidString:[crashesView string]
+					  forKey:POST_KEY_CRASHES];
 		
-		[dict setObject:[scriptView string]
-				 forKey:POST_KEY_SHELL];
+		[dict setValidString:[scriptView string]
+					  forKey:POST_KEY_SHELL];
 		
-		[dict setObject:[preferencesView string]
-				 forKey:POST_KEY_PREFERENCES];
+		[dict setValidString:[preferencesView string]
+					  forKey:POST_KEY_PREFERENCES];
 		
-		[dict setObject:[exceptionView string]
-				 forKey:POST_KEY_EXCEPTION];		
+		[dict setValidString:[exceptionView string]
+					  forKey:POST_KEY_EXCEPTION];		
 	}	
     
     NSLog(@"Sending feedback to %@", target);
@@ -516,14 +518,19 @@
 
     [[consoleView textContainer] setContainerSize:NSMakeSize(FLT_MAX, FLT_MAX)];
     [[consoleView textContainer] setWidthTracksTextView:NO];
+    [consoleView setString:@""];
     [[crashesView textContainer] setContainerSize:NSMakeSize(FLT_MAX, FLT_MAX)];
     [[crashesView textContainer] setWidthTracksTextView:NO];
+    [crashesView setString:@""];
     [[scriptView textContainer] setContainerSize:NSMakeSize(FLT_MAX, FLT_MAX)];
     [[scriptView textContainer] setWidthTracksTextView:NO];
+    [scriptView setString:@""];
     [[preferencesView textContainer] setContainerSize:NSMakeSize(FLT_MAX, FLT_MAX)];
     [[preferencesView textContainer] setWidthTracksTextView:NO];
+    [preferencesView setString:@""];
     [[exceptionView textContainer] setContainerSize:NSMakeSize(FLT_MAX, FLT_MAX)];
     [[exceptionView textContainer] setWidthTracksTextView:NO];
+    [exceptionView setString:@""];
 }
 
 - (void) stopSpinner
