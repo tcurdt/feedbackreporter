@@ -17,7 +17,7 @@
 #import <Cocoa/Cocoa.h>
 
 @interface AppController : NSObject {
-
+	IBOutlet NSWindow* window; // strong reference, needed for GC
 }
 
 - (IBAction) buttonFeedback:(id)sender;
