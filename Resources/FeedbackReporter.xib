@@ -39,7 +39,7 @@
 				<object class="NSMutableString" key="NSViewClass">
 					<characters key="NS.bytes">View</characters>
 				</object>
-				<string key="NSWindowContentMaxSize">{3.40282e+38, 3.40282e+38}</string>
+				<string key="NSWindowContentMaxSize">{1.79769e+308, 1.79769e+308}</string>
 				<string key="NSWindowContentMinSize">{480, 618}</string>
 				<object class="NSView" key="NSWindowView" id="689770422">
 					<reference key="NSNextResponder"/>
@@ -67,7 +67,7 @@
 									<string key="NSColorName">controlColor</string>
 									<object class="NSColor" key="NSColor" id="60927684">
 										<int key="NSColorSpace">3</int>
-										<bytes key="NSWhite">MC42NjY2NjY2ODY1AA</bytes>
+										<bytes key="NSWhite">MC42NjY2NjY2NjY3AA</bytes>
 									</object>
 								</object>
 								<object class="NSColor" key="NSTextColor" id="220605632">
@@ -1321,7 +1321,7 @@
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
 				<string key="NSMinSize">{480, 640}</string>
-				<string key="NSMaxSize">{3.40282e+38, 3.40282e+38}</string>
+				<string key="NSMaxSize">{1.79769e+308, 1.79769e+308}</string>
 			</object>
 			<object class="NSUserDefaultsController" id="33616617">
 				<bool key="NSSharedInstance">YES</bool>
@@ -1357,14 +1357,6 @@
 						<reference key="destination" ref="173298785"/>
 					</object>
 					<int key="connectionID">90</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">send:</string>
-						<reference key="source" ref="749086398"/>
-						<reference key="destination" ref="989299468"/>
-					</object>
-					<int key="connectionID">91</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -1621,6 +1613,14 @@
 						<reference key="destination" ref="1017651296"/>
 					</object>
 					<int key="connectionID">982</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">send:</string>
+						<reference key="source" ref="749086398"/>
+						<reference key="destination" ref="989299468"/>
+					</object>
+					<int key="connectionID">983</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -2299,13 +2299,18 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">982</int>
+			<int key="maxID">983</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<object class="IBPartialClassDescription">
 					<string key="className">FRFeedbackController</string>
 					<string key="superclassName">NSWindowController</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="cancel:">id</string>
+						<string key="send:">id</string>
+						<string key="showDetails:">id</string>
+					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="addressLabel">NSTextField</string>
 						<string key="cancelButton">NSButton</string>
@@ -2320,6 +2325,7 @@
 						<string key="exceptionView">NSTextView</string>
 						<string key="indicator">NSProgressIndicator</string>
 						<string key="informativeTextField">NSTextField</string>
+						<string key="messageField">NSTextField</string>
 						<string key="preferencesView">NSTextView</string>
 						<string key="scriptView">NSTextView</string>
 						<string key="sendButton">NSButton</string>
