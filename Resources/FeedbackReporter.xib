@@ -1440,14 +1440,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">messageField</string>
-						<reference key="source" ref="749086398"/>
-						<reference key="destination" ref="1055681203"/>
-					</object>
-					<int key="connectionID">644</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
 						<string key="label">systemView</string>
 						<reference key="source" ref="749086398"/>
 						<reference key="destination" ref="329684992"/>
@@ -1544,22 +1536,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">commentLabel</string>
-						<reference key="source" ref="749086398"/>
-						<reference key="destination" ref="863115555"/>
-					</object>
-					<int key="connectionID">773</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">addressLabel</string>
-						<reference key="source" ref="749086398"/>
-						<reference key="destination" ref="142987913"/>
-					</object>
-					<int key="connectionID">774</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
 						<string key="label">tabConsole</string>
 						<reference key="source" ref="749086398"/>
 						<reference key="destination" ref="453069503"/>
@@ -1592,22 +1568,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">emailField</string>
-						<reference key="source" ref="749086398"/>
-						<reference key="destination" ref="771130684"/>
-					</object>
-					<int key="connectionID">976</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">informativeTextField</string>
-						<reference key="source" ref="749086398"/>
-						<reference key="destination" ref="27401744"/>
-					</object>
-					<int key="connectionID">979</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
 						<string key="label">sendDetailsCheckbox</string>
 						<reference key="source" ref="749086398"/>
 						<reference key="destination" ref="1017651296"/>
@@ -1621,6 +1581,46 @@
 						<reference key="destination" ref="989299468"/>
 					</object>
 					<int key="connectionID">983</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">headingField</string>
+						<reference key="source" ref="749086398"/>
+						<reference key="destination" ref="1055681203"/>
+					</object>
+					<int key="connectionID">984</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">subheadingField</string>
+						<reference key="source" ref="749086398"/>
+						<reference key="destination" ref="27401744"/>
+					</object>
+					<int key="connectionID">985</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">emailBox</string>
+						<reference key="source" ref="749086398"/>
+						<reference key="destination" ref="771130684"/>
+					</object>
+					<int key="connectionID">986</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">emailLabel</string>
+						<reference key="source" ref="749086398"/>
+						<reference key="destination" ref="142987913"/>
+					</object>
+					<int key="connectionID">987</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">commentLabel</string>
+						<reference key="source" ref="749086398"/>
+						<reference key="destination" ref="863115555"/>
+					</object>
+					<int key="connectionID">989</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -2299,7 +2299,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">983</int>
+			<int key="maxID">989</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2312,7 +2312,6 @@
 						<string key="showDetails:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="addressLabel">NSTextField</string>
 						<string key="cancelButton">NSButton</string>
 						<string key="commentLabel">NSTextField</string>
 						<string key="commentView">NSTextView</string>
@@ -2321,15 +2320,16 @@
 						<string key="delegate">id</string>
 						<string key="detailsButton">NSButton</string>
 						<string key="detailsLabel">NSTextField</string>
-						<string key="emailField">NSComboBox</string>
+						<string key="emailBox">NSComboBox</string>
+						<string key="emailLabel">NSTextField</string>
 						<string key="exceptionView">NSTextView</string>
+						<string key="headingField">NSTextField</string>
 						<string key="indicator">NSProgressIndicator</string>
-						<string key="informativeTextField">NSTextField</string>
-						<string key="messageField">NSTextField</string>
 						<string key="preferencesView">NSTextView</string>
 						<string key="scriptView">NSTextView</string>
 						<string key="sendButton">NSButton</string>
 						<string key="sendDetailsCheckbox">NSButton</string>
+						<string key="subheadingField">NSTextField</string>
 						<string key="systemView">NSTableView</string>
 						<string key="tabConsole">NSTabViewItem</string>
 						<string key="tabCrash">NSTabViewItem</string>

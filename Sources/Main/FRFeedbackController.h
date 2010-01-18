@@ -27,12 +27,20 @@
 #endif
 {
 
-    IBOutlet NSTextField *messageField;
-    IBOutlet NSTextField *informativeTextField;
+    IBOutlet NSTextField *headingField;
+    IBOutlet NSTextField *subheadingField;
+
+    IBOutlet NSTextField *commentLabel;
     IBOutlet NSTextView *commentView;
-    IBOutlet NSComboBox *emailField;
+
+    IBOutlet NSTextField *emailLabel;    
+    IBOutlet NSComboBox *emailBox;
 
     IBOutlet NSButton *detailsButton;
+    IBOutlet NSTextField *detailsLabel;
+    BOOL detailsShown;
+
+	IBOutlet NSButton *sendDetailsCheckbox;
 
     IBOutlet NSTabView *tabView;
     IBOutlet NSTabViewItem *tabSystem;
@@ -41,12 +49,6 @@
     IBOutlet NSTabViewItem *tabScript;
     IBOutlet NSTabViewItem *tabPreferences;
     IBOutlet NSTabViewItem *tabException;
-
-    IBOutlet NSTextField *commentLabel;
-    IBOutlet NSTextField *addressLabel;    
-    IBOutlet NSTextField *detailsLabel;
-
-    BOOL detailsShown;
 
     IBOutlet NSTableView *systemView;
     IBOutlet NSTextView *consoleView;
@@ -60,7 +62,6 @@
     IBOutlet NSButton *cancelButton;
     IBOutlet NSButton *sendButton;
 		
-	IBOutlet NSButton *sendDetailsCheckbox;
     
     FRUploader *uploader;
     

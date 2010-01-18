@@ -84,12 +84,12 @@
 
 - (void) setMessage:(NSString*)message
 {
-    [messageField setStringValue:message];
+    [headingField setStringValue:message];
 }
 
 - (void) setInformativeText:(NSString *)informativeText
 {
-    [informativeTextField setStringValue:informativeText];
+    [subheadingField setStringValue:informativeText];
 }
 
 - (void) setComment:(NSString*)comment
@@ -365,7 +365,7 @@
     
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:5];
 	
-    [dict setValidString:[emailField stringValue]
+    [dict setValidString:[emailBox stringValue]
 				  forKey:POST_KEY_EMAIL];
 	
     [dict setValidString:[commentView string]
@@ -484,7 +484,7 @@
     [[NSUserDefaults standardUserDefaults] setValue:[NSDate date]
                                              forKey:DEFAULTS_KEY_LASTSUBMISSIONDATE];
 
-    [[NSUserDefaults standardUserDefaults] setObject:[emailField stringValue]
+    [[NSUserDefaults standardUserDefaults] setObject:[emailBox stringValue]
                                               forKey:DEFAULTS_KEY_SENDEREMAIL];
 
     [self close];
@@ -500,7 +500,7 @@
     [[self window] setDelegate:self];
 
     [commentLabel setStringValue:FRLocalizedString(@"Comments:", nil)];
-    [addressLabel setStringValue:FRLocalizedString(@"Email address:", nil)];
+    [emailLabel setStringValue:FRLocalizedString(@"Email address:", nil)];
     
     [tabConsole setLabel:FRLocalizedString(@"Console", nil)];
     [tabCrash setLabel:FRLocalizedString(@"CrashLog", nil)];
@@ -586,29 +586,29 @@
 
     int i, count = [emailAddresses count];
     
-    [emailField removeAllItems];
+    [emailBox removeAllItems];
 
-    [emailField addItemWithObjectValue:FRLocalizedString(@"anonymous", nil)];
+    [emailBox addItemWithObjectValue:FRLocalizedString(@"anonymous", nil)];
 
     for(i=0; i<count; i++) {
 
         NSString *emailAddress = [emailAddresses valueAtIndex:i];
 
-        [emailField addItemWithObjectValue:emailAddress];
+        [emailBox addItemWithObjectValue:emailAddress];
     }
 
     NSString *email = [[NSUserDefaults standardUserDefaults] stringForKey:DEFAULTS_KEY_SENDEREMAIL];
 
-    NSInteger found = [emailField indexOfItemWithObjectValue:email];
+    NSInteger found = [emailBox indexOfItemWithObjectValue:email];
     if (found != NSNotFound) {
-        [emailField selectItemAtIndex:found];
-	} else if ([emailField numberOfItems] >= 2) {
+        [emailBox selectItemAtIndex:found];
+	} else if ([emailBox numberOfItems] >= 2) {
 		NSString *defaultSender = [[[NSBundle mainBundle] infoDictionary] valueForKey:PLIST_KEY_DEFAULTSENDER];
 		NSUInteger index = (defaultSender && [defaultSender isEqualToString:@"firstEmail"]) ? 1 : 0;
-		[emailField selectItemAtIndex:index];
+		[emailBox selectItemAtIndex:index];
     }
 
-    [messageField setStringValue:@""];
+    [headingField setStringValue:@""];
     [commentView setString:@""];
     [exceptionView setString:@""];
 
