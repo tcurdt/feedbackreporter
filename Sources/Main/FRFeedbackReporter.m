@@ -87,13 +87,11 @@
         
         [controller reset];
 
-        [controller setMessage:[NSString stringWithFormat:
+        [controller setHeading:[NSString stringWithFormat:
             FRLocalizedString(@"Got a problem with %@?", nil),
             [FRApplication applicationName]]];
         
-        [controller setInformativeText:FRLocalizedString(@"Send feedback", nil)];
-		
-		[controller setCommentLabel:FRLocalizedString(@"Feedback comment label", nil)];
+        [controller setSubheading:FRLocalizedString(@"Send feedback", nil)];
 		
         [controller setType:FR_FEEDBACK];
         
@@ -129,11 +127,11 @@
 
             [controller reset];
 
-            [controller setMessage:[NSString stringWithFormat:
+            [controller setHeading:[NSString stringWithFormat:
                 FRLocalizedString(@"%@ has recently crashed!", nil),
                 [FRApplication applicationName]]];
             
-            [controller setInformativeText:FRLocalizedString(@"Send crash report", nil)];
+            [controller setSubheading:FRLocalizedString(@"Send crash report", nil)];
             
             [controller setType:FR_CRASH];
 
@@ -163,11 +161,11 @@
 
         [controller reset];
         
-        [controller setMessage:[NSString stringWithFormat:
+        [controller setHeading:[NSString stringWithFormat:
             FRLocalizedString(@"%@ has encountered an exception!", nil),
             [FRApplication applicationName]]];
         
-        [controller setInformativeText:FRLocalizedString(@"Send crash report", nil)];
+        [controller setSubheading:FRLocalizedString(@"Send crash report", nil)];
 
         [controller setException:[NSString stringWithFormat: @"%@\n\n%@\n\n%@",
                                     [exception name],

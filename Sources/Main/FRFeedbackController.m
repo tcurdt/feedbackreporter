@@ -82,12 +82,12 @@
     delegate = pDelegate;
 }
 
-- (void) setMessage:(NSString*)message
+- (void) setHeading:(NSString*)message
 {
     [headingField setStringValue:message];
 }
 
-- (void) setInformativeText:(NSString *)informativeText
+- (void) setSubheading:(NSString *)informativeText
 {
     [subheadingField setStringValue:informativeText];
 }
@@ -95,11 +95,6 @@
 - (void) setComment:(NSString*)comment
 {
     [commentView setString:comment];
-}
-
-- (void) setCommentLabel:(NSString*)label 
-{
-    [commentLabel setStringValue:label];
 }
 
 - (void) setException:(NSString*)exception
@@ -499,7 +494,11 @@
 {
     [[self window] setDelegate:self];
 
-    [commentLabel setStringValue:FRLocalizedString(@"Comments:", nil)];
+    if (type == FR_FEEDBACK) {
+		[commentLabel setStringValue:FRLocalizedString(@"Feedback comment label", nil)];
+    } else {
+        [commentLabel setStringValue:FRLocalizedString(@"Comments:", nil)];
+    }
     [emailLabel setStringValue:FRLocalizedString(@"Email address:", nil)];
     
     [tabConsole setLabel:FRLocalizedString(@"Console", nil)];

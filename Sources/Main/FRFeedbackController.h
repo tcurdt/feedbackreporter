@@ -75,10 +75,9 @@
 - (id) delegate;
 - (void) setDelegate:(id) delegate;
 
-- (void) setMessage:(NSString*)message;
-- (void) setInformativeText:(NSString *)informativeText;
+- (void) setHeading:(NSString*)message;
+- (void) setSubheading:(NSString *)informativeText;
 - (void) setComment:(NSString*)comment;
-- (void) setCommentLabel:(NSString*)label;
 - (void) setException:(NSString*)exception;
 - (void) setType:(NSString*)type;
 
