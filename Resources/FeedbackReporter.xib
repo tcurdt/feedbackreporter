@@ -10,9 +10,7 @@
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
 			<string key="NS.object.0">740</string>
 		</object>
-		<array class="NSMutableArray" key="IBDocument.EditedObjectIDs">
-			<integer value="6"/>
-		</array>
+		<array class="NSMutableArray" key="IBDocument.EditedObjectIDs"/>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 		</array>
@@ -42,7 +40,7 @@
 				<string key="NSWindowContentMaxSize">{1.79769e+308, 1.79769e+308}</string>
 				<string key="NSWindowContentMinSize">{480, 618}</string>
 				<object class="NSView" key="NSWindowView" id="689770422">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<array class="NSMutableArray" key="NSSubviews">
 						<object class="NSTextField" id="1055681203">
@@ -1317,7 +1315,6 @@
 						</object>
 					</array>
 					<string key="NSFrameSize">{480, 640}</string>
-					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
 				<string key="NSMinSize">{480, 640}</string>
@@ -1389,14 +1386,6 @@
 						<reference key="destination" ref="220750041"/>
 					</object>
 					<int key="connectionID">395</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">commentView</string>
-						<reference key="source" ref="749086398"/>
-						<reference key="destination" ref="828827968"/>
-					</object>
-					<int key="connectionID">397</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -1616,11 +1605,19 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">commentLabel</string>
+						<string key="label">messageLabel</string>
 						<reference key="source" ref="749086398"/>
 						<reference key="destination" ref="863115555"/>
 					</object>
-					<int key="connectionID">989</int>
+					<int key="connectionID">990</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">messageView</string>
+						<reference key="source" ref="749086398"/>
+						<reference key="destination" ref="828827968"/>
+					</object>
+					<int key="connectionID">991</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -2299,7 +2296,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">989</int>
+			<int key="maxID">991</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2313,8 +2310,6 @@
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="cancelButton">NSButton</string>
-						<string key="commentLabel">NSTextField</string>
-						<string key="commentView">NSTextView</string>
 						<string key="consoleView">NSTextView</string>
 						<string key="crashesView">NSTextView</string>
 						<string key="delegate">id</string>
@@ -2325,6 +2320,8 @@
 						<string key="exceptionView">NSTextView</string>
 						<string key="headingField">NSTextField</string>
 						<string key="indicator">NSProgressIndicator</string>
+						<string key="messageLabel">NSTextField</string>
+						<string key="messageView">NSTextView</string>
 						<string key="preferencesView">NSTextView</string>
 						<string key="scriptView">NSTextView</string>
 						<string key="sendButton">NSButton</string>

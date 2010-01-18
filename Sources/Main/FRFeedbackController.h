@@ -30,8 +30,8 @@
     IBOutlet NSTextField *headingField;
     IBOutlet NSTextField *subheadingField;
 
-    IBOutlet NSTextField *commentLabel;
-    IBOutlet NSTextView *commentView;
+    IBOutlet NSTextField *messageLabel;
+    IBOutlet NSTextView *messageView;
 
     IBOutlet NSTextField *emailLabel;    
     IBOutlet NSComboBox *emailBox;
@@ -77,7 +77,7 @@
 
 - (void) setHeading:(NSString*)message;
 - (void) setSubheading:(NSString *)informativeText;
-- (void) setComment:(NSString*)comment;
+- (void) setMessage:(NSString*)message;
 - (void) setException:(NSString*)exception;
 - (void) setType:(NSString*)type;
 

@@ -92,9 +92,9 @@
     [subheadingField setStringValue:informativeText];
 }
 
-- (void) setComment:(NSString*)comment
+- (void) setMessage:(NSString*)message
 {
-    [commentView setString:comment];
+    [messageView setString:message];
 }
 
 - (void) setException:(NSString*)exception
@@ -363,8 +363,8 @@
     [dict setValidString:[emailBox stringValue]
 				  forKey:POST_KEY_EMAIL];
 	
-    [dict setValidString:[commentView string]
-				  forKey:POST_KEY_COMMENT];
+    [dict setValidString:[messageView string]
+				  forKey:POST_KEY_MESSAGE];
 	
 	if ([sendDetailsCheckbox state] == NSOnState) {
 		if ([delegate respondsToSelector:@selector(customParametersForFeedbackReport)]) {
@@ -410,7 +410,7 @@
     [indicator setHidden:NO];
     [indicator startAnimation:self];    
     
-    [commentView setEditable:NO];
+    [messageView setEditable:NO];
     [sendButton setEnabled:NO];
 }
 
@@ -423,7 +423,7 @@
 
     [uploader release], uploader = nil;
     
-    [commentView setEditable:YES];
+    [messageView setEditable:YES];
     [sendButton setEnabled:YES];
 
     NSAlert *alert = [[NSAlert alloc] init];
@@ -448,7 +448,7 @@
 
     [uploader release], uploader = nil;
 
-    [commentView setEditable:YES];
+    [messageView setEditable:YES];
     [sendButton setEnabled:YES];
 
     NSArray *lines = [response componentsSeparatedByString:@"\n"];
@@ -495,9 +495,9 @@
     [[self window] setDelegate:self];
 
     if (type == FR_FEEDBACK) {
-		[commentLabel setStringValue:FRLocalizedString(@"Feedback comment label", nil)];
+		[messageLabel setStringValue:FRLocalizedString(@"Feedback comment label", nil)];
     } else {
-        [commentLabel setStringValue:FRLocalizedString(@"Comments:", nil)];
+        [messageLabel setStringValue:FRLocalizedString(@"Comments:", nil)];
     }
     [emailLabel setStringValue:FRLocalizedString(@"Email address:", nil)];
     
@@ -608,7 +608,7 @@
     }
 
     [headingField setStringValue:@""];
-    [commentView setString:@""];
+    [messageView setString:@""];
     [exceptionView setString:@""];
 
     [self showDetails:NO animate:NO];

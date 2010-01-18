@@ -50,7 +50,7 @@
 #define POST_KEY_TYPE          @"type"
 #define POST_KEY_EMAIL         @"email"
 #define POST_KEY_VERSION       @"version"
-#define POST_KEY_COMMENT       @"comment"
+#define POST_KEY_MESSAGE       @"comment"
 #define POST_KEY_SYSTEM        @"system"
 #define POST_KEY_CONSOLE       @"console"
 #define POST_KEY_CRASHES       @"crashes"
