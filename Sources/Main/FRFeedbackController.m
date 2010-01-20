@@ -494,11 +494,6 @@
 {
     [[self window] setDelegate:self];
 
-    if (type == FR_FEEDBACK) {
-		[messageLabel setStringValue:FRLocalizedString(@"Feedback comment label", nil)];
-    } else {
-        [messageLabel setStringValue:FRLocalizedString(@"Comments:", nil)];
-    }
     [emailLabel setStringValue:FRLocalizedString(@"Email address:", nil)];
     
     [tabConsole setLabel:FRLocalizedString(@"Console", nil)];
@@ -633,6 +628,12 @@
 
 - (void) showWindow:(id)sender
 {
+    if (type == FR_FEEDBACK) {
+		[messageLabel setStringValue:FRLocalizedString(@"Feedback comment label", nil)];
+    } else {
+        [messageLabel setStringValue:FRLocalizedString(@"Comments:", nil)];
+    }
+
     if ([[exceptionView string] length] != 0) {
         [tabView insertTabViewItem:tabException atIndex:1];
         [tabView selectTabViewItemWithIdentifier:@"Exception"];
