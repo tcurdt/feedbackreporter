@@ -319,7 +319,7 @@
     NSString *target = [[FRApplication feedbackURL] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] ;
     
     if (target == nil) {
-        NSLog(@"You are missing the %@ key in your Info.plist!", PLIST_KEY_LOGHOURS);
+        NSLog(@"You are missing the %@ key in your Info.plist!", PLIST_KEY_TARGETURL);
         return;        
     }
 
