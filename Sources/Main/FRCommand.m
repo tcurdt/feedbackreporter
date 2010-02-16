@@ -55,7 +55,7 @@
    NSData *data = [fileHandle availableData];
 
     if ([data length]) {
-        NSString *s = [[NSString alloc] initWithBytes:[data bytes] length:[data length] encoding:NSASCIIStringEncoding];
+        NSString *s = [[NSString alloc] initWithBytes:[data bytes] length:[data length] encoding:NSUTF8StringEncoding];
     
         [output appendString:s];
         //NSLog(@"| %@", s);
@@ -133,10 +133,10 @@
         if (![[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:100000]]) {
             break;
         }
-        [pool release];
+        [pool drain];
         pool = [[NSAutoreleasePool alloc] init];
     }
-    [pool release];
+    [pool drain];
 
     [self appendDataFrom:outFile to:output];
     [self appendDataFrom:errFile to:error];

@@ -46,20 +46,19 @@
 
 + (NSArray*) findCrashLogsSince:(NSDate*)date
 {
-
     NSMutableArray *files = [NSMutableArray array];
 
     NSFileManager *fileManager = [NSFileManager defaultManager];
 
     NSArray *libraryDirectories = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSLocalDomainMask|NSUserDomainMask, FALSE);
 
-    int i = [libraryDirectories count];
+    NSUInteger i = [libraryDirectories count];
     while(i--) {
         NSString* libraryDirectory = [libraryDirectories objectAtIndex:i];
 
         /*  Leopard */        
-        NSDirectoryEnumerator *enumerator;
-        NSString *file;
+        NSDirectoryEnumerator *enumerator = nil;
+        NSString *file = nil;
         
         NSString* log2 = @"Logs/CrashReporter/";
         log2 = [[libraryDirectory stringByAppendingPathComponent:log2] stringByExpandingTildeInPath];

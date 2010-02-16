@@ -19,6 +19,7 @@
 
 @interface FRUploader : NSObject {
 
+@private
     NSString *target;
     id delegate;
 

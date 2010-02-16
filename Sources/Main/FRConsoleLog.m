@@ -43,7 +43,7 @@
 
         if (response != NULL) {
 
-            aslmsg msg;
+            aslmsg msg = NULL;
 
             while (NULL != (msg = aslresponse_next(response))) {
 
@@ -63,7 +63,7 @@
 
                 [console appendFormat:@"%@: %s\n", date, text];
                 
-                if (maxSize != nil && [console length] > [maxSize integerValue]) {
+                if (maxSize != nil && [console length] > [maxSize unsignedIntegerValue]) {
                     break;
                 }
             }

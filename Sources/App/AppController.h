@@ -17,6 +17,7 @@
 #import <Cocoa/Cocoa.h>
 
 @interface AppController : NSObject {
+@private
 	IBOutlet NSWindow* window; // strong reference, needed for GC
 }
 

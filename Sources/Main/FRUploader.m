@@ -44,8 +44,7 @@
     NSArray *keys = [dict allKeys];
     NSMutableData *result = [[NSMutableData alloc] initWithCapacity:100];
     
-    int i;
-    for (i = 0; i < [keys count]; i++) {
+    for (NSUInteger i = 0; i < [keys count]; i++) {
         id value = [dict valueForKey: [keys objectAtIndex: i]];
         
         [result appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
@@ -77,7 +76,7 @@
 
     NSData *formData = [self generateFormData:dict forBoundary:formBoundary];
 
-    NSLog(@"Posting %d bytes to %@", [formData length], target);
+    NSLog(@"Posting %lu bytes to %@", (unsigned long)[formData length], target);
 
     NSMutableURLRequest *post = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:target]];
     
@@ -86,14 +85,14 @@
     [post setHTTPMethod: @"POST"];
     [post setHTTPBody:formData];
 
-    NSURLResponse *response;
-    NSError *error;
+    NSURLResponse *response = nil;
+    NSError *error = nil;
     NSData *result = [NSURLConnection sendSynchronousRequest: post
                                            returningResponse: &response
                                                        error: &error];
 
     if(error != nil) {
-        NSLog(@"Post failed. Error: %d, Description: %@", [error code], [error localizedDescription]);
+        NSLog(@"Post failed. Error: %ld, Description: %@", (long)[error code], [error localizedDescription]);
     }
 
     return [[[NSString alloc] initWithData:result
@@ -106,7 +105,7 @@
 
     NSData *formData = [self generateFormData:dict forBoundary:formBoundary];
 
-    NSLog(@"Posting %d bytes to %@", [formData length], target);
+    NSLog(@"Posting %lu bytes to %@", (unsigned long)[formData length], target);
 
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:target]];
     
