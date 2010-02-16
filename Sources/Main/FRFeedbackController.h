@@ -26,14 +26,14 @@
 <NSWindowDelegate>
 #endif
 {
-
+@private
     IBOutlet NSTextField *headingField;
     IBOutlet NSTextField *subheadingField;
 
     IBOutlet NSTextField *messageLabel;
     IBOutlet NSTextView *messageView;
 
-    IBOutlet NSTextField *emailLabel;    
+    IBOutlet NSTextField *emailLabel;
     IBOutlet NSComboBox *emailBox;
 
     IBOutlet NSButton *detailsButton;

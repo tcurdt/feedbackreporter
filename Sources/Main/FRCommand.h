@@ -19,6 +19,7 @@
 
 @interface FRCommand : NSObject {
 
+@private
     NSTask *task;
 
     NSString *path;

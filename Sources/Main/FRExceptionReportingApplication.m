@@ -35,7 +35,7 @@
         }
     }
     @catch (NSException *exception) {
-        NSLog(@"Problem within FeedbackReporter %@: %@", [exception name], [exception  reason]);
+        NSLog(@"Problem within FeedbackReporter %@: %@", [exception name], [exception reason]);
     }
     @finally {
     }

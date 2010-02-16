@@ -30,11 +30,11 @@
     }
 }
 
-- (NSArray*) my_callStackReturnAddressesSkipping: (unsigned)skip limit: (unsigned)limit
+- (NSArray*) my_callStackReturnAddressesSkipping: (NSUInteger)skip limit: (NSUInteger)limit
 {
     NSArray *addresses = [self my_callStackReturnAddresses];
     if( addresses ) {
-        unsigned n = [addresses count];
+        NSUInteger n = [addresses count];
         skip = MIN(skip,n);
         limit = MIN(limit,n-skip);
         addresses = [addresses subarrayWithRange: NSMakeRange(skip,limit)];
@@ -59,9 +59,8 @@
             [NSString stringWithFormat:@"%d", getpid()],
             nil];
             
-    int i;
-    int len = [addresses count];
-    for(i = 0; i<len; i++) {
+    NSUInteger len = [addresses count];
+    for(NSUInteger i = 0; i<len; i++) {
         NSValue *addr = [addresses objectAtIndex:i];
         [args addObject:[NSString stringWithFormat:@"%p", [addr pointerValue]]];
     }
@@ -81,7 +80,7 @@
 
     NSArray *lines = [output componentsSeparatedByString: @"\n"];
     len = [lines count];
-    for(i = 0; i<len; i++) {
+    for(NSUInteger i = 0; i<len; i++) {
         NSString *line = [lines objectAtIndex:i];
         
         // Skip  frames that are part of the exception/assertion handling itself:

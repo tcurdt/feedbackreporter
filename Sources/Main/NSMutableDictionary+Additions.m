@@ -20,7 +20,7 @@
 
 - (void) setValidString: (NSString*) string forKey: (NSString*) key 
 {
-	if (!string || [string length] == 0 || !key) return;
+	if ([string length] == 0 || !key) return;
 	[self setObject:string forKey:key];
 }
 

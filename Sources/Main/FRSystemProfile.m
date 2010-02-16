@@ -34,7 +34,7 @@
         @"MACHINE_MODEL", @"Machine Model", machinemodel, machinemodel, nil]
         forKeys:discoveryKeys]];
 
-    NSString *ramsize = [NSString stringWithFormat:@"%d", [self ramsize]];
+    NSString *ramsize = [NSString stringWithFormat:@"%ld", [self ramsize]];
     [discoveryArray addObject:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:
         @"RAM_SIZE", @"Memory in (MB)", ramsize, ramsize, nil]
         forKeys:discoveryKeys]];
@@ -44,7 +44,7 @@
         @"CPU_TYPE", @"CPU Type", cputype, cputype, nil]
         forKeys:discoveryKeys]];
 
-    NSString *cpuspeed = [NSString stringWithFormat:@"%d", [self cpuspeed]];
+    NSString *cpuspeed = [NSString stringWithFormat:@"%ld", [self cpuspeed]];
     [discoveryArray addObject:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:
         @"CPU_SPEED", @"CPU Speed (MHz)", cpuspeed, cpuspeed, nil]
         forKeys:discoveryKeys]];
@@ -125,7 +125,7 @@
     
     // Intel
     if (cputype == CPU_TYPE_X86) {
-        char stringValue[255];
+        char stringValue[256] = {0};
         size_t stringLength = sizeof(stringValue);
         error = sysctlbyname("machdep.cpu.brand_string", &stringValue, &stringLength, NULL, 0);
         if ((error == 0) && (stringValue != NULL)) {
@@ -246,7 +246,7 @@
 + (NSString*) machinemodel
 {
     int error = 0;
-    size_t length;
+    size_t length = 0;
     error = sysctlbyname("hw.model", NULL, &length, NULL, 0);
     
     if (error != 0) {
@@ -255,8 +255,10 @@
     }
 
     char *p = malloc(sizeof(char) * length);
-    error = sysctlbyname("hw.model", p, &length, NULL, 0);
-    
+    if (p) {
+		error = sysctlbyname("hw.model", p, &length, NULL, 0);
+    }
+	
     if (error != 0) {
         NSLog(@"Failed to obtain machine model");
         free(p);
@@ -275,7 +277,7 @@
     NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
     NSArray *languages = [defs objectForKey:@"AppleLanguages"];
 
-    if (!languages || ([languages count]  == 0)) {
+    if ([languages count] == 0) {
         NSLog(@"Failed to obtain preferred language");
         return nil;
     }
@@ -285,10 +287,9 @@
 
 + (long) cpuspeed
 {
-    OSType error;
-    SInt32 result;
+    SInt32 result = 0;
 
-    error = Gestalt(gestaltProcClkSpeedMHz, &result);
+    OSErr error = Gestalt(gestaltProcClkSpeedMHz, &result);
     if (error) {
         NSLog(@"Failed to obtain CPU speed");
         return -1;
@@ -299,10 +300,9 @@
 
 + (long) ramsize
 {
-    OSType error;
-    SInt32 result;
+    SInt32 result = 0;
 
-    error = Gestalt(gestaltPhysicalRAMSizeInMegabytes, &result);
+    OSErr error = Gestalt(gestaltPhysicalRAMSizeInMegabytes, &result);
     if (error) {
         NSLog(@"Failed to obtain RAM size");
         return -1;

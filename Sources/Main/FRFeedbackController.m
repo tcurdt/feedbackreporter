@@ -104,9 +104,10 @@
 
 - (void) setType:(NSString*)theType
 {
-    [theType retain];
-    [type release];
-    type = theType;
+    if (theType != type) {
+        [type release];
+        type = [theType retain];
+    }
 }
 
 #pragma mark information gathering
@@ -144,7 +145,7 @@
 {
     NSMutableString *string = [NSMutableString string];
     NSArray *dicts = [self systemProfile];
-    int i = [dicts count];
+    NSUInteger i = [dicts count];
     while(i--) {
         NSDictionary *dict = [dicts objectAtIndex:i];
         [string appendFormat:@"%@ = %@\n", [dict objectForKey:@"key"], [dict objectForKey:@"value"]];
@@ -154,12 +155,11 @@
 
 - (NSString*) crashLog
 {
-
     NSDate *lastSubmissionDate = [[NSUserDefaults standardUserDefaults] valueForKey:DEFAULTS_KEY_LASTSUBMISSIONDATE];
 
     NSArray *crashFiles = [FRCrashLogFinder findCrashLogsSince:lastSubmissionDate];
 
-    int i = [crashFiles count];
+    NSUInteger i = [crashFiles count];
 
     if (i == 1) {
         if (lastSubmissionDate == nil) {
@@ -177,15 +177,15 @@
     }
 
     if (lastSubmissionDate == nil) {
-        NSLog(@"Found %d crash files", i);
+        NSLog(@"Found %lu crash files", (unsigned long)i);
     } else {
-        NSLog(@"Found %d crash files earlier than latest submission on %@", i, lastSubmissionDate);
+        NSLog(@"Found %lu crash files earlier than latest submission on %@", (unsigned long)i, lastSubmissionDate);
     }
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
 
     NSDate *newest = nil;
-    int newestIndex = -1;
+    NSInteger newestIndex = -1;
 
     while(i--) {
     
@@ -299,7 +299,8 @@
 
 - (IBAction) showDetails:(id)sender
 {
-    [self showDetails:[sender intValue] animate:YES];
+    BOOL show = [[sender objectValue] boolValue];
+	[self showDetails:show animate:YES];
 }
 
 - (IBAction) cancel:(id)sender
@@ -325,7 +326,7 @@
 
     NSURL *url = [NSURL URLWithString:target];
 
-    SCNetworkConnectionFlags reachabilityFlags;
+    SCNetworkConnectionFlags reachabilityFlags = 0;
     
     const char *hostname = [[url host] UTF8String];  
 
@@ -344,12 +345,12 @@
         && !(reachabilityFlags & kSCNetworkFlagsInterventionRequired);
     
     if (!reachable) {
-        int alertResult = [[NSAlert alertWithMessageText:FRLocalizedString(@"Feedback Host Not Reachable", nil)
-                                           defaultButton:FRLocalizedString(@"Proceed Anyway", nil)
-                                         alternateButton:FRLocalizedString(@"Cancel", nil)
-                                             otherButton:nil
-                               informativeTextWithFormat:FRLocalizedString(@"You may not be able to send feedback because %@ isn't reachable.", nil), [url host]
-                            ] runModal];
+        NSInteger alertResult = [[NSAlert alertWithMessageText:FRLocalizedString(@"Feedback Host Not Reachable", nil)
+												 defaultButton:FRLocalizedString(@"Proceed Anyway", nil)
+											   alternateButton:FRLocalizedString(@"Cancel", nil)
+												   otherButton:nil
+									 informativeTextWithFormat:FRLocalizedString(@"You may not be able to send feedback because %@ isn't reachable.", nil), [url host]
+								  ] runModal];
 
         if (alertResult != NSAlertDefaultReturn) {
             return;
@@ -452,7 +453,7 @@
     [sendButton setEnabled:YES];
 
     NSArray *lines = [response componentsSeparatedByString:@"\n"];
-    int i = [lines count];
+    NSUInteger i = [lines count];
     while(i--) {
         NSString *line = [lines objectAtIndex:i];
         
@@ -505,19 +506,19 @@
     [sendButton setTitle:FRLocalizedString(@"Send", nil)];
     [cancelButton setTitle:FRLocalizedString(@"Cancel", nil)];
 
-    [[consoleView textContainer] setContainerSize:NSMakeSize(FLT_MAX, FLT_MAX)];
+    [[consoleView textContainer] setContainerSize:NSMakeSize(CGFLOAT_MAX, CGFLOAT_MAX)];
     [[consoleView textContainer] setWidthTracksTextView:NO];
     [consoleView setString:@""];
-    [[crashesView textContainer] setContainerSize:NSMakeSize(FLT_MAX, FLT_MAX)];
+    [[crashesView textContainer] setContainerSize:NSMakeSize(CGFLOAT_MAX, CGFLOAT_MAX)];
     [[crashesView textContainer] setWidthTracksTextView:NO];
     [crashesView setString:@""];
-    [[scriptView textContainer] setContainerSize:NSMakeSize(FLT_MAX, FLT_MAX)];
+    [[scriptView textContainer] setContainerSize:NSMakeSize(CGFLOAT_MAX, CGFLOAT_MAX)];
     [[scriptView textContainer] setWidthTracksTextView:NO];
     [scriptView setString:@""];
-    [[preferencesView textContainer] setContainerSize:NSMakeSize(FLT_MAX, FLT_MAX)];
+    [[preferencesView textContainer] setContainerSize:NSMakeSize(CGFLOAT_MAX, CGFLOAT_MAX)];
     [[preferencesView textContainer] setWidthTracksTextView:NO];
     [preferencesView setString:@""];
-    [[exceptionView textContainer] setContainerSize:NSMakeSize(FLT_MAX, FLT_MAX)];
+    [[exceptionView textContainer] setContainerSize:NSMakeSize(CGFLOAT_MAX, CGFLOAT_MAX)];
     [[exceptionView textContainer] setWidthTracksTextView:NO];
     [exceptionView setString:@""];
 }
@@ -564,7 +565,7 @@
 
     [self performSelectorOnMainThread:@selector(stopSpinner) withObject:self waitUntilDone:YES];
     
-    [pool release];
+    [pool drain];
 }
 
 - (void) reset
@@ -578,13 +579,13 @@
     ABPerson *me = [[ABAddressBook sharedAddressBook] me];
     ABMutableMultiValue *emailAddresses = [me valueForProperty:kABEmailProperty];
 
-    int i, count = [emailAddresses count];
+    NSUInteger count = [emailAddresses count];
     
     [emailBox removeAllItems];
 
     [emailBox addItemWithObjectValue:FRLocalizedString(@"anonymous", nil)];
 
-    for(i=0; i<count; i++) {
+    for(NSUInteger i=0; i<count; i++) {
 
         NSString *emailAddress = [emailAddresses valueAtIndex:i];
 
