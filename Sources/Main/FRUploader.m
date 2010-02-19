@@ -91,7 +91,7 @@
                                            returningResponse: &response
                                                        error: &error];
 
-    if(error != nil) {
+    if(result == nil) {
         NSLog(@"Post failed. Error: %ld, Description: %@", (long)[error code], [error localizedDescription]);
     }
 

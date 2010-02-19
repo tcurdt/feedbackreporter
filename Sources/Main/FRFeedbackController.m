@@ -169,7 +169,7 @@
         }
         NSError *error = nil;
         NSString *result = [NSString stringWithContentsOfFile:[crashFiles lastObject] encoding: NSUTF8StringEncoding error:&error];
-        if (error != nil) {
+        if (result == nil) {
             NSLog(@"Failed to read crash file: %@", error);
             return @"";
         }
@@ -213,7 +213,7 @@
 
         NSError *error = nil;
         NSString *result = [NSString stringWithContentsOfFile:newestCrashFile encoding: NSUTF8StringEncoding error:&error];
-        if (error != nil) {
+        if (result == nil) {
             NSLog(@"Failed to read crash file: %@", error);
             return @"";
         }
@@ -328,16 +328,16 @@
 
     SCNetworkConnectionFlags reachabilityFlags = 0;
     
-    const char *hostname = [[url host] UTF8String];  
+	NSString *host = [url host];
+    const char *hostname = [host UTF8String];
 
-#ifdef MAC_OS_X_VERSION_10_6
     SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithName(NULL, hostname);
     Boolean reachabilityResult = SCNetworkReachabilityGetFlags(reachability, &reachabilityFlags);
     CFRelease(reachability);
-#else  
-    Boolean reachabilityResult = SCNetworkCheckReachabilityByName(hostname, &reachabilityFlags);
-#endif
-        
+    
+	// Prevent premature garbage collection (UTF8String returns an inner pointer).
+	[host self];
+	
     BOOL reachable = reachabilityResult
         &&  (reachabilityFlags & kSCNetworkFlagsReachable)
         && !(reachabilityFlags & kSCNetworkFlagsConnectionRequired)
@@ -349,7 +349,7 @@
 												 defaultButton:FRLocalizedString(@"Proceed Anyway", nil)
 											   alternateButton:FRLocalizedString(@"Cancel", nil)
 												   otherButton:nil
-									 informativeTextWithFormat:FRLocalizedString(@"You may not be able to send feedback because %@ isn't reachable.", nil), [url host]
+									 informativeTextWithFormat:FRLocalizedString(@"You may not be able to send feedback because %@ isn't reachable.", nil), host
 								  ] runModal];
 
         if (alertResult != NSAlertDefaultReturn) {

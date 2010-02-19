@@ -33,9 +33,16 @@
     aslmsg query = asl_new(ASL_TYPE_QUERY);
 
     if (query != NULL) {
-
-        asl_set_query(query, ASL_KEY_SENDER, [[FRApplication applicationName] UTF8String], ASL_QUERY_OP_EQUAL);
-        asl_set_query(query, ASL_KEY_TIME, [[NSString stringWithFormat:@"%01f", [since timeIntervalSince1970]] UTF8String], ASL_QUERY_OP_GREATER_EQUAL);
+		
+		NSString* applicationName = [FRApplication applicationName];
+		NSString* sinceString = [NSString stringWithFormat:@"%01f", [since timeIntervalSince1970]];
+		
+        asl_set_query(query, ASL_KEY_SENDER, [applicationName UTF8String], ASL_QUERY_OP_EQUAL);
+        asl_set_query(query, ASL_KEY_TIME, [sinceString UTF8String], ASL_QUERY_OP_GREATER_EQUAL);
+		
+		// Prevent premature garbage collection (UTF8String returns an inner pointer).
+		[applicationName self];
+		[sinceString self];
 
         aslresponse response = asl_search(NULL, query);
 
