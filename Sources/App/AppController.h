@@ -15,8 +15,9 @@
  */
  
 #import <Cocoa/Cocoa.h>
+#import <FeedbackReporter/FRFeedbackReporter.h>
 
-@interface AppController : NSObject {
+@interface AppController : NSObject <FRFeedbackReporterDelegate> {
 @private
 	IBOutlet NSWindow* window; // strong reference, needed for GC
 }

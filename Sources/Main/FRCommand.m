@@ -55,7 +55,7 @@
    NSData *data = [fileHandle availableData];
 
     if ([data length]) {
-        NSString *s = [[NSString alloc] initWithBytes:[data bytes] length:[data length] encoding:NSUTF8StringEncoding];
+        NSString *s = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     
         [output appendString:s];
         //NSLog(@"| %@", s);

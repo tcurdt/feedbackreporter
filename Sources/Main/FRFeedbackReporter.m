@@ -61,12 +61,12 @@
     return feedbackController;
 }
 
-- (id) delegate
+- (id<FRFeedbackReporterDelegate>) delegate
 {
     return delegate;
 }
 
-- (void) setDelegate:(id) pDelegate
+- (void) setDelegate:(id<FRFeedbackReporterDelegate>) pDelegate
 {
     delegate = pDelegate;
 }
