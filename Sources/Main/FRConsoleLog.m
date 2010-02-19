@@ -34,8 +34,8 @@
 
     if (query != NULL) {
 		
-		NSString* applicationName = [FRApplication applicationName];
-		NSString* sinceString = [NSString stringWithFormat:@"%01f", [since timeIntervalSince1970]];
+		NSString *applicationName = [FRApplication applicationName];
+		NSString *sinceString = [NSString stringWithFormat:@"%01f", [since timeIntervalSince1970]];
 		
         asl_set_query(query, ASL_KEY_SENDER, [applicationName UTF8String], ASL_QUERY_OP_EQUAL);
         asl_set_query(query, ASL_KEY_TIME, [sinceString UTF8String], ASL_QUERY_OP_GREATER_EQUAL);
