@@ -28,8 +28,6 @@
 {
     NSMutableString *console = [[NSMutableString alloc] init];
 
-    /* Leopard: */
-
     aslmsg query = asl_new(ASL_TYPE_QUERY);
 
     if (query != NULL) {
@@ -44,6 +42,7 @@
 		[applicationName self];
 		[sinceString self];
 
+		// This function is very slow. <rdar://problem/7695589>
         aslresponse response = asl_search(NULL, query);
 
         asl_free(query);
@@ -79,8 +78,6 @@
         }
 
     }
-
-    /* Snow Leopard */
 
     return [console autorelease];
 }
