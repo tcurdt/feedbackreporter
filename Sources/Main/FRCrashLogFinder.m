@@ -1,5 +1,5 @@
 /*
- * Copyright 2008, Torsten Curdt
+ * Copyright 2008-2010, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@
 
 	NSError* error = nil;
     NSDate* fileDate = [[fileManager attributesOfItemAtPath:path error:&error] fileModificationDate];
-	if (error) {
+	if (!fileDate) {
 		NSLog(@"Error while fetching file attributes: %@", [error localizedDescription]);
 	}
 
@@ -56,7 +56,6 @@
     while(i--) {
         NSString* libraryDirectory = [libraryDirectories objectAtIndex:i];
 
-        /*  Leopard */        
         NSDirectoryEnumerator *enumerator = nil;
         NSString *file = nil;
         
@@ -71,8 +70,9 @@
             while ((file = [enumerator nextObject])) {
 
                 // NSLog(@"Checking crash file %@", file);
-
-                if ([file hasSuffix:@".crash"] && [file hasPrefix:[FRApplication applicationName]]) {
+				
+				NSString* expectedPrefix = [[FRApplication applicationName] stringByAppendingString:@"_"];
+                if ([[file pathExtension] isEqualToString:@"crash"] && [[file stringByDeletingPathExtension] hasPrefix:expectedPrefix]) {
 
                     file = [[log2 stringByAppendingPathComponent:file] stringByExpandingTildeInPath];
 
@@ -97,7 +97,7 @@
             enumerator  = [fileManager enumeratorAtPath:log3];
             while ((file = [enumerator nextObject])) {
             
-                if ([file hasSuffix:@".hang"]) {
+                if ([[file pathExtension] isEqualToString:@"hang"]) {
 
                     file = [[libraryDirectory stringByAppendingPathComponent:file] stringByExpandingTildeInPath];
 

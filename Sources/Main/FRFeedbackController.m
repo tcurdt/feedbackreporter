@@ -1,5 +1,5 @@
 /*
- * Copyright 2008, Torsten Curdt
+ * Copyright 2008-2010, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -192,7 +192,7 @@
         NSString *crashFile = [crashFiles objectAtIndex:i];
 		NSError* error = nil;
 		NSDictionary *fileAttributes = [fileManager attributesOfItemAtPath:crashFile error:&error];
-		if (error) {
+		if (!fileAttributes) {
 			NSLog(@"Error while fetching file attributes: %@", [error localizedDescription]);
 		}
         NSDate *fileModDate = [fileAttributes objectForKey:NSFileModificationDate];
