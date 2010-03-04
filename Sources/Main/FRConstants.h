@@ -47,14 +47,17 @@
 
 
 // POST fields filled by default
-#define POST_KEY_TYPE          @"type"
-#define POST_KEY_EMAIL         @"email"
-#define POST_KEY_VERSION       @"version"
-#define POST_KEY_MESSAGE       @"comment"
-#define POST_KEY_SYSTEM        @"system"
-#define POST_KEY_CONSOLE       @"console"
-#define POST_KEY_CRASHES       @"crashes"
-#define POST_KEY_SHELL         @"shell"
-#define POST_KEY_PREFERENCES   @"preferences"
-#define POST_KEY_EXCEPTION     @"exception"
+#define POST_KEY_TYPE           @"type"
+#define POST_KEY_EMAIL          @"email"
+#define POST_KEY_MESSAGE        @"comment"
+#define POST_KEY_SYSTEM         @"system"
+#define POST_KEY_CONSOLE        @"console"
+#define POST_KEY_CRASHES        @"crashes"
+#define POST_KEY_SHELL          @"shell"
+#define POST_KEY_PREFERENCES    @"preferences"
+#define POST_KEY_EXCEPTION      @"exception"
+#define POST_KEY_VERSION        @"version"
+#define POST_KEY_VERSION_LONG   @"version_long"
+#define POST_KEY_VERSION_SHORT  @"version_short"
+#define POST_KEY_VERSION_BUNDLE @"version_bundle"
 

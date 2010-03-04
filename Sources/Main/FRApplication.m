@@ -44,11 +44,11 @@
         return applicationVersion;
     }
 
-//    applicationVersion = [[self class] applicationShortVersion];
-//    
-//    if (applicationVersion != nil) {
-//        return applicationVersion;
-//    }
+    applicationVersion = [[self class] applicationShortVersion];
+    
+    if (applicationVersion != nil) {
+        return applicationVersion;
+    }
 
     return [[self class] applicationBundleVersion];
 }
