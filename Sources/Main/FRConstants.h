@@ -1,5 +1,5 @@
 /*
- * Copyright 2008, Torsten Curdt
+ * Copyright 2008-2010, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -56,8 +56,7 @@
 #define POST_KEY_SHELL          @"shell"
 #define POST_KEY_PREFERENCES    @"preferences"
 #define POST_KEY_EXCEPTION      @"exception"
-#define POST_KEY_VERSION        @"version"
-#define POST_KEY_VERSION_LONG   @"version_long"
-#define POST_KEY_VERSION_SHORT  @"version_short"
-#define POST_KEY_VERSION_BUNDLE @"version_bundle"
-
+#define POST_KEY_VERSION_LONG   @"version_long"		// Corresponds to CFBundleLongVersionString. Discouraged.
+#define POST_KEY_VERSION_SHORT  @"version_short"	// Corresponds to CFBundleShortVersionString.
+#define POST_KEY_VERSION_BUNDLE @"version_bundle"	// Corresponds to CFBundleVersion.
+#define POST_KEY_VERSION        @"version"			// A combination of the above 3.

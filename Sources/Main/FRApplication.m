@@ -1,5 +1,5 @@
 /*
- * Copyright 2008, Torsten Curdt
+ * Copyright 2008-2010, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,24 +21,35 @@
 
 + (NSString*) applicationBundleVersion
 {
-    return [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleVersion"];
+	// CFBundleShortVersionString is documented as not localizable.
+	NSString *bundleVersion = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleVersion"];
+	
+    return bundleVersion;
 }
 
 + (NSString*) applicationShortVersion
 {
-    return [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleShortVersionString"];
+	// CFBundleShortVersionString is documented as localizable, so prefer a localized value if available.
+    NSString *shortVersion = [[[NSBundle mainBundle] localizedInfoDictionary] valueForKey: @"CFBundleShortVersionString"];
+	
+    if (!shortVersion) {
+        shortVersion = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleShortVersionString"];
+    }
+	
+    return shortVersion;
 }
 
 + (NSString*) applicationLongVersion
 {
-    return [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleLongVersionString"];
+	// CFBundleLongVersionString is hardly documented, it's use is discouraged.
+    NSString *longVersion = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleLongVersionString"];
+	
+	return longVersion;
 }
 
 + (NSString*) applicationVersion
 {
-    NSString *applicationVersion;
-    
-    applicationVersion = [[self class] applicationLongVersion];
+    NSString *applicationVersion = [[self class] applicationLongVersion];
     
     if (applicationVersion != nil) {
         return applicationVersion;
@@ -56,17 +67,15 @@
 
 + (NSString*) applicationName
 {
-    NSString *applicationName = [[[NSBundle mainBundle] localizedInfoDictionary] valueForKey: @"CFBundleExecutable"];
-
-    if (!applicationName) {
-        applicationName = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleExecutable"];
-    }
-
-    return applicationName;
+ 	// CFBundleExecutable is not localizable.
+   NSString *applicationName = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleExecutable"];
+	
+	return applicationName;
 }
 
 + (NSString*) applicationIdentifier
 {
+	// CFBundleIdentifier is not localizable.
     NSString *applicationIdentifier = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleIdentifier"];
 
     return applicationIdentifier;
