@@ -375,6 +375,15 @@
 		[dict setValidString:type
 					  forKey:POST_KEY_TYPE];
 		
+		[dict setValidString:[FRApplication applicationLongVersion]
+					  forKey:POST_KEY_VERSION_LONG];
+		
+		[dict setValidString:[FRApplication applicationShortVersion]
+					  forKey:POST_KEY_VERSION_SHORT];
+		
+		[dict setValidString:[FRApplication applicationBundleVersion]
+					  forKey:POST_KEY_VERSION_BUNDLE];
+		
 		[dict setValidString:[FRApplication applicationVersion]
 					  forKey:POST_KEY_VERSION];
 		
@@ -394,7 +403,7 @@
 					  forKey:POST_KEY_PREFERENCES];
 		
 		[dict setValidString:[exceptionView string]
-					  forKey:POST_KEY_EXCEPTION];		
+					  forKey:POST_KEY_EXCEPTION];
 	}	
     
     NSLog(@"Sending feedback to %@", target);
