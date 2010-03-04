@@ -167,10 +167,11 @@
         
         [controller setSubheading:FRLocalizedString(@"Send crash report", nil)];
 
-        [controller setException:[NSString stringWithFormat: @"%@\n\n%@\n\n%@",
+        NSString* callStack = [exception my_callStack];
+		[controller setException:[NSString stringWithFormat: @"%@\n\n%@\n\n%@",
                                     [exception name],
                                     [exception reason],
-                                    [exception my_callStack] ?:@""]];
+                                    callStack ? callStack : @""]];
 
         [controller setType:FR_EXCEPTION];
 
