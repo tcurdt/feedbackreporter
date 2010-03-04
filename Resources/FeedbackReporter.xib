@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="379"/>
+			<integer value="5"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -39,7 +39,7 @@
 				<string key="NSClassName">NSApplication</string>
 			</object>
 			<object class="NSWindowTemplate" id="330470348">
-				<int key="NSWindowStyleMask">15</int>
+				<int key="NSWindowStyleMask">7</int>
 				<int key="NSWindowBacking">2</int>
 				<string key="NSWindowRect">{{480, 88}, {480, 640}}</string>
 				<int key="NSWTFlags">1886912512</int>
@@ -51,7 +51,7 @@
 					<characters key="NS.bytes">View</characters>
 				</object>
 				<string key="NSWindowContentMaxSize">{1.79769e+308, 1.79769e+308}</string>
-				<string key="NSWindowContentMinSize">{480, 618}</string>
+				<string key="NSWindowContentMinSize">{480, 640}</string>
 				<object class="NSView" key="NSWindowView" id="689770422">
 					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
@@ -405,7 +405,7 @@
 								<object class="NSTabViewItem" id="489851626">
 									<string key="NSIdentifier">System</string>
 									<object class="NSView" key="NSView" id="963972270">
-										<reference key="NSNextResponder" ref="942524782"/>
+										<nil key="NSNextResponder"/>
 										<int key="NSvFlags">292</int>
 										<object class="NSMutableArray" key="NSSubviews">
 											<bool key="EncodedWithXMLCoder">YES</bool>
@@ -557,7 +557,6 @@
 											</object>
 										</object>
 										<string key="NSFrame">{{10, 25}, {435, 264}}</string>
-										<reference key="NSSuperview" ref="942524782"/>
 									</object>
 									<string key="NSLabel">System</string>
 									<reference key="NSColor" ref="332904215"/>
@@ -1198,13 +1197,13 @@
 								<object class="NSTabViewItem" id="864714083">
 									<string key="NSIdentifier">Exception</string>
 									<object class="NSView" key="NSView" id="868754260">
-										<nil key="NSNextResponder"/>
+										<reference key="NSNextResponder" ref="942524782"/>
 										<int key="NSvFlags">256</int>
 										<object class="NSMutableArray" key="NSSubviews">
 											<bool key="EncodedWithXMLCoder">YES</bool>
 											<object class="NSScrollView" id="1016679611">
 												<reference key="NSNextResponder" ref="868754260"/>
-												<int key="NSvFlags">274</int>
+												<int key="NSvFlags">258</int>
 												<object class="NSMutableArray" key="NSSubviews">
 													<bool key="EncodedWithXMLCoder">YES</bool>
 													<object class="NSClipView" id="459337938">
@@ -1315,20 +1314,21 @@
 											</object>
 										</object>
 										<string key="NSFrame">{{10, 25}, {435, 264}}</string>
+										<reference key="NSSuperview" ref="942524782"/>
 									</object>
 									<string key="NSLabel">Exception</string>
 									<reference key="NSColor" ref="332904215"/>
 									<reference key="NSTabView" ref="942524782"/>
 								</object>
 							</object>
-							<reference key="NSSelectedTabViewItem" ref="489851626"/>
+							<reference key="NSSelectedTabViewItem" ref="864714083"/>
 							<reference key="NSFont" ref="26"/>
 							<int key="NSTvFlags">134217728</int>
 							<bool key="NSAllowTruncatedLabels">YES</bool>
 							<bool key="NSDrawsBackground">YES</bool>
 							<object class="NSMutableArray" key="NSSubviews">
 								<bool key="EncodedWithXMLCoder">YES</bool>
-								<reference ref="963972270"/>
+								<reference ref="868754260"/>
 							</object>
 						</object>
 						<object class="NSProgressIndicator" id="688817563">
@@ -1477,7 +1477,7 @@
 					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
-				<string key="NSMinSize">{480, 640}</string>
+				<string key="NSMinSize">{480, 662}</string>
 				<string key="NSMaxSize">{1.79769e+308, 1.79769e+308}</string>
 			</object>
 			<object class="NSUserDefaultsController" id="33616617">
@@ -2553,7 +2553,7 @@
 					<boolean value="NO"/>
 					<integer value="1"/>
 					<string>{480, 618}</string>
-					<string>{480, 618}</string>
+					<string>{480, 640}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
