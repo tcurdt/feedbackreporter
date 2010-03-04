@@ -12,6 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
+			<integer value="379"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -38,7 +39,7 @@
 				<string key="NSClassName">NSApplication</string>
 			</object>
 			<object class="NSWindowTemplate" id="330470348">
-				<int key="NSWindowStyleMask">7</int>
+				<int key="NSWindowStyleMask">15</int>
 				<int key="NSWindowBacking">2</int>
 				<string key="NSWindowRect">{{480, 88}, {480, 640}}</string>
 				<int key="NSWTFlags">1886912512</int>
@@ -49,10 +50,10 @@
 				<object class="NSMutableString" key="NSViewClass">
 					<characters key="NS.bytes">View</characters>
 				</object>
-				<string key="NSWindowContentMaxSize">{3.40282e+38, 3.40282e+38}</string>
+				<string key="NSWindowContentMaxSize">{1.79769e+308, 1.79769e+308}</string>
 				<string key="NSWindowContentMinSize">{480, 618}</string>
 				<object class="NSView" key="NSWindowView" id="689770422">
-					<nil key="NSNextResponder"/>
+					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -78,7 +79,7 @@
 									<string key="NSColorName">controlColor</string>
 									<object class="NSColor" key="NSColor" id="60927684">
 										<int key="NSColorSpace">3</int>
-										<bytes key="NSWhite">MC42NjY2NjY2ODY1AA</bytes>
+										<bytes key="NSWhite">MC42NjY2NjY2NjY3AA</bytes>
 									</object>
 								</object>
 								<object class="NSColor" key="NSTextColor" id="220605632">
@@ -135,7 +136,6 @@
 													<string>Apple PNG pasteboard type</string>
 													<string>Apple URL pasteboard type</string>
 													<string>CorePasteboardFlavorType 0x6D6F6F76</string>
-													<string>CorePasteboardFlavorType 0x75726C20</string>
 													<string>NSColor pasteboard type</string>
 													<string>NSFilenamesPboardType</string>
 													<string>NSStringPboardType</string>
@@ -405,13 +405,13 @@
 								<object class="NSTabViewItem" id="489851626">
 									<string key="NSIdentifier">System</string>
 									<object class="NSView" key="NSView" id="963972270">
-										<nil key="NSNextResponder"/>
+										<reference key="NSNextResponder" ref="942524782"/>
 										<int key="NSvFlags">292</int>
 										<object class="NSMutableArray" key="NSSubviews">
 											<bool key="EncodedWithXMLCoder">YES</bool>
 											<object class="NSScrollView" id="406734121">
 												<reference key="NSNextResponder" ref="963972270"/>
-												<int key="NSvFlags">268</int>
+												<int key="NSvFlags">266</int>
 												<object class="NSMutableArray" key="NSSubviews">
 													<bool key="EncodedWithXMLCoder">YES</bool>
 													<object class="NSClipView" id="957108370">
@@ -557,6 +557,7 @@
 											</object>
 										</object>
 										<string key="NSFrame">{{10, 25}, {435, 264}}</string>
+										<reference key="NSSuperview" ref="942524782"/>
 									</object>
 									<string key="NSLabel">System</string>
 									<reference key="NSColor" ref="332904215"/>
@@ -571,7 +572,7 @@
 											<bool key="EncodedWithXMLCoder">YES</bool>
 											<object class="NSScrollView" id="145409">
 												<reference key="NSNextResponder" ref="788040442"/>
-												<int key="NSvFlags">258</int>
+												<int key="NSvFlags">274</int>
 												<object class="NSMutableArray" key="NSSubviews">
 													<bool key="EncodedWithXMLCoder">YES</bool>
 													<object class="NSClipView" id="62283744">
@@ -813,7 +814,7 @@
 											<bool key="EncodedWithXMLCoder">YES</bool>
 											<object class="NSScrollView" id="380209531">
 												<reference key="NSNextResponder" ref="149842400"/>
-												<int key="NSvFlags">258</int>
+												<int key="NSvFlags">274</int>
 												<object class="NSMutableArray" key="NSSubviews">
 													<bool key="EncodedWithXMLCoder">YES</bool>
 													<object class="NSClipView" id="800571027">
@@ -932,13 +933,13 @@
 								<object class="NSTabViewItem" id="884731923">
 									<string key="NSIdentifier">Shell</string>
 									<object class="NSView" key="NSView" id="551112198">
-										<reference key="NSNextResponder" ref="942524782"/>
+										<nil key="NSNextResponder"/>
 										<int key="NSvFlags">292</int>
 										<object class="NSMutableArray" key="NSSubviews">
 											<bool key="EncodedWithXMLCoder">YES</bool>
 											<object class="NSScrollView" id="505646275">
 												<reference key="NSNextResponder" ref="551112198"/>
-												<int key="NSvFlags">258</int>
+												<int key="NSvFlags">274</int>
 												<object class="NSMutableArray" key="NSSubviews">
 													<bool key="EncodedWithXMLCoder">YES</bool>
 													<object class="NSClipView" id="534959021">
@@ -949,29 +950,6 @@
 															<object class="NSTextView" id="418323568">
 																<reference key="NSNextResponder" ref="534959021"/>
 																<int key="NSvFlags">2322</int>
-																<object class="NSMutableSet" key="NSDragTypes">
-																	<bool key="EncodedWithXMLCoder">YES</bool>
-																	<object class="NSArray" key="set.sortedObjects">
-																		<bool key="EncodedWithXMLCoder">YES</bool>
-																		<string>Apple HTML pasteboard type</string>
-																		<string>Apple PDF pasteboard type</string>
-																		<string>Apple PICT pasteboard type</string>
-																		<string>Apple PNG pasteboard type</string>
-																		<string>Apple URL pasteboard type</string>
-																		<string>CorePasteboardFlavorType 0x6D6F6F76</string>
-																		<string>NSColor pasteboard type</string>
-																		<string>NSFilenamesPboardType</string>
-																		<string>NSStringPboardType</string>
-																		<string>NeXT Encapsulated PostScript v1.2 pasteboard type</string>
-																		<string>NeXT RTFD pasteboard type</string>
-																		<string>NeXT Rich Text Format v1.0 pasteboard type</string>
-																		<string>NeXT TIFF v4.0 pasteboard type</string>
-																		<string>NeXT font pasteboard type</string>
-																		<string>NeXT ruler pasteboard type</string>
-																		<string>WebURLsWithTitlesPboardType</string>
-																		<string>public.url</string>
-																	</object>
-																</object>
 																<string key="NSFrameSize">{0, 0}</string>
 																<reference key="NSSuperview" ref="534959021"/>
 																<object class="NSTextContainer" key="NSTextContainer" id="912379396">
@@ -1087,7 +1065,6 @@
 											</object>
 										</object>
 										<string key="NSFrame">{{10, 25}, {435, 264}}</string>
-										<reference key="NSSuperview" ref="942524782"/>
 									</object>
 									<string key="NSLabel">Shell</string>
 									<reference key="NSColor" ref="332904215"/>
@@ -1102,7 +1079,7 @@
 											<bool key="EncodedWithXMLCoder">YES</bool>
 											<object class="NSScrollView" id="869294657">
 												<reference key="NSNextResponder" ref="39500557"/>
-												<int key="NSvFlags">258</int>
+												<int key="NSvFlags">274</int>
 												<object class="NSMutableArray" key="NSSubviews">
 													<bool key="EncodedWithXMLCoder">YES</bool>
 													<object class="NSClipView" id="647862807">
@@ -1227,7 +1204,7 @@
 											<bool key="EncodedWithXMLCoder">YES</bool>
 											<object class="NSScrollView" id="1016679611">
 												<reference key="NSNextResponder" ref="868754260"/>
-												<int key="NSvFlags">258</int>
+												<int key="NSvFlags">274</int>
 												<object class="NSMutableArray" key="NSSubviews">
 													<bool key="EncodedWithXMLCoder">YES</bool>
 													<object class="NSClipView" id="459337938">
@@ -1344,14 +1321,14 @@
 									<reference key="NSTabView" ref="942524782"/>
 								</object>
 							</object>
-							<reference key="NSSelectedTabViewItem" ref="884731923"/>
+							<reference key="NSSelectedTabViewItem" ref="489851626"/>
 							<reference key="NSFont" ref="26"/>
 							<int key="NSTvFlags">134217728</int>
 							<bool key="NSAllowTruncatedLabels">YES</bool>
 							<bool key="NSDrawsBackground">YES</bool>
 							<object class="NSMutableArray" key="NSSubviews">
 								<bool key="EncodedWithXMLCoder">YES</bool>
-								<reference ref="551112198"/>
+								<reference ref="963972270"/>
 							</object>
 						</object>
 						<object class="NSProgressIndicator" id="688817563">
@@ -1497,10 +1474,11 @@
 						</object>
 					</object>
 					<string key="NSFrameSize">{480, 640}</string>
+					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
 				<string key="NSMinSize">{480, 640}</string>
-				<string key="NSMaxSize">{3.40282e+38, 3.40282e+38}</string>
+				<string key="NSMaxSize">{1.79769e+308, 1.79769e+308}</string>
 			</object>
 			<object class="NSUserDefaultsController" id="33616617">
 				<bool key="NSSharedInstance">YES</bool>
@@ -2568,9 +2546,9 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{635, 203}, {480, 640}}</string>
+					<string>{{488, 203}, {480, 640}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{635, 203}, {480, 640}}</string>
+					<string>{{488, 203}, {480, 640}}</string>
 					<integer value="1"/>
 					<boolean value="NO"/>
 					<integer value="1"/>
