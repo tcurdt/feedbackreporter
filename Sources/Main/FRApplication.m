@@ -19,16 +19,40 @@
 
 @implementation FRApplication
 
++ (NSString*) applicationBundleVersion
+{
+    return [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleVersion"];
+}
+
++ (NSString*) applicationShortVersion
+{
+    return [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleShortVersionString"];
+}
+
++ (NSString*) applicationLongVersion
+{
+    return [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleLongVersionString"];
+}
+
 + (NSString*) applicationVersion
 {
-    NSString *applicationVersion = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleLongVersionString"];
-
-    if (!applicationVersion) {
-        applicationVersion = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleVersion"];
+    NSString *applicationVersion;
+    
+    applicationVersion = [[self class] applicationLongVersion];
+    
+    if (applicationVersion != nil) {
+        return applicationVersion;
     }
 
-    return applicationVersion;
+//    applicationVersion = [[self class] applicationShortVersion];
+//    
+//    if (applicationVersion != nil) {
+//        return applicationVersion;
+//    }
+
+    return [[self class] applicationBundleVersion];
 }
+
 
 + (NSString*) applicationName
 {
