@@ -35,8 +35,9 @@
 //	Set the value of this key to 'YES' to present a checkbox where the user
 //	can switch on and off the sending of details information. If not specified,
 //	defaults to 'NO', hence no checkbox is shown.
-//	If the user checks off the 'send details' option, just the e-mail address
-//	and the comment are transmitted to the server. (optional)
+//	If the user checks off the 'send details' option, just the e-mail address,
+//	the comment, the type of report, and the application version are transmitted
+//  to the server. (optional)
 #define PLIST_KEY_SENDDETAILSISOPTIONAL @"FRFeedbackReporter.sendDetailsIsOptional"
 
 

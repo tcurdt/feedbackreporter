@@ -359,7 +359,7 @@
 
     uploader = [[FRUploader alloc] initWithTarget:target delegate:self];
     
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:5];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
 	
     [dict setValidString:[emailBox stringValue]
 				  forKey:POST_KEY_EMAIL];
@@ -367,25 +367,25 @@
     [dict setValidString:[messageView string]
 				  forKey:POST_KEY_MESSAGE];
 	
+	[dict setValidString:type
+				  forKey:POST_KEY_TYPE];
+	
+	[dict setValidString:[FRApplication applicationLongVersion]
+				  forKey:POST_KEY_VERSION_LONG];
+	
+	[dict setValidString:[FRApplication applicationShortVersion]
+				  forKey:POST_KEY_VERSION_SHORT];
+	
+	[dict setValidString:[FRApplication applicationBundleVersion]
+				  forKey:POST_KEY_VERSION_BUNDLE];
+	
+	[dict setValidString:[FRApplication applicationVersion]
+				  forKey:POST_KEY_VERSION];
+	
 	if ([sendDetailsCheckbox state] == NSOnState) {
 		if ([delegate respondsToSelector:@selector(customParametersForFeedbackReport)]) {
 			[dict addEntriesFromDictionary:[delegate customParametersForFeedbackReport]];
 		}
-		
-		[dict setValidString:type
-					  forKey:POST_KEY_TYPE];
-		
-		[dict setValidString:[FRApplication applicationLongVersion]
-					  forKey:POST_KEY_VERSION_LONG];
-		
-		[dict setValidString:[FRApplication applicationShortVersion]
-					  forKey:POST_KEY_VERSION_SHORT];
-		
-		[dict setValidString:[FRApplication applicationBundleVersion]
-					  forKey:POST_KEY_VERSION_BUNDLE];
-		
-		[dict setValidString:[FRApplication applicationVersion]
-					  forKey:POST_KEY_VERSION];
 		
 		[dict setValidString:[self systemProfileAsString]
 					  forKey:POST_KEY_SYSTEM];
@@ -409,8 +409,6 @@
     NSLog(@"Sending feedback to %@", target);
     
     [uploader postAndNotify:dict];
-	
-    [dict release];
 }
 
 - (void) uploaderStarted:(FRUploader*)pUploader
@@ -418,7 +416,7 @@
     // NSLog(@"Upload started");
 
     [indicator setHidden:NO];
-    [indicator startAnimation:self];    
+    [indicator startAnimation:self];
     
     [messageView setEditable:NO];
     [sendButton setEnabled:NO];
