@@ -148,8 +148,11 @@ class Mantis
 			unlink( $tmpFile );
 			
 		} else
+			/*$this->client->mc_issue_attachment_add( MANTIS_USER, MANTIS_PWD, $bugID,
+										  			$name, 'text/plain', $str ); */
 			$this->client->mc_issue_attachment_add( MANTIS_USER, MANTIS_PWD, $bugID,
-										  			$name, 'text/plain', $str ); 
+										  			$name, 'text/plain', base64_encode($str) ); 
+
 	}
 }
 ?>
