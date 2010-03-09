@@ -70,6 +70,7 @@
     FRCommand *cmd = [[FRCommand alloc] initWithPath:@"/usr/bin/atos"];
     [cmd setArgs:args];
     [cmd setOutput:output];
+    [cmd setError:output];
     if([cmd execute] != 0) {
         [cmd release];
         return nil;
