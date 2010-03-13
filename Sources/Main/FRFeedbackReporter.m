@@ -92,11 +92,11 @@
             [FRApplication applicationName]]];
         
         [controller setSubheading:FRLocalizedString(@"Send feedback", nil)];
-		
+
         [controller setType:FR_FEEDBACK];
-        
+
         [controller setDelegate:delegate];
-        
+
         [controller showWindow:self];
 
     }
@@ -113,7 +113,7 @@
     [[NSUserDefaults standardUserDefaults] setValue: [NSDate date]
                                              forKey: DEFAULTS_KEY_LASTCRASHCHECKDATE];
     
-    if ([crashFiles count] > 0) {
+    if (lastCrashCheckDate && [crashFiles count] > 0) {
         // NSLog(@"Found new crash files");
 
         FRFeedbackController *controller = [self feedbackController];
@@ -168,7 +168,7 @@
         [controller setSubheading:FRLocalizedString(@"Send crash report", nil)];
 
         NSString* callStack = [exception my_callStack];
-		[controller setException:[NSString stringWithFormat: @"%@\n\n%@\n\n%@",
+        [controller setException:[NSString stringWithFormat: @"%@\n\n%@\n\n%@",
                                     [exception name],
                                     [exception reason],
                                     callStack ? callStack : @""]];
