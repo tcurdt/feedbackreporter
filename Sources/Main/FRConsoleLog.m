@@ -49,6 +49,10 @@
 
         if (response != NULL) {
 
+            NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+            [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+            [dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
+
             aslmsg msg = NULL;
 
             while (NULL != (msg = aslresponse_next(response))) {
@@ -65,9 +69,11 @@
                     continue;
                 }
 
-                NSDate *date = [NSDate dateWithTimeIntervalSince1970:atof(time)];
+                NSDate *date = [NSDate dateWithTimeIntervalSince1970:atof(time)];                
 
-                [console appendFormat:@"%@: %s\n", date, text];
+                NSString *line = [NSString stringWithFormat:@"%@: %s\n", [dateFormatter stringFromDate:date], text];
+
+                [console appendString:line];
                 
                 if (maxSize != nil && [console length] > [maxSize unsignedIntegerValue]) {
                     break;

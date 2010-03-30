@@ -65,7 +65,7 @@
         [args addObject:[NSString stringWithFormat:@"%p", [addr pointerValue]]];
     }
     
-    NSMutableString *output =[NSMutableString string];
+    NSMutableString *output = [NSMutableString string];
 
     FRCommand *cmd = [[FRCommand alloc] initWithPath:@"/usr/bin/atos"];
     [cmd setArgs:args];
