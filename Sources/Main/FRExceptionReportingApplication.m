@@ -35,7 +35,13 @@
         }
     }
     @catch (NSException *exception) {
-        NSLog(@"Problem within FeedbackReporter %@: %@", [exception name], [exception reason]);
+
+        if ([exception respondsToSelector:@selector(callStackSymbols)]) {
+            NSLog(@"Problem within FeedbackReporter %@: %@  call stack:%@", [exception name], [exception  reason],[(id)exception callStackSymbols]);
+        } else {
+            NSLog(@"Problem within FeedbackReporter %@: %@  call stack:%@", [exception name], [exception  reason],[exception callStackReturnAddresses]);
+        }
+
     }
     @finally {
     }
