@@ -49,7 +49,7 @@
 		return [NSString stringWithFormat:@"%@\n",symbols];
 	}
 
-    NSArray *addresses = [self my_callStackReturnAddressesSkipping: 2 limit: 15];
+    NSArray *addresses = [self my_callStackReturnAddressesSkipping: EXCEPTION_STACK_SKIP limit: EXCEPTION_STACK_LIMIT];
 
     if (!addresses) {
         return nil;
