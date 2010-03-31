@@ -23,3 +23,11 @@
 - (NSString*) my_callStack;
 
 @end
+
+
+// To suppress warning messages if compiled under systems earlier than 10.6.
+#if MAC_OS_X_VERSION_MAX_ALLOWED < 1060
+@interface NSObject (NSExceptionCallstack)
+- (NSArray*) callStackSymbols;
+@end
+#endif

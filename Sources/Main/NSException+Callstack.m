@@ -16,6 +16,7 @@
 
 #import "NSException+Callstack.h"
 #import "FRCommand.h"
+#import "FRConstants.h"
 #import <unistd.h>
 
 @implementation NSException (Callstack)
