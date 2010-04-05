@@ -59,14 +59,14 @@
         NSDirectoryEnumerator *enumerator = nil;
         NSString *file = nil;
         
-        NSString* log2 = @"Logs/CrashReporter/";
-        log2 = [[libraryDirectory stringByAppendingPathComponent:log2] stringByExpandingTildeInPath];
+        NSString* logDir2 = @"Logs/CrashReporter/";
+        logDir2 = [[libraryDirectory stringByAppendingPathComponent:logDir2] stringByExpandingTildeInPath];
 
-        // NSLog(@"Searching for crash files at %@", log2);
+        // NSLog(@"Searching for crash files at %@", logDir2);
 
-        if ([fileManager fileExistsAtPath:log2]) {
+        if ([fileManager fileExistsAtPath:logDir2]) {
 
-            enumerator  = [fileManager enumeratorAtPath:log2];
+            enumerator  = [fileManager enumeratorAtPath:logDir2];
             while ((file = [enumerator nextObject])) {
 
                 // NSLog(@"Checking crash file %@", file);
@@ -74,7 +74,7 @@
 				NSString* expectedPrefix = [[FRApplication applicationName] stringByAppendingString:@"_"];
                 if ([[file pathExtension] isEqualToString:@"crash"] && [[file stringByDeletingPathExtension] hasPrefix:expectedPrefix]) {
 
-                    file = [[log2 stringByAppendingPathComponent:file] stringByExpandingTildeInPath];
+                    file = [[logDir2 stringByAppendingPathComponent:file] stringByExpandingTildeInPath];
 
                     if ([self file:file isNewerThan:date]) {
 
@@ -87,14 +87,14 @@
         }
 
 
-        NSString* log3 = [NSString stringWithFormat: @"Logs/HangReporter/%@/", [FRApplication applicationName]];
-        log3 = [[libraryDirectory stringByAppendingPathComponent:log3] stringByExpandingTildeInPath];
+        NSString* logDir3 = [NSString stringWithFormat: @"Logs/HangReporter/%@/", [FRApplication applicationName]];
+        logDir3 = [[libraryDirectory stringByAppendingPathComponent:logDir3] stringByExpandingTildeInPath];
 
-        // NSLog(@"Searching for hang files at %@", log3);
+        // NSLog(@"Searching for hang files at %@", logDir3);
 
-        if ([fileManager fileExistsAtPath:log3]) {
+        if ([fileManager fileExistsAtPath:logDir3]) {
 
-            enumerator  = [fileManager enumeratorAtPath:log3];
+            enumerator  = [fileManager enumeratorAtPath:logDir3];
             while ((file = [enumerator nextObject])) {
             
                 if ([[file pathExtension] isEqualToString:@"hang"]) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2008, Torsten Curdt
+ * Copyright 2008-2010, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,14 +26,14 @@
 
 @implementation FRConsoleLog
 
-+ (NSString*) logSince:(NSDate*)since maxSize:(NSNumber*)maxSize
++ (NSString*) logSince:(NSDate*)since maxSize:(NSNumber*)maximumSize
 {
     NSUInteger consoleOutputLength = 0;
-    NSInteger rawConsoleLinesCapacity = 100;
-    NSInteger consoleLinesProcessed = 0;
-    NSInteger i;
+    NSUInteger rawConsoleLinesCapacity = 100;
+    NSUInteger consoleLinesProcessed = 0;
+    NSUInteger i;
 
-    char ***rawConsoleLines = (char ***)malloc(rawConsoleLinesCapacity * sizeof(char **));
+    char ***rawConsoleLines = malloc(rawConsoleLinesCapacity * sizeof(char **));
     NSMutableString *consoleString = [[NSMutableString alloc] init];
     NSMutableArray *consoleLines = [[NSMutableArray alloc] init];
 
@@ -67,15 +67,15 @@
 
             while (NULL != (msg = aslresponse_next(response))) {
 
-                const char *time = asl_get(msg, ASL_KEY_TIME);
+                const char *msgTime = asl_get(msg, ASL_KEY_TIME);
                 
-                if (time == NULL) {
+                if (msgTime == NULL) {
                     continue;
                 }
                 
-                const char *text = asl_get(msg, ASL_KEY_MSG);
+                const char *msgText = asl_get(msg, ASL_KEY_MSG);
 
-                if (text == NULL) {
+                if (msgText == NULL) {
                     continue;
                 }
 
@@ -83,17 +83,19 @@
                 consoleLinesProcessed++;
                 if (consoleLinesProcessed > rawConsoleLinesCapacity) {
                     rawConsoleLinesCapacity *= 2;
-                    rawConsoleLines = (char ***)realloc(rawConsoleLines, rawConsoleLinesCapacity * sizeof(char **));
+                    rawConsoleLines = realloc(rawConsoleLines, rawConsoleLinesCapacity * sizeof(char **));
                 }
 
                 // Add a new entry for this console line
-                char **rawLineContents = (char **)malloc(2 * sizeof(char *));
+                char **rawLineContents = malloc(2 * sizeof(char *));
+				
+				size_t length = strlen(msgTime) + 1;
+                rawLineContents[FR_CONSOLELOG_TIME] = malloc(length);
+                strlcpy(rawLineContents[FR_CONSOLELOG_TIME], msgTime, length);
 
-                rawLineContents[FR_CONSOLELOG_TIME] = (char *)malloc(strlen(time) + 1);
-                strcpy(rawLineContents[FR_CONSOLELOG_TIME], time);
-
-                rawLineContents[FR_CONSOLELOG_TEXT] = (char *)malloc(strlen(text) + 1);
-                strcpy(rawLineContents[FR_CONSOLELOG_TEXT], text);
+                length = strlen(msgText) + 1;
+				rawLineContents[FR_CONSOLELOG_TEXT] = malloc(length);
+                strlcpy(rawLineContents[FR_CONSOLELOG_TEXT], msgText, length);
 
                 rawConsoleLines[consoleLinesProcessed-1] = rawLineContents;
             }
@@ -108,9 +110,9 @@
                     [consoleLines addObject:[NSString stringWithFormat:@"%@: %s\n", [dateFormatter stringFromDate:date], line[FR_CONSOLELOG_TEXT]]];
 
                     // If a maximum size has been provided, respect it and abort if necessary
-                    if (maxSize != nil) {
+                    if (maximumSize != nil) {
                         consoleOutputLength += [[consoleLines lastObject] length];
-                        if (consoleOutputLength > [maxSize unsignedIntegerValue]) break;
+                        if (consoleOutputLength > [maximumSize unsignedIntegerValue]) break;
                     }
                 }
             }

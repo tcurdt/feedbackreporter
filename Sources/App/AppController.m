@@ -1,5 +1,5 @@
 /*
- * Copyright 2008, Torsten Curdt
+ * Copyright 2008-2010, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -54,11 +54,6 @@
     [NSException raise:@"TestException" format:@"Something went wrong"];
 }
 
-- (IBAction) buttonExceptionInThread:(id)sender
-{
-    [NSThread detachNewThreadSelector:@selector(threadWithException) toTarget:self withObject:nil];
-}
-
 - (void) threadWithException
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -66,6 +61,11 @@
     [NSException raise:@"TestExceptionThread" format:@"Something went wrong"];
     [NSThread exit];
     [pool release];
+}
+
+- (IBAction) buttonExceptionInThread:(id)sender
+{
+    [NSThread detachNewThreadSelector:@selector(threadWithException) toTarget:self withObject:nil];
 }
 
 - (IBAction) buttonCrash:(id)sender

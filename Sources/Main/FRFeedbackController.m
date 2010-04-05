@@ -124,9 +124,9 @@
     
     NSDate *since = [[NSCalendarDate calendarDate] dateByAddingYears:0 months:0 days:0 hours:-h minutes:0 seconds:0];
 
-    NSNumber *maxSize = [[[NSBundle mainBundle] infoDictionary] valueForKey:PLIST_KEY_MAXCONSOLELOGSIZE];
+    NSNumber *maximumSize = [[[NSBundle mainBundle] infoDictionary] valueForKey:PLIST_KEY_MAXCONSOLELOGSIZE];
 
-    return [FRConsoleLog logSince:since maxSize:maxSize];
+    return [FRConsoleLog logSince:since maxSize:maximumSize];
 }
 
 
@@ -225,15 +225,15 @@
 
 - (NSString*) scriptLog
 {
-    NSMutableString *log = [NSMutableString string];
+    NSMutableString *scriptLog = [NSMutableString string];
 
     NSString *scriptPath = [[NSBundle mainBundle] pathForResource:FILE_SHELLSCRIPT ofType:@"sh"];
 
     if ([[NSFileManager defaultManager] fileExistsAtPath:scriptPath]) {
 
         FRCommand *cmd = [[FRCommand alloc] initWithPath:scriptPath];
-        [cmd setOutput:log];
-        [cmd setError:log];
+        [cmd setOutput:scriptLog];
+        [cmd setError:scriptLog];
         int ret = [cmd execute];
         [cmd release];
 
@@ -244,7 +244,7 @@
     }
     */
 
-    return log;
+    return scriptLog;
 }
 
 - (NSString*) preferences
@@ -606,8 +606,8 @@
         [emailBox selectItemAtIndex:found];
 	} else if ([emailBox numberOfItems] >= 2) {
 		NSString *defaultSender = [[[NSBundle mainBundle] infoDictionary] valueForKey:PLIST_KEY_DEFAULTSENDER];
-		NSUInteger index = (defaultSender && [defaultSender isEqualToString:@"firstEmail"]) ? 1 : 0;
-		[emailBox selectItemAtIndex:index];
+		NSUInteger idx = (defaultSender && [defaultSender isEqualToString:@"firstEmail"]) ? 1 : 0;
+		[emailBox selectItemAtIndex:idx];
     }
 
     [headingField setStringValue:@""];

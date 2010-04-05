@@ -1,5 +1,5 @@
 /*
- * Copyright 2008, Torsten Curdt
+ * Copyright 2008-2010, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,13 +19,13 @@
 
 @implementation FRCommand
 
-- (id) initWithPath:(NSString*)pPath
+- (id) initWithPath:(NSString*)inPath
 {
     self = [super init];
     if (self != nil) {
         task = [[NSTask alloc] init];
         args = [[NSArray array] retain];
-        path = [pPath retain];
+        path = [inPath retain];
         error = nil;
         output = nil;
         terminated = NO;
