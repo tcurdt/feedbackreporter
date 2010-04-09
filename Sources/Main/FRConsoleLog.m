@@ -31,7 +31,6 @@
     NSUInteger consoleOutputLength = 0;
     NSUInteger rawConsoleLinesCapacity = 100;
     NSUInteger consoleLinesProcessed = 0;
-    NSUInteger i;
 
     char ***rawConsoleLines = malloc(rawConsoleLinesCapacity * sizeof(char **));
     NSMutableString *consoleString = [[NSMutableString alloc] init];
@@ -104,7 +103,7 @@
 
             // Loop through the console lines in reverse order, converting to NSStrings
             if (consoleLinesProcessed) {
-                for (i = consoleLinesProcessed - 1; i >= 0; i--) {
+                for (NSInteger i = consoleLinesProcessed - 1; i >= 0; i--) {
                     char **line = rawConsoleLines[i];
                     NSDate *date = [NSDate dateWithTimeIntervalSince1970:atof(line[FR_CONSOLELOG_TIME])];
                     [consoleLines addObject:[NSString stringWithFormat:@"%@: %s\n", [dateFormatter stringFromDate:date], line[FR_CONSOLELOG_TEXT]]];
@@ -121,14 +120,14 @@
 
     // Convert the console lines array to an output string
     if ([consoleLines count]) {
-        for (i = [consoleLines count] - 1; i >= 0; i--) {
+        for (NSInteger i = [consoleLines count] - 1; i >= 0; i--) {
             [consoleString appendString:[consoleLines objectAtIndex:i]];
         }
     }
 
     // Free data stores
     [consoleLines release];
-    for (i = 0; i < consoleLinesProcessed; i++) {
+    for (NSUInteger i = 0; i < consoleLinesProcessed; i++) {
         free(rawConsoleLines[i][FR_CONSOLELOG_TEXT]);
         free(rawConsoleLines[i][FR_CONSOLELOG_TIME]);
         free(rawConsoleLines[i]);
