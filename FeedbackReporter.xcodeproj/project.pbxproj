@@ -532,7 +532,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Sources/Main/FeedbackReporter.pch;
 				INFOPLIST_FILE = Sources/Main/Info.plist;
-				INSTALL_PATH = "@executable_path/../Frameworks";
+				INSTALL_PATH = "@loader_path/../Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = FeedbackReporter;
 				SDKROOT = macosx10.5;
@@ -552,7 +552,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Sources/Main/FeedbackReporter.pch;
 				INFOPLIST_FILE = Sources/Main/Info.plist;
-				INSTALL_PATH = "@executable_path/../Frameworks";
+				INSTALL_PATH = "@loader_path/../Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = FeedbackReporter;
 				SDKROOT = macosx10.5;
