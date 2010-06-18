@@ -1,70 +1,69 @@
-﻿/* Russian */
- 
-/* No comment provided by engineer. */
+/* */
 "%@ has encountered an exception!" = "В приложении %@ произошла исключительная ситуация.";
- 
-/* No comment provided by engineer. */
+
+/* */
 "%@ has recently crashed!" = "В приложении %@ недавно произошла критическая ошибка.";
- 
-/* No comment provided by engineer. */
+
+/* */
 "anonymous" = "аноним";
- 
-/* No comment provided by engineer. */
+
+/* */
 "Cancel" = "Отмена";
- 
-/* No comment provided by engineer. */
+
+/* */
 "Comments:" = "Комментарии:";
- 
-/* No comment provided by engineer. */
+
+/* */
 "Console" = "Консоль";
- 
-/* No comment provided by engineer. */
+
+/* */
 "CrashLog" = "Журнал ошибок";
- 
-/* No comment provided by engineer. */
+
+/* */
 "Email address:" = "Адрес электронной почты:";
- 
-/* No comment provided by engineer. */
+
+/* */
 "Error: %@" = "Ошибка: %@";
- 
-/* No comment provided by engineer. */
+
+/* */
 "Exception" = "Исключение";
- 
-/* No comment provided by engineer. */
-"Got a problem with %@?" = "Проблема с приложением %@?";
- 
-/* No comment provided by engineer. */
-"OK" = "Oк";
- 
-/* No comment provided by engineer. */
-"Preferences" = "Настройки";
- 
-/* No comment provided by engineer. */
-"Script" = "Скрипт";
- 
-/* No comment provided by engineer. */
-"Send" = "Отправить";
- 
-/* No comment provided by engineer. */
-"Sorry, failed to submit your feedback to the server." = "К сожалению, не удалось отправить Ваше сообщение.";
- 
-/* No comment provided by engineer. */
-"You may not be able to send feedback because %@ isn't reachable." = "Вы не можете отправить сообщение потому, что %@ не доступен.\n\nПожалуйста, убедитесь что Вы подключены к Интернету прежде чем продолжить.\n";
- 
-/* No comment provided by engineer. */
+
+/* Comment label text for feedback */
+"Feedback comment label" = "Обратная связь:";
+
+/* */
 "Feedback Host Not Reachable" = "Сервер для обработки сообщений не доступен";
- 
-/* No comment provided by engineer. */
+
+/* */
+"Got a problem with %@?" = "Проблема с приложением %@?";
+
+/* */
+"OK" = "Oк";
+
+/* */
+"Preferences" = "Настройки";
+
+/* */
 "Proceed Anyway" = "Все равно продолжить";
 
-/* Informative text for feedback */
-"Send feedback" = "To help us improve our software your feedback is highly welcome! Click Details to see what information is sent to us.";
+/* */
+"Script" = "Скрипт";
+
+/* */
+"Send" = "Отправить";
 
 /* Informative text for crash report */
 "Send crash report" = "To help us fix the problem, please send us this feedback report. Click Details to see what information is sent to us.";
 
-/* Comment label text for feedback */
-"Feedback comment label" = "Your feedback:";
+/* */
+"Send details" = "Отправить сведения";
 
-/* No comment provided by engineer. */
-"Send details" = "Send details";
+/* Informative text for feedback */
+"Send feedback" = "To help us improve our software your feedback is highly welcome! Click Details to see what information is sent to us.";
+
+/* */
+"Sorry, failed to submit your feedback to the server." = "К сожалению, не удалось отправить Ваше сообщение.";
+
+/* */
+"You may not be able to send feedback because %@ isn't reachable." = "Вы не можете отправить сообщение потому, что %@ не доступен.\n\nПожалуйста, убедитесь что Вы подключены к Интернету прежде чем продолжить.\n";
+

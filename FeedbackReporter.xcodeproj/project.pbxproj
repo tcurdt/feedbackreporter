@@ -87,6 +87,7 @@
 		9D0EC0210DF00F250045EB76 /* FRExceptionReportingApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FRExceptionReportingApplication.m; path = Sources/Main/FRExceptionReportingApplication.m; sourceTree = "<group>"; };
 		9D0EC0270DF011DB0045EB76 /* NSException+Callstack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSException+Callstack.h"; path = "Sources/Main/NSException+Callstack.h"; sourceTree = "<group>"; };
 		9D0EC0280DF011DB0045EB76 /* NSException+Callstack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSException+Callstack.m"; path = "Sources/Main/NSException+Callstack.m"; sourceTree = "<group>"; };
+		9D2174CD11CB5F63009ABBB5 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = Resources/French.lproj/FeedbackReporter.strings; sourceTree = "<group>"; };
 		9D291E8C0DF167BB009F859B /* UploaderTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UploaderTestCase.h; path = Sources/Tests/UploaderTestCase.h; sourceTree = "<group>"; };
 		9D291E8D0DF167BB009F859B /* UploaderTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UploaderTestCase.m; path = Sources/Tests/UploaderTestCase.m; sourceTree = "<group>"; };
 		9D5FB36B0E0B269900CF1BE0 /* FRConstants.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = FRConstants.h; path = Sources/Main/FRConstants.h; sourceTree = "<group>"; };
@@ -510,6 +511,7 @@
 				9D73A5EC1064DE6D0001CF9E /* Russian */,
 				9DC8130210BEE59C00748B92 /* Italian */,
 				9DC8130310BEE5E700748B92 /* Armenian */,
+				9D2174CD11CB5F63009ABBB5 /* French */,
 			);
 			name = FeedbackReporter.strings;
 			sourceTree = "<group>";
