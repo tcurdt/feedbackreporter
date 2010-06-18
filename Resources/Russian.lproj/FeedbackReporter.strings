@@ -29,7 +29,7 @@
 "Exception" = "Исключение";
 
 /* Comment label text for feedback */
-"Feedback comment label" = "Обратная связь:";
+"Feedback comment label" = "Ваше мнение:";
 
 /* */
 "Feedback Host Not Reachable" = "Сервер для обработки сообщений не доступен";
@@ -56,7 +56,7 @@
 "Send crash report" = "To help us fix the problem, please send us this feedback report. Click Details to see what information is sent to us.";
 
 /* */
-"Send details" = "Отправить сведения";
+"Send details" = "Отправить подробности";
 
 /* Informative text for feedback */
 "Send feedback" = "To help us improve our software your feedback is highly welcome! Click Details to see what information is sent to us.";
