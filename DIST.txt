@@ -5,3 +5,4 @@ Server/*
 Sources/*
 Resources/*
 FeedbackReporter.xcodeproj/project.pbxproj
+dsa_pub.pem
