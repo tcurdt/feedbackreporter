@@ -1,5 +1,5 @@
 LICENSE.txt
-RELEASENOTES.html
+HISTORY.md
 README.txt
 Server/*
 Sources/*
