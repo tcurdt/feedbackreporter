@@ -1,5 +1,5 @@
 ## Version 1.3.1, unreleased
-
+* [ADD] Added Spanish translation. Thanks to Emilio Perez.
 
 ## Version 1.3.0, released 18.06.2010
 
