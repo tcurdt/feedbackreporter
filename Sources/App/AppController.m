@@ -41,6 +41,14 @@
 
     return dict;
 }
+/*
+- (NSString *)targetUrlForFeedbackReport
+{
+    NSString *targetUrlFormat = @"http://myserver.com/submit.php?project=%@&version=%@";
+    NSString *project = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleExecutable"];
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleVersion"];
+    return [NSString stringWithFormat:targetUrlFormat, project, version];
+}*/
 
 - (IBAction) buttonFeedback:(id)sender
 {

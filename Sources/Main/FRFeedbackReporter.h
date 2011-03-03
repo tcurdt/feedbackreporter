@@ -16,10 +16,11 @@
 
 #import <Cocoa/Cocoa.h>
 
-@protocol FRFeedbackReporterDelegate
+@protocol FRFeedbackReporterDelegate <NSObject>
 @optional
 - (NSDictionary*) customParametersForFeedbackReport;
 - (NSMutableDictionary*) anonymizePreferencesForFeedbackReport:(NSMutableDictionary *)preferences;
+- (NSString *) targetUrlForFeedbackReport;
 @end
 
 @interface FRFeedbackReporter : NSObject {
