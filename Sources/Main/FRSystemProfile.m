@@ -90,25 +90,7 @@
     }
     
     return is64bit;
- }
-
-
-#define CPUFAMILY_INTEL_6_13 0xaa33392b
-#define CPUFAMILY_INTEL_6_14 0x73d67300  /* "Intel Core Solo" and "Intel Core Duo" (32-bit Pentium-M with SSE3) */
-#define CPUFAMILY_INTEL_6_15 0x426f69ef  /* "Intel Core 2 Duo" */
-#define CPUFAMILY_INTEL_6_23 0x78ea4fbc  /* Penryn */
-#define CPUFAMILY_INTEL_6_26 0x6b5a4cd2  /* Nehalem */
-#define CPUFAMILY_ARM_9      0xe73283ae
-#define CPUFAMILY_ARM_11     0x8ff620d8
-
-#define CPUFAMILY_INTEL_YONAH   CPUFAMILY_INTEL_6_14
-#define CPUFAMILY_INTEL_MEROM   CPUFAMILY_INTEL_6_15
-#define CPUFAMILY_INTEL_PENRYN  CPUFAMILY_INTEL_6_23
-#define CPUFAMILY_INTEL_NEHALEM CPUFAMILY_INTEL_6_26
-
-#define CPUFAMILY_INTEL_CORE    CPUFAMILY_INTEL_6_14
-#define CPUFAMILY_INTEL_CORE2   CPUFAMILY_INTEL_6_15
-
+}
 
 + (NSString*) cputype
 {
