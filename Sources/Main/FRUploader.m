@@ -84,6 +84,7 @@
     [post addValue: boundaryString forHTTPHeaderField: @"Content-Type"];
     [post setHTTPMethod: @"POST"];
     [post setHTTPBody:formData];
+    [post setCachePolicy:NSURLRequestReloadIgnoringCacheData];
 
     NSURLResponse *response = nil;
     NSError *error = nil;
