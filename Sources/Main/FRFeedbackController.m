@@ -114,7 +114,7 @@
 
 - (NSString*) consoleLog
 {
-    NSNumber *hours = [[NSUserDefaults standardUserDefaults] valueForKey:PLIST_KEY_LOGHOURS];
+    NSNumber *hours = [[[NSBundle mainBundle] infoDictionary] valueForKey:PLIST_KEY_LOGHOURS];
 
     int h = 24;
 
