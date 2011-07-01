@@ -1,6 +1,6 @@
 LICENSE.txt
 HISTORY.md
-README.txt
+README.md
 Server/*
 Sources/*
 Resources/*
