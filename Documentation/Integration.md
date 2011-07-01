@@ -1,4 +1,4 @@
-### Integration into your projects
+# Integration into your projects
 
 ## Call out into the framework
 

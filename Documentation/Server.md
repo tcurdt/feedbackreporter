@@ -1,4 +1,4 @@
-## Receiving the information on the server
+# Receiving the information on the server
 
 The framework is using a standard multi-part post request to upload the data
 to the web server. It uses the target URL that is specified in the
