@@ -7,7 +7,7 @@ I wasn't really satisfied with the frameworks available so I came up with one
 that suits my needs. Hopefully it will also suit yours.
 
 For information on how to integrate the FeedbackReporter Framework please see
-the [screencast][1] and the [documentation][1].
+the [screencast][1] and the [documentation][2].
 
 Suggestions, bug reports and fixes are much welcome. The source code is
 available through git at
@@ -28,5 +28,5 @@ Credits:
 any more contributors sending patches. Thanks!
 
 [1]: http://vafer.org/pub/screencasts/FeedbackReporter.mov
-[2]: http://github.com/tcurdt/feedbackreporter/Documentation/Integration.md
+[2]: https://github.com/tcurdt/feedbackreporter/blob/master/Documentation/Integration.md
 [3]: http://github.com/tcurdt/feedbackreporter/tree/master
