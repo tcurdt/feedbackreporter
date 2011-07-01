@@ -84,4 +84,4 @@ included in the `shell` pane.
 Please check the [documentation][1] for more how to receive the data on the
 server.
 
-[1]: http://github.com/tcurdt/feedbackreporter/Documentation/Server.md
+[1]: https://github.com/tcurdt/feedbackreporter/blob/master/Documentation/Server.md
