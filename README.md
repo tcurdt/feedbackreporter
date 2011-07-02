@@ -27,6 +27,6 @@ Credits:
 
 any more contributors sending patches. Thanks!
 
-[1]: http://vafer.org/pub/screencasts/FeedbackReporter.mov
+[1]: http://vafer.org/projects/feedbackreporter/screencasts/Integrating%20with%20FeedbackReporter.mov
 [2]: https://github.com/tcurdt/feedbackreporter/blob/master/Documentation/Integration.md
 [3]: http://github.com/tcurdt/feedbackreporter/tree/master
