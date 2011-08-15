@@ -63,8 +63,8 @@
 
     IBOutlet NSButton *cancelButton;
     IBOutlet NSButton *sendButton;
-		
-    
+    IBOutlet NSButton *terminateButton; 
+
     FRUploader *uploader;
     
     id delegate;
@@ -88,6 +88,7 @@
 - (IBAction) showDetails:(id)sender;
 - (IBAction) cancel:(id)sender;
 - (IBAction) send:(id)sender;
+- (IBAction) terminate:(id)sender;
 
 #pragma mark Other
 
