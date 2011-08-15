@@ -415,6 +415,15 @@
     [uploader postAndNotify:dict];
 }
 
+- (IBAction) terminate:(id)sender
+{
+    // We want a pure exit() here I think.
+    // As an exception has already been raised there is no
+    // guarantee that the code path to [NSAapp terminate] is functional.
+    // Calling abort() will crash the app here but is that more desirable?
+    exit(EXIT_FAILURE);
+}
+
 - (void) uploaderStarted:(FRUploader*)pUploader
 {
     // NSLog(@"Upload started");
@@ -516,7 +525,8 @@
     
     [sendButton setTitle:FRLocalizedString(@"Send", nil)];
     [cancelButton setTitle:FRLocalizedString(@"Cancel", nil)];
-
+    [terminateButton setTitle:FRLocalizedString(@"Terminate", nil)];
+    
     [[consoleView textContainer] setContainerSize:NSMakeSize(CGFLOAT_MAX, CGFLOAT_MAX)];
     [[consoleView textContainer] setWidthTracksTextView:NO];
     [consoleView setString:@""];
@@ -646,6 +656,12 @@
         [messageLabel setStringValue:FRLocalizedString(@"Comments:", nil)];
     }
 
+    if (type == FR_EXCEPTION) {
+        if (++exceptionCount > 1) {
+            [terminateButton setHidden:NO];
+        }
+    }
+    
     if ([[exceptionView string] length] != 0) {
         [tabView insertTabViewItem:tabException atIndex:1];
         [tabView selectTabViewItemWithIdentifier:@"Exception"];
