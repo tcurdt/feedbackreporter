@@ -70,6 +70,7 @@
     id delegate;
     
     NSString *type;
+    NSInteger exceptionCount;
 }
 
 #pragma mark Accessors

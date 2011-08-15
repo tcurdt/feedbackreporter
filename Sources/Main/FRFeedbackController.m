@@ -657,7 +657,9 @@
     }
 
     if (type == FR_EXCEPTION) {
-        [terminateButton setHidden:NO];
+        if (++exceptionCount > 1) {
+            [terminateButton setHidden:NO];
+        }
     }
     
     if ([[exceptionView string] length] != 0) {
