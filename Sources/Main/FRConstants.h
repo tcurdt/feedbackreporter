@@ -23,20 +23,20 @@
 //  Truncates the console log to not send more than x hours into the past. (optinal)
 #define PLIST_KEY_LOGHOURS              @"FRFeedbackReporter.logHours"
 
-//	The default e-mail address to select in case there is no selection saved in 
-//	the preferences. The options are 'anonymous' and 'firstEmail'. If nothing
-//	is specified, 'anonymous' is selected. (optional)
+//  The default e-mail address to select in case there is no selection saved in
+//  the preferences. The options are 'anonymous' and 'firstEmail'. If nothing
+//  is specified, 'anonymous' is selected. (optional)
 #define PLIST_KEY_DEFAULTSENDER         @"FRFeedbackReporter.defaultSender"
 
-//	The number of characters a console log is truncated to. If not specified,
-//	no truncation takes place. (optional)
+//  The number of characters a console log is truncated to. If not specified,
+//  no truncation takes place. (optional)
 #define PLIST_KEY_MAXCONSOLELOGSIZE     @"FRFeedbackReporter.maxConsoleLogSize"
 
-//	Set the value of this key to 'YES' to present a checkbox where the user
-//	can switch on and off the sending of details information. If not specified,
-//	defaults to 'NO', hence no checkbox is shown.
-//	If the user checks off the 'send details' option, just the e-mail address,
-//	the comment, the type of report, and the application version are transmitted
+//  Set the value of this key to 'YES' to present a checkbox where the user
+//  can switch on and off the sending of details information. If not specified,
+//  defaults to 'NO', hence no checkbox is shown.
+//  If the user checks off the 'send details' option, just the e-mail address,
+//  the comment, the type of report, and the application version are transmitted
 //  to the server. (optional)
 #define PLIST_KEY_SENDDETAILSISOPTIONAL @"FRFeedbackReporter.sendDetailsIsOptional"
 
@@ -57,10 +57,10 @@
 #define POST_KEY_SHELL          @"shell"
 #define POST_KEY_PREFERENCES    @"preferences"
 #define POST_KEY_EXCEPTION      @"exception"
-#define POST_KEY_VERSION_LONG   @"version_long"		// Corresponds to CFBundleLongVersionString. Discouraged.
-#define POST_KEY_VERSION_SHORT  @"version_short"	// Corresponds to CFBundleShortVersionString.
-#define POST_KEY_VERSION_BUNDLE @"version_bundle"	// Corresponds to CFBundleVersion.
-#define POST_KEY_VERSION        @"version"			// A combination of the above 3.
+#define POST_KEY_VERSION_LONG   @"version_long"   // Corresponds to CFBundleLongVersionString. Discouraged.
+#define POST_KEY_VERSION_SHORT  @"version_short"  // Corresponds to CFBundleShortVersionString.
+#define POST_KEY_VERSION_BUNDLE @"version_bundle" // Corresponds to CFBundleVersion.
+#define POST_KEY_VERSION        @"version"        // A combination of the above 3.
 
 // Exception parsing
 #define EXCEPTION_STACK_SKIP    2

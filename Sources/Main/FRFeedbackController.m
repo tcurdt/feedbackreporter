@@ -65,7 +65,7 @@
     [tabScript release];
     [tabPreferences release];
     [tabException release];
-    
+
     [super dealloc];
 }
 
@@ -121,7 +121,7 @@
     if (hours != nil) {
         h = [hours intValue];
     }
-    
+
     NSDate *since = [[NSCalendarDate calendarDate] dateByAddingYears:0 months:0 days:0 hours:-h minutes:0 seconds:0];
 
     NSNumber *maximumSize = [[[NSBundle mainBundle] infoDictionary] valueForKey:PLIST_KEY_MAXCONSOLELOGSIZE];
@@ -181,20 +181,20 @@
     } else {
         NSLog(@"Found %lu crash files earlier than latest submission on %@", (unsigned long)i, lastSubmissionDate);
     }
-    
+
     NSFileManager *fileManager = [NSFileManager defaultManager];
 
     NSDate *newest = nil;
     NSInteger newestIndex = -1;
 
     while(i--) {
-    
+
         NSString *crashFile = [crashFiles objectAtIndex:i];
-		NSError* error = nil;
-		NSDictionary *fileAttributes = [fileManager attributesOfItemAtPath:crashFile error:&error];
-		if (!fileAttributes) {
-			NSLog(@"Error while fetching file attributes: %@", [error localizedDescription]);
-		}
+        NSError* error = nil;
+        NSDictionary *fileAttributes = [fileManager attributesOfItemAtPath:crashFile error:&error];
+        if (!fileAttributes) {
+            NSLog(@"Error while fetching file attributes: %@", [error localizedDescription]);
+        }
         NSDate *fileModDate = [fileAttributes objectForKey:NSFileModificationDate];
 
         NSLog(@"CrashLog: %@", crashFile);
@@ -205,7 +205,7 @@
         }
 
     }
-    
+
     if (newestIndex != -1) {
         NSString *newestCrashFile = [crashFiles objectAtIndex:newestIndex];
 
@@ -238,7 +238,7 @@
         [cmd release];
 
         NSLog(@"Script exit code = %d", ret);
-        
+
     } /* else {
         NSLog(@"No custom script to execute");
     }
@@ -250,7 +250,7 @@
 - (NSString*) preferences
 {
     NSMutableDictionary *preferences = [[[[NSUserDefaults standardUserDefaults] persistentDomainForName:[FRApplication applicationIdentifier]] mutableCopy] autorelease];
-    
+
     if (preferences == nil) {
         return @"";
     }
@@ -272,11 +272,11 @@
     if (detailsShown == show) {
         return;
     }
-    
+
     NSSize fullSize = NSMakeSize(455, 302);
-    
+
     NSRect windowFrame = [[self window] frame];
-        
+
     if (show) {
 
         windowFrame.origin.y -= fullSize.height;
@@ -291,22 +291,22 @@
         [[self window] setFrame: windowFrame
                         display: YES
                         animate: animate];
-        
+
     }
-    
-    detailsShown = show;    
+
+    detailsShown = show;
 }
 
 - (IBAction) showDetails:(id)sender
 {
     BOOL show = [[sender objectValue] boolValue];
-	[self showDetails:show animate:YES];
+    [self showDetails:show animate:YES];
 }
 
 - (IBAction) cancel:(id)sender
 {
     [uploader cancel], uploader = nil;
-    
+
     [self close];
 }
 
@@ -316,45 +316,45 @@
         NSLog(@"Still uploading");
         return;
     }
-            
+
     NSString *target = [[FRApplication feedbackURL] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] ;
-    
+
     if ([[[FRFeedbackReporter sharedReporter] delegate] respondsToSelector:@selector(targetUrlForFeedbackReport)]) {
         target = [[[FRFeedbackReporter sharedReporter] delegate] targetUrlForFeedbackReport];
     }
-    
+
     if (target == nil) {
         NSLog(@"You are missing the %@ key in your Info.plist!", PLIST_KEY_TARGETURL);
-        return;        
+        return;
     }
 
     NSURL *url = [NSURL URLWithString:target];
 
     SCNetworkConnectionFlags reachabilityFlags = 0;
-    
-	NSString *host = [url host];
+
+    NSString *host = [url host];
     const char *hostname = [host UTF8String];
 
     SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithName(NULL, hostname);
     Boolean reachabilityResult = SCNetworkReachabilityGetFlags(reachability, &reachabilityFlags);
     CFRelease(reachability);
-    
-	// Prevent premature garbage collection (UTF8String returns an inner pointer).
-	[host self];
-	
+
+    // Prevent premature garbage collection (UTF8String returns an inner pointer).
+    [host self];
+
     BOOL reachable = reachabilityResult
         &&  (reachabilityFlags & kSCNetworkFlagsReachable)
         && !(reachabilityFlags & kSCNetworkFlagsConnectionRequired)
         && !(reachabilityFlags & kSCNetworkFlagsConnectionAutomatic)
         && !(reachabilityFlags & kSCNetworkFlagsInterventionRequired);
-    
+
     if (!reachable) {
         NSInteger alertResult = [[NSAlert alertWithMessageText:FRLocalizedString(@"Feedback Host Not Reachable", nil)
-												 defaultButton:FRLocalizedString(@"Proceed Anyway", nil)
-											   alternateButton:FRLocalizedString(@"Cancel", nil)
-												   otherButton:nil
-									 informativeTextWithFormat:FRLocalizedString(@"You may not be able to send feedback because %@ isn't reachable.", nil), host
-								  ] runModal];
+                                                 defaultButton:FRLocalizedString(@"Proceed Anyway", nil)
+                                               alternateButton:FRLocalizedString(@"Cancel", nil)
+                                                   otherButton:nil
+                                     informativeTextWithFormat:FRLocalizedString(@"You may not be able to send feedback because %@ isn't reachable.", nil), host
+                                  ] runModal];
 
         if (alertResult != NSAlertDefaultReturn) {
             return;
@@ -362,56 +362,56 @@
     }
 
     uploader = [[FRUploader alloc] initWithTarget:target delegate:self];
-    
+
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-	
+
     [dict setValidString:[emailBox stringValue]
-				  forKey:POST_KEY_EMAIL];
-	
+                  forKey:POST_KEY_EMAIL];
+
     [dict setValidString:[messageView string]
-				  forKey:POST_KEY_MESSAGE];
-	
-	[dict setValidString:type
-				  forKey:POST_KEY_TYPE];
-	
-	[dict setValidString:[FRApplication applicationLongVersion]
-				  forKey:POST_KEY_VERSION_LONG];
-	
-	[dict setValidString:[FRApplication applicationShortVersion]
-				  forKey:POST_KEY_VERSION_SHORT];
-	
-	[dict setValidString:[FRApplication applicationBundleVersion]
-				  forKey:POST_KEY_VERSION_BUNDLE];
-	
-	[dict setValidString:[FRApplication applicationVersion]
-				  forKey:POST_KEY_VERSION];
-	
-	if ([sendDetailsCheckbox state] == NSOnState) {
-		if ([delegate respondsToSelector:@selector(customParametersForFeedbackReport)]) {
-			[dict addEntriesFromDictionary:[delegate customParametersForFeedbackReport]];
-		}
-		
-		[dict setValidString:[self systemProfileAsString]
-					  forKey:POST_KEY_SYSTEM];
-		
-		[dict setValidString:[consoleView string]
-					  forKey:POST_KEY_CONSOLE];
-		
-		[dict setValidString:[crashesView string]
-					  forKey:POST_KEY_CRASHES];
-		
-		[dict setValidString:[scriptView string]
-					  forKey:POST_KEY_SHELL];
-		
-		[dict setValidString:[preferencesView string]
-					  forKey:POST_KEY_PREFERENCES];
-		
-		[dict setValidString:[exceptionView string]
-					  forKey:POST_KEY_EXCEPTION];
-	}	
-    
+                  forKey:POST_KEY_MESSAGE];
+
+    [dict setValidString:type
+                  forKey:POST_KEY_TYPE];
+
+    [dict setValidString:[FRApplication applicationLongVersion]
+                  forKey:POST_KEY_VERSION_LONG];
+
+    [dict setValidString:[FRApplication applicationShortVersion]
+                  forKey:POST_KEY_VERSION_SHORT];
+
+    [dict setValidString:[FRApplication applicationBundleVersion]
+                  forKey:POST_KEY_VERSION_BUNDLE];
+
+    [dict setValidString:[FRApplication applicationVersion]
+                  forKey:POST_KEY_VERSION];
+
+    if ([sendDetailsCheckbox state] == NSOnState) {
+        if ([delegate respondsToSelector:@selector(customParametersForFeedbackReport)]) {
+            [dict addEntriesFromDictionary:[delegate customParametersForFeedbackReport]];
+        }
+
+        [dict setValidString:[self systemProfileAsString]
+                      forKey:POST_KEY_SYSTEM];
+
+        [dict setValidString:[consoleView string]
+                      forKey:POST_KEY_CONSOLE];
+
+        [dict setValidString:[crashesView string]
+                      forKey:POST_KEY_CRASHES];
+
+        [dict setValidString:[scriptView string]
+                      forKey:POST_KEY_SHELL];
+
+        [dict setValidString:[preferencesView string]
+                      forKey:POST_KEY_PREFERENCES];
+
+        [dict setValidString:[exceptionView string]
+                      forKey:POST_KEY_EXCEPTION];
+    }
+
     NSLog(@"Sending feedback to %@", target);
-    
+
     [uploader postAndNotify:dict];
 }
 
@@ -421,7 +421,7 @@
 
     [indicator setHidden:NO];
     [indicator startAnimation:self];
-    
+
     [messageView setEditable:NO];
     [sendButton setEnabled:NO];
 }
@@ -434,7 +434,7 @@
     [indicator setHidden:YES];
 
     [uploader release], uploader = nil;
-    
+
     [messageView setEditable:YES];
     [sendButton setEnabled:YES];
 
@@ -467,15 +467,15 @@
     NSUInteger i = [lines count];
     while(i--) {
         NSString *line = [lines objectAtIndex:i];
-        
+
         if ([line length] == 0) {
             continue;
         }
-        
+
         if (![line hasPrefix:@"OK "]) {
 
-			NSLog (@"Failed to submit to server: %@", response);
-			
+            NSLog (@"Failed to submit to server: %@", response);
+
             NSAlert *alert = [[NSAlert alloc] init];
             [alert addButtonWithTitle:FRLocalizedString(@"OK", nil)];
             [alert setMessageText:FRLocalizedString(@"Sorry, failed to submit your feedback to the server.", nil)];
@@ -483,7 +483,7 @@
             [alert setAlertStyle:NSWarningAlertStyle];
             [alert runModal];
             [alert release];
-            
+
             return;
         }
     }
@@ -507,13 +507,13 @@
     [[self window] setDelegate:self];
 
     [emailLabel setStringValue:FRLocalizedString(@"Email address:", nil)];
-    
+
     [tabConsole setLabel:FRLocalizedString(@"Console", nil)];
     [tabCrash setLabel:FRLocalizedString(@"CrashLog", nil)];
     [tabScript setLabel:FRLocalizedString(@"Script", nil)];
     [tabPreferences setLabel:FRLocalizedString(@"Preferences", nil)];
     [tabException setLabel:FRLocalizedString(@"Exception", nil)];
-    
+
     [sendButton setTitle:FRLocalizedString(@"Send", nil)];
     [cancelButton setTitle:FRLocalizedString(@"Cancel", nil)];
 
@@ -575,7 +575,7 @@
     }
 
     [self performSelectorOnMainThread:@selector(stopSpinner) withObject:self waitUntilDone:YES];
-    
+
     [pool drain];
 }
 
@@ -591,7 +591,7 @@
     ABMutableMultiValue *emailAddresses = [me valueForProperty:kABEmailProperty];
 
     NSUInteger count = [emailAddresses count];
-    
+
     [emailBox removeAllItems];
 
     [emailBox addItemWithObjectValue:FRLocalizedString(@"anonymous", nil)];
@@ -608,10 +608,10 @@
     NSInteger found = [emailBox indexOfItemWithObjectValue:email];
     if (found != NSNotFound) {
         [emailBox selectItemAtIndex:found];
-	} else if ([emailBox numberOfItems] >= 2) {
-		NSString *defaultSender = [[[NSBundle mainBundle] infoDictionary] valueForKey:PLIST_KEY_DEFAULTSENDER];
-		NSUInteger idx = (defaultSender && [defaultSender isEqualToString:@"firstEmail"]) ? 1 : 0;
-		[emailBox selectItemAtIndex:idx];
+    } else if ([emailBox numberOfItems] >= 2) {
+        NSString *defaultSender = [[[NSBundle mainBundle] infoDictionary] valueForKey:PLIST_KEY_DEFAULTSENDER];
+        NSUInteger idx = (defaultSender && [defaultSender isEqualToString:@"firstEmail"]) ? 1 : 0;
+        [emailBox selectItemAtIndex:idx];
     }
 
     [headingField setStringValue:@""];
@@ -619,29 +619,29 @@
     [exceptionView setString:@""];
 
     [self showDetails:NO animate:NO];
-    [detailsButton setIntValue:NO];    
+    [detailsButton setIntValue:NO];
 
     [indicator setHidden:NO];
-    [indicator startAnimation:self];    
+    [indicator startAnimation:self];
     [sendButton setEnabled:NO];
 
-	//	setup 'send details' checkbox...
-	[sendDetailsCheckbox setTitle:FRLocalizedString(@"Send details", nil)];
-	[sendDetailsCheckbox setState:NSOnState];
-	NSString *sendDetailsIsOptional = [[[NSBundle mainBundle] infoDictionary] valueForKey:PLIST_KEY_SENDDETAILSISOPTIONAL];
-	if (sendDetailsIsOptional && [sendDetailsIsOptional isEqualToString:@"YES"]) {
-		[detailsLabel setHidden:YES];
-		[sendDetailsCheckbox setHidden:NO];
-	} else {
-		[detailsLabel setHidden:NO];
-		[sendDetailsCheckbox setHidden:YES];
-	}
+    //  setup 'send details' checkbox...
+    [sendDetailsCheckbox setTitle:FRLocalizedString(@"Send details", nil)];
+    [sendDetailsCheckbox setState:NSOnState];
+    NSString *sendDetailsIsOptional = [[[NSBundle mainBundle] infoDictionary] valueForKey:PLIST_KEY_SENDDETAILSISOPTIONAL];
+    if (sendDetailsIsOptional && [sendDetailsIsOptional isEqualToString:@"YES"]) {
+        [detailsLabel setHidden:YES];
+        [sendDetailsCheckbox setHidden:NO];
+    } else {
+        [detailsLabel setHidden:NO];
+        [sendDetailsCheckbox setHidden:YES];
+    }
 }
 
 - (void) showWindow:(id)sender
 {
     if (type == FR_FEEDBACK) {
-		[messageLabel setStringValue:FRLocalizedString(@"Feedback comment label", nil)];
+        [messageLabel setStringValue:FRLocalizedString(@"Feedback comment label", nil)];
     } else {
         [messageLabel setStringValue:FRLocalizedString(@"Comments:", nil)];
     }
@@ -654,7 +654,7 @@
     }
 
     [NSThread detachNewThreadSelector:@selector(populate) toTarget:self withObject:nil];
-    
+
     [super showWindow:sender];
 }
 
