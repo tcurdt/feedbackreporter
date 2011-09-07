@@ -41,6 +41,12 @@
 
     return dict;
 }
+
+- (NSString *) feedbackDisplayName
+{
+   return @"Test App";
+}
+
 /*
 - (NSString *)targetUrlForFeedbackReport
 {

@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		444DCB5C1417D13E00C5636D /* FeedbackReporter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 444DCB5E1417D13E00C5636D /* FeedbackReporter.xib */; };
+		444DCB651417D18000C5636D /* App.xib in Resources */ = {isa = PBXBuildFile; fileRef = 444DCB671417D18000C5636D /* App.xib */; };
+		444DCB721417D2D800C5636D /* FeedbackReporter.strings in Resources */ = {isa = PBXBuildFile; fileRef = 444DCB701417D2D800C5636D /* FeedbackReporter.strings */; };
+		444DCB741417D2E100C5636D /* App.xib in Resources */ = {isa = PBXBuildFile; fileRef = 444DCB671417D18000C5636D /* App.xib */; };
+		444DCB761417D2E900C5636D /* App.xib in Resources */ = {isa = PBXBuildFile; fileRef = 444DCB671417D18000C5636D /* App.xib */; };
+		444DCB781417D2F100C5636D /* App.xib in Resources */ = {isa = PBXBuildFile; fileRef = 444DCB671417D18000C5636D /* App.xib */; };
+		444DCB7A1417D2F800C5636D /* App.xib in Resources */ = {isa = PBXBuildFile; fileRef = 444DCB671417D18000C5636D /* App.xib */; };
+		444DCB7C1417D30300C5636D /* App.xib in Resources */ = {isa = PBXBuildFile; fileRef = 444DCB671417D18000C5636D /* App.xib */; };
+		444DCB7E1417D30B00C5636D /* App.xib in Resources */ = {isa = PBXBuildFile; fileRef = 444DCB671417D18000C5636D /* App.xib */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		9D006DF60E1438F6000B6AFC /* FRConsoleLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D006DF50E1438F6000B6AFC /* FRConsoleLog.m */; };
 		9D0EC0220DF00F250045EB76 /* FRExceptionReportingApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0EC0200DF00F250045EB76 /* FRExceptionReportingApplication.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -33,14 +42,11 @@
 		9DA7D6FB0DEB8E5D00C3B586 /* FRUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DA7D6EE0DEB8E5D00C3B586 /* FRUploader.m */; };
 		9DA7D6FF0DEB8E9100C3B586 /* CommandTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DA7D6FD0DEB8E9100C3B586 /* CommandTestCase.m */; };
 		9DB634F20E4DD6F500C72888 /* FeedbackReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* FeedbackReporter.framework */; };
-		9DB634F70E4DD8C200C72888 /* FeedbackReporter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9DB634F60E4DD8C200C72888 /* FeedbackReporter.xib */; };
-		9DB6351C0E4DD97A00C72888 /* App.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9DB6351B0E4DD97A00C72888 /* App.xib */; };
 		9DB6351E0E4DD9BE00C72888 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DB6351D0E4DD9BE00C72888 /* main.m */; };
 		9DB6353C0E4DDCB700C72888 /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DB6353A0E4DDCB700C72888 /* AppController.m */; };
 		9DCF52A90DEC0D8A00EBF810 /* SystemProfileTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DCF52A80DEC0D8A00EBF810 /* SystemProfileTestCase.m */; };
 		9DCF52AC0DEC0E4300EBF810 /* FRSystemProfile.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DCF52AA0DEC0E4300EBF810 /* FRSystemProfile.h */; };
 		9DCF52AD0DEC0E4300EBF810 /* FRSystemProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DCF52AB0DEC0E4300EBF810 /* FRSystemProfile.m */; };
-		9DD4D9C30E4B934500B26451 /* FeedbackReporter.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9DD4D9C20E4B934500B26451 /* FeedbackReporter.strings */; };
 		B9283C1312B0A6700015915E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9283C1212B0A6700015915E /* Foundation.framework */; };
 		FC369CBB1100D505004C27F8 /* NSMutableDictionary+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = FC369CB91100D505004C27F8 /* NSMutableDictionary+Additions.h */; };
 		FC369CBC1100D505004C27F8 /* NSMutableDictionary+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = FC369CBA1100D505004C27F8 /* NSMutableDictionary+Additions.m */; };
@@ -81,6 +87,30 @@
 		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		444DCB5D1417D13E00C5636D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/FeedbackReporter.xib; sourceTree = "<group>"; };
+		444DCB5F1417D16B00C5636D /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/FeedbackReporter.xib; sourceTree = "<group>"; };
+		444DCB601417D16D00C5636D /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ru; path = ru.lproj/FeedbackReporter.xib; sourceTree = "<group>"; };
+		444DCB611417D16F00C5636D /* it */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = it; path = it.lproj/FeedbackReporter.xib; sourceTree = "<group>"; };
+		444DCB621417D17100C5636D /* hy */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = hy; path = hy.lproj/FeedbackReporter.xib; sourceTree = "<group>"; };
+		444DCB631417D17300C5636D /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/FeedbackReporter.xib; sourceTree = "<group>"; };
+		444DCB641417D17500C5636D /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/FeedbackReporter.xib; sourceTree = "<group>"; };
+		444DCB661417D18000C5636D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/App.xib; sourceTree = "<group>"; };
+		444DCB681417D18500C5636D /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/App.xib; sourceTree = "<group>"; };
+		444DCB691417D18500C5636D /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/App.xib; sourceTree = "<group>"; };
+		444DCB6A1417D18500C5636D /* it */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = it; path = it.lproj/App.xib; sourceTree = "<group>"; };
+		444DCB6B1417D18500C5636D /* hy */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = hy; path = hy.lproj/App.xib; sourceTree = "<group>"; };
+		444DCB6C1417D18500C5636D /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/App.xib; sourceTree = "<group>"; };
+		444DCB6D1417D18500C5636D /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ru; path = ru.lproj/App.xib; sourceTree = "<group>"; };
+		444DCB6E1417D20D00C5636D /* ar */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ar; path = ar.lproj/App.xib; sourceTree = "<group>"; };
+		444DCB6F1417D21300C5636D /* ar */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ar; path = ar.lproj/FeedbackReporter.xib; sourceTree = "<group>"; };
+		444DCB711417D2D800C5636D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = Resources/de.lproj/FeedbackReporter.strings; sourceTree = "<group>"; };
+		444DCB731417D2E100C5636D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Resources/en.lproj/FeedbackReporter.strings; sourceTree = "<group>"; };
+		444DCB751417D2E900C5636D /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = Resources/es.lproj/FeedbackReporter.strings; sourceTree = "<group>"; };
+		444DCB771417D2F100C5636D /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = Resources/fr.lproj/FeedbackReporter.strings; sourceTree = "<group>"; };
+		444DCB791417D2F800C5636D /* hy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hy; path = Resources/hy.lproj/FeedbackReporter.strings; sourceTree = "<group>"; };
+		444DCB7B1417D30300C5636D /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = Resources/it.lproj/FeedbackReporter.strings; sourceTree = "<group>"; };
+		444DCB7D1417D30B00C5636D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = Resources/ru.lproj/FeedbackReporter.strings; sourceTree = "<group>"; };
+		444DCB7F1417D39100C5636D /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = Resources/ar.lproj/FeedbackReporter.strings; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* FeedbackReporter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FeedbackReporter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D006DF40E1438F6000B6AFC /* FRConsoleLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FRConsoleLog.h; path = Sources/Main/FRConsoleLog.h; sourceTree = "<group>"; };
 		9D006DF50E1438F6000B6AFC /* FRConsoleLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FRConsoleLog.m; path = Sources/Main/FRConsoleLog.m; sourceTree = "<group>"; };
@@ -88,13 +118,10 @@
 		9D0EC0210DF00F250045EB76 /* FRExceptionReportingApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FRExceptionReportingApplication.m; path = Sources/Main/FRExceptionReportingApplication.m; sourceTree = "<group>"; };
 		9D0EC0270DF011DB0045EB76 /* NSException+Callstack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSException+Callstack.h"; path = "Sources/Main/NSException+Callstack.h"; sourceTree = "<group>"; };
 		9D0EC0280DF011DB0045EB76 /* NSException+Callstack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSException+Callstack.m"; path = "Sources/Main/NSException+Callstack.m"; sourceTree = "<group>"; };
-		9D2174CD11CB5F63009ABBB5 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = Resources/French.lproj/FeedbackReporter.strings; sourceTree = "<group>"; };
-		9D279E4D130BEB6C00505390 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Spanish; path = Resources/Spanish.lproj/FeedbackReporter.strings; sourceTree = "<group>"; };
 		9D291E8C0DF167BB009F859B /* UploaderTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UploaderTestCase.h; path = Sources/Tests/UploaderTestCase.h; sourceTree = "<group>"; };
 		9D291E8D0DF167BB009F859B /* UploaderTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UploaderTestCase.m; path = Sources/Tests/UploaderTestCase.m; sourceTree = "<group>"; };
 		9D5FB36B0E0B269900CF1BE0 /* FRConstants.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = FRConstants.h; path = Sources/Main/FRConstants.h; sourceTree = "<group>"; };
 		9D73A4B30FC37AE8008804E1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = /System/Library/Frameworks/SystemConfiguration.framework; sourceTree = "<absolute>"; };
-		9D73A5EC1064DE6D0001CF9E /* Russian */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Russian; path = Resources/Russian.lproj/FeedbackReporter.strings; sourceTree = "<group>"; };
 		9D90077A0DEB96C10000330E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Sources/Main/Info.plist; sourceTree = "<group>"; };
 		9D90077F0DEB96D40000330E /* Tests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Tests-Info.plist"; path = "Sources/Tests/Tests-Info.plist"; sourceTree = SOURCE_ROOT; };
 		9DA6D14F0FA3C18900C990A7 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = /System/Library/Frameworks/AddressBook.framework; sourceTree = "<absolute>"; };
@@ -115,20 +142,14 @@
 		9DA7D6FD0DEB8E9100C3B586 /* CommandTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommandTestCase.m; path = Sources/Tests/CommandTestCase.m; sourceTree = "<group>"; };
 		9DB634E30E4DD64C00C72888 /* App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DB634E70E4DD64C00C72888 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Sources/App/Info.plist; sourceTree = "<group>"; };
-		9DB634F60E4DD8C200C72888 /* FeedbackReporter.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FeedbackReporter.xib; path = Resources/FeedbackReporter.xib; sourceTree = "<group>"; };
-		9DB6351B0E4DD97A00C72888 /* App.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = App.xib; path = Resources/App.xib; sourceTree = "<group>"; };
 		9DB6351D0E4DD9BE00C72888 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Sources/App/main.m; sourceTree = "<group>"; };
 		9DB6353A0E4DDCB700C72888 /* AppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppController.m; path = Sources/App/AppController.m; sourceTree = SOURCE_ROOT; };
 		9DB6353B0E4DDCB700C72888 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppController.h; path = Sources/App/AppController.h; sourceTree = SOURCE_ROOT; };
 		9DC077900E4CE75E00014424 /* FeedbackReporter.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedbackReporter.pch; path = Sources/Main/FeedbackReporter.pch; sourceTree = "<group>"; };
-		9DC8130210BEE59C00748B92 /* Italian */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Italian; path = Resources/Italian.lproj/FeedbackReporter.strings; sourceTree = "<group>"; };
-		9DC8130310BEE5E700748B92 /* Armenian */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Armenian; path = Resources/Armenian.lproj/FeedbackReporter.strings; sourceTree = "<group>"; };
 		9DCF52A70DEC0D8A00EBF810 /* SystemProfileTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SystemProfileTestCase.h; path = Sources/Tests/SystemProfileTestCase.h; sourceTree = "<group>"; };
 		9DCF52A80DEC0D8A00EBF810 /* SystemProfileTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SystemProfileTestCase.m; path = Sources/Tests/SystemProfileTestCase.m; sourceTree = "<group>"; };
 		9DCF52AA0DEC0E4300EBF810 /* FRSystemProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FRSystemProfile.h; path = Sources/Main/FRSystemProfile.h; sourceTree = "<group>"; };
 		9DCF52AB0DEC0E4300EBF810 /* FRSystemProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FRSystemProfile.m; path = Sources/Main/FRSystemProfile.m; sourceTree = "<group>"; };
-		9DD4D9BF0E4B933A00B26451 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = Resources/English.lproj/FeedbackReporter.strings; sourceTree = "<group>"; };
-		9DD4D9C40E4B934A00B26451 /* German */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = German; path = Resources/German.lproj/FeedbackReporter.strings; sourceTree = "<group>"; };
 		B9283C1212B0A6700015915E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		FC369CB91100D505004C27F8 /* NSMutableDictionary+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableDictionary+Additions.h"; path = "Sources/Main/NSMutableDictionary+Additions.h"; sourceTree = "<group>"; };
 		FC369CBA1100D505004C27F8 /* NSMutableDictionary+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableDictionary+Additions.m"; path = "Sources/Main/NSMutableDictionary+Additions.m"; sourceTree = "<group>"; };
@@ -201,9 +222,9 @@
 		089C1665FE841158C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				9DB6351B0E4DD97A00C72888 /* App.xib */,
-				9DB634F60E4DD8C200C72888 /* FeedbackReporter.xib */,
-				9DD4D9C20E4B934500B26451 /* FeedbackReporter.strings */,
+				444DCB701417D2D800C5636D /* FeedbackReporter.strings */,
+				444DCB671417D18000C5636D /* App.xib */,
+				444DCB5E1417D13E00C5636D /* FeedbackReporter.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -398,6 +419,14 @@
 				Armenian,
 				Italian,
 				Spanish,
+				de,
+				ru,
+				it,
+				hy,
+				fr,
+				es,
+				ar,
+				en,
 			);
 			mainGroup = 0867D691FE84028FC02AAC07 /* FeedbackReporter */;
 			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
@@ -416,8 +445,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9DD4D9C30E4B934500B26451 /* FeedbackReporter.strings in Resources */,
-				9DB634F70E4DD8C200C72888 /* FeedbackReporter.xib in Resources */,
+				444DCB5C1417D13E00C5636D /* FeedbackReporter.xib in Resources */,
+				444DCB721417D2D800C5636D /* FeedbackReporter.strings in Resources */,
+				444DCB741417D2E100C5636D /* App.xib in Resources */,
+				444DCB761417D2E900C5636D /* App.xib in Resources */,
+				444DCB781417D2F100C5636D /* App.xib in Resources */,
+				444DCB7A1417D2F800C5636D /* App.xib in Resources */,
+				444DCB7C1417D30300C5636D /* App.xib in Resources */,
+				444DCB7E1417D30B00C5636D /* App.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -432,7 +467,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9DB6351C0E4DD97A00C72888 /* App.xib in Resources */,
+				444DCB651417D18000C5636D /* App.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -510,16 +545,49 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		9DD4D9C20E4B934500B26451 /* FeedbackReporter.strings */ = {
+		444DCB5E1417D13E00C5636D /* FeedbackReporter.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				9DD4D9BF0E4B933A00B26451 /* English */,
-				9DD4D9C40E4B934A00B26451 /* German */,
-				9D73A5EC1064DE6D0001CF9E /* Russian */,
-				9DC8130210BEE59C00748B92 /* Italian */,
-				9DC8130310BEE5E700748B92 /* Armenian */,
-				9D2174CD11CB5F63009ABBB5 /* French */,
-				9D279E4D130BEB6C00505390 /* Spanish */,
+				444DCB5D1417D13E00C5636D /* en */,
+				444DCB5F1417D16B00C5636D /* de */,
+				444DCB601417D16D00C5636D /* ru */,
+				444DCB611417D16F00C5636D /* it */,
+				444DCB621417D17100C5636D /* hy */,
+				444DCB631417D17300C5636D /* fr */,
+				444DCB641417D17500C5636D /* es */,
+				444DCB6F1417D21300C5636D /* ar */,
+			);
+			name = FeedbackReporter.xib;
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		444DCB671417D18000C5636D /* App.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				444DCB661417D18000C5636D /* en */,
+				444DCB681417D18500C5636D /* de */,
+				444DCB691417D18500C5636D /* es */,
+				444DCB6A1417D18500C5636D /* it */,
+				444DCB6B1417D18500C5636D /* hy */,
+				444DCB6C1417D18500C5636D /* fr */,
+				444DCB6D1417D18500C5636D /* ru */,
+				444DCB6E1417D20D00C5636D /* ar */,
+			);
+			name = App.xib;
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		444DCB701417D2D800C5636D /* FeedbackReporter.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				444DCB711417D2D800C5636D /* de */,
+				444DCB731417D2E100C5636D /* en */,
+				444DCB751417D2E900C5636D /* es */,
+				444DCB771417D2F100C5636D /* fr */,
+				444DCB791417D2F800C5636D /* hy */,
+				444DCB7B1417D30300C5636D /* it */,
+				444DCB7D1417D30B00C5636D /* ru */,
+				444DCB7F1417D39100C5636D /* ar */,
 			);
 			name = FeedbackReporter.strings;
 			sourceTree = "<group>";
