@@ -21,6 +21,7 @@
 - (NSDictionary*) customParametersForFeedbackReport;
 - (NSMutableDictionary*) anonymizePreferencesForFeedbackReport:(NSMutableDictionary *)preferences;
 - (NSString *) targetUrlForFeedbackReport;
+- (NSString *) feedbackDisplayName;
 @end
 
 @interface FRFeedbackReporter : NSObject {

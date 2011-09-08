@@ -87,9 +87,17 @@
         
         [controller reset];
 
-        [controller setHeading:[NSString stringWithFormat:
+        NSString * applicationName = nil;
+        if ([delegate respondsToSelector:@selector(feedbackDisplayName)]) {
+            applicationName = [delegate feedbackDisplayName];
+        }
+        else {
+            applicationName =[FRApplication applicationName];
+        }
+
+       [controller setHeading:[NSString stringWithFormat:
             FRLocalizedString(@"Got a problem with %@?", nil),
-            [FRApplication applicationName]]];
+            applicationName]];
         
         [controller setSubheading:FRLocalizedString(@"Send feedback", nil)];
 
@@ -127,9 +135,17 @@
 
             [controller reset];
 
+            NSString * applicationName = nil;
+            if ([delegate respondsToSelector:@selector(feedbackDisplayName)]) {
+               applicationName = [delegate feedbackDisplayName];
+            }
+            else {
+               applicationName =[FRApplication applicationName];
+            }
+           
             [controller setHeading:[NSString stringWithFormat:
                 FRLocalizedString(@"%@ has recently crashed!", nil),
-                [FRApplication applicationName]]];
+                applicationName]];
             
             [controller setSubheading:FRLocalizedString(@"Send crash report", nil)];
             
@@ -160,10 +176,19 @@
         }
 
         [controller reset];
-        
+       
+        NSString * applicationName = nil;
+        if ([delegate respondsToSelector:@selector(feedbackDisplayName)]) {
+            applicationName = [delegate feedbackDisplayName];
+        }
+        else {
+            applicationName =[FRApplication applicationName];
+        }
+
+      
         [controller setHeading:[NSString stringWithFormat:
             FRLocalizedString(@"%@ has encountered an exception!", nil),
-            [FRApplication applicationName]]];
+            applicationName]];
         
         [controller setSubheading:FRLocalizedString(@"Send crash report", nil)];
 
