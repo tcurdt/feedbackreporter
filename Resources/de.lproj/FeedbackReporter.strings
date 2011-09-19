@@ -20,6 +20,9 @@
 "CrashLog" = "Crash Log";
 
 /* */
+"Details" = "Details";
+
+/* */
 "Email address:" = "Ihre Email-Adresse falls wir Sie kontaktieren sollen:";
 
 /* */
@@ -30,6 +33,9 @@
 
 /* Comment label text for feedback */
 "Feedback comment label" = "Ihr Feedback:";
+
+/* */
+"Feedback" = "Rückkopplung";
 
 /* */
 "Feedback Host Not Reachable" = "Feedback Server nicht erreichbar";
@@ -63,6 +69,9 @@
 
 /* */
 "Sorry, failed to submit your feedback to the server." = "Leider konnte der Report nicht zum Server übertragen werden.";
+
+/* */
+"System" = "System";
 
 /* */
 "You may not be able to send feedback because %@ isn't reachable." = "Der Server %@ scheint nicht erreichbar zu sein.\n\nStellen Sie sicher, dass Sie mit dem Internet verbunden sind.\n";
