@@ -500,6 +500,17 @@
 - (void) windowWillClose: (NSNotification *) n
 {
     [uploader cancel];
+
+    if (type == FR_EXCEPTION) {
+        NSString *exitAfterException = [[[NSBundle mainBundle] infoDictionary] valueForKey:PLIST_KEY_EXITAFTEREXCEPTION];
+        if (exitAfterException && [exitAfterException isEqualToString:@"YES"]) {
+            // We want a pure exit() here I think.
+            // As an exception has already been raised there is no
+            // guarantee that the code path to [NSAapp terminate] is functional.
+            // Calling abort() will crash the app here but is that more desirable?
+            exit(EXIT_FAILURE);
+        }
+    }
 }
 
 - (void) windowDidLoad
