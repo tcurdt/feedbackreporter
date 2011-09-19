@@ -20,6 +20,9 @@
 "CrashLog" = "Վթարման լոգ";
 
 /* */
+"Details" = "մանրամասն";
+
+/* */
 "Email address:" = "Ձեր էլ. հասցեն, եթե ցանկանում եք, որ Ձեզ հետ կապնվենք:";
 
 /* */
@@ -30,6 +33,9 @@
 
 /* Comment label text for feedback */
 "Feedback comment label" = "Հետադարձ կապ:";
+
+/* */
+"Feedback" = "Հետադարձ կապ";
 
 /* */
 "Feedback Host Not Reachable" = "Հաղորդման հոսթն անհասանելի է";
@@ -63,6 +69,9 @@
 
 /* */
 "Sorry, failed to submit your feedback to the server." = "Ձեր հաղորդումը սերվերին ձախողվեց:";
+
+/* */
+"System" = "համակարգ";
 
 /* */
 "You may not be able to send feedback because %@ isn't reachable." = "%@-ի անհասանելիության պատճառով հաղորդում չեք կարող անել.\n\nՇարունակելուց առաջ համոզվե՛ք որ միացած եք ինտերնետին.\n";

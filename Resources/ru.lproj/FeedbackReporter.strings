@@ -20,6 +20,9 @@
 "CrashLog" = "Журнал ошибок";
 
 /* */
+"Details" = "детали";
+
+/* */
 "Email address:" = "Адрес электронной почты:";
 
 /* */
@@ -27,6 +30,9 @@
 
 /* */
 "Exception" = "Исключение";
+
+/* */
+"Feedback" = "обратная связь";
 
 /* Comment label text for feedback */
 "Feedback comment label" = "Ваше мнение:";
@@ -63,6 +69,9 @@
 
 /* */
 "Sorry, failed to submit your feedback to the server." = "К сожалению, не удалось отправить Ваше сообщение.";
+
+/* */
+"System" = "система";
 
 /* */
 "You may not be able to send feedback because %@ isn't reachable." = "Вы не можете отправить сообщение потому, что %@ не доступен.\n\nПожалуйста, убедитесь что Вы подключены к Интернету прежде чем продолжить.\n";
