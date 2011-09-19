@@ -506,10 +506,10 @@
 {
     [[self window] setDelegate:self];
 
-   //[[self window] setTitle:FRLocalizedString(@"Feedback", nil)];
+    [[self window] setTitle:FRLocalizedString(@"Feedback", nil)];
     [emailLabel setStringValue:FRLocalizedString(@"Email address:", nil)];
  
-   //[detailsLabel setStringValue:FRLocalizedString(@"Details", nil)];
+    [detailsLabel setStringValue:FRLocalizedString(@"Details", nil)];
    
     [tabSystem setLabel:FRLocalizedString(@"System", nil)];
     [tabConsole setLabel:FRLocalizedString(@"Console", nil)];
