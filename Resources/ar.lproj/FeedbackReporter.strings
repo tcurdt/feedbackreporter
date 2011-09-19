@@ -20,6 +20,9 @@
 "CrashLog" = "سجل الأعطال";
 
 /* */
+"Details" = "التفاصيل";
+
+/* */
 "Email address:" = "عنوان البريد الإلكتروني الخاص بك إذا كنت تريد منا  الإتصال بك :";
 
 /* */
@@ -30,6 +33,9 @@
 
 /* Comment label text for feedback */
 "Feedback comment label" = "ملاحظاتك :";
+
+/* */
+"Feedback" = "الملاحظات";
 
 /* */
 "Feedback Host Not Reachable" = "ملاحظات المضيف غير قابلة للوصول";
@@ -63,6 +69,9 @@
 
 /* */
 "Sorry, failed to submit your feedback to the server." = "خطأ عند تقديم ملاحظاتك إلى الخادم.";
+
+/* */
+"System" = "نظام";
 
 /* */
 "You may not be able to send feedback because %@ isn't reachable." = "قد لا تكون قادر على ارسال ملاحظاتك بسبب %@ غير قابل للوصول.\n\n الرجاء التأكد من اتصال شبكة الإنترنيت قبل المتابعة.\n";

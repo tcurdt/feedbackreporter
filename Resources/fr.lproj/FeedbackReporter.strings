@@ -20,6 +20,9 @@
 "CrashLog" = "CrashLog";
 
 /* */
+"Details" = "Détails";
+
+/* */
 "Email address:" = "Votre email, si vous voulez que nous vous contactions :";
 
 /* */
@@ -27,6 +30,9 @@
 
 /* */
 "Exception" = "Exception";
+
+/* */
+"Feedback" = "Commentaires";
 
 /* Comment label text for feedback */
 "Feedback comment label" = "Vos commentaires :";
@@ -63,6 +69,9 @@
 
 /* */
 "Sorry, failed to submit your feedback to the server." = "Erreur pendant l'envoi de votre rapport au serveur.";
+
+/* */
+"System" = "Système";
 
 /* */
 "You may not be able to send feedback because %@ isn't reachable." = "Le rapport ne pourra pas être envoyé car %@ est inaccessible.\n\nAssurez vous d'être connecté au réseau avant continuer.\n";
