@@ -744,7 +744,6 @@
 				INFOPLIST_FILE = Sources/App/Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = App;
-				ZERO_LINK = NO;
 			};
 			name = Release;
 		};
