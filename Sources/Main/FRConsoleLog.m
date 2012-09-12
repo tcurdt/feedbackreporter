@@ -82,7 +82,7 @@
                 consoleLinesProcessed++;
                 if (consoleLinesProcessed > rawConsoleLinesCapacity) {
                     rawConsoleLinesCapacity *= 2;
-                    rawConsoleLines = realloc(rawConsoleLines, rawConsoleLinesCapacity * sizeof(char **));
+                    rawConsoleLines = reallocf(rawConsoleLines, rawConsoleLinesCapacity * sizeof(char **));
                 }
 
                 // Add a new entry for this console line
