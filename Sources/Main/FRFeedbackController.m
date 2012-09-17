@@ -501,7 +501,7 @@
 {
     [uploader cancel];
 
-    if (type == FR_EXCEPTION) {
+    if ([type isEqualToString:FR_EXCEPTION]) {
         NSString *exitAfterException = [[[NSBundle mainBundle] infoDictionary] valueForKey:PLIST_KEY_EXITAFTEREXCEPTION];
         if (exitAfterException && [exitAfterException isEqualToString:@"YES"]) {
             // We want a pure exit() here I think.
@@ -653,7 +653,7 @@
 
 - (void) showWindow:(id)sender
 {
-    if (type == FR_FEEDBACK) {
+    if ([type isEqualToString:FR_FEEDBACK]) {
         [messageLabel setStringValue:FRLocalizedString(@"Feedback comment label", nil)];
     } else {
         [messageLabel setStringValue:FRLocalizedString(@"Comments:", nil)];
