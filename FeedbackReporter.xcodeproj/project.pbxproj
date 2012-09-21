@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 45;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -397,8 +397,7 @@
 				LastUpgradeCheck = 0410;
 			};
 			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "FeedbackReporter" */;
-			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			compatibilityVersion = "Xcode 3.1";
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -650,10 +649,8 @@
 				GCC_WARN_UNUSED_PARAMETER = NO;
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
-				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -698,10 +695,8 @@
 				GCC_WARN_UNUSED_PARAMETER = NO;
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = NO;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
-				SDKROOT = macosx;
 			};
 			name = Release;
 		};
