@@ -39,9 +39,14 @@
     NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
     [dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
-
-    aslmsg query = asl_new(ASL_TYPE_QUERY);
-
+	
+	// ASL does not work in App Sandbox, even read-only. <rdar://problem/9689364>
+	// Workaround is to use:
+	//   com.apple.security.temporary-exception.files.absolute-path.read-only
+	// for:
+	//   /private/var/log/asl/
+	aslmsg query = asl_new(ASL_TYPE_QUERY);
+	
     if (query != NULL) {
 
         NSString *applicationName = [FRApplication applicationName];
