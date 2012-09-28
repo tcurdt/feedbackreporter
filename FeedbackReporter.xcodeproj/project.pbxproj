@@ -300,8 +300,8 @@
 		9DD9DDEB0E4125460054105A /* App */ = {
 			isa = PBXGroup;
 			children = (
-				9DB6353A0E4DDCB700C72888 /* AppController.m */,
 				9DB6353B0E4DDCB700C72888 /* AppController.h */,
+				9DB6353A0E4DDCB700C72888 /* AppController.m */,
 				9DB6351D0E4DD9BE00C72888 /* main.m */,
 				9DB634E70E4DD64C00C72888 /* Info.plist */,
 			);

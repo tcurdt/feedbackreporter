@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2011, Torsten Curdt
+ * Copyright 2008-2012, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -74,7 +74,7 @@
     NSLog(@"exception in thread");
     [NSException raise:@"TestExceptionThread" format:@"Something went wrong"];
     [NSThread exit];
-    [pool release];
+    [pool drain];
 }
 
 - (IBAction) buttonExceptionInThread:(id)sender
