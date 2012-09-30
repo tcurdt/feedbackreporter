@@ -82,6 +82,23 @@
     [NSThread detachNewThreadSelector:@selector(threadWithException) toTarget:self withObject:nil];
 }
 
+- (IBAction) buttonExceptionInDispatchQueue:(id)sender
+{
+#if MAC_OS_X_VERSION_MIN_REQUIRED >= 1060
+	dispatch_queue_t queue = dispatch_queue_create(NULL, DISPATCH_QUEUE_SERIAL);
+
+	dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1);
+	dispatch_after(popTime, queue, ^{
+		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+		NSLog(@"exception in dispatch queue");
+		[NSException raise:@"TestExceptionDispatchQueue" format:@"Something went wrong"];
+		[pool drain];
+	});
+	
+	// leak queue.
+#endif
+}
+
 - (IBAction) buttonCrash:(id)sender
 {
     NSLog(@"crash");
