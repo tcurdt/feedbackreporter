@@ -19,7 +19,6 @@
 		444DCB5C1417D13E00C5636D /* FeedbackReporter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 444DCB5E1417D13E00C5636D /* FeedbackReporter.xib */; };
 		444DCB651417D18000C5636D /* App.xib in Resources */ = {isa = PBXBuildFile; fileRef = 444DCB671417D18000C5636D /* App.xib */; };
 		444DCB721417D2D800C5636D /* FeedbackReporter.strings in Resources */ = {isa = PBXBuildFile; fileRef = 444DCB701417D2D800C5636D /* FeedbackReporter.strings */; };
-		444DCB741417D2E100C5636D /* App.xib in Resources */ = {isa = PBXBuildFile; fileRef = 444DCB671417D18000C5636D /* App.xib */; };
 		9D006DF60E1438F6000B6AFC /* FRConsoleLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D006DF50E1438F6000B6AFC /* FRConsoleLog.m */; };
 		9D0EC0220DF00F250045EB76 /* FRExceptionReportingApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0EC0200DF00F250045EB76 /* FRExceptionReportingApplication.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9D0EC0230DF00F250045EB76 /* FRExceptionReportingApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EC0210DF00F250045EB76 /* FRExceptionReportingApplication.m */; };
@@ -97,13 +96,6 @@
 		444DCB631417D17300C5636D /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/FeedbackReporter.xib; sourceTree = "<group>"; };
 		444DCB641417D17500C5636D /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/FeedbackReporter.xib; sourceTree = "<group>"; };
 		444DCB661417D18000C5636D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/App.xib; sourceTree = "<group>"; };
-		444DCB681417D18500C5636D /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/App.xib; sourceTree = "<group>"; };
-		444DCB691417D18500C5636D /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/App.xib; sourceTree = "<group>"; };
-		444DCB6A1417D18500C5636D /* it */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = it; path = it.lproj/App.xib; sourceTree = "<group>"; };
-		444DCB6B1417D18500C5636D /* hy */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = hy; path = hy.lproj/App.xib; sourceTree = "<group>"; };
-		444DCB6C1417D18500C5636D /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/App.xib; sourceTree = "<group>"; };
-		444DCB6D1417D18500C5636D /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ru; path = ru.lproj/App.xib; sourceTree = "<group>"; };
-		444DCB6E1417D20D00C5636D /* ar */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ar; path = ar.lproj/App.xib; sourceTree = "<group>"; };
 		444DCB6F1417D21300C5636D /* ar */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ar; path = ar.lproj/FeedbackReporter.xib; sourceTree = "<group>"; };
 		444DCB711417D2D800C5636D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = Resources/de.lproj/FeedbackReporter.strings; sourceTree = "<group>"; };
 		444DCB731417D2E100C5636D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Resources/en.lproj/FeedbackReporter.strings; sourceTree = "<group>"; };
@@ -436,7 +428,6 @@
 			files = (
 				444DCB5C1417D13E00C5636D /* FeedbackReporter.xib in Resources */,
 				444DCB721417D2D800C5636D /* FeedbackReporter.strings in Resources */,
-				444DCB741417D2E100C5636D /* App.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -549,13 +540,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				444DCB661417D18000C5636D /* en */,
-				444DCB681417D18500C5636D /* de */,
-				444DCB691417D18500C5636D /* es */,
-				444DCB6A1417D18500C5636D /* it */,
-				444DCB6B1417D18500C5636D /* hy */,
-				444DCB6C1417D18500C5636D /* fr */,
-				444DCB6D1417D18500C5636D /* ru */,
-				444DCB6E1417D20D00C5636D /* ar */,
 			);
 			name = App.xib;
 			path = Resources;
