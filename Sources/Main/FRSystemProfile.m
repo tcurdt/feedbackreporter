@@ -269,26 +269,41 @@
 
 + (long) cpuspeed
 {
-    SInt32 result = 0;
+    long result = 0;
 
-    OSErr error = Gestalt(gestaltProcClkSpeedMHz, &result);
+	int error = 0;
+
+    int64_t hertz = 0;
+	size_t size = sizeof(hertz);
+	int mib[2] = {CTL_HW, HW_CPU_FREQ};
+	
+	error = sysctl(mib, 2, &hertz, &size, NULL, 0);
+	
     if (error) {
         NSLog(@"Failed to obtain CPU speed");
         return -1;
     }
+	
+	result = (long)(hertz/1000000); // Convert to MHz
     
     return result;
 }
 
 + (long) ramsize
 {
-    SInt32 result = 0;
+    long result = 0;
 
-    OSErr error = Gestalt(gestaltPhysicalRAMSizeInMegabytes, &result);
-    if (error) {
+	int error = 0;
+    int64_t value = 0;
+    size_t length = sizeof(value);
+	
+    error = sysctlbyname("hw.memsize", &value, &length, NULL, 0);
+	if (error) {
         NSLog(@"Failed to obtain RAM size");
         return -1;
-    }
+	}
+	const int64_t kBytesPerMegabyte = 1024*1024;
+	result = (long)(value/kBytesPerMegabyte);
     
     return result;
 }
