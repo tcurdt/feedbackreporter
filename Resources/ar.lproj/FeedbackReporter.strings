@@ -1,0 +1,78 @@
+﻿/* Uncaught exception message */
+"%@ has encountered an exception!" = "%@ واجه خطأ غير متوقع.";
+
+/* Message text for crash report */
+"%@ has recently crashed!" = "%@إنهاء غير متوقع.";
+
+/* */
+"anonymous" = "مجهول";
+
+/* */
+"Cancel" = "إلغاء";
+
+/* Comments text view label */
+"Comments:" = "ماذا فعلت قبل حدوث المشكلة :";
+
+/* */
+"Console" = "وحدة التحكم";
+
+/* */
+"CrashLog" = "سجل الأعطال";
+
+/* */
+"Details" = "التفاصيل";
+
+/* */
+"Email address:" = "عنوان البريد الإلكتروني الخاص بك إذا كنت تريد منا  الإتصال بك :";
+
+/* */
+"Error: %@" = "خطأ :%@";
+
+/* */
+"Exception" = "استثناء";
+
+/* Comment label text for feedback */
+"Feedback comment label" = "ملاحظاتك :";
+
+/* */
+"Feedback" = "الملاحظات";
+
+/* */
+"Feedback Host Not Reachable" = "ملاحظات المضيف غير قابلة للوصول";
+
+/* Feedback message text */
+"Got a problem with %@?" = "حصلت على فكرة عن كيفية تحسين %@ ؟";
+
+/* */
+"OK" = "موافق";
+
+/* */
+"Preferences" = "التفضيلات";
+
+/* */
+"Proceed Anyway" = "المتابعة على أية حال";
+
+/* */
+"Script" = "البرامج النصية";
+
+/* */
+"Send" = "إرسال";
+
+/* Informative text for crash report */
+"Send crash report" = "لمساعدتنا في حل المشكلة ، يرجى ان ترسل الينا ملاحظات التقرير. انقر فوق تفاصيل لمعرفة ما هي المعلومات التي تم إرسالها إلينا.";
+
+/* */
+"Send details" = "ارسال التفاصيل";
+
+/* Informative text for feedback */
+"Send feedback" = "لمساعدتنا على تحسين برامجنا ملاحظاتك هي في موضع ترحيب للغاية!انقر فوق تفاصيل لمعرفة ما هي المعلومات التي تم إرسالها إلينا.";
+
+/* */
+"Sorry, failed to submit your feedback to the server." = "خطأ عند تقديم ملاحظاتك إلى الخادم.";
+
+/* */
+"System" = "نظام";
+
+/* */
+"You may not be able to send feedback because %@ isn't reachable." = "قد لا تكون قادر على ارسال ملاحظاتك بسبب %@ غير قابل للوصول.\n\n الرجاء التأكد من اتصال شبكة الإنترنيت قبل المتابعة.\n";
+

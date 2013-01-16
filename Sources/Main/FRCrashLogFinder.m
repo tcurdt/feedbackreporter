@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2010, Torsten Curdt
+ * Copyright 2008-2011, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,11 +31,11 @@
         return YES;
     }
 
-	NSError* error = nil;
+    NSError* error = nil;
     NSDate* fileDate = [[fileManager attributesOfItemAtPath:path error:&error] fileModificationDate];
-	if (!fileDate) {
-		NSLog(@"Error while fetching file attributes: %@", [error localizedDescription]);
-	}
+    if (!fileDate) {
+        NSLog(@"Error while fetching file attributes: %@", [error localizedDescription]);
+    }
 
     if ([date compare:fileDate] == NSOrderedDescending) {
         return NO;
@@ -64,14 +64,21 @@
 
         // NSLog(@"Searching for crash files at %@", logDir2);
 
+        // 10.8 Mountain Lion no longer appears to create the Logs/CrashReporter directory
+        if (![fileManager fileExistsAtPath:logDir2]) {
+
+            logDir2 = @"Logs/DiagnosticReports/";
+            logDir2 = [[libraryDirectory stringByAppendingPathComponent:logDir2] stringByExpandingTildeInPath];
+        }
+
         if ([fileManager fileExistsAtPath:logDir2]) {
 
             enumerator  = [fileManager enumeratorAtPath:logDir2];
             while ((file = [enumerator nextObject])) {
 
                 // NSLog(@"Checking crash file %@", file);
-				
-				NSString* expectedPrefix = [[FRApplication applicationName] stringByAppendingString:@"_"];
+                
+                NSString* expectedPrefix = [[FRApplication applicationName] stringByAppendingString:@"_"];
                 if ([[file pathExtension] isEqualToString:@"crash"] && [[file stringByDeletingPathExtension] hasPrefix:expectedPrefix]) {
 
                     file = [[logDir2 stringByAppendingPathComponent:file] stringByExpandingTildeInPath];
@@ -85,7 +92,6 @@
                 }
             }
         }
-
 
         NSString* logDir3 = [NSString stringWithFormat: @"Logs/HangReporter/%@/", [FRApplication applicationName]];
         logDir3 = [[libraryDirectory stringByAppendingPathComponent:logDir3] stringByExpandingTildeInPath];

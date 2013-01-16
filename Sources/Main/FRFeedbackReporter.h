@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2010, Torsten Curdt
+ * Copyright 2008-2011, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@
 - (NSDictionary*) customParametersForFeedbackReport;
 - (NSMutableDictionary*) anonymizePreferencesForFeedbackReport:(NSMutableDictionary *)preferences;
 - (NSString *) targetUrlForFeedbackReport;
+- (NSString *) feedbackDisplayName;
 @end
 
 @interface FRFeedbackReporter : NSObject {

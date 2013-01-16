@@ -5,6 +5,7 @@
 * [FIX] PLIST_KEY_LOGHOURS should come from the info plist. Thanks to Rico.
 * [CHG] Link against Foundation and 10.4 compatibility. Thanks to Linas Valiukas.
 
+
 ## Version 1.3.0, released 18.06.2010
 
 New localizations. New options. Many little fixes. Better CPU detection.

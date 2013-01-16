@@ -1,5 +1,5 @@
 /*
- * Copyright 2008, Jens Alfke, Torsten Curdt
+ * Copyright 2008-2012, Jens Alfke, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
 #import "FRExceptionReportingApplication.h"
 #import "NSException+Callstack.h"
 #import "FRFeedbackReporter.h"
-#include <pthread.h>
+#import <pthread.h>
 
 @implementation FRExceptionReportingApplication
 
