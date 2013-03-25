@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2012, Torsten Curdt
+ * Copyright 2008-2013, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -64,8 +64,8 @@
 
 - (IBAction) buttonException:(id)sender
 {
-    NSLog(@"exception");
-    [NSException raise:@"TestException" format:@"Something went wrong"];
+    NSLog(@"exception due to ❄");
+    [NSException raise:@"TestException" format:@"Something went wrong (☃ attack?)"];
 }
 
 - (void) threadWithException
