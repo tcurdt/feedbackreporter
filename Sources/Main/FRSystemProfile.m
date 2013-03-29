@@ -1,5 +1,5 @@
 /*
- * Copyright 2008, Torsten Curdt
+ * Copyright 2008-2013, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -247,7 +247,7 @@
         return nil;
     }
 
-    NSString *machinemodel = [NSString stringWithFormat:@"%s", p];
+    NSString *machinemodel = [NSString stringWithUTF8String:p];
     
     free(p);
 
