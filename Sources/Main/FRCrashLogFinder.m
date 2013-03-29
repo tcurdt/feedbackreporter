@@ -50,7 +50,7 @@
 
     NSFileManager *fileManager = [NSFileManager defaultManager];
 
-    NSArray *libraryDirectories = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSLocalDomainMask|NSUserDomainMask, FALSE);
+    NSArray *libraryDirectories = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSLocalDomainMask|NSUserDomainMask, NO);
 
     NSUInteger i = [libraryDirectories count];
     while(i--) {
@@ -59,15 +59,15 @@
         NSDirectoryEnumerator *enumerator = nil;
         NSString *file = nil;
         
-        NSString* logDir2 = @"Logs/CrashReporter/";
+        NSString* logDir2 = @"Logs/DiagnosticReports/";
         logDir2 = [[libraryDirectory stringByAppendingPathComponent:logDir2] stringByExpandingTildeInPath];
 
         // NSLog(@"Searching for crash files at %@", logDir2);
 
-        // 10.8 Mountain Lion no longer appears to create the Logs/CrashReporter directory
+        // Older versions of Mac OS X used Logs/CrashReporter instead
         if (![fileManager fileExistsAtPath:logDir2]) {
 
-            logDir2 = @"Logs/DiagnosticReports/";
+            logDir2 = @"Logs/CrashReporter/";
             logDir2 = [[libraryDirectory stringByAppendingPathComponent:logDir2] stringByExpandingTildeInPath];
         }
 

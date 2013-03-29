@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2011, Torsten Curdt
+ * Copyright 2008-2013, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -111,7 +111,9 @@
                 for (NSInteger i = consoleLinesProcessed - 1; i >= 0; i--) {
                     char **line = rawConsoleLines[i];
                     NSDate *date = [NSDate dateWithTimeIntervalSince1970:atof(line[FR_CONSOLELOG_TIME])];
-                    [consoleLines addObject:[NSString stringWithFormat:@"%@: %s\n", [dateFormatter stringFromDate:date], line[FR_CONSOLELOG_TEXT]]];
+					NSString *lineString = [NSString stringWithUTF8String:line[FR_CONSOLELOG_TEXT]];
+					NSString *fullString = [NSString stringWithFormat:@"%@: %@\n", [dateFormatter stringFromDate:date], lineString];
+                    [consoleLines addObject:fullString];
 
                     // If a maximum size has been provided, respect it and abort if necessary
                     if (maximumSize != nil) {
