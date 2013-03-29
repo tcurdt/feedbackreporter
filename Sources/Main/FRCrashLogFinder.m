@@ -59,35 +59,36 @@
         NSDirectoryEnumerator *enumerator = nil;
         NSString *file = nil;
         
-        NSString* logDir2 = @"Logs/CrashReporter/";
-        logDir2 = [[libraryDirectory stringByAppendingPathComponent:logDir2] stringByExpandingTildeInPath];
+        NSString* logDir = @"Logs/CrashReporter/";
+        logDir = [[libraryDirectory stringByAppendingPathComponent:logDir] stringByExpandingTildeInPath];
 
         // NSLog(@"Searching for crash files at %@", logDir2);
 
         // 10.8 Mountain Lion no longer appears to create the Logs/CrashReporter directory
-        if (![fileManager fileExistsAtPath:logDir2]) {
+        NSString *logDir2 = @"Logs/DiagnosticReports/";
+        logDir2 = [[libraryDirectory stringByAppendingPathComponent:logDir2] stringByExpandingTildeInPath];
+        
+        NSArray *crashDirs = [NSArray arrayWithObjects:logDir, logDir2, nil];
 
-            logDir2 = @"Logs/DiagnosticReports/";
-            logDir2 = [[libraryDirectory stringByAppendingPathComponent:logDir2] stringByExpandingTildeInPath];
-        }
+        for (NSString *crashDir in crashDirs) {
+            if ([fileManager fileExistsAtPath:crashDir]) {
 
-        if ([fileManager fileExistsAtPath:logDir2]) {
+                enumerator  = [fileManager enumeratorAtPath:crashDir];
+                while ((file = [enumerator nextObject])) {
 
-            enumerator  = [fileManager enumeratorAtPath:logDir2];
-            while ((file = [enumerator nextObject])) {
+                    // NSLog(@"Checking crash file %@", file);
+                    
+                    NSString* expectedPrefix = [[FRApplication applicationName] stringByAppendingString:@"_"];
+                    if ([[file pathExtension] isEqualToString:@"crash"] && [[file stringByDeletingPathExtension] hasPrefix:expectedPrefix]) {
 
-                // NSLog(@"Checking crash file %@", file);
-                
-                NSString* expectedPrefix = [[FRApplication applicationName] stringByAppendingString:@"_"];
-                if ([[file pathExtension] isEqualToString:@"crash"] && [[file stringByDeletingPathExtension] hasPrefix:expectedPrefix]) {
+                        file = [[crashDir stringByAppendingPathComponent:file] stringByExpandingTildeInPath];
 
-                    file = [[logDir2 stringByAppendingPathComponent:file] stringByExpandingTildeInPath];
+                        if ([self file:file isNewerThan:date]) {
 
-                    if ([self file:file isNewerThan:date]) {
+                            // NSLog(@"Found crash file %@", file);
 
-                        // NSLog(@"Found crash file %@", file);
-
-                        [files addObject:file];
+                            [files addObject:file];
+                        }
                     }
                 }
             }
