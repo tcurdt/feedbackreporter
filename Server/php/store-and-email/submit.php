@@ -38,7 +38,9 @@ function uniq()
     return date('Y-m-d\\TH:i:s-') . md5(getmypid().uniqid(rand()).$_SERVER[‘SERVER_NAME’]);
 }
 
-$project_raw = $_GET['project'];
+// Support projects with spaces such as "MainMenu Pro" by removing the spaces
+// so that the submission folder becomes "MainMenuPro"
+$project_raw = preg_replace('/\s+/', '', $_GET['project']);
 $project = preg_replace('/[^(0-9A-Za-z)]*/', '', $project_raw);
 
 if ($project != $project_raw) {
