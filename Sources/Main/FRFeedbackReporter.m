@@ -34,11 +34,11 @@
 {
     static FRFeedbackReporter *sharedReporter = nil;
 
-	if (sharedReporter == nil) {
-		sharedReporter = [[[self class] alloc] init];
+    if (sharedReporter == nil) {
+        sharedReporter = [[[self class] alloc] init];
     }
 
-	return sharedReporter;
+    return sharedReporter;
 }
 
 #pragma mark Destruction
@@ -61,14 +61,14 @@
     return feedbackController;
 }
 
-- (id) delegate
+- (id<FRFeedbackReporterDelegate>) delegate
 {
-	return delegate;
+    return delegate;
 }
 
-- (void) setDelegate:(id) pDelegate
+- (void) setDelegate:(id<FRFeedbackReporterDelegate>) pDelegate
 {
-	delegate = pDelegate;
+    delegate = pDelegate;
 }
 
 
@@ -87,34 +87,41 @@
         
         [controller reset];
 
-        [controller setMessage:[NSString stringWithFormat:
+        NSString * applicationName = nil;
+        if ([delegate respondsToSelector:@selector(feedbackDisplayName)]) {
+            applicationName = [delegate feedbackDisplayName];
+        }
+        else {
+            applicationName =[FRApplication applicationName];
+        }
+
+       [controller setHeading:[NSString stringWithFormat:
             FRLocalizedString(@"Got a problem with %@?", nil),
-            [FRApplication applicationName]]];
-		
-		[controller setInformativeText:[NSString stringWithFormat:
-			FRLocalizedString(@"Send feedback", nil)]];
-            
+            applicationName]];
+        
+        [controller setSubheading:FRLocalizedString(@"Send feedback", nil)];
+
         [controller setType:FR_FEEDBACK];
-        
+
         [controller setDelegate:delegate];
-        
+
         [controller showWindow:self];
 
     }
-    
+	
     return YES;
 }
 
 - (BOOL) reportIfCrash
 {
-    NSDate *lastCrashCheckDate = [[NSUserDefaults standardUserDefaults] valueForKey:KEY_LASTCRASHCHECKDATE];
+    NSDate *lastCrashCheckDate = [[NSUserDefaults standardUserDefaults] valueForKey:DEFAULTS_KEY_LASTCRASHCHECKDATE];
     
     NSArray *crashFiles = [FRCrashLogFinder findCrashLogsSince:lastCrashCheckDate];
 
     [[NSUserDefaults standardUserDefaults] setValue: [NSDate date]
-                                             forKey: KEY_LASTCRASHCHECKDATE];
+                                             forKey: DEFAULTS_KEY_LASTCRASHCHECKDATE];
     
-    if ([crashFiles count] > 0) {
+    if (lastCrashCheckDate && [crashFiles count] > 0) {
         // NSLog(@"Found new crash files");
 
         FRFeedbackController *controller = [self feedbackController];
@@ -128,12 +135,20 @@
 
             [controller reset];
 
-            [controller setMessage:[NSString stringWithFormat:
+            NSString * applicationName = nil;
+            if ([delegate respondsToSelector:@selector(feedbackDisplayName)]) {
+               applicationName = [delegate feedbackDisplayName];
+            }
+            else {
+               applicationName =[FRApplication applicationName];
+            }
+           
+            [controller setHeading:[NSString stringWithFormat:
                 FRLocalizedString(@"%@ has recently crashed!", nil),
-                [FRApplication applicationName]]];
-			
-			[controller setInformativeText:[NSString stringWithFormat:							FRLocalizedString(@"Send feedback", nil)]];
-			
+                applicationName]];
+            
+            [controller setSubheading:FRLocalizedString(@"Send crash report", nil)];
+            
             [controller setType:FR_CRASH];
 
             [controller setDelegate:delegate];
@@ -161,17 +176,27 @@
         }
 
         [controller reset];
-        
-        [controller setMessage:[NSString stringWithFormat:
-            FRLocalizedString(@"%@ has encountered an exception!", nil),
-            [FRApplication applicationName]]];
-		
-		[controller setInformativeText:[NSString stringWithFormat:FRLocalizedString(@"Send feedback", nil)]];
+       
+        NSString * applicationName = nil;
+        if ([delegate respondsToSelector:@selector(feedbackDisplayName)]) {
+            applicationName = [delegate feedbackDisplayName];
+        }
+        else {
+            applicationName =[FRApplication applicationName];
+        }
 
+      
+        [controller setHeading:[NSString stringWithFormat:
+            FRLocalizedString(@"%@ has encountered an exception!", nil),
+            applicationName]];
+        
+        [controller setSubheading:FRLocalizedString(@"Send crash report", nil)];
+
+        NSString* callStack = [exception my_callStack];
         [controller setException:[NSString stringWithFormat: @"%@\n\n%@\n\n%@",
                                     [exception name],
                                     [exception reason],
-                                    [exception my_callStack] ?:@""]];
+                                    callStack ? callStack : @""]];
 
         [controller setType:FR_EXCEPTION];
 

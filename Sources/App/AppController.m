@@ -1,5 +1,5 @@
 /*
- * Copyright 2008, Torsten Curdt
+ * Copyright 2008-2013, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@
     NSLog(@"adding custom parameters");
 
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-
+    
     [dict setObject:@"tcurdt"
              forKey:@"user"];
 
@@ -42,6 +42,20 @@
     return dict;
 }
 
+- (NSString *) feedbackDisplayName
+{
+   return @"Test App";
+}
+
+/*
+- (NSString *)targetUrlForFeedbackReport
+{
+    NSString *targetUrlFormat = @"http://myserver.com/submit.php?project=%@&version=%@";
+    NSString *project = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleExecutable"];
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleVersion"];
+    return [NSString stringWithFormat:targetUrlFormat, project, version];
+}*/
+
 - (IBAction) buttonFeedback:(id)sender
 {
     NSLog(@"button");
@@ -50,8 +64,39 @@
 
 - (IBAction) buttonException:(id)sender
 {
-    NSLog(@"exception");
-    [NSException raise:@"TestException" format:@"Something went wrong"];
+    NSLog(@"exception due to ❄");
+    [NSException raise:@"TestException" format:@"Something went wrong (☃ attack?)"];
+}
+
+- (void) threadWithException
+{
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    NSLog(@"exception in thread");
+    [NSException raise:@"TestExceptionThread" format:@"Something went wrong"];
+    [NSThread exit];
+    [pool drain];
+}
+
+- (IBAction) buttonExceptionInThread:(id)sender
+{
+    [NSThread detachNewThreadSelector:@selector(threadWithException) toTarget:self withObject:nil];
+}
+
+- (IBAction) buttonExceptionInDispatchQueue:(id)sender
+{
+#if MAC_OS_X_VERSION_MIN_REQUIRED >= 1060
+	dispatch_queue_t queue = dispatch_queue_create(NULL, DISPATCH_QUEUE_SERIAL);
+
+	dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1);
+	dispatch_after(popTime, queue, ^{
+		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+		NSLog(@"exception in dispatch queue");
+		[NSException raise:@"TestExceptionDispatchQueue" format:@"Something went wrong"];
+		[pool drain];
+	});
+	
+	// leak queue.
+#endif
 }
 
 - (IBAction) buttonExceptionInThread:(id)sender

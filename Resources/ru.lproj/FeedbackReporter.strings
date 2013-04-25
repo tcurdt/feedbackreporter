@@ -1,0 +1,78 @@
+/* */
+"%@ has encountered an exception!" = "В приложении %@ произошла исключительная ситуация.";
+
+/* */
+"%@ has recently crashed!" = "В приложении %@ недавно произошла критическая ошибка.";
+
+/* */
+"anonymous" = "аноним";
+
+/* */
+"Cancel" = "Отмена";
+
+/* */
+"Comments:" = "Комментарии:";
+
+/* */
+"Console" = "Консоль";
+
+/* */
+"CrashLog" = "Журнал ошибок";
+
+/* */
+"Details" = "детали";
+
+/* */
+"Email address:" = "Адрес электронной почты:";
+
+/* */
+"Error: %@" = "Ошибка: %@";
+
+/* */
+"Exception" = "Исключение";
+
+/* */
+"Feedback" = "обратная связь";
+
+/* Comment label text for feedback */
+"Feedback comment label" = "Ваше мнение:";
+
+/* */
+"Feedback Host Not Reachable" = "Сервер для обработки сообщений не доступен";
+
+/* */
+"Got a problem with %@?" = "Проблема с приложением %@?";
+
+/* */
+"OK" = "Oк";
+
+/* */
+"Preferences" = "Настройки";
+
+/* */
+"Proceed Anyway" = "Все равно продолжить";
+
+/* */
+"Script" = "Скрипт";
+
+/* */
+"Send" = "Отправить";
+
+/* Informative text for crash report */
+"Send crash report" = "To help us fix the problem, please send us this feedback report. Click Details to see what information is sent to us.";
+
+/* */
+"Send details" = "Отправить подробности";
+
+/* Informative text for feedback */
+"Send feedback" = "To help us improve our software your feedback is highly welcome! Click Details to see what information is sent to us.";
+
+/* */
+"Sorry, failed to submit your feedback to the server." = "К сожалению, не удалось отправить Ваше сообщение.";
+
+/* */
+"System" = "система";
+
+/* */
+"You may not be able to send feedback because %@ isn't reachable." = "Вы не можете отправить сообщение потому, что %@ не доступен.\n\nПожалуйста, убедитесь что Вы подключены к Интернету прежде чем продолжить.\n";
+

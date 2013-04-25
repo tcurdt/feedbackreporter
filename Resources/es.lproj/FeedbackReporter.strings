@@ -1,0 +1,78 @@
+/* Uncaught exception message */
+"%@ has encountered an exception!" = "%@ encontró un error inesperado.";
+
+/* Message text for crash report */
+"%@ has recently crashed!" = "%@ se cerró inesperadamente.";
+
+/* */
+"anonymous" = "anónimo";
+
+/* */
+"Cancel" = "Cancelar";
+
+/* Comments text view label */
+"Comments:" = "Lo que hacías justo antes del problema:";
+
+/* */
+"Console" = "Console";
+
+/* */
+"CrashLog" = "Crash Log";
+
+/* */
+"Details" = "Detalles";
+
+/* */
+"Email address:" = "Tu correo electrónico, si te gustaría que contactásemos contigo:";
+
+/* */
+"Error: %@" = "Error: %@";
+
+/* */
+"Exception" = "Exception";
+
+/* Comment label text for feedback */
+"Feedback comment label" = "Tu comentario:";
+
+/* */
+"Feedback" = "Realimentación";
+
+/* */
+"Feedback Host Not Reachable" = "Servidor de Comentarios Inalcanzable";
+
+/* Feedback message text */
+"Got a problem with %@?" = "¿Alguna idea para mejorar %@?";
+
+/* */
+"OK" = "OK";
+
+/* */
+"Preferences" = "Preferences";
+
+/* */
+"Proceed Anyway" = "Proceder Igualmente";
+
+/* */
+"Script" = "Script";
+
+/* */
+"Send" = "Enviar";
+
+/* Informative text for crash report */
+"Send crash report" = "Para ayudarnos a encontrar el problema, por favor envíanos este informe de error. Pulsa en Details para ver qué información vas a enviarnos.";
+
+/* */
+"Send details" = "Enviar detalles";
+
+/* Informative text for feedback */
+"Send feedback" = "Para ayudarnos a encontrar el problema, por favor envíanos este informe de comentarios. Pulsa en Details para ver qué información vas a enviarnos.";
+
+/* */
+"Sorry, failed to submit your feedback to the server." = "Error al enviar el comentario al servidor.";
+
+/* */
+"System" = "System";
+
+/* */
+"You may not be able to send feedback because %@ isn't reachable." = "Puedes ser incapaz de enviar el comentario si %@ es inalcanzable.\n\Por favor asegúrate de que tienes conexión de red antes de proceder.\n";
+

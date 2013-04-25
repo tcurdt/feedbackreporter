@@ -1,5 +1,5 @@
 /*
- * Copyright 2008, Torsten Curdt
+ * Copyright 2008-2011, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,14 +21,28 @@
 #define FR_EXCEPTION @"exception"
 #define FR_CRASH     @"crash"
 
-@interface FRFeedbackController : NSWindowController {
+@interface FRFeedbackController : NSWindowController 
+#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1060 // on lines like this to not confuse IB
+<FRUploaderDelegate, NSWindowDelegate>
+#else
+<FRUploaderDelegate>
+#endif
+{
+@private
+    IBOutlet NSTextField *headingField;
+    IBOutlet NSTextField *subheadingField;
 
-    IBOutlet NSTextField *messageField;
-	IBOutlet NSTextField *informativeTextField;
-    IBOutlet NSTextView *commentView;
-    IBOutlet NSComboBox *emailField;
+    IBOutlet NSTextField *messageLabel;
+    IBOutlet NSTextView *messageView;
+
+    IBOutlet NSTextField *emailLabel;
+    IBOutlet NSComboBox *emailBox;
 
     IBOutlet NSButton *detailsButton;
+    IBOutlet NSTextField *detailsLabel;
+    BOOL detailsShown;
+
+	IBOutlet NSButton *sendDetailsCheckbox;
 
     IBOutlet NSTabView *tabView;
     IBOutlet NSTabViewItem *tabSystem;
@@ -37,12 +51,6 @@
     IBOutlet NSTabViewItem *tabScript;
     IBOutlet NSTabViewItem *tabPreferences;
     IBOutlet NSTabViewItem *tabException;
-
-    IBOutlet NSTextField *commentLabel;
-    IBOutlet NSTextField *addressLabel;    
-    IBOutlet NSTextField *detailsLabel;
-
-    BOOL detailsShown;
 
     IBOutlet NSTableView *systemView;
     IBOutlet NSTextView *consoleView;
@@ -55,6 +63,7 @@
 
     IBOutlet NSButton *cancelButton;
     IBOutlet NSButton *sendButton;
+		
     
     FRUploader *uploader;
     
@@ -68,9 +77,9 @@
 - (id) delegate;
 - (void) setDelegate:(id) delegate;
 
+- (void) setHeading:(NSString*)message;
+- (void) setSubheading:(NSString *)informativeText;
 - (void) setMessage:(NSString*)message;
-- (void) setInformativeText:(NSString *)informativeText;
-- (void) setComment:(NSString*)comment;
 - (void) setException:(NSString*)exception;
 - (void) setType:(NSString*)type;
 

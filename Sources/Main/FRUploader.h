@@ -1,5 +1,5 @@
 /*
- * Copyright 2008, Torsten Curdt
+ * Copyright 2008-2011, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,20 +16,32 @@
 
 #import <Cocoa/Cocoa.h>
 
+@protocol FRUploaderDelegate;
 
 @interface FRUploader : NSObject {
 
+@private
     NSString *target;
-    id delegate;
+    id<FRUploaderDelegate> delegate;
 
     NSURLConnection *connection;
     NSMutableData *responseData;
 }
 
-- (id) initWithTarget:(NSString*)target delegate:(id)delegate;
+- (id) initWithTarget:(NSString*)target delegate:(id<FRUploaderDelegate>)delegate;
 - (NSString*) post:(NSDictionary*)dict;
 - (void) postAndNotify:(NSDictionary*)dict;
 - (void) cancel;
 - (NSString*) response;
+
+@end
+
+
+@protocol FRUploaderDelegate <NSObject>
+
+@optional
+- (void) uploaderStarted:(FRUploader*)uploader;
+- (void) uploaderFailed:(FRUploader*)uploader withError:(NSError*)error;
+- (void) uploaderFinished:(FRUploader*)uploader;
 
 @end

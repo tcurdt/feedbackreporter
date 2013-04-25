@@ -1,0 +1,78 @@
+/* Uncaught exception message */
+"%@ has encountered an exception!" = "%@-ի հետ առաջացել է չնախատեսված վթարային խնդիր:";
+
+/* Message text for crash report */
+"%@ has recently crashed!" = "%@-ի հանկարծակի անջատում.";
+
+/* */
+"anonymous" = "անանուն";
+
+/* */
+"Cancel" = "Չեղարկել";
+
+/* Comments text view label */
+"Comments:" = "Այն ինչ արեցիք խնդրի առաջացումից անմիջապես առաջ:";
+
+/* */
+"Console" = "Կոնսոլ";
+
+/* */
+"CrashLog" = "Վթարման լոգ";
+
+/* */
+"Details" = "մանրամասն";
+
+/* */
+"Email address:" = "Ձեր էլ. հասցեն, եթե ցանկանում եք, որ Ձեզ հետ կապնվենք:";
+
+/* */
+"Error: %@" = "Սխալ: %@";
+
+/* */
+"Exception" = "Բացառություն";
+
+/* Comment label text for feedback */
+"Feedback comment label" = "Հետադարձ կապ:";
+
+/* */
+"Feedback" = "Հետադարձ կապ";
+
+/* */
+"Feedback Host Not Reachable" = "Հաղորդման հոսթն անհասանելի է";
+
+/* Feedback message text */
+"Got a problem with %@?" = "%@-ի հետ խնդիրնե՞ր կան:";
+
+/* */
+"OK" = "Օք";
+
+/* */
+"Preferences" = "Կարգավորումներ";
+
+/* */
+"Proceed Anyway" = "Շարունակել";
+
+/* */
+"Script" = "Սկրիպտ";
+
+/* */
+"Send" = "Ուղարկել";
+
+/* Informative text for crash report */
+"Send crash report" = "Թերությունը վերացնելու համար հաղորդե՛ք մեզ դրա մասին: Սեղմե՛ք «Մանրամասներ»` տեսնելու մեզ ուղարկված տեղեկությունը:";
+
+/* */
+"Send details" = "Ուղարկել տվյալները";
+
+/* Informative text for crash report */
+"Send feedback" = "Թերությունը վերացնելու համար հաղորդե՛ք մեզ դրա մասին: Սեղմե՛ք «Մանրամասներ»` տեսնելու մեզ ուղարկված տեղեկությունը:";
+
+/* */
+"Sorry, failed to submit your feedback to the server." = "Ձեր հաղորդումը սերվերին ձախողվեց:";
+
+/* */
+"System" = "համակարգ";
+
+/* */
+"You may not be able to send feedback because %@ isn't reachable." = "%@-ի անհասանելիության պատճառով հաղորդում չեք կարող անել.\n\nՇարունակելուց առաջ համոզվե՛ք որ միացած եք ինտերնետին.\n";
+

@@ -1,5 +1,5 @@
 /*
- * Copyright 2008, Torsten Curdt
+ * Copyright 2008-2011, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,9 +24,13 @@
 #import "FRConstants.h"
 #import "FRConsoleLog.h"
 
+#import "NSMutableDictionary+Additions.h"
+
 #import <AddressBook/ABAddressBook.h>
 #import <AddressBook/ABMultiValue.h>
 #import <SystemConfiguration/SCNetwork.h>
+#import <SystemConfiguration/SCNetworkReachability.h>
+
 
 @implementation FRFeedbackController
 
@@ -61,7 +65,7 @@
     [tabScript release];
     [tabPreferences release];
     [tabException release];
-    
+
     [super dealloc];
 }
 
@@ -70,27 +74,27 @@
 
 - (id) delegate
 {
-	return delegate;
+    return delegate;
 }
 
 - (void) setDelegate:(id) pDelegate
 {
-	delegate = pDelegate;
+    delegate = pDelegate;
+}
+
+- (void) setHeading:(NSString*)message
+{
+    [headingField setStringValue:message];
+}
+
+- (void) setSubheading:(NSString *)informativeText
+{
+    [subheadingField setStringValue:informativeText];
 }
 
 - (void) setMessage:(NSString*)message
 {
-    [messageField setStringValue:message];
-}
-
-- (void) setInformativeText:(NSString *)informativeText
-{
-	[informativeTextField setStringValue:informativeText];
-}
-
-- (void) setComment:(NSString*)comment
-{
-    [commentView setString:comment];
+    [messageView setString:message];
 }
 
 - (void) setException:(NSString*)exception
@@ -100,26 +104,29 @@
 
 - (void) setType:(NSString*)theType
 {
-    [theType retain];
-    [type release];
-    type = theType;
+    if (theType != type) {
+        [type release];
+        type = [theType retain];
+    }
 }
 
 #pragma mark information gathering
 
 - (NSString*) consoleLog
 {
-    NSNumber *hours = [[NSUserDefaults standardUserDefaults] valueForKey:KEY_LOGHOURS];
+    NSNumber *hours = [[[NSBundle mainBundle] infoDictionary] valueForKey:PLIST_KEY_LOGHOURS];
 
     int h = 24;
 
     if (hours != nil) {
         h = [hours intValue];
     }
-    
-    NSDate* since = [[NSCalendarDate calendarDate] dateByAddingYears:0 months:0 days:0 hours:-h minutes:0 seconds:0];
 
-    return [FRConsoleLog logSince:since];
+    NSDate *since = [[NSCalendarDate calendarDate] dateByAddingYears:0 months:0 days:0 hours:-h minutes:0 seconds:0];
+
+    NSNumber *maximumSize = [[[NSBundle mainBundle] infoDictionary] valueForKey:PLIST_KEY_MAXCONSOLELOGSIZE];
+
+    return [FRConsoleLog logSince:since maxSize:maximumSize];
 }
 
 
@@ -138,7 +145,7 @@
 {
     NSMutableString *string = [NSMutableString string];
     NSArray *dicts = [self systemProfile];
-    int i = [dicts count];
+    NSUInteger i = [dicts count];
     while(i--) {
         NSDictionary *dict = [dicts objectAtIndex:i];
         [string appendFormat:@"%@ = %@\n", [dict objectForKey:@"key"], [dict objectForKey:@"value"]];
@@ -148,35 +155,46 @@
 
 - (NSString*) crashLog
 {
-
-    NSDate *lastSubmissionDate = [[NSUserDefaults standardUserDefaults] valueForKey:KEY_LASTSUBMISSIONDATE];
+    NSDate *lastSubmissionDate = [[NSUserDefaults standardUserDefaults] valueForKey:DEFAULTS_KEY_LASTSUBMISSIONDATE];
 
     NSArray *crashFiles = [FRCrashLogFinder findCrashLogsSince:lastSubmissionDate];
 
-    int i = [crashFiles count];
+    NSUInteger i = [crashFiles count];
 
     if (i == 1) {
-        NSLog(@"Found a crash file earlier than latest submission on %@", lastSubmissionDate);
+        if (lastSubmissionDate == nil) {
+            NSLog(@"Found a crash file");
+        } else {
+            NSLog(@"Found a crash file earlier than latest submission on %@", lastSubmissionDate);
+        }
         NSError *error = nil;
         NSString *result = [NSString stringWithContentsOfFile:[crashFiles lastObject] encoding: NSUTF8StringEncoding error:&error];
-        if (error != nil) {
+        if (result == nil) {
             NSLog(@"Failed to read crash file: %@", error);
             return @"";
         }
         return result;
     }
 
-    NSLog(@"Found %d crash files earlier than latest submission on %@", i, lastSubmissionDate);
-    
+    if (lastSubmissionDate == nil) {
+        NSLog(@"Found %lu crash files", (unsigned long)i);
+    } else {
+        NSLog(@"Found %lu crash files earlier than latest submission on %@", (unsigned long)i, lastSubmissionDate);
+    }
+
     NSFileManager *fileManager = [NSFileManager defaultManager];
 
     NSDate *newest = nil;
-    int newestIndex = -1;
+    NSInteger newestIndex = -1;
 
     while(i--) {
-    
+
         NSString *crashFile = [crashFiles objectAtIndex:i];
-        NSDictionary *fileAttributes = [fileManager fileAttributesAtPath:crashFile traverseLink:YES];
+        NSError* error = nil;
+        NSDictionary *fileAttributes = [fileManager attributesOfItemAtPath:crashFile error:&error];
+        if (!fileAttributes) {
+            NSLog(@"Error while fetching file attributes: %@", [error localizedDescription]);
+        }
         NSDate *fileModDate = [fileAttributes objectForKey:NSFileModificationDate];
 
         NSLog(@"CrashLog: %@", crashFile);
@@ -187,7 +205,7 @@
         }
 
     }
-    
+
     if (newestIndex != -1) {
         NSString *newestCrashFile = [crashFiles objectAtIndex:newestIndex];
 
@@ -195,7 +213,7 @@
 
         NSError *error = nil;
         NSString *result = [NSString stringWithContentsOfFile:newestCrashFile encoding: NSUTF8StringEncoding error:&error];
-        if (error != nil) {
+        if (result == nil) {
             NSLog(@"Failed to read crash file: %@", error);
             return @"";
         }
@@ -207,36 +225,42 @@
 
 - (NSString*) scriptLog
 {
-    NSMutableString *log = [NSMutableString string];
+    NSMutableString *scriptLog = [NSMutableString string];
 
     NSString *scriptPath = [[NSBundle mainBundle] pathForResource:FILE_SHELLSCRIPT ofType:@"sh"];
 
     if ([[NSFileManager defaultManager] fileExistsAtPath:scriptPath]) {
 
         FRCommand *cmd = [[FRCommand alloc] initWithPath:scriptPath];
-        [cmd setOutput:log];
-        [cmd setError:log];
+        [cmd setOutput:scriptLog];
+        [cmd setError:scriptLog];
         int ret = [cmd execute];
         [cmd release];
 
         NSLog(@"Script exit code = %d", ret);
-        
+
     } /* else {
         NSLog(@"No custom script to execute");
     }
     */
 
-    return log;
+    return scriptLog;
 }
 
 - (NSString*) preferences
 {
-    NSDictionary *preferences = [[NSUserDefaults standardUserDefaults] persistentDomainForName:[FRApplication applicationIdentifier]];
-    
+    NSMutableDictionary *preferences = [[[[NSUserDefaults standardUserDefaults] persistentDomainForName:[FRApplication applicationIdentifier]] mutableCopy] autorelease];
+
     if (preferences == nil) {
         return @"";
     }
-    
+
+    [preferences removeObjectForKey:DEFAULTS_KEY_SENDEREMAIL];
+
+    if ([delegate respondsToSelector:@selector(anonymizePreferencesForFeedbackReport:)]) {
+        preferences = [delegate anonymizePreferencesForFeedbackReport:preferences];
+    }
+
     return [NSString stringWithFormat:@"%@", preferences];
 }
 
@@ -248,11 +272,11 @@
     if (detailsShown == show) {
         return;
     }
-    
+
     NSSize fullSize = NSMakeSize(455, 302);
-    
+
     NSRect windowFrame = [[self window] frame];
-        
+
     if (show) {
 
         windowFrame.origin.y -= fullSize.height;
@@ -267,56 +291,70 @@
         [[self window] setFrame: windowFrame
                         display: YES
                         animate: animate];
-        
+
     }
-    
-    detailsShown = show;    
+
+    detailsShown = show;
 }
 
-- (IBAction)showDetails:(id)sender
+- (IBAction) showDetails:(id)sender
 {
-    [self showDetails:[sender intValue] animate:YES];
+    BOOL show = [[sender objectValue] boolValue];
+    [self showDetails:show animate:YES];
 }
 
-- (IBAction)cancel:(id)sender
+- (IBAction) cancel:(id)sender
 {
     [uploader cancel], uploader = nil;
-    
+
     [self close];
 }
 
-- (IBAction)send:(id)sender
+- (IBAction) send:(id)sender
 {
     if (uploader != nil) {
         NSLog(@"Still uploading");
         return;
     }
-            
+
     NSString *target = [[FRApplication feedbackURL] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] ;
-    
+
+    if ([[[FRFeedbackReporter sharedReporter] delegate] respondsToSelector:@selector(targetUrlForFeedbackReport)]) {
+        target = [[[FRFeedbackReporter sharedReporter] delegate] targetUrlForFeedbackReport];
+    }
+
     if (target == nil) {
-        NSLog(@"You are missing the %@ key in your Info.plist!", KEY_TARGETURL);
-        return;        
+        NSLog(@"You are missing the %@ key in your Info.plist!", PLIST_KEY_TARGETURL);
+        return;
     }
 
     NSURL *url = [NSURL URLWithString:target];
 
-    SCNetworkConnectionFlags reachabilityFlags;
-    Boolean reachabilityResult = SCNetworkCheckReachabilityByName([[url host] UTF8String], &reachabilityFlags);
-    
+    SCNetworkConnectionFlags reachabilityFlags = 0;
+
+    NSString *host = [url host];
+    const char *hostname = [host UTF8String];
+
+    SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithName(NULL, hostname);
+    Boolean reachabilityResult = SCNetworkReachabilityGetFlags(reachability, &reachabilityFlags);
+    CFRelease(reachability);
+
+    // Prevent premature garbage collection (UTF8String returns an inner pointer).
+    [host self];
+
     BOOL reachable = reachabilityResult
         &&  (reachabilityFlags & kSCNetworkFlagsReachable)
         && !(reachabilityFlags & kSCNetworkFlagsConnectionRequired)
         && !(reachabilityFlags & kSCNetworkFlagsConnectionAutomatic)
         && !(reachabilityFlags & kSCNetworkFlagsInterventionRequired);
-    
+
     if (!reachable) {
-        int alertResult = [[NSAlert alertWithMessageText:FRLocalizedString(@"Feedback Host Not Reachable", nil)
-                                           defaultButton:FRLocalizedString(@"Proceed Anyway", nil)
-                                         alternateButton:FRLocalizedString(@"Cancel", nil)
-                                             otherButton:nil
-                               informativeTextWithFormat:FRLocalizedString(@"You may not be able to send feedback because %@ isn't reachable.", nil), [url host]
-                            ] runModal];
+        NSInteger alertResult = [[NSAlert alertWithMessageText:FRLocalizedString(@"Feedback Host Not Reachable", nil)
+                                                 defaultButton:FRLocalizedString(@"Proceed Anyway", nil)
+                                               alternateButton:FRLocalizedString(@"Cancel", nil)
+                                                   otherButton:nil
+                                     informativeTextWithFormat:FRLocalizedString(@"You may not be able to send feedback because %@ isn't reachable.", nil), host
+                                  ] runModal];
 
         if (alertResult != NSAlertDefaultReturn) {
             return;
@@ -324,48 +362,57 @@
     }
 
     uploader = [[FRUploader alloc] initWithTarget:target delegate:self];
-    
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:5];
 
-	if ([delegate respondsToSelector:@selector(customParametersForFeedbackReport)]) {
-        [dict addEntriesFromDictionary:[delegate customParametersForFeedbackReport]];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+
+    [dict setValidString:[emailBox stringValue]
+                  forKey:POST_KEY_EMAIL];
+
+    [dict setValidString:[messageView string]
+                  forKey:POST_KEY_MESSAGE];
+
+    [dict setValidString:type
+                  forKey:POST_KEY_TYPE];
+
+    [dict setValidString:[FRApplication applicationLongVersion]
+                  forKey:POST_KEY_VERSION_LONG];
+
+    [dict setValidString:[FRApplication applicationShortVersion]
+                  forKey:POST_KEY_VERSION_SHORT];
+
+    [dict setValidString:[FRApplication applicationBundleVersion]
+                  forKey:POST_KEY_VERSION_BUNDLE];
+
+    [dict setValidString:[FRApplication applicationVersion]
+                  forKey:POST_KEY_VERSION];
+
+    if ([sendDetailsCheckbox state] == NSOnState) {
+        if ([delegate respondsToSelector:@selector(customParametersForFeedbackReport)]) {
+            [dict addEntriesFromDictionary:[delegate customParametersForFeedbackReport]];
+        }
+
+        [dict setValidString:[self systemProfileAsString]
+                      forKey:POST_KEY_SYSTEM];
+
+        [dict setValidString:[consoleView string]
+                      forKey:POST_KEY_CONSOLE];
+
+        [dict setValidString:[crashesView string]
+                      forKey:POST_KEY_CRASHES];
+
+        [dict setValidString:[scriptView string]
+                      forKey:POST_KEY_SHELL];
+
+        [dict setValidString:[preferencesView string]
+                      forKey:POST_KEY_PREFERENCES];
+
+        [dict setValidString:[exceptionView string]
+                      forKey:POST_KEY_EXCEPTION];
     }
 
-    [dict setObject:type
-             forKey:POST_KEY_TYPE];
-
-    [dict setObject:[emailField stringValue]
-             forKey:POST_KEY_EMAIL];
-
-    [dict setObject:[FRApplication applicationVersion]
-             forKey:POST_KEY_VERSION];
-
-    [dict setObject:[commentView string]
-             forKey:POST_KEY_COMMENT];
-
-    [dict setObject:[self systemProfileAsString]
-             forKey:POST_KEY_SYSTEM];
-
-    [dict setObject:[consoleView string]
-             forKey:POST_KEY_CONSOLE];
-
-    [dict setObject:[crashesView string]
-             forKey:POST_KEY_CRASHES];
-
-    [dict setObject:[scriptView string]
-             forKey:POST_KEY_SHELL];
-
-    [dict setObject:[preferencesView string]
-             forKey:POST_KEY_PREFERENCES];
-
-    [dict setObject:[exceptionView string]
-             forKey:POST_KEY_EXCEPTION];
-    
     NSLog(@"Sending feedback to %@", target);
-    
-    [uploader postAndNotify:dict];
 
-    [dict release];
+    [uploader postAndNotify:dict];
 }
 
 - (void) uploaderStarted:(FRUploader*)pUploader
@@ -373,9 +420,9 @@
     // NSLog(@"Upload started");
 
     [indicator setHidden:NO];
-    [indicator startAnimation:self];    
-    
-    [commentView setEditable:NO];
+    [indicator startAnimation:self];
+
+    [messageView setEditable:NO];
     [sendButton setEnabled:NO];
 }
 
@@ -387,8 +434,8 @@
     [indicator setHidden:YES];
 
     [uploader release], uploader = nil;
-    
-    [commentView setEditable:YES];
+
+    [messageView setEditable:YES];
     [sendButton setEnabled:YES];
 
     NSAlert *alert = [[NSAlert alloc] init];
@@ -413,21 +460,21 @@
 
     [uploader release], uploader = nil;
 
-    [commentView setEditable:YES];
+    [messageView setEditable:YES];
     [sendButton setEnabled:YES];
 
-    // NSLog(@"response = %@", response);
-
     NSArray *lines = [response componentsSeparatedByString:@"\n"];
-    int i = [lines count];
+    NSUInteger i = [lines count];
     while(i--) {
         NSString *line = [lines objectAtIndex:i];
-        
+
         if ([line length] == 0) {
             continue;
         }
-        
+
         if (![line hasPrefix:@"OK "]) {
+
+            NSLog (@"Failed to submit to server: %@", response);
 
             NSAlert *alert = [[NSAlert alloc] init];
             [alert addButtonWithTitle:FRLocalizedString(@"OK", nil)];
@@ -436,53 +483,68 @@
             [alert setAlertStyle:NSWarningAlertStyle];
             [alert runModal];
             [alert release];
-            
+
             return;
         }
     }
 
-    [[NSUserDefaults standardUserDefaults] setValue: [NSDate date]
-                                             forKey: KEY_LASTSUBMISSIONDATE];
+    [[NSUserDefaults standardUserDefaults] setValue:[NSDate date]
+                                             forKey:DEFAULTS_KEY_LASTSUBMISSIONDATE];
 
-    [[NSUserDefaults standardUserDefaults] setObject:[emailField stringValue]
-                                              forKey:KEY_SENDEREMAIL];
+    [[NSUserDefaults standardUserDefaults] setObject:[emailBox stringValue]
+                                              forKey:DEFAULTS_KEY_SENDEREMAIL];
 
     [self close];
 }
 
-
 - (void) windowWillClose: (NSNotification *) n
 {
-	[uploader cancel];
+    [uploader cancel];
+
+    if ([type isEqualToString:FR_EXCEPTION]) {
+        NSString *exitAfterException = [[[NSBundle mainBundle] infoDictionary] valueForKey:PLIST_KEY_EXITAFTEREXCEPTION];
+        if (exitAfterException && [exitAfterException isEqualToString:@"YES"]) {
+            // We want a pure exit() here I think.
+            // As an exception has already been raised there is no
+            // guarantee that the code path to [NSAapp terminate] is functional.
+            // Calling abort() will crash the app here but is that more desirable?
+            exit(EXIT_FAILURE);
+        }
+    }
 }
 
 - (void) windowDidLoad
 {
-	[[self window] setDelegate:self];
+    [[self window] setDelegate:self];
 
-    [commentLabel setStringValue:FRLocalizedString(@"Comments:", nil)];
-    [addressLabel setStringValue:FRLocalizedString(@"Email address:", nil)];
-    
+    [[self window] setTitle:FRLocalizedString(@"Feedback", nil)];
+    [emailLabel setStringValue:FRLocalizedString(@"Email address:", nil)];
+    [detailsLabel setStringValue:FRLocalizedString(@"Details", nil)];
+    [tabSystem setLabel:FRLocalizedString(@"System", nil)];
     [tabConsole setLabel:FRLocalizedString(@"Console", nil)];
     [tabCrash setLabel:FRLocalizedString(@"CrashLog", nil)];
     [tabScript setLabel:FRLocalizedString(@"Script", nil)];
     [tabPreferences setLabel:FRLocalizedString(@"Preferences", nil)];
     [tabException setLabel:FRLocalizedString(@"Exception", nil)];
-    
+
     [sendButton setTitle:FRLocalizedString(@"Send", nil)];
     [cancelButton setTitle:FRLocalizedString(@"Cancel", nil)];
 
-    [[consoleView textContainer] setContainerSize:NSMakeSize(FLT_MAX, FLT_MAX)];
+    [[consoleView textContainer] setContainerSize:NSMakeSize(CGFLOAT_MAX, CGFLOAT_MAX)];
     [[consoleView textContainer] setWidthTracksTextView:NO];
-    [[crashesView textContainer] setContainerSize:NSMakeSize(FLT_MAX, FLT_MAX)];
+    [consoleView setString:@""];
+    [[crashesView textContainer] setContainerSize:NSMakeSize(CGFLOAT_MAX, CGFLOAT_MAX)];
     [[crashesView textContainer] setWidthTracksTextView:NO];
-    [[scriptView textContainer] setContainerSize:NSMakeSize(FLT_MAX, FLT_MAX)];
+    [crashesView setString:@""];
+    [[scriptView textContainer] setContainerSize:NSMakeSize(CGFLOAT_MAX, CGFLOAT_MAX)];
     [[scriptView textContainer] setWidthTracksTextView:NO];
-    [[preferencesView textContainer] setContainerSize:NSMakeSize(FLT_MAX, FLT_MAX)];
+    [scriptView setString:@""];
+    [[preferencesView textContainer] setContainerSize:NSMakeSize(CGFLOAT_MAX, CGFLOAT_MAX)];
     [[preferencesView textContainer] setWidthTracksTextView:NO];
-    [[exceptionView textContainer] setContainerSize:NSMakeSize(FLT_MAX, FLT_MAX)];
+    [preferencesView setString:@""];
+    [[exceptionView textContainer] setContainerSize:NSMakeSize(CGFLOAT_MAX, CGFLOAT_MAX)];
     [[exceptionView textContainer] setWidthTracksTextView:NO];
-    
+    [exceptionView setString:@""];
 }
 
 - (void) stopSpinner
@@ -526,8 +588,8 @@
     }
 
     [self performSelectorOnMainThread:@selector(stopSpinner) withObject:self waitUntilDone:YES];
-    
-    [pool release];
+
+    [pool drain];
 }
 
 - (void) reset
@@ -541,43 +603,62 @@
     ABPerson *me = [[ABAddressBook sharedAddressBook] me];
     ABMutableMultiValue *emailAddresses = [me valueForProperty:kABEmailProperty];
 
-    int i, count = [emailAddresses count];
-    
-    [emailField removeAllItems];
+    NSUInteger count = [emailAddresses count];
 
-    [emailField addItemWithObjectValue:FRLocalizedString(@"anonymous", nil)];
+    [emailBox removeAllItems];
 
-    for(i=0; i<count; i++) {
+    [emailBox addItemWithObjectValue:FRLocalizedString(@"anonymous", nil)];
+
+    for(NSUInteger i=0; i<count; i++) {
 
         NSString *emailAddress = [emailAddresses valueAtIndex:i];
 
-        [emailField addItemWithObjectValue:emailAddress];
+        [emailBox addItemWithObjectValue:emailAddress];
     }
-    
-    NSString *email = [[NSUserDefaults standardUserDefaults] stringForKey:KEY_SENDEREMAIL];
 
-    NSInteger found = [emailField indexOfItemWithObjectValue:email];
+    NSString *email = [[NSUserDefaults standardUserDefaults] stringForKey:DEFAULTS_KEY_SENDEREMAIL];
+
+    NSInteger found = [emailBox indexOfItemWithObjectValue:email];
     if (found != NSNotFound) {
-        [emailField selectItemAtIndex:found];
-    } else {
-        [emailField selectItemAtIndex:0];
+        [emailBox selectItemAtIndex:found];
+    } else if ([emailBox numberOfItems] >= 2) {
+        NSString *defaultSender = [[[NSBundle mainBundle] infoDictionary] valueForKey:PLIST_KEY_DEFAULTSENDER];
+        NSUInteger idx = (defaultSender && [defaultSender isEqualToString:@"firstEmail"]) ? 1 : 0;
+        [emailBox selectItemAtIndex:idx];
     }
 
-    [messageField setStringValue:@""];
-    [commentView setString:@""];
+    [headingField setStringValue:@""];
+    [messageView setString:@""];
     [exceptionView setString:@""];
 
     [self showDetails:NO animate:NO];
-    [detailsButton setIntValue:NO];    
+    [detailsButton setIntValue:NO];
 
     [indicator setHidden:NO];
-    [indicator startAnimation:self];    
+    [indicator startAnimation:self];
     [sendButton setEnabled:NO];
 
+    //  setup 'send details' checkbox...
+    [sendDetailsCheckbox setTitle:FRLocalizedString(@"Send details", nil)];
+    [sendDetailsCheckbox setState:NSOnState];
+    NSString *sendDetailsIsOptional = [[[NSBundle mainBundle] infoDictionary] valueForKey:PLIST_KEY_SENDDETAILSISOPTIONAL];
+    if (sendDetailsIsOptional && [sendDetailsIsOptional isEqualToString:@"YES"]) {
+        [detailsLabel setHidden:YES];
+        [sendDetailsCheckbox setHidden:NO];
+    } else {
+        [detailsLabel setHidden:NO];
+        [sendDetailsCheckbox setHidden:YES];
+    }
 }
 
 - (void) showWindow:(id)sender
 {
+    if ([type isEqualToString:FR_FEEDBACK]) {
+        [messageLabel setStringValue:FRLocalizedString(@"Feedback comment label", nil)];
+    } else {
+        [messageLabel setStringValue:FRLocalizedString(@"Comments:", nil)];
+    }
+
     if ([[exceptionView string] length] != 0) {
         [tabView insertTabViewItem:tabException atIndex:1];
         [tabView selectTabViewItemWithIdentifier:@"Exception"];
@@ -586,7 +667,7 @@
     }
 
     [NSThread detachNewThreadSelector:@selector(populate) toTarget:self withObject:nil];
-    
+
     [super showWindow:sender];
 }
 

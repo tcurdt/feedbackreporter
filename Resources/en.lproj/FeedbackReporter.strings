@@ -1,0 +1,78 @@
+/* Uncaught exception message */
+"%@ has encountered an exception!" = "%@ encountered an unexpected error.";
+
+/* Message text for crash report */
+"%@ has recently crashed!" = "%@ recently quit unexpectedly.";
+
+/* */
+"anonymous" = "anonymous";
+
+/* */
+"Cancel" = "Cancel";
+
+/* Comments text view label */
+"Comments:" = "What you did just before the problem occurred:";
+
+/* */
+"Console" = "Console";
+
+/* */
+"CrashLog" = "Crash Log";
+
+/* */
+"Details" = "Details";
+
+/* */
+"Email address:" = "Your email address if you would like us to get in touch with you:";
+
+/* */
+"Error: %@" = "Error: %@";
+
+/* */
+"Exception" = "Exception";
+
+/* Comment label text for feedback */
+"Feedback comment label" = "Your feedback:";
+
+/* */
+"Feedback" = "Feedback";
+
+/* */
+"Feedback Host Not Reachable" = "Feedback Host Not Reachable";
+
+/* Feedback message text */
+"Got a problem with %@?" = "Got an idea how to improve %@?";
+
+/* */
+"OK" = "OK";
+
+/* */
+"Preferences" = "Preferences";
+
+/* */
+"Proceed Anyway" = "Proceed Anyway";
+
+/* */
+"Script" = "Script";
+
+/* */
+"Send" = "Send";
+
+/* Informative text for crash report */
+"Send crash report" = "To help us fix the problem, please send us this feedback report. Click Details to see what information is sent to us.";
+
+/* */
+"Send details" = "Send details";
+
+/* Informative text for feedback */
+"Send feedback" = "To help us improve our software your feedback is highly welcome! Click Details to see what information is sent to us.";
+
+/* */
+"Sorry, failed to submit your feedback to the server." = "Error submitting your feedback to the server.";
+
+/* */
+"System" = "System";
+ 
+/* */
+"You may not be able to send feedback because %@ isn't reachable." = "You may not be able to send feedback because %@ isn't reachable.\n\nPlease ensure you have a network connection before proceeding.\n";
+

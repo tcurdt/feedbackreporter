@@ -7,7 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
+		14310F09160015A000F64299 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14310F05160015A000F64299 /* AddressBook.framework */; };
+		14310F0A160015A000F64299 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14310F06160015A000F64299 /* AppKit.framework */; };
+		14310F0B160015A000F64299 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14310F07160015A000F64299 /* Foundation.framework */; };
+		14310F0C160015A000F64299 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14310F08160015A000F64299 /* SystemConfiguration.framework */; };
+		14310F0D160015B500F64299 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14310F06160015A000F64299 /* AppKit.framework */; };
+		14310F0E160015B500F64299 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14310F07160015A000F64299 /* Foundation.framework */; };
+		14310F0F160015C100F64299 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14310F06160015A000F64299 /* AppKit.framework */; };
+		14310F10160015C100F64299 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14310F07160015A000F64299 /* Foundation.framework */; };
+		14310F12160015ED00F64299 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14310F11160015ED00F64299 /* SenTestingKit.framework */; };
+		444DCB5C1417D13E00C5636D /* FeedbackReporter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 444DCB5E1417D13E00C5636D /* FeedbackReporter.xib */; };
+		444DCB651417D18000C5636D /* App.xib in Resources */ = {isa = PBXBuildFile; fileRef = 444DCB671417D18000C5636D /* App.xib */; };
+		444DCB721417D2D800C5636D /* FeedbackReporter.strings in Resources */ = {isa = PBXBuildFile; fileRef = 444DCB701417D2D800C5636D /* FeedbackReporter.strings */; };
 		9D006DF60E1438F6000B6AFC /* FRConsoleLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D006DF50E1438F6000B6AFC /* FRConsoleLog.m */; };
 		9D0EC0220DF00F250045EB76 /* FRExceptionReportingApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0EC0200DF00F250045EB76 /* FRExceptionReportingApplication.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9D0EC0230DF00F250045EB76 /* FRExceptionReportingApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EC0210DF00F250045EB76 /* FRExceptionReportingApplication.m */; };
@@ -16,8 +27,6 @@
 		9D1732470E4DE9B600DC17D6 /* FeedbackReporter.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* FeedbackReporter.framework */; };
 		9D291E8E0DF167BB009F859B /* UploaderTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D291E8D0DF167BB009F859B /* UploaderTestCase.m */; };
 		9D4C743D0E33A5D000B5F3BF /* FRConsoleLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D006DF50E1438F6000B6AFC /* FRConsoleLog.m */; };
-		9D73A4B40FC37AE8008804E1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D73A4B30FC37AE8008804E1 /* SystemConfiguration.framework */; };
-		9DA6D1500FA3C18900C990A7 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DA6D14F0FA3C18900C990A7 /* AddressBook.framework */; };
 		9DA7D6B70DEB8A7800C3B586 /* FeedbackReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* FeedbackReporter.framework */; };
 		9DA7D6EF0DEB8E5D00C3B586 /* FRApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA7D6E20DEB8E5D00C3B586 /* FRApplication.h */; };
 		9DA7D6F00DEB8E5D00C3B586 /* FRApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DA7D6E30DEB8E5D00C3B586 /* FRApplication.m */; };
@@ -33,15 +42,13 @@
 		9DA7D6FB0DEB8E5D00C3B586 /* FRUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DA7D6EE0DEB8E5D00C3B586 /* FRUploader.m */; };
 		9DA7D6FF0DEB8E9100C3B586 /* CommandTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DA7D6FD0DEB8E9100C3B586 /* CommandTestCase.m */; };
 		9DB634F20E4DD6F500C72888 /* FeedbackReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* FeedbackReporter.framework */; };
-		9DB634F70E4DD8C200C72888 /* FeedbackReporter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9DB634F60E4DD8C200C72888 /* FeedbackReporter.xib */; };
-		9DB6351C0E4DD97A00C72888 /* App.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9DB6351B0E4DD97A00C72888 /* App.xib */; };
 		9DB6351E0E4DD9BE00C72888 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DB6351D0E4DD9BE00C72888 /* main.m */; };
 		9DB6353C0E4DDCB700C72888 /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DB6353A0E4DDCB700C72888 /* AppController.m */; };
-		9DC077910E4CE75E00014424 /* FeedbackReporter.pch in Resources */ = {isa = PBXBuildFile; fileRef = 9DC077900E4CE75E00014424 /* FeedbackReporter.pch */; };
 		9DCF52A90DEC0D8A00EBF810 /* SystemProfileTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DCF52A80DEC0D8A00EBF810 /* SystemProfileTestCase.m */; };
 		9DCF52AC0DEC0E4300EBF810 /* FRSystemProfile.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DCF52AA0DEC0E4300EBF810 /* FRSystemProfile.h */; };
 		9DCF52AD0DEC0E4300EBF810 /* FRSystemProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DCF52AB0DEC0E4300EBF810 /* FRSystemProfile.m */; };
-		9DD4D9C30E4B934500B26451 /* FeedbackReporter.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9DD4D9C20E4B934500B26451 /* FeedbackReporter.strings */; };
+		FC369CBB1100D505004C27F8 /* NSMutableDictionary+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = FC369CB91100D505004C27F8 /* NSMutableDictionary+Additions.h */; };
+		FC369CBC1100D505004C27F8 /* NSMutableDictionary+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = FC369CBA1100D505004C27F8 /* NSMutableDictionary+Additions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,9 +83,28 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
-		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		14310F05160015A000F64299 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		14310F06160015A000F64299 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		14310F07160015A000F64299 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		14310F08160015A000F64299 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		14310F11160015ED00F64299 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		444DCB5D1417D13E00C5636D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/FeedbackReporter.xib; sourceTree = "<group>"; };
+		444DCB5F1417D16B00C5636D /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/FeedbackReporter.xib; sourceTree = "<group>"; };
+		444DCB601417D16D00C5636D /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ru; path = ru.lproj/FeedbackReporter.xib; sourceTree = "<group>"; };
+		444DCB611417D16F00C5636D /* it */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = it; path = it.lproj/FeedbackReporter.xib; sourceTree = "<group>"; };
+		444DCB621417D17100C5636D /* hy */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = hy; path = hy.lproj/FeedbackReporter.xib; sourceTree = "<group>"; };
+		444DCB631417D17300C5636D /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/FeedbackReporter.xib; sourceTree = "<group>"; };
+		444DCB641417D17500C5636D /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/FeedbackReporter.xib; sourceTree = "<group>"; };
+		444DCB661417D18000C5636D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/App.xib; sourceTree = "<group>"; };
+		444DCB6F1417D21300C5636D /* ar */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ar; path = ar.lproj/FeedbackReporter.xib; sourceTree = "<group>"; };
+		444DCB711417D2D800C5636D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = Resources/de.lproj/FeedbackReporter.strings; sourceTree = "<group>"; };
+		444DCB731417D2E100C5636D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Resources/en.lproj/FeedbackReporter.strings; sourceTree = "<group>"; };
+		444DCB751417D2E900C5636D /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = Resources/es.lproj/FeedbackReporter.strings; sourceTree = "<group>"; };
+		444DCB771417D2F100C5636D /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = Resources/fr.lproj/FeedbackReporter.strings; sourceTree = "<group>"; };
+		444DCB791417D2F800C5636D /* hy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hy; path = Resources/hy.lproj/FeedbackReporter.strings; sourceTree = "<group>"; };
+		444DCB7B1417D30300C5636D /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = Resources/it.lproj/FeedbackReporter.strings; sourceTree = "<group>"; };
+		444DCB7D1417D30B00C5636D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = Resources/ru.lproj/FeedbackReporter.strings; sourceTree = "<group>"; };
+		444DCB7F1417D39100C5636D /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = Resources/ar.lproj/FeedbackReporter.strings; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* FeedbackReporter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FeedbackReporter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D006DF40E1438F6000B6AFC /* FRConsoleLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FRConsoleLog.h; path = Sources/Main/FRConsoleLog.h; sourceTree = "<group>"; };
 		9D006DF50E1438F6000B6AFC /* FRConsoleLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FRConsoleLog.m; path = Sources/Main/FRConsoleLog.m; sourceTree = "<group>"; };
@@ -89,11 +115,8 @@
 		9D291E8C0DF167BB009F859B /* UploaderTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UploaderTestCase.h; path = Sources/Tests/UploaderTestCase.h; sourceTree = "<group>"; };
 		9D291E8D0DF167BB009F859B /* UploaderTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UploaderTestCase.m; path = Sources/Tests/UploaderTestCase.m; sourceTree = "<group>"; };
 		9D5FB36B0E0B269900CF1BE0 /* FRConstants.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = FRConstants.h; path = Sources/Main/FRConstants.h; sourceTree = "<group>"; };
-		9D73A4B30FC37AE8008804E1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = /System/Library/Frameworks/SystemConfiguration.framework; sourceTree = "<absolute>"; };
-		9D73A5EC1064DE6D0001CF9E /* Russian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Russian; path = Resources/Russian.lproj/FeedbackReporter.strings; sourceTree = "<group>"; };
 		9D90077A0DEB96C10000330E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Sources/Main/Info.plist; sourceTree = "<group>"; };
 		9D90077F0DEB96D40000330E /* Tests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Tests-Info.plist"; path = "Sources/Tests/Tests-Info.plist"; sourceTree = SOURCE_ROOT; };
-		9DA6D14F0FA3C18900C990A7 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = /System/Library/Frameworks/AddressBook.framework; sourceTree = "<absolute>"; };
 		9DA7D6B10DEB8A3500C3B586 /* Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DA7D6E20DEB8E5D00C3B586 /* FRApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FRApplication.h; path = Sources/Main/FRApplication.h; sourceTree = "<group>"; };
 		9DA7D6E30DEB8E5D00C3B586 /* FRApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FRApplication.m; path = Sources/Main/FRApplication.m; sourceTree = "<group>"; };
@@ -111,8 +134,6 @@
 		9DA7D6FD0DEB8E9100C3B586 /* CommandTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommandTestCase.m; path = Sources/Tests/CommandTestCase.m; sourceTree = "<group>"; };
 		9DB634E30E4DD64C00C72888 /* App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DB634E70E4DD64C00C72888 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Sources/App/Info.plist; sourceTree = "<group>"; };
-		9DB634F60E4DD8C200C72888 /* FeedbackReporter.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FeedbackReporter.xib; path = Resources/FeedbackReporter.xib; sourceTree = "<group>"; };
-		9DB6351B0E4DD97A00C72888 /* App.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = App.xib; path = Resources/App.xib; sourceTree = "<group>"; };
 		9DB6351D0E4DD9BE00C72888 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Sources/App/main.m; sourceTree = "<group>"; };
 		9DB6353A0E4DDCB700C72888 /* AppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppController.m; path = Sources/App/AppController.m; sourceTree = SOURCE_ROOT; };
 		9DB6353B0E4DDCB700C72888 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppController.h; path = Sources/App/AppController.h; sourceTree = SOURCE_ROOT; };
@@ -121,8 +142,8 @@
 		9DCF52A80DEC0D8A00EBF810 /* SystemProfileTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SystemProfileTestCase.m; path = Sources/Tests/SystemProfileTestCase.m; sourceTree = "<group>"; };
 		9DCF52AA0DEC0E4300EBF810 /* FRSystemProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FRSystemProfile.h; path = Sources/Main/FRSystemProfile.h; sourceTree = "<group>"; };
 		9DCF52AB0DEC0E4300EBF810 /* FRSystemProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FRSystemProfile.m; path = Sources/Main/FRSystemProfile.m; sourceTree = "<group>"; };
-		9DD4D9BF0E4B933A00B26451 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = Resources/English.lproj/FeedbackReporter.strings; sourceTree = "<group>"; };
-		9DD4D9C40E4B934A00B26451 /* German */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = German; path = Resources/German.lproj/FeedbackReporter.strings; sourceTree = "<group>"; };
+		FC369CB91100D505004C27F8 /* NSMutableDictionary+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableDictionary+Additions.h"; path = "Sources/Main/NSMutableDictionary+Additions.h"; sourceTree = "<group>"; };
+		FC369CBA1100D505004C27F8 /* NSMutableDictionary+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableDictionary+Additions.m"; path = "Sources/Main/NSMutableDictionary+Additions.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,9 +151,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */,
-				9DA6D1500FA3C18900C990A7 /* AddressBook.framework in Frameworks */,
-				9D73A4B40FC37AE8008804E1 /* SystemConfiguration.framework in Frameworks */,
+				14310F09160015A000F64299 /* AddressBook.framework in Frameworks */,
+				14310F0A160015A000F64299 /* AppKit.framework in Frameworks */,
+				14310F0B160015A000F64299 /* Foundation.framework in Frameworks */,
+				14310F0C160015A000F64299 /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,6 +162,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14310F12160015ED00F64299 /* SenTestingKit.framework in Frameworks */,
+				14310F0D160015B500F64299 /* AppKit.framework in Frameworks */,
+				14310F0E160015B500F64299 /* Foundation.framework in Frameworks */,
 				9DA7D6B70DEB8A7800C3B586 /* FeedbackReporter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -148,6 +173,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14310F0F160015C100F64299 /* AppKit.framework in Frameworks */,
+				14310F10160015C100F64299 /* Foundation.framework in Frameworks */,
 				9DB634F20E4DD6F500C72888 /* FeedbackReporter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -172,27 +199,30 @@
 				9DA7D6900DEB87B300C3B586 /* Tests */,
 				08FB77AEFE84172EC02AAC07 /* Main */,
 				089C1665FE841158C02AAC07 /* Resources */,
-				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
+				0867D69AFE84028FC02AAC07 /* Frameworks */,
 				034768DFFF38A50411DB9C8B /* Products */,
 			);
 			name = FeedbackReporter;
 			sourceTree = "<group>";
 		};
-		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
+		0867D69AFE84028FC02AAC07 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				1058C7B0FEA5585E11CA2CBB /* Linked Frameworks */,
-				1058C7B2FEA5585E11CA2CBB /* Other Frameworks */,
+				14310F05160015A000F64299 /* AddressBook.framework */,
+				14310F06160015A000F64299 /* AppKit.framework */,
+				14310F07160015A000F64299 /* Foundation.framework */,
+				14310F11160015ED00F64299 /* SenTestingKit.framework */,
+				14310F08160015A000F64299 /* SystemConfiguration.framework */,
 			);
-			name = "External Frameworks and Libraries";
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		089C1665FE841158C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				9DB6351B0E4DD97A00C72888 /* App.xib */,
-				9DB634F60E4DD8C200C72888 /* FeedbackReporter.xib */,
-				9DD4D9C20E4B934500B26451 /* FeedbackReporter.strings */,
+				444DCB701417D2D800C5636D /* FeedbackReporter.strings */,
+				444DCB671417D18000C5636D /* App.xib */,
+				444DCB5E1417D13E00C5636D /* FeedbackReporter.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -201,6 +231,7 @@
 			isa = PBXGroup;
 			children = (
 				9D543DD60EEDB79900B2B36B /* Exported */,
+				9D1715581100E262007E738D /* Additions */,
 				9DA7D6E20DEB8E5D00C3B586 /* FRApplication.h */,
 				9DA7D6E30DEB8E5D00C3B586 /* FRApplication.m */,
 				9DA7D6E40DEB8E5D00C3B586 /* FRCommand.h */,
@@ -216,31 +247,21 @@
 				9DA7D6ED0DEB8E5D00C3B586 /* FRUploader.h */,
 				9DA7D6EE0DEB8E5D00C3B586 /* FRUploader.m */,
 				9D5FB36B0E0B269900CF1BE0 /* FRConstants.h */,
-				9D0EC0270DF011DB0045EB76 /* NSException+Callstack.h */,
-				9D0EC0280DF011DB0045EB76 /* NSException+Callstack.m */,
 				9D90077A0DEB96C10000330E /* Info.plist */,
 				9DC077900E4CE75E00014424 /* FeedbackReporter.pch */,
 			);
 			name = Main;
 			sourceTree = "<group>";
 		};
-		1058C7B0FEA5585E11CA2CBB /* Linked Frameworks */ = {
+		9D1715581100E262007E738D /* Additions */ = {
 			isa = PBXGroup;
 			children = (
-				9D73A4B30FC37AE8008804E1 /* SystemConfiguration.framework */,
-				9DA6D14F0FA3C18900C990A7 /* AddressBook.framework */,
-				1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */,
+				9D0EC0270DF011DB0045EB76 /* NSException+Callstack.h */,
+				9D0EC0280DF011DB0045EB76 /* NSException+Callstack.m */,
+				FC369CB91100D505004C27F8 /* NSMutableDictionary+Additions.h */,
+				FC369CBA1100D505004C27F8 /* NSMutableDictionary+Additions.m */,
 			);
-			name = "Linked Frameworks";
-			sourceTree = "<group>";
-		};
-		1058C7B2FEA5585E11CA2CBB /* Other Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				0867D6A5FE840307C02AAC07 /* AppKit.framework */,
-				0867D69BFE84028FC02AAC07 /* Foundation.framework */,
-			);
-			name = "Other Frameworks";
+			name = Additions;
 			sourceTree = "<group>";
 		};
 		9D543DD60EEDB79900B2B36B /* Exported */ = {
@@ -271,8 +292,8 @@
 		9DD9DDEB0E4125460054105A /* App */ = {
 			isa = PBXGroup;
 			children = (
-				9DB6353A0E4DDCB700C72888 /* AppController.m */,
 				9DB6353B0E4DDCB700C72888 /* AppController.h */,
+				9DB6353A0E4DDCB700C72888 /* AppController.m */,
 				9DB6351D0E4DD9BE00C72888 /* main.m */,
 				9DB634E70E4DD64C00C72888 /* Info.plist */,
 			);
@@ -295,6 +316,7 @@
 				9DCF52AC0DEC0E4300EBF810 /* FRSystemProfile.h in Headers */,
 				9D0EC0220DF00F250045EB76 /* FRExceptionReportingApplication.h in Headers */,
 				9D0EC0290DF011DB0045EB76 /* NSException+Callstack.h in Headers */,
+				FC369CBB1100D505004C27F8 /* NSMutableDictionary+Additions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,8 +385,12 @@
 /* Begin PBXProject section */
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0410;
+			};
 			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "FeedbackReporter" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -372,6 +398,17 @@
 				French,
 				German,
 				Russian,
+				Armenian,
+				Italian,
+				Spanish,
+				de,
+				ru,
+				it,
+				hy,
+				fr,
+				es,
+				ar,
+				en,
 			);
 			mainGroup = 0867D691FE84028FC02AAC07 /* FeedbackReporter */;
 			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
@@ -390,9 +427,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9DD4D9C30E4B934500B26451 /* FeedbackReporter.strings in Resources */,
-				9DC077910E4CE75E00014424 /* FeedbackReporter.pch in Resources */,
-				9DB634F70E4DD8C200C72888 /* FeedbackReporter.xib in Resources */,
+				444DCB5C1417D13E00C5636D /* FeedbackReporter.xib in Resources */,
+				444DCB721417D2D800C5636D /* FeedbackReporter.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,7 +443,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9DB6351C0E4DD97A00C72888 /* App.xib in Resources */,
+				444DCB651417D18000C5636D /* App.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -445,6 +481,7 @@
 				9DA7D6F80DEB8E5D00C3B586 /* FRFeedbackReporter.m in Sources */,
 				9D0EC0230DF00F250045EB76 /* FRExceptionReportingApplication.m in Sources */,
 				9D0EC02A0DF011DB0045EB76 /* NSException+Callstack.m in Sources */,
+				FC369CBC1100D505004C27F8 /* NSMutableDictionary+Additions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -484,12 +521,42 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		9DD4D9C20E4B934500B26451 /* FeedbackReporter.strings */ = {
+		444DCB5E1417D13E00C5636D /* FeedbackReporter.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				9DD4D9BF0E4B933A00B26451 /* English */,
-				9DD4D9C40E4B934A00B26451 /* German */,
-				9D73A5EC1064DE6D0001CF9E /* Russian */,
+				444DCB5D1417D13E00C5636D /* en */,
+				444DCB5F1417D16B00C5636D /* de */,
+				444DCB601417D16D00C5636D /* ru */,
+				444DCB611417D16F00C5636D /* it */,
+				444DCB621417D17100C5636D /* hy */,
+				444DCB631417D17300C5636D /* fr */,
+				444DCB641417D17500C5636D /* es */,
+				444DCB6F1417D21300C5636D /* ar */,
+			);
+			name = FeedbackReporter.xib;
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		444DCB671417D18000C5636D /* App.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				444DCB661417D18000C5636D /* en */,
+			);
+			name = App.xib;
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		444DCB701417D2D800C5636D /* FeedbackReporter.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				444DCB711417D2D800C5636D /* de */,
+				444DCB731417D2E100C5636D /* en */,
+				444DCB751417D2E900C5636D /* es */,
+				444DCB771417D2F100C5636D /* fr */,
+				444DCB791417D2F800C5636D /* hy */,
+				444DCB7B1417D30300C5636D /* it */,
+				444DCB7D1417D30B00C5636D /* ru */,
+				444DCB7F1417D39100C5636D /* ar */,
 			);
 			name = FeedbackReporter.strings;
 			sourceTree = "<group>";
@@ -500,22 +567,15 @@
 		1DEB91AE08733DA50010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Sources/Main/FeedbackReporter.pch;
 				INFOPLIST_FILE = Sources/Main/Info.plist;
-				INSTALL_PATH = "@executable_path/../Frameworks";
+				INSTALL_PATH = "@loader_path/../Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = FeedbackReporter;
-				SDKROOT = macosx10.5;
+				SDKROOT = macosx10.7;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Debug;
@@ -523,19 +583,14 @@
 		1DEB91AF08733DA50010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
-				DEBUG_INFORMATION_FORMAT = dwarf;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Sources/Main/FeedbackReporter.pch;
 				INFOPLIST_FILE = Sources/Main/Info.plist;
-				INSTALL_PATH = "@executable_path/../Frameworks";
+				INSTALL_PATH = "@loader_path/../Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = FeedbackReporter;
-				SDKROOT = macosx10.5;
+				SDKROOT = macosx10.7;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;
@@ -544,23 +599,46 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					x86_64,
-					i386,
-					ppc7400,
-				);
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
+				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES;
+				CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_OBJC_MISSING_PROPERTY_SYNTHESIS = YES;
+				CLANG_WARN_OBJC_RECEIVER_WEAK = YES;
+				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
+				CLANG_WARN__EXIT_TIME_DESTRUCTORS = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_GC = supported;
 				GCC_ENABLE_SYMBOL_SEPARATION = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Sources/Main/FeedbackReporter.pch;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_EFFECTIVE_CPLUSPLUS_VIOLATIONS = YES;
+				GCC_WARN_FOUR_CHARACTER_CONSTANTS = YES;
+				GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS = YES;
+				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
+				GCC_WARN_MISSING_PARENTHESES = YES;
+				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
+				GCC_WARN_SHADOW = YES;
+				GCC_WARN_SIGN_COMPARE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNKNOWN_PRAGMAS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_LABEL = YES;
+				GCC_WARN_UNUSED_PARAMETER = NO;
+				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				ONLY_ACTIVE_ARCH = NO;
-				PREBINDING = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
-				SDKROOT = macosx10.5;
-				VALID_ARCHS = "x86_64 i386 ppc7400";
+				SDKROOT = macosx10.7;
 			};
 			name = Debug;
 		};
@@ -568,52 +646,59 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					x86_64,
-					i386,
-					ppc7400,
-				);
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
+				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES;
+				CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_OBJC_MISSING_PROPERTY_SYNTHESIS = YES;
+				CLANG_WARN_OBJC_RECEIVER_WEAK = YES;
+				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
+				CLANG_WARN__EXIT_TIME_DESTRUCTORS = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_GC = supported;
 				GCC_ENABLE_SYMBOL_SEPARATION = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Sources/Main/FeedbackReporter.pch;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_EFFECTIVE_CPLUSPLUS_VIOLATIONS = YES;
+				GCC_WARN_FOUR_CHARACTER_CONSTANTS = YES;
+				GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS = YES;
+				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
+				GCC_WARN_MISSING_PARENTHESES = YES;
+				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
+				GCC_WARN_SHADOW = YES;
+				GCC_WARN_SIGN_COMPARE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNKNOWN_PRAGMAS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_LABEL = YES;
+				GCC_WARN_UNUSED_PARAMETER = NO;
+				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = NO;
-				PREBINDING = NO;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
-				SDKROOT = macosx10.5;
-				VALID_ARCHS = "x86_64 i386 ppc7400";
+				SDKROOT = macosx10.7;
 			};
 			name = Release;
 		};
 		9DA7D6B20DEB8A3500C3B586 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
 				INFOPLIST_FILE = "Sources/Tests/Tests-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
 				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = (
-					"-framework",
-					Cocoa,
-					"-framework",
-					SenTestingKit,
-				);
-				PREBINDING = NO;
 				PRODUCT_NAME = Tests;
-				SDKROOT = macosx10.5;
+				SDKROOT = macosx10.7;
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
@@ -621,78 +706,38 @@
 		9DA7D6B30DEB8A3500C3B586 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = dwarf;
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
 				INFOPLIST_FILE = "Sources/Tests/Tests-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
 				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = (
-					"-framework",
-					Cocoa,
-					"-framework",
-					SenTestingKit,
-				);
-				PREBINDING = NO;
 				PRODUCT_NAME = Tests;
-				SDKROOT = macosx10.5;
+				SDKROOT = macosx10.7;
 				WRAPPER_EXTENSION = octest;
-				ZERO_LINK = NO;
 			};
 			name = Release;
 		};
 		9DB634E80E4DD64D00C72888 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_ENABLE_OBJC_GC = unsupported;
 				INFOPLIST_FILE = Sources/App/Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
 				PRODUCT_NAME = App;
+				SDKROOT = macosx10.7;
 			};
 			name = Debug;
 		};
 		9DB634E90E4DD64D00C72888 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_ENABLE_OBJC_GC = unsupported;
 				INFOPLIST_FILE = Sources/App/Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
 				PRODUCT_NAME = App;
-				ZERO_LINK = NO;
+				SDKROOT = macosx10.7;
 			};
 			name = Release;
 		};

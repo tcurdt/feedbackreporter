@@ -1,7 +1,8 @@
 LICENSE.txt
-RELEASENOTES.html
-README.txt
+HISTORY.md
+README.md
 Server/*
 Sources/*
 Resources/*
 FeedbackReporter.xcodeproj/project.pbxproj
+dsa_pub.pem

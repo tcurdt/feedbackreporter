@@ -1,0 +1,78 @@
+/* Uncaught exception message */
+"%@ has encountered an exception!" = "%@ ha incontrato un errore inaspettato.";
+
+/* Message text for crash report */
+"%@ has recently crashed!" = "%@ recentemente si è chiuso.\n\n";
+
+/* */
+"anonymous" = "anonimo";
+
+/* */
+"Cancel" = "Cancella";
+
+/* Comments text view label */
+"Comments:" = "Cosa facevi prima che si presentasse il problema:";
+
+/* */
+"Console" = "Console";
+
+/* */
+"CrashLog" = "Crash Log";
+
+/* */
+"Details" = "Dettagli";
+
+/* */
+"Email address:" = "Il tuo indirizzo email se vuoi rimanere in contatto con noi:";
+
+/* */
+"Error: %@" = "Errore: %@";
+
+/* */
+"Exception" = "Eccezione";
+
+/* Comment label text for feedback */
+"Feedback comment label" = "I tuo commenti:";
+
+/* */
+"Feedback" = "Feedback";
+
+/* */
+"Feedback Host Not Reachable" = "Report server non raggiungibile";
+
+/* Feedback message text */
+"Got a problem with %@?" = "Il problema è avvenuto con %@?";
+
+/* */
+"OK" = "OK";
+
+/* */
+"Preferences" = "Preferenze";
+
+/* */
+"Proceed Anyway" = "Procedi lo stesso";
+
+/* */
+"Script" = "Script";
+
+/* */
+"Send" = "Spedisci";
+
+/* Informative text for crash report */
+"Send crash report" = "Per aiutarci a risolvere il problema, per favore spediscici questo report. Clicca su \"Dettagli\" per sapere le informazioni che verranno inviate.";
+
+/* */
+"Send details" = "Invia dettagli";
+
+/* Informative text for crash report */
+"Send feedback" = "Per aiutarci a risolvere il problema, per favore spediscici questo report. Clicca su \"Dettagli\" per sapere le informazioni che verranno inviate.";
+
+/* */
+"Sorry, failed to submit your feedback to the server." = "Errore nel sottoporre il report al server.";
+
+/* */
+"System" = "Sistema";
+
+/* */
+"You may not be able to send feedback because %@ isn't reachable." = "Non è stato possibile spedire il report perché %@ non era raggiungibile.\n\nAssicurati di avere una connessione attiva prima di riprovare.\n";
+

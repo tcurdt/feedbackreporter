@@ -22,5 +22,9 @@
 	<string>FRExceptionReportingApplication</string>
 	<key>FRFeedbackReporter.targetURL</key>
 	<string>http://vafer.org/feedback/submit.php?project=%@</string>
+	<key>FRFeedbackReporter.defaultSender</key>
+	<string>firstEmail</string>
+	<key>FRFeedbackReporter.sendDetailsIsOptional</key>
+	<string>YES</string>
 </dict>
 </plist>

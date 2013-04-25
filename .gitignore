@@ -1,4 +1,5 @@
 /build
+/Research
 .DS_Store
 *~.nib
 *.mode1v3
@@ -7,3 +8,6 @@
 *.pbxuser
 *.perspective
 *.perspectivev3
+*.xcworkspace
+xcuserdata
+dsa_priv.pem

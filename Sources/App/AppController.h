@@ -1,5 +1,5 @@
 /*
- * Copyright 2008, Torsten Curdt
+ * Copyright 2008-2012, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,14 +15,17 @@
  */
  
 #import <Cocoa/Cocoa.h>
+#import <FeedbackReporter/FRFeedbackReporter.h>
 
-@interface AppController : NSObject {
-
+@interface AppController : NSObject <FRFeedbackReporterDelegate> {
+@private
+	IBOutlet NSWindow* window; // strong reference, needed for GC
 }
 
 - (IBAction) buttonFeedback:(id)sender;
 - (IBAction) buttonException:(id)sender;
 - (IBAction) buttonExceptionInThread:(id)sender;
+- (IBAction) buttonExceptionInDispatchQueue:(id)sender;
 - (IBAction) buttonCrash:(id)sender;
 
 @end

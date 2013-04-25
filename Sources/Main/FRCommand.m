@@ -1,5 +1,5 @@
 /*
- * Copyright 2008, Torsten Curdt
+ * Copyright 2008-2011, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,13 +19,13 @@
 
 @implementation FRCommand
 
-- (id) initWithPath:(NSString*)pPath
+- (id) initWithPath:(NSString*)inPath
 {
     self = [super init];
     if (self != nil) {
-    	task = [[NSTask alloc] init];
-        args = [NSArray array];
-        path = pPath;
+        task = [[NSTask alloc] init];
+        args = [[NSArray array] retain];
+        path = [inPath retain];
         error = nil;
         output = nil;
         terminated = NO;
@@ -34,36 +34,64 @@
     return self;
 }
 
+-(void)dealloc
+{
+    [task release];
+    [args release];
+    [path release];
+    [error release];
+    [output release];
+
+    [super dealloc];
+}
+
+
+
 - (void) setArgs:(NSArray*)pArgs
 {
+    [pArgs retain];
+    [args release];
     args = pArgs;
 }
 
 - (void) setError:(NSMutableString*)pError
 {
+    [pError retain];
+    [error release];
     error = pError;
 }
 
 - (void) setOutput:(NSMutableString*)pOutput
 {
+    [pOutput retain];
+    [output release];
     output = pOutput;
 }
 
 
 -(void) appendDataFrom:(NSFileHandle*)fileHandle to:(NSMutableString*)string
 {
-   NSData *data = [fileHandle availableData];
+    NSData *data = [fileHandle availableData];
 
     if ([data length]) {
-        NSString *s = [[NSString alloc] initWithBytes:[data bytes] length:[data length] encoding:NSASCIIStringEncoding];
-    
-        [output appendString:s];
-        //NSLog(@"| %@", s);
-        
-        [s release];
-    }
-    [fileHandle waitForDataInBackgroundAndNotify];
 
+        // Initially try to read the file in using UTF8
+        NSString *s = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+
+        // If that fails, attempt plain ASCII
+        if (!s) {
+            s = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+        }
+
+        if (s) {
+            [string appendString:s];
+            //NSLog(@"| %@", s);
+
+            [s release];
+        }
+    }
+
+    [fileHandle waitForDataInBackgroundAndNotify];
 }
 
 -(void) outData: (NSNotification *) notification
@@ -95,18 +123,23 @@
 
 - (int) execute
 {
-	[task setLaunchPath:path];
-	[task setArguments:args];
+    if (![[NSFileManager defaultManager] isExecutableFileAtPath:path]) {
+        // executable not found
+        return -1;
+    }
 
-	NSPipe *outPipe = [NSPipe pipe];
-	NSPipe *errPipe = [NSPipe pipe];
+    [task setLaunchPath:path];
+    [task setArguments:args];
+
+    NSPipe *outPipe = [NSPipe pipe];
+    NSPipe *errPipe = [NSPipe pipe];
 
     [task setStandardInput:[NSFileHandle fileHandleWithNullDevice]];
     [task setStandardOutput:outPipe];
     [task setStandardError:errPipe];
 
     NSFileHandle *outFile = [outPipe fileHandleForReading];
-    NSFileHandle *errFile = [errPipe fileHandleForReading];	
+    NSFileHandle *errFile = [errPipe fileHandleForReading]; 
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(outData:)
@@ -126,31 +159,24 @@
     [outFile waitForDataInBackgroundAndNotify];
     [errFile waitForDataInBackgroundAndNotify];
 
-	[task launch];
+    [task launch];
 
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     while(!terminated) {
         if (![[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:100000]]) {
             break;
         }
-        [pool release];
+        [pool drain];
         pool = [[NSAutoreleasePool alloc] init];
     }
-    [pool release];
+    [pool drain];
 
     [self appendDataFrom:outFile to:output];
     [self appendDataFrom:errFile to:error];
 
-	int result = [task terminationStatus];
+    int result = [task terminationStatus];
 
-	return result;
-}
-
--(void)dealloc
-{
-    [task release];
-
-    [super dealloc];
+    return result;
 }
 
 @end

@@ -16,6 +16,7 @@
 
 #import "NSException+Callstack.h"
 #import "FRCommand.h"
+#import "FRConstants.h"
 #import <unistd.h>
 
 @implementation NSException (Callstack)
@@ -30,11 +31,11 @@
     }
 }
 
-- (NSArray*) my_callStackReturnAddressesSkipping: (unsigned)skip limit: (unsigned)limit
+- (NSArray*) my_callStackReturnAddressesSkipping: (NSUInteger)skip limit: (NSUInteger)limit
 {
     NSArray *addresses = [self my_callStackReturnAddresses];
     if( addresses ) {
-        unsigned n = [addresses count];
+        NSUInteger n = [addresses count];
         skip = MIN(skip,n);
         limit = MIN(limit,n-skip);
         addresses = [addresses subarrayWithRange: NSMakeRange(skip,limit)];
@@ -42,10 +43,14 @@
     return addresses;
 }
 
-
 - (NSString*) my_callStack
 {
-    NSArray *addresses = [self my_callStackReturnAddressesSkipping: 2 limit: 15];
+	if ([self respondsToSelector:@selector(callStackSymbols)]) {
+		NSArray *symbols = [(id)self callStackSymbols];
+		return [NSString stringWithFormat:@"%@\n",symbols];
+	}
+
+    NSArray *addresses = [self my_callStackReturnAddressesSkipping: EXCEPTION_STACK_SKIP limit: EXCEPTION_STACK_LIMIT];
 
     if (!addresses) {
         return nil;
@@ -59,18 +64,21 @@
             [NSString stringWithFormat:@"%d", getpid()],
             nil];
             
-    int i;
-    int len = [addresses count];
-    for(i = 0; i<len; i++) {
+    NSUInteger len = [addresses count];
+    for(NSUInteger i = 0; i<len; i++) {
         NSValue *addr = [addresses objectAtIndex:i];
         [args addObject:[NSString stringWithFormat:@"%p", [addr pointerValue]]];
     }
     
-    NSMutableString *output =[NSMutableString string];
+    NSMutableString *output = [NSMutableString string];
 
     FRCommand *cmd = [[FRCommand alloc] initWithPath:@"/usr/bin/atos"];
     [cmd setArgs:args];
     [cmd setOutput:output];
+    [cmd setError:output];
+
+    // execute returns -1 if command does not exist
+
     if([cmd execute] != 0) {
         [cmd release];
         return nil;
@@ -81,7 +89,7 @@
 
     NSArray *lines = [output componentsSeparatedByString: @"\n"];
     len = [lines count];
-    for(i = 0; i<len; i++) {
+    for(NSUInteger i = 0; i<len; i++) {
         NSString *line = [lines objectAtIndex:i];
         
         // Skip  frames that are part of the exception/assertion handling itself:

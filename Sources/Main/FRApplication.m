@@ -1,5 +1,5 @@
 /*
- * Copyright 2008, Torsten Curdt
+ * Copyright 2008-2011, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,30 +19,63 @@
 
 @implementation FRApplication
 
++ (NSString*) applicationBundleVersion
+{
+	// CFBundleShortVersionString is documented as not localizable.
+	NSString *bundleVersion = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleVersion"];
+	
+    return bundleVersion;
+}
+
++ (NSString*) applicationShortVersion
+{
+	// CFBundleShortVersionString is documented as localizable, so prefer a localized value if available.
+    NSString *shortVersion = [[[NSBundle mainBundle] localizedInfoDictionary] valueForKey: @"CFBundleShortVersionString"];
+	
+    if (!shortVersion) {
+        shortVersion = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleShortVersionString"];
+    }
+	
+    return shortVersion;
+}
+
++ (NSString*) applicationLongVersion
+{
+	// CFBundleLongVersionString is hardly documented, it's use is discouraged.
+    NSString *longVersion = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleLongVersionString"];
+	
+	return longVersion;
+}
+
 + (NSString*) applicationVersion
 {
-    NSString *applicationVersion = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleLongVersionString"];
-
-    if (!applicationVersion) {
-        applicationVersion = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleVersion"];
+    NSString *applicationVersion = [[self class] applicationLongVersion];
+    
+    if (applicationVersion != nil) {
+        return applicationVersion;
     }
 
-    return applicationVersion;
+    applicationVersion = [[self class] applicationShortVersion];
+    
+    if (applicationVersion != nil) {
+        return applicationVersion;
+    }
+
+    return [[self class] applicationBundleVersion];
 }
+
 
 + (NSString*) applicationName
 {
-    NSString *applicationName = [[[NSBundle mainBundle] localizedInfoDictionary] valueForKey: @"CFBundleExecutable"];
-
-    if (!applicationName) {
-        applicationName = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleExecutable"];
-    }
-
-    return applicationName;
+ 	// CFBundleExecutable is not localizable.
+   NSString *applicationName = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleExecutable"];
+	
+	return applicationName;
 }
 
 + (NSString*) applicationIdentifier
 {
+	// CFBundleIdentifier is not localizable.
     NSString *applicationIdentifier = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleIdentifier"];
 
     return applicationIdentifier;
@@ -50,7 +83,7 @@
 
 + (NSString*) feedbackURL
 {
-    NSString *target = [[[NSBundle mainBundle] infoDictionary] valueForKey: KEY_TARGETURL];
+    NSString *target = [[[NSBundle mainBundle] infoDictionary] valueForKey: PLIST_KEY_TARGETURL];
 
     if (target == nil) {
         return nil;
