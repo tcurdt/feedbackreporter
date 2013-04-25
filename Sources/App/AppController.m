@@ -99,20 +99,6 @@
 #endif
 }
 
-- (IBAction) buttonExceptionInThread:(id)sender
-{
-    [NSThread detachNewThreadSelector:@selector(threadWithException) toTarget:self withObject:nil];
-}
-
-- (void) threadWithException
-{
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    NSLog(@"exception in thread");
-    [NSException raise:@"TestExceptionThread" format:@"Something went wrong"];
-    [NSThread exit];
-    [pool release];
-}
-
 - (IBAction) buttonCrash:(id)sender
 {
     NSLog(@"crash");
