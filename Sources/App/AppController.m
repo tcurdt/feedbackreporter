@@ -73,7 +73,6 @@
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     NSLog(@"exception on NSThread - unicode: ❄");
     [NSException raise:@"TestException-NSThread" format:@"Something went wrong (☃ attack?)"];
-    [NSThread exit];
     [pool drain];
 }
 
