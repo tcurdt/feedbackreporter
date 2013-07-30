@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2011, Torsten Curdt
+ * Copyright 2008-2013, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,10 +26,8 @@
 
 #import "NSMutableDictionary+Additions.h"
 
-#import <AddressBook/ABAddressBook.h>
-#import <AddressBook/ABMultiValue.h>
-#import <SystemConfiguration/SCNetwork.h>
-#import <SystemConfiguration/SCNetworkReachability.h>
+#import <AddressBook/AddressBook.h>
+#import <SystemConfiguration/SystemConfiguration.h>
 
 
 @implementation FRFeedbackController
