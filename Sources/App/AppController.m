@@ -27,12 +27,12 @@
     [[FRFeedbackReporter sharedReporter] reportIfCrash];
 }
 
-- (NSDictionary*) customParametersForFeedbackReport
+- (NSDictionary *) customParametersForFeedbackReport
 {
     NSLog(@"adding custom parameters");
 
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    
+
     [dict setObject:@"tcurdt"
              forKey:@"user"];
 
@@ -64,15 +64,15 @@
 
 - (IBAction) buttonException:(id)sender
 {
-    NSLog(@"exception due to ❄");
-    [NSException raise:@"TestException" format:@"Something went wrong (☃ attack?)"];
+    NSLog(@"exception on main thread - unicode: ❄");
+    [NSException raise:@"TestException-MainThread" format:@"Something went wrong (☃ attack?)"];
 }
 
 - (void) threadWithException
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    NSLog(@"exception in thread");
-    [NSException raise:@"TestExceptionThread" format:@"Something went wrong"];
+    NSLog(@"exception on NSThread - unicode: ❄");
+    [NSException raise:@"TestException-NSThread" format:@"Something went wrong (☃ attack?)"];
     [NSThread exit];
     [pool drain];
 }
@@ -90,12 +90,14 @@
 	dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1);
 	dispatch_after(popTime, queue, ^{
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-		NSLog(@"exception in dispatch queue");
-		[NSException raise:@"TestExceptionDispatchQueue" format:@"Something went wrong"];
+		NSLog(@"exception on dispatch queue - unicode: ❄");
+		[NSException raise:@"TestException-DispatchQueue" format:@"Something went wrong (☃ attack?)"];
 		[pool drain];
 	});
 	
 	// leak queue.
+#else
+	NSBeep();
 #endif
 }
 
