@@ -62,7 +62,7 @@ project's `Info.plist`.
 ## Specify the target in your projects Info.plist
 
 The framework needs to know where to post the information to. The target needs
-to be specified in the application's `Info.plist`. Note: the %@ will get
+to be specified in the application's `Info.plist`. Note: the optional %@ will get
 expanded to your application's name. If you don't want this URL to be
 guessable it can also be hard coded to whatever you like. The `project`
 parameter must just match the directory on the server.
