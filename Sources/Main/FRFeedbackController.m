@@ -23,6 +23,7 @@
 #import "FRSystemProfile.h"
 #import "FRConstants.h"
 #import "FRConsoleLog.h"
+#import "FRLocalizedString.h"
 
 #import "NSMutableDictionary+Additions.h"
 
