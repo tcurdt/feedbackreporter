@@ -303,6 +303,8 @@
 
 - (IBAction) cancel:(id)sender
 {
+	(void)sender;
+
     [uploader cancel], uploader = nil;
 
     [self close];
@@ -310,6 +312,8 @@
 
 - (IBAction) send:(id)sender
 {
+	(void)sender;
+
     if (uploader != nil) {
         NSLog(@"Still uploading");
         return;
@@ -415,6 +419,8 @@
 
 - (void) uploaderStarted:(FRUploader*)pUploader
 {
+	(void)pUploader;
+
     // NSLog(@"Upload started");
 
     [indicator setHidden:NO];
@@ -426,6 +432,8 @@
 
 - (void) uploaderFailed:(FRUploader*)pUploader withError:(NSError*)error
 {
+	(void)pUploader;
+
     NSLog(@"Upload failed: %@", error);
 
     [indicator stopAnimation:self];
@@ -449,6 +457,8 @@
 
 - (void) uploaderFinished:(FRUploader*)pUploader
 {
+	(void)pUploader;
+
     // NSLog(@"Upload finished");
 
     [indicator stopAnimation:self];
@@ -497,6 +507,8 @@
 
 - (void) windowWillClose: (NSNotification *) n
 {
+	(void)n;
+
     [uploader cancel];
 
     if ([type isEqualToString:FR_EXCEPTION]) {
