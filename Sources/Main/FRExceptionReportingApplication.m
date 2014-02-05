@@ -28,7 +28,19 @@
     @try {
         if (!pthread_main_np()) {
             [[FRFeedbackReporter sharedReporter] performSelectorOnMainThread:@selector(reportException:) withObject:x waitUntilDone:NO];
-            [NSThread exit];
+
+            // We can't exit dispatch queue, so we make it sleep forever.
+            BOOL isSimpleThread = ([[[NSThread callStackSymbols] lastObject]
+                                    rangeOfString:@"thread_start"].location != NSNotFound);
+            
+            if (isSimpleThread)
+            {
+                [NSThread exit];
+            }
+            else
+            {
+                [NSThread sleepUntilDate:[NSDate distantFuture]];
+            }
         }
         else {
             [[FRFeedbackReporter sharedReporter] reportException:x];
