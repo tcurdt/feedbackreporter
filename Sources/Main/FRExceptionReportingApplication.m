@@ -37,7 +37,19 @@
         // our 'exception occured' UI because if we killed the process with
         // abort(), the backtrace would be from here, not from where the
         // exception actually occured.
-        if (pthread_main_np()) {
+        if (!pthread_main_np()) {
+            [[FRFeedbackReporter sharedReporter] performSelectorOnMainThread:@selector(reportException:) withObject:x waitUntilDone:NO];
+
+            // We can't exit dispatch queue, so we make it sleep forever.
+            BOOL isSimpleThread = ([[[NSThread callStackSymbols] lastObject]
+                                    rangeOfString:@"thread_start"].location != NSNotFound);
+            
+            if (isSimpleThread) {
+                [NSThread exit];
+            } else {
+                [NSThread sleepUntilDate:[NSDate distantFuture]];
+            }
+        } else {
             [[FRFeedbackReporter sharedReporter] reportException:x];
         }
 	}
