@@ -136,6 +136,8 @@
 
 - (void) connection: (NSURLConnection *)pConnection didReceiveData: (NSData *)data
 {
+	(void)pConnection;
+
     NSLog(@"Connection received data");
 
     [responseData appendData:data];
@@ -143,6 +145,8 @@
 
 - (void) connection:(NSURLConnection *)pConnection didFailWithError:(NSError *)error
 {
+	(void)pConnection;
+
     NSLog(@"Connection failed");
     
     if ([delegate respondsToSelector:@selector(uploaderFailed:withError:)]) {
@@ -155,6 +159,8 @@
 
 - (void) connectionDidFinishLoading: (NSURLConnection *)pConnection
 {
+	(void)pConnection;
+
     // NSLog(@"Connection finished");
 
     if ([delegate respondsToSelector: @selector(uploaderFinished:)]) {

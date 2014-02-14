@@ -89,7 +89,9 @@
         return nil;
     }
 
-    return [NSString stringWithFormat:target, [FRApplication applicationName]];
+	target = [target stringByReplacingOccurrencesOfString:@"%@" withString:[FRApplication applicationName]];
+
+    return target;
 }
 
 

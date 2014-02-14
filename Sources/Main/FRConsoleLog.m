@@ -117,7 +117,8 @@
 
                     // If a maximum size has been provided, respect it and abort if necessary
                     if (maximumSize != nil) {
-                        consoleOutputLength += [[consoleLines lastObject] length];
+						NSString* lastLine = [consoleLines lastObject];
+                        consoleOutputLength += [lastLine length];
                         if (consoleOutputLength > [maximumSize unsignedIntegerValue]) break;
                     }
                 }

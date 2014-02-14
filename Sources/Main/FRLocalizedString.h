@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2013, Torsten Curdt
+ * Copyright 2013, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,6 +14,6 @@
  * limitations under the License.
  */
 
-#ifdef __OBJC__
-    #import <Cocoa/Cocoa.h>
-#endif
+#import <Foundation/Foundation.h>
+
+#define FRLocalizedString(key,comment) NSLocalizedStringFromTableInBundle(key, @"FeedbackReporter", [NSBundle bundleWithIdentifier:@"org.vafer.FeedbackReporter"], comment)
