@@ -11,9 +11,9 @@ the server side.
  * a PHP script that sends you an email
  * a PHP script that just writes the data to disk and let's cron send the email
  * a PHP script that directly creates an issue in [Mantis][1]
- * a node.js app that stores the reports to disk as json and (optinally) sends a notification via [prowl][2]
+ * a node.js app that stores the reports to disk as JSON and (optionally) sends a notification via [prowl][2]
 
-...of course you can easily write your own backend. In the end it's just the
+… of course you can easily write your own backend. In the end it's just the
 same as receiving a form POST submission.
 
 Please check the various scripts/backends for how to configure them.
