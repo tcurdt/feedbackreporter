@@ -121,7 +121,7 @@
         h = [hours intValue];
     }
 
-    NSDate *since = [[NSCalendarDate calendarDate] dateByAddingYears:0 months:0 days:0 hours:-h minutes:0 seconds:0];
+	NSDate *since = [NSDate dateWithTimeIntervalSinceNow:-h * 60.0 * 60.0];
 
     NSNumber *maximumSize = [[[NSBundle mainBundle] infoDictionary] valueForKey:PLIST_KEY_MAXCONSOLELOGSIZE];
 
