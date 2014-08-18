@@ -36,9 +36,9 @@
     NSMutableString *consoleString = [[NSMutableString alloc] init];
     NSMutableArray *consoleLines = [[NSMutableArray alloc] init];
 
-    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-    [dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
+	// We want the dates and times to be displayed in a standardised form (ISO 8601).
+	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+	[dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
 	
 	// ASL does not work in App Sandbox, even read-only. <rdar://problem/9689364>
 	// Workaround is to use:
@@ -110,9 +110,11 @@
             if (consoleLinesProcessed) {
                 for (NSInteger i = consoleLinesProcessed - 1; i >= 0; i--) {
                     char **line = rawConsoleLines[i];
-                    NSDate *date = [NSDate dateWithTimeIntervalSince1970:atof(line[FR_CONSOLELOG_TIME])];
+					double dateInterval = strtod(line[FR_CONSOLELOG_TIME], NULL);
+                    NSDate *date = [NSDate dateWithTimeIntervalSince1970:dateInterval];
+					NSString *dateString = [dateFormatter stringFromDate:date];
 					NSString *lineString = [NSString stringWithUTF8String:line[FR_CONSOLELOG_TEXT]];
-					NSString *fullString = [NSString stringWithFormat:@"%@: %@\n", [dateFormatter stringFromDate:date], lineString];
+					NSString *fullString = [NSString stringWithFormat:@"%@: %@\n", dateString, lineString];
                     [consoleLines addObject:fullString];
 
                     // If a maximum size has been provided, respect it and abort if necessary
