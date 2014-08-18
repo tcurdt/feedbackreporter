@@ -27,8 +27,6 @@
 
 #import "NSMutableDictionary+Additions.h"
 
-#import <sys/sysctl.h>
-#import <sys/types.h>
 #import <AddressBook/AddressBook.h>
 #import <SystemConfiguration/SystemConfiguration.h>
 
@@ -115,33 +113,17 @@
 
 - (NSString*) consoleLog
 {
-    NSDate *since = nil;
-    
-    // If a specific amount of log hours is specified, use that.
-    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-    NSNumber *hours = [infoDictionary valueForKey:PLIST_KEY_LOGHOURS];
-    if (hours) {
-        int h = [hours intValue];
-        since = [NSDate dateWithTimeIntervalSinceNow:-h * 60.0 * 60.0];
-    } else {
-        // Otherwise, use the launch date of the process
-        pid_t pid = [[NSProcessInfo processInfo] processIdentifier];
-        int mib[4] = {CTL_KERN, KERN_PROC, KERN_PROC_PID, pid};
-        struct kinfo_proc proc;
-        size_t size = sizeof(proc);
-        int result = sysctl(mib, 4, &proc, &size, NULL, 0);
-        if (result == 0) {
-            double startTime = proc.kp_proc.p_starttime.tv_sec;
-            since = [NSDate dateWithTimeIntervalSince1970:startTime];
-        }
-    }
-    
-    // Worse case, default to the last 24 hours.
-    if (!since) {
-        since = [NSDate dateWithTimeIntervalSinceNow:-24.0 * 60.0 * 60.0];
+    NSNumber *hours = [[[NSBundle mainBundle] infoDictionary] valueForKey:PLIST_KEY_LOGHOURS];
+
+    int h = 24;
+
+    if (hours != nil) {
+        h = [hours intValue];
     }
 
-    NSNumber *maximumSize = [infoDictionary valueForKey:PLIST_KEY_MAXCONSOLELOGSIZE];
+	NSDate *since = [NSDate dateWithTimeIntervalSinceNow:-h * 60.0 * 60.0];
+
+    NSNumber *maximumSize = [[[NSBundle mainBundle] infoDictionary] valueForKey:PLIST_KEY_MAXCONSOLELOGSIZE];
 
     return [FRConsoleLog logSince:since maxSize:maximumSize];
 }
