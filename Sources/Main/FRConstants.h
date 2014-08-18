@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2011, Torsten Curdt
+ * Copyright 2008-2014, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
 //  URL where to POST the result to (required)
 #define PLIST_KEY_TARGETURL             @"FRFeedbackReporter.targetURL"
 
-//  Truncates the console log to not send more than x hours into the past. (optinal)
+//  Truncates the console log to not send more than x hours into the past. (optional)
 #define PLIST_KEY_LOGHOURS              @"FRFeedbackReporter.logHours"
 
 //  The default e-mail address to select in case there is no selection saved in
