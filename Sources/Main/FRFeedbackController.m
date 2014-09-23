@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2013, Torsten Curdt
+ * Copyright 2008-2014, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -121,7 +121,7 @@
         h = [hours intValue];
     }
 
-    NSDate *since = [[NSCalendarDate calendarDate] dateByAddingYears:0 months:0 days:0 hours:-h minutes:0 seconds:0];
+	NSDate *since = [NSDate dateWithTimeIntervalSinceNow:-h * 60.0 * 60.0];
 
     NSNumber *maximumSize = [[[NSBundle mainBundle] infoDictionary] valueForKey:PLIST_KEY_MAXCONSOLELOGSIZE];
 
@@ -352,14 +352,15 @@
         && !(reachabilityFlags & kSCNetworkFlagsInterventionRequired);
 
     if (!reachable) {
-        NSInteger alertResult = [[NSAlert alertWithMessageText:FRLocalizedString(@"Feedback Host Not Reachable", nil)
-                                                 defaultButton:FRLocalizedString(@"Proceed Anyway", nil)
-                                               alternateButton:FRLocalizedString(@"Cancel", nil)
-                                                   otherButton:nil
-                                     informativeTextWithFormat:FRLocalizedString(@"You may not be able to send feedback because %@ isn't reachable.", nil), host
-                                  ] runModal];
+		NSAlert *alert = [[NSAlert alloc] init];
+		[alert addButtonWithTitle:FRLocalizedString(@"Proceed Anyway", nil)];
+		[alert addButtonWithTitle:FRLocalizedString(@"Cancel", nil)];
+		[alert setMessageText:FRLocalizedString(@"Feedback Host Not Reachable", nil)];
+		[alert setInformativeText:[NSString stringWithFormat:FRLocalizedString(@"You may not be able to send feedback because %@ isn't reachable.", nil), host]];
+		NSInteger alertResult = [alert runModal];
+		[alert release];
 
-        if (alertResult != NSAlertDefaultReturn) {
+        if (alertResult != NSAlertFirstButtonReturn) {
             return;
         }
     }

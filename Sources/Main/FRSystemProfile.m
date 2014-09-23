@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2013, Torsten Curdt
+ * Copyright 2008-2014, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,7 +34,7 @@
         @"MACHINE_MODEL", @"Machine Model", machinemodel, machinemodel, nil]
         forKeys:discoveryKeys]];
 
-    NSString *ramsize = [NSString stringWithFormat:@"%ld", [self ramsize]];
+    NSString *ramsize = [NSString stringWithFormat:@"%lld", [self ramsize]];
     [discoveryArray addObject:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:
         @"RAM_SIZE", @"Memory in (MB)", ramsize, ramsize, nil]
         forKeys:discoveryKeys]];
@@ -44,7 +44,7 @@
         @"CPU_TYPE", @"CPU Type", cputype, cputype, nil]
         forKeys:discoveryKeys]];
 
-    NSString *cpuspeed = [NSString stringWithFormat:@"%ld", [self cpuspeed]];
+    NSString *cpuspeed = [NSString stringWithFormat:@"%lld", [self cpuspeed]];
     [discoveryArray addObject:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:
         @"CPU_SPEED", @"CPU Speed (MHz)", cpuspeed, cpuspeed, nil]
         forKeys:discoveryKeys]];
@@ -120,9 +120,8 @@
     int cpufamily = -1;
     length = sizeof(cpufamily);
     error = sysctlbyname("hw.cpufamily", &cpufamily, &length, NULL, 0);
-        
+
     if (error == 0) {
-        // 10.5+
         switch (cpufamily) {
             case CPUFAMILY_POWERPC_G3:
                 return @"PowerPC G3";
@@ -130,9 +129,9 @@
                 return @"PowerPC G4";
             case CPUFAMILY_POWERPC_G5:
                 return @"PowerPC G5";
-            case CPUFAMILY_INTEL_CORE:
+            case CPUFAMILY_INTEL_YONAH:
                 return @"Intel Core Duo";
-            case CPUFAMILY_INTEL_CORE2:
+            case CPUFAMILY_INTEL_MEROM:
                 return @"Intel Core 2 Duo";
             case CPUFAMILY_INTEL_PENRYN:
                 return @"Intel Core 2 Duo (Penryn)";
@@ -199,9 +198,9 @@
     }
     
     switch (value) {
-        case 7:
+        case CPU_TYPE_X86:
             return @"Intel";
-        case 18:
+        case CPU_TYPE_POWERPC:
             return @"PPC";
     }
 
@@ -267,9 +266,9 @@
     return [languages objectAtIndex:0];
 }
 
-+ (long) cpuspeed
++ (long long) cpuspeed
 {
-    long result = 0;
+    long long result = 0;
 
 	int error = 0;
 
@@ -284,14 +283,14 @@
         return -1;
     }
 	
-	result = (long)(hertz/1000000); // Convert to MHz
+	result = (long long)(hertz/1000000); // Convert to MHz
     
     return result;
 }
 
-+ (long) ramsize
++ (long long) ramsize
 {
-    long result = 0;
+    long long result = 0;
 
 	int error = 0;
     int64_t value = 0;
@@ -302,8 +301,8 @@
         NSLog(@"Failed to obtain RAM size");
         return -1;
 	}
-	const int64_t kBytesPerMegabyte = 1024*1024;
-	result = (long)(value/kBytesPerMegabyte);
+	const int64_t kBytesPerMebibyte = 1024*1024;
+	result = (long long)(value/kBytesPerMebibyte);
     
     return result;
 }
