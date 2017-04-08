@@ -1,7 +1,7 @@
-When writing desktop applications you are dealing with a huge amount of
-different installations. Tracking down a bug requires to get detailed
-information on what happened on the user's computer. But most likely you don't
-want to bother the users with how to make this information available to you.
+When writing desktop applications you are dealing with a high volume of
+unique installations. Tracking down a bug requires detailed information 
+of what happened on the user's computer. However, you would not want
+to bother the users with how to make this information available to you.
 
 I wasn't really satisfied with the frameworks available so I came up with one
 that suits my needs. Hopefully it will also suit yours.
