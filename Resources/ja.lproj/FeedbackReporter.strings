@@ -1,0 +1,78 @@
+/* Uncaught exception message */
+"%@ has encountered an exception!" = "%@ で予期しないエラーが起きました。";
+
+/* Message text for crash report */
+"%@ has recently crashed!" = "%@ は最近予期せず終了しました。";
+
+/* */
+"anonymous" = "匿名";
+
+/* */
+"Cancel" = "キャンセル";
+
+/* Comments text view label */
+"Comments:" = "クラッシュする直前に行った操作について書いてください:";
+
+/* */
+"Console" = "コンソール";
+
+/* */
+"CrashLog" = "クラッシュログ";
+
+/* */
+"Details" = "詳細";
+
+/* */
+"Email address:" = "連絡してもよろしければメールアドレスをご記入ください:";
+
+/* */
+"Error: %@" = "エラー: %@";
+
+/* */
+"Exception" = "例外";
+
+/* Comment label text for feedback */
+"Feedback comment label" = "ご意見／ご感想:";
+
+/* */
+"Feedback" = "フィードバック";
+
+/* */
+"Feedback Host Not Reachable" = "フィードバックホストに到達不可";
+
+/* Feedback message text */
+"Got a problem with %@?" = "%@ を良くするアイデアが浮かびましたか？";
+
+/* */
+"OK" = "OK";
+
+/* */
+"Preferences" = "環境設定";
+
+/* */
+"Proceed Anyway" = "そのまま続ける";
+
+/* */
+"Script" = "スクリプト";
+
+/* */
+"Send" = "送る";
+
+/* Informative text for crash report */
+"Send crash report" = "このフィードバックレポートを送信することで、私たちが問題を修正するのをご支援ください。送信されるデータを見るには詳細をクリックしてください。";
+
+/* */
+"Send details" = "詳細を送る";
+
+/* Informative text for feedback */
+"Send feedback" = "ご意見／ご感想を歓迎いたします！お送りいただいた内容は私たちがソフトウェアを発展させるのに活用させていただきます。送信されるデータを見るには詳細をクリックしてください。";
+
+/* */
+"Sorry, failed to submit your feedback to the server." = "フィードバックのサーバーへの送信時に失敗しました。";
+
+/* */
+"System" = "システム";
+ 
+/* */
+"You may not be able to send feedback because %@ isn't reachable." = "%@ が到達可能でないため、フィードバックを送信できません。\n\n続ける前にネットワーク接続を確認してください。\n";
+
