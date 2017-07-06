@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
 #import "FRUploader.h"
 
-@interface UploaderTestCase : SenTestCase <FRUploaderDelegate> {
+@interface UploaderTestCase : XCTestCase <FRUploaderDelegate> {
 
 }
 

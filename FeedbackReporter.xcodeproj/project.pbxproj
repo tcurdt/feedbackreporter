@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,7 +15,6 @@
 		14310F0E160015B500F64299 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14310F07160015A000F64299 /* Foundation.framework */; };
 		14310F0F160015C100F64299 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14310F06160015A000F64299 /* AppKit.framework */; };
 		14310F10160015C100F64299 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14310F07160015A000F64299 /* Foundation.framework */; };
-		14310F12160015ED00F64299 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14310F11160015ED00F64299 /* SenTestingKit.framework */; };
 		146326DF17C3D0690088F15B /* FRLocalizedString.h in Headers */ = {isa = PBXBuildFile; fileRef = 146326DE17C3D0690088F15B /* FRLocalizedString.h */; };
 		444DCB5C1417D13E00C5636D /* FeedbackReporter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 444DCB5E1417D13E00C5636D /* FeedbackReporter.xib */; };
 		444DCB651417D18000C5636D /* App.xib in Resources */ = {isa = PBXBuildFile; fileRef = 444DCB671417D18000C5636D /* App.xib */; };
@@ -88,7 +87,6 @@
 		14310F06160015A000F64299 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		14310F07160015A000F64299 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		14310F08160015A000F64299 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		14310F11160015ED00F64299 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		146326DE17C3D0690088F15B /* FRLocalizedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FRLocalizedString.h; path = Sources/Main/FRLocalizedString.h; sourceTree = "<group>"; };
 		444DCB5D1417D13E00C5636D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/FeedbackReporter.xib; sourceTree = "<group>"; };
 		444DCB5F1417D16B00C5636D /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/FeedbackReporter.xib; sourceTree = "<group>"; };
@@ -119,7 +117,7 @@
 		9D5FB36B0E0B269900CF1BE0 /* FRConstants.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = FRConstants.h; path = Sources/Main/FRConstants.h; sourceTree = "<group>"; };
 		9D90077A0DEB96C10000330E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Sources/Main/Info.plist; sourceTree = "<group>"; };
 		9D90077F0DEB96D40000330E /* Tests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Tests-Info.plist"; path = "Sources/Tests/Tests-Info.plist"; sourceTree = SOURCE_ROOT; };
-		9DA7D6B10DEB8A3500C3B586 /* Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9DA7D6B10DEB8A3500C3B586 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DA7D6E20DEB8E5D00C3B586 /* FRApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FRApplication.h; path = Sources/Main/FRApplication.h; sourceTree = "<group>"; };
 		9DA7D6E30DEB8E5D00C3B586 /* FRApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FRApplication.m; path = Sources/Main/FRApplication.m; sourceTree = "<group>"; };
 		9DA7D6E40DEB8E5D00C3B586 /* FRCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FRCommand.h; path = Sources/Main/FRCommand.h; sourceTree = "<group>"; };
@@ -164,7 +162,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				14310F12160015ED00F64299 /* SenTestingKit.framework in Frameworks */,
 				14310F0D160015B500F64299 /* AppKit.framework in Frameworks */,
 				14310F0E160015B500F64299 /* Foundation.framework in Frameworks */,
 				9DA7D6B70DEB8A7800C3B586 /* FeedbackReporter.framework in Frameworks */,
@@ -188,7 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				8DC2EF5B0486A6940098B216 /* FeedbackReporter.framework */,
-				9DA7D6B10DEB8A3500C3B586 /* Tests.octest */,
+				9DA7D6B10DEB8A3500C3B586 /* Tests.xctest */,
 				9DB634E30E4DD64C00C72888 /* App.app */,
 			);
 			name = Products;
@@ -213,7 +210,6 @@
 				14310F05160015A000F64299 /* AddressBook.framework */,
 				14310F06160015A000F64299 /* AppKit.framework */,
 				14310F07160015A000F64299 /* Foundation.framework */,
-				14310F11160015ED00F64299 /* SenTestingKit.framework */,
 				14310F08160015A000F64299 /* SystemConfiguration.framework */,
 			);
 			name = Frameworks;
@@ -353,7 +349,6 @@
 				9DA7D6AC0DEB8A3500C3B586 /* Resources */,
 				9DA7D6AD0DEB8A3500C3B586 /* Sources */,
 				9DA7D6AE0DEB8A3500C3B586 /* Frameworks */,
-				9DA7D6AF0DEB8A3500C3B586 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -362,8 +357,8 @@
 			);
 			name = Tests;
 			productName = Tests;
-			productReference = 9DA7D6B10DEB8A3500C3B586 /* Tests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productReference = 9DA7D6B10DEB8A3500C3B586 /* Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		9DB634E20E4DD64C00C72888 /* App */ = {
 			isa = PBXNativeTarget;
@@ -390,10 +385,11 @@
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastTestingUpgradeCheck = 0620;
 				LastUpgradeCheck = 0410;
 			};
 			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "FeedbackReporter" */;
-			compatibilityVersion = "Xcode 3.1";
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -452,23 +448,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		9DA7D6AF0DEB8A3500C3B586 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\nif [ -x '/Applications/OCRunner.app' ]; then\n\topen \"ocrunner://${TARGET_BUILD_DIR}/${PRODUCT_NAME}.octest\"\nelse\n\t\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\nfi";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8DC2EF540486A6940098B216 /* Sources */ = {
@@ -689,12 +668,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Sources/Tests/Tests-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = Tests;
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
@@ -702,12 +680,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Sources/Tests/Tests-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = Tests;
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};
