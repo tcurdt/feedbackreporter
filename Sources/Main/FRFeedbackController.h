@@ -17,6 +17,8 @@
 #import <Cocoa/Cocoa.h>
 #import "FRUploader.h"
 
+@protocol FRFeedbackReporterDelegate;
+
 #define FR_FEEDBACK  @"feedback"
 #define FR_EXCEPTION @"exception"
 #define FR_CRASH     @"crash"
@@ -61,16 +63,12 @@
     
     
     FRUploader *_uploader;
-    
-    id _delegate;
-    
     NSString *_type;
 }
 
 #pragma mark Accessors
 
-- (id) delegate;
-- (void) setDelegate:(id) delegate;
+@property (readwrite, assign, nonatomic) id<FRFeedbackReporterDelegate> delegate;
 
 - (void) setHeading:(NSString*)message;
 - (void) setSubheading:(NSString *)informativeText;

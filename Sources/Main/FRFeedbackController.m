@@ -71,16 +71,6 @@
 
 #pragma mark Accessors
 
-- (id) delegate
-{
-    return _delegate;
-}
-
-- (void) setDelegate:(id) pDelegate
-{
-    _delegate = pDelegate;
-}
-
 - (void) setHeading:(NSString*)message
 {
     [headingField setStringValue:message];
@@ -255,8 +245,9 @@
 
     [preferences removeObjectForKey:DEFAULTS_KEY_SENDEREMAIL];
 
-    if ([_delegate respondsToSelector:@selector(anonymizePreferencesForFeedbackReport:)]) {
-        preferences = [_delegate anonymizePreferencesForFeedbackReport:preferences];
+    id<FRFeedbackReporterDelegate> strongDelegate = [self delegate];
+    if ([strongDelegate respondsToSelector:@selector(anonymizePreferencesForFeedbackReport:)]) {
+        preferences = [strongDelegate anonymizePreferencesForFeedbackReport:preferences];
     }
 
     return [NSString stringWithFormat:@"%@", preferences];
@@ -321,8 +312,9 @@
 
     NSString *target = [[FRApplication feedbackURL] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] ;
 
-    if ([[[FRFeedbackReporter sharedReporter] delegate] respondsToSelector:@selector(targetUrlForFeedbackReport)]) {
-        target = [[[FRFeedbackReporter sharedReporter] delegate] targetUrlForFeedbackReport];
+    id<FRFeedbackReporterDelegate> strongDelegate = [self delegate];
+    if ([strongDelegate respondsToSelector:@selector(targetUrlForFeedbackReport)]) {
+        target = [strongDelegate targetUrlForFeedbackReport];
     }
 
     if (target == nil) {
@@ -390,8 +382,8 @@
                   forKey:POST_KEY_VERSION];
 
     if ([sendDetailsCheckbox state] == NSOnState) {
-        if ([_delegate respondsToSelector:@selector(customParametersForFeedbackReport)]) {
-            [dict addEntriesFromDictionary:[_delegate customParametersForFeedbackReport]];
+        if ([strongDelegate respondsToSelector:@selector(customParametersForFeedbackReport)]) {
+            [dict addEntriesFromDictionary:[strongDelegate customParametersForFeedbackReport]];
         }
 
         [dict setValidString:[self systemProfileAsString]

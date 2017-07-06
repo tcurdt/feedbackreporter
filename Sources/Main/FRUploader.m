@@ -16,6 +16,10 @@
 
 #import "FRUploader.h"
 
+// Private interface.
+@interface FRUploader()
+@property (readwrite, assign, nonatomic) id<FRUploaderDelegate> delegate;
+@end
 
 @implementation FRUploader
 
@@ -117,15 +121,16 @@
 
     _connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
 
+    id<FRUploaderDelegate> strongDelegate = [self delegate];
     if (_connection != nil) {
-        if ([_delegate respondsToSelector:@selector(uploaderStarted:)]) {
-            [_delegate performSelector:@selector(uploaderStarted:) withObject:self];
+        if ([strongDelegate respondsToSelector:@selector(uploaderStarted:)]) {
+            [strongDelegate performSelector:@selector(uploaderStarted:) withObject:self];
         }
         
     } else {
-        if ([_delegate respondsToSelector:@selector(uploaderFailed:withError:)]) {
+        if ([strongDelegate respondsToSelector:@selector(uploaderFailed:withError:)]) {
 
-            [_delegate performSelector:@selector(uploaderFailed:withError:) withObject:self
+            [strongDelegate performSelector:@selector(uploaderFailed:withError:) withObject:self
                 withObject:[NSError errorWithDomain:@"Failed to establish connection" code:0 userInfo:nil]];
 
         }
@@ -149,9 +154,10 @@
 
     NSLog(@"Connection failed");
     
-    if ([_delegate respondsToSelector:@selector(uploaderFailed:withError:)]) {
+    id<FRUploaderDelegate> strongDelegate = [self delegate];
+    if ([strongDelegate respondsToSelector:@selector(uploaderFailed:withError:)]) {
 
-        [_delegate performSelector:@selector(uploaderFailed:withError:) withObject:self withObject:error];
+        [strongDelegate performSelector:@selector(uploaderFailed:withError:) withObject:self withObject:error];
     }
         
     [_connection autorelease];
@@ -163,8 +169,9 @@
 
     // NSLog(@"Connection finished");
 
-    if ([_delegate respondsToSelector: @selector(uploaderFinished:)]) {
-        [_delegate performSelector:@selector(uploaderFinished:) withObject:self];
+    id<FRUploaderDelegate> strongDelegate = [self delegate];
+    if ([strongDelegate respondsToSelector: @selector(uploaderFinished:)]) {
+        [strongDelegate performSelector:@selector(uploaderFinished:) withObject:self];
     }
     
     [_connection autorelease];

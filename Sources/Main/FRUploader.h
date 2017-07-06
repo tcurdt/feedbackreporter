@@ -22,7 +22,6 @@
 
 @private
     NSString *_target;
-    id<FRUploaderDelegate> _delegate;
 
     NSURLConnection *_connection;
     NSMutableData *_responseData;

@@ -28,15 +28,13 @@
 
     @private
         id _feedbackController;
-        id<FRFeedbackReporterDelegate> _delegate;
 }
 
 // Creates and returns the singleton FRFeedbackReporter. Does not perform any checks or other real work.
 + (FRFeedbackReporter *)sharedReporter;
 
 // Gets/sets the delegate.
-- (id<FRFeedbackReporterDelegate>) delegate;
-- (void) setDelegate:(id<FRFeedbackReporterDelegate>) delegate;
+@property (readwrite, assign, nonatomic) id<FRFeedbackReporterDelegate> delegate;
 
 // Displays the feedback user interface allowing the user to provide general feedback. Returns YES if it was able to display the UI, NO otherwise.
 - (BOOL) reportFeedback;
