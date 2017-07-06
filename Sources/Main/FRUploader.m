@@ -19,7 +19,7 @@
 
 @implementation FRUploader
 
-- (id) initWithTarget:(NSString*)pTarget delegate:(id<FRUploaderDelegate>)pDelegate
+- (instancetype) initWithTarget:(NSString*)pTarget delegate:(id<FRUploaderDelegate>)pDelegate
 {
     self = [super init];
     if (self != nil) {

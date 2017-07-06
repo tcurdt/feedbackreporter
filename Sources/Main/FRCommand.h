@@ -32,7 +32,7 @@
 }
 
 
-- (id) initWithPath:(NSString*)inPath;
+- (instancetype) initWithPath:(NSString*)inPath;
 
 - (void) setArgs:(NSArray*)args;
 

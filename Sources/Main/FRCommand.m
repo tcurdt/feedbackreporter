@@ -19,7 +19,7 @@
 
 @implementation FRCommand
 
-- (id) initWithPath:(NSString*)inPath
+- (instancetype) initWithPath:(NSString*)inPath
 {
     self = [super init];
     if (self != nil) {

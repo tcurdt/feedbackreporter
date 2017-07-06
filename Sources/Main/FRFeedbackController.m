@@ -35,7 +35,7 @@
 
 #pragma mark Construction
 
-- (id) init
+- (instancetype) init
 {
     self = [super initWithWindowNibName:@"FeedbackReporter"];
     if (self != nil) {
