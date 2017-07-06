@@ -24,7 +24,7 @@
     self = [super init];
     if (self != nil) {
         _task = [[NSTask alloc] init];
-        _args = [[NSArray array] retain];
+        _args = [@[] retain];
         _path = [inPath retain];
         _error = nil;
         _output = nil;
