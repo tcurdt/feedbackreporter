@@ -35,7 +35,7 @@
 
     IBOutlet NSButton *detailsButton;
     IBOutlet NSTextField *detailsLabel;
-    BOOL detailsShown;
+    BOOL _detailsShown;
 
 	IBOutlet NSButton *sendDetailsCheckbox;
 
@@ -60,11 +60,11 @@
     IBOutlet NSButton *sendButton;
 		
     
-    FRUploader *uploader;
+    FRUploader *_uploader;
     
-    id delegate;
+    id _delegate;
     
-    NSString *type;
+    NSString *_type;
 }
 
 #pragma mark Accessors

@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2011, Torsten Curdt
+ * Copyright 2008-2017, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,9 +23,9 @@
 {
     self = [super init];
     if (self != nil) {
-        target = pTarget;
-        delegate = pDelegate;
-        responseData = [[NSMutableData alloc] init];
+        _target = pTarget;
+        _delegate = pDelegate;
+        _responseData = [[NSMutableData alloc] init];
     }
     
     return self;
@@ -33,7 +33,7 @@
 
 - (void) dealloc
 {
-    [responseData release];
+    [_responseData release];
     
     [super dealloc];
 }
@@ -76,9 +76,9 @@
 
     NSData *formData = [self generateFormData:dict forBoundary:formBoundary];
 
-    NSLog(@"Posting %lu bytes to %@", (unsigned long)[formData length], target);
+    NSLog(@"Posting %lu bytes to %@", (unsigned long)[formData length], _target);
 
-    NSMutableURLRequest *post = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:target]];
+    NSMutableURLRequest *post = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:_target]];
     
     NSString *boundaryString = [NSString stringWithFormat: @"multipart/form-data; boundary=%@", formBoundary];
     [post addValue: boundaryString forHTTPHeaderField: @"Content-Type"];
@@ -106,26 +106,26 @@
 
     NSData *formData = [self generateFormData:dict forBoundary:formBoundary];
 
-    NSLog(@"Posting %lu bytes to %@", (unsigned long)[formData length], target);
+    NSLog(@"Posting %lu bytes to %@", (unsigned long)[formData length], _target);
 
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:target]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:_target]];
     
     NSString *boundaryString = [NSString stringWithFormat: @"multipart/form-data; boundary=%@", formBoundary];
     [request addValue: boundaryString forHTTPHeaderField: @"Content-Type"];
     [request setHTTPMethod: @"POST"];
     [request setHTTPBody:formData];
 
-    connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    _connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
 
-    if (connection != nil) {
-        if ([delegate respondsToSelector:@selector(uploaderStarted:)]) {
-            [delegate performSelector:@selector(uploaderStarted:) withObject:self];
+    if (_connection != nil) {
+        if ([_delegate respondsToSelector:@selector(uploaderStarted:)]) {
+            [_delegate performSelector:@selector(uploaderStarted:) withObject:self];
         }
         
     } else {
-        if ([delegate respondsToSelector:@selector(uploaderFailed:withError:)]) {
+        if ([_delegate respondsToSelector:@selector(uploaderFailed:withError:)]) {
 
-            [delegate performSelector:@selector(uploaderFailed:withError:) withObject:self
+            [_delegate performSelector:@selector(uploaderFailed:withError:) withObject:self
                 withObject:[NSError errorWithDomain:@"Failed to establish connection" code:0 userInfo:nil]];
 
         }
@@ -140,7 +140,7 @@
 
     NSLog(@"Connection received data");
 
-    [responseData appendData:data];
+    [_responseData appendData:data];
 }
 
 - (void) connection:(NSURLConnection *)pConnection didFailWithError:(NSError *)error
@@ -149,12 +149,12 @@
 
     NSLog(@"Connection failed");
     
-    if ([delegate respondsToSelector:@selector(uploaderFailed:withError:)]) {
+    if ([_delegate respondsToSelector:@selector(uploaderFailed:withError:)]) {
 
-        [delegate performSelector:@selector(uploaderFailed:withError:) withObject:self withObject:error];
+        [_delegate performSelector:@selector(uploaderFailed:withError:) withObject:self withObject:error];
     }
         
-    [connection autorelease];
+    [_connection autorelease];
 }
 
 - (void) connectionDidFinishLoading: (NSURLConnection *)pConnection
@@ -163,23 +163,23 @@
 
     // NSLog(@"Connection finished");
 
-    if ([delegate respondsToSelector: @selector(uploaderFinished:)]) {
-        [delegate performSelector:@selector(uploaderFinished:) withObject:self];
+    if ([_delegate respondsToSelector: @selector(uploaderFinished:)]) {
+        [_delegate performSelector:@selector(uploaderFinished:) withObject:self];
     }
     
-    [connection autorelease];
+    [_connection autorelease];
 }
 
 
 - (void) cancel
 {
-    [connection cancel];
-    [connection autorelease], connection = nil;
+    [_connection cancel];
+    [_connection autorelease], _connection = nil;
 }
 
 - (NSString*) response
 {
-    return [[[NSString alloc] initWithData:responseData
+    return [[[NSString alloc] initWithData:_responseData
                                   encoding:NSUTF8StringEncoding] autorelease];
 }
 

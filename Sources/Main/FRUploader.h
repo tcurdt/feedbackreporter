@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2011, Torsten Curdt
+ * Copyright 2008-2017, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,11 +21,11 @@
 @interface FRUploader : NSObject {
 
 @private
-    NSString *target;
-    id<FRUploaderDelegate> delegate;
+    NSString *_target;
+    id<FRUploaderDelegate> _delegate;
 
-    NSURLConnection *connection;
-    NSMutableData *responseData;
+    NSURLConnection *_connection;
+    NSMutableData *_responseData;
 }
 
 - (instancetype) initWithTarget:(NSString*)target delegate:(id<FRUploaderDelegate>)delegate;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2014, Torsten Curdt
+ * Copyright 2008-2017, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,7 +39,7 @@
 {
     self = [super initWithWindowNibName:@"FeedbackReporter"];
     if (self != nil) {
-        detailsShown = YES;
+        _detailsShown = YES;
     }
     return self;
 }
@@ -57,7 +57,7 @@
 
 - (void) dealloc
 {
-    [type release];
+    [_type release];
 
     [tabConsole release];
     [tabCrash release];
@@ -73,12 +73,12 @@
 
 - (id) delegate
 {
-    return delegate;
+    return _delegate;
 }
 
 - (void) setDelegate:(id) pDelegate
 {
-    delegate = pDelegate;
+    _delegate = pDelegate;
 }
 
 - (void) setHeading:(NSString*)message
@@ -103,9 +103,9 @@
 
 - (void) setType:(NSString*)theType
 {
-    if (theType != type) {
-        [type release];
-        type = [theType retain];
+    if (theType != _type) {
+        [_type release];
+        _type = [theType retain];
     }
 }
 
@@ -255,8 +255,8 @@
 
     [preferences removeObjectForKey:DEFAULTS_KEY_SENDEREMAIL];
 
-    if ([delegate respondsToSelector:@selector(anonymizePreferencesForFeedbackReport:)]) {
-        preferences = [delegate anonymizePreferencesForFeedbackReport:preferences];
+    if ([_delegate respondsToSelector:@selector(anonymizePreferencesForFeedbackReport:)]) {
+        preferences = [_delegate anonymizePreferencesForFeedbackReport:preferences];
     }
 
     return [NSString stringWithFormat:@"%@", preferences];
@@ -267,7 +267,7 @@
 
 - (void) showDetails:(BOOL)show animate:(BOOL)animate
 {
-    if (detailsShown == show) {
+    if (_detailsShown == show) {
         return;
     }
 
@@ -292,7 +292,7 @@
 
     }
 
-    detailsShown = show;
+    _detailsShown = show;
 }
 
 - (IBAction) showDetails:(id)sender
@@ -305,7 +305,7 @@
 {
 	(void)sender;
 
-    [uploader cancel], uploader = nil;
+    [_uploader cancel], _uploader = nil;
 
     [self close];
 }
@@ -314,7 +314,7 @@
 {
 	(void)sender;
 
-    if (uploader != nil) {
+    if (_uploader != nil) {
         NSLog(@"Still uploading");
         return;
     }
@@ -364,7 +364,7 @@
         }
     }
 
-    uploader = [[FRUploader alloc] initWithTarget:target delegate:self];
+    _uploader = [[FRUploader alloc] initWithTarget:target delegate:self];
 
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
 
@@ -374,7 +374,7 @@
     [dict setValidString:[messageView string]
                   forKey:POST_KEY_MESSAGE];
 
-    [dict setValidString:type
+    [dict setValidString:_type
                   forKey:POST_KEY_TYPE];
 
     [dict setValidString:[FRApplication applicationLongVersion]
@@ -390,8 +390,8 @@
                   forKey:POST_KEY_VERSION];
 
     if ([sendDetailsCheckbox state] == NSOnState) {
-        if ([delegate respondsToSelector:@selector(customParametersForFeedbackReport)]) {
-            [dict addEntriesFromDictionary:[delegate customParametersForFeedbackReport]];
+        if ([_delegate respondsToSelector:@selector(customParametersForFeedbackReport)]) {
+            [dict addEntriesFromDictionary:[_delegate customParametersForFeedbackReport]];
         }
 
         [dict setValidString:[self systemProfileAsString]
@@ -415,7 +415,7 @@
 
     NSLog(@"Sending feedback to %@", target);
 
-    [uploader postAndNotify:dict];
+    [_uploader postAndNotify:dict];
 }
 
 - (void) uploaderStarted:(FRUploader*)pUploader
@@ -440,7 +440,7 @@
     [indicator stopAnimation:self];
     [indicator setHidden:YES];
 
-    [uploader release], uploader = nil;
+    [_uploader release], _uploader = nil;
 
     [messageView setEditable:YES];
     [sendButton setEnabled:YES];
@@ -465,9 +465,9 @@
     [indicator stopAnimation:self];
     [indicator setHidden:YES];
 
-    NSString *response = [uploader response];
+    NSString *response = [_uploader response];
 
-    [uploader release], uploader = nil;
+    [_uploader release], _uploader = nil;
 
     [messageView setEditable:YES];
     [sendButton setEnabled:YES];
@@ -510,9 +510,9 @@
 {
 	(void)n;
 
-    [uploader cancel];
+    [_uploader cancel];
 
-    if ([type isEqualToString:FR_EXCEPTION]) {
+    if ([_type isEqualToString:FR_EXCEPTION]) {
         NSString *exitAfterException = [[[NSBundle mainBundle] infoDictionary] valueForKey:PLIST_KEY_EXITAFTEREXCEPTION];
         if (exitAfterException && [exitAfterException isEqualToString:@"YES"]) {
             // We want a pure exit() here I think.
@@ -664,7 +664,7 @@
 
 - (void) showWindow:(id)sender
 {
-    if ([type isEqualToString:FR_FEEDBACK]) {
+    if ([_type isEqualToString:FR_FEEDBACK]) {
         [messageLabel setStringValue:FRLocalizedString(@"Feedback comment label", nil)];
     } else {
         [messageLabel setStringValue:FRLocalizedString(@"Comments:", nil)];

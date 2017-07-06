@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2011, Torsten Curdt
+ * Copyright 2008-2017, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,8 +27,8 @@
 @interface FRFeedbackReporter : NSObject {
 
     @private
-        id feedbackController;
-        id<FRFeedbackReporterDelegate> delegate;
+        id _feedbackController;
+        id<FRFeedbackReporterDelegate> _delegate;
 }
 
 // Creates and returns the singleton FRFeedbackReporter. Does not perform any checks or other real work.

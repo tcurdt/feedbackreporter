@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2011, Torsten Curdt
+ * Copyright 2008-2017, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,15 +20,15 @@
 @interface FRCommand : NSObject {
 
 @private
-    NSTask *task;
+    NSTask *_task;
 
-    NSString *path;
-    NSArray *args;
+    NSString *_path;
+    NSArray *_args;
     
-    NSMutableString *output;
-    NSMutableString *error;
+    NSMutableString *_output;
+    NSMutableString *_error;
     
-    BOOL terminated;
+    BOOL _terminated;
 }
 
 
