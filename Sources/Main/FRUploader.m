@@ -136,7 +136,7 @@
 
 - (void) connection: (NSURLConnection *)pConnection didReceiveData: (NSData *)data
 {
-	(void)pConnection;
+    (void)pConnection;
 
     NSLog(@"Connection received data");
 
@@ -145,7 +145,7 @@
 
 - (void) connection:(NSURLConnection *)pConnection didFailWithError:(NSError *)error
 {
-	(void)pConnection;
+    (void)pConnection;
 
     NSLog(@"Connection failed");
     
@@ -159,7 +159,7 @@
 
 - (void) connectionDidFinishLoading: (NSURLConnection *)pConnection
 {
-	(void)pConnection;
+    (void)pConnection;
 
     // NSLog(@"Connection finished");
 

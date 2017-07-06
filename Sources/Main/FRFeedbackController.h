@@ -37,7 +37,7 @@
     IBOutlet NSTextField *detailsLabel;
     BOOL _detailsShown;
 
-	IBOutlet NSButton *sendDetailsCheckbox;
+    IBOutlet NSButton *sendDetailsCheckbox;
 
     IBOutlet NSTabView *tabView;
     IBOutlet NSTabViewItem *tabSystem;
@@ -58,7 +58,7 @@
 
     IBOutlet NSButton *cancelButton;
     IBOutlet NSButton *sendButton;
-		
+    
     
     FRUploader *_uploader;
     

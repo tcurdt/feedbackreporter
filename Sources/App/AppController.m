@@ -85,17 +85,17 @@
 
 - (IBAction) buttonExceptionInDispatchQueue:(id)sender
 {
-	dispatch_queue_t queue = dispatch_queue_create(NULL, DISPATCH_QUEUE_SERIAL);
+    dispatch_queue_t queue = dispatch_queue_create(NULL, DISPATCH_QUEUE_SERIAL);
 
-	dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1);
-	dispatch_after(popTime, queue, ^{
-		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-		NSLog(@"exception on dispatch queue - unicode: ❄");
-		[NSException raise:@"TestException-DispatchQueue" format:@"Something went wrong (☃ attack?)"];
-		[pool drain];
-	});
-	
-	// leak queue.
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1);
+    dispatch_after(popTime, queue, ^{
+        NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+        NSLog(@"exception on dispatch queue - unicode: ❄");
+        [NSException raise:@"TestException-DispatchQueue" format:@"Something went wrong (☃ attack?)"];
+        [pool drain];
+    });
+    
+    // leak queue.
 }
 
 - (IBAction) buttonCrash:(id)sender

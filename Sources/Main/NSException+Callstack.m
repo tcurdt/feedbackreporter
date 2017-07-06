@@ -1,5 +1,5 @@
 /*
- * Copyright 2008, Jens Alfke, Torsten Curdt
+ * Copyright 2008-2017, Jens Alfke, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,10 +45,10 @@
 
 - (NSString*) my_callStack
 {
-	if ([self respondsToSelector:@selector(callStackSymbols)]) {
-		NSArray *symbols = [(id)self callStackSymbols];
-		return [NSString stringWithFormat:@"%@\n",symbols];
-	}
+    if ([self respondsToSelector:@selector(callStackSymbols)]) {
+        NSArray *symbols = [(id)self callStackSymbols];
+        return [NSString stringWithFormat:@"%@\n",symbols];
+    }
 
     NSArray *addresses = [self my_callStackReturnAddressesSkipping: EXCEPTION_STACK_SKIP limit: EXCEPTION_STACK_LIMIT];
 

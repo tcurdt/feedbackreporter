@@ -121,7 +121,7 @@
         h = [hours intValue];
     }
 
-	NSDate *since = [NSDate dateWithTimeIntervalSinceNow:-h * 60.0 * 60.0];
+    NSDate *since = [NSDate dateWithTimeIntervalSinceNow:-h * 60.0 * 60.0];
 
     NSNumber *maximumSize = [[[NSBundle mainBundle] infoDictionary] valueForKey:PLIST_KEY_MAXCONSOLELOGSIZE];
 
@@ -303,7 +303,7 @@
 
 - (IBAction) cancel:(id)sender
 {
-	(void)sender;
+    (void)sender;
 
     [_uploader cancel], _uploader = nil;
 
@@ -312,7 +312,7 @@
 
 - (IBAction) send:(id)sender
 {
-	(void)sender;
+    (void)sender;
 
     if (_uploader != nil) {
         NSLog(@"Still uploading");
@@ -351,13 +351,13 @@
         && !(reachabilityFlags & kSCNetworkFlagsInterventionRequired);
 
     if (!reachable) {
-		NSAlert *alert = [[NSAlert alloc] init];
-		[alert addButtonWithTitle:FRLocalizedString(@"Proceed Anyway", nil)];
-		[alert addButtonWithTitle:FRLocalizedString(@"Cancel", nil)];
-		[alert setMessageText:FRLocalizedString(@"Feedback Host Not Reachable", nil)];
-		[alert setInformativeText:[NSString stringWithFormat:FRLocalizedString(@"You may not be able to send feedback because %@ isn't reachable.", nil), host]];
-		NSInteger alertResult = [alert runModal];
-		[alert release];
+        NSAlert *alert = [[NSAlert alloc] init];
+        [alert addButtonWithTitle:FRLocalizedString(@"Proceed Anyway", nil)];
+        [alert addButtonWithTitle:FRLocalizedString(@"Cancel", nil)];
+        [alert setMessageText:FRLocalizedString(@"Feedback Host Not Reachable", nil)];
+        [alert setInformativeText:[NSString stringWithFormat:FRLocalizedString(@"You may not be able to send feedback because %@ isn't reachable.", nil), host]];
+        NSInteger alertResult = [alert runModal];
+        [alert release];
 
         if (alertResult != NSAlertFirstButtonReturn) {
             return;
@@ -420,7 +420,7 @@
 
 - (void) uploaderStarted:(FRUploader*)pUploader
 {
-	(void)pUploader;
+    (void)pUploader;
 
     // NSLog(@"Upload started");
 
@@ -433,7 +433,7 @@
 
 - (void) uploaderFailed:(FRUploader*)pUploader withError:(NSError*)error
 {
-	(void)pUploader;
+    (void)pUploader;
 
     NSLog(@"Upload failed: %@", error);
 
@@ -458,7 +458,7 @@
 
 - (void) uploaderFinished:(FRUploader*)pUploader
 {
-	(void)pUploader;
+    (void)pUploader;
 
     // NSLog(@"Upload finished");
 
@@ -508,7 +508,7 @@
 
 - (void) windowWillClose: (NSNotification *) n
 {
-	(void)n;
+    (void)n;
 
     [_uploader cancel];
 

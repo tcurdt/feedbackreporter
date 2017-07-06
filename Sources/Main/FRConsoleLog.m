@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2013, Torsten Curdt
+ * Copyright 2008-2017, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,17 +36,17 @@
     NSMutableString *consoleString = [[NSMutableString alloc] init];
     NSMutableArray *consoleLines = [[NSMutableArray alloc] init];
 
-	// We want the dates and times to be displayed in a standardised form (ISO 8601).
-	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	[dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-	
-	// ASL does not work in App Sandbox, even read-only. <rdar://problem/9689364>
-	// Workaround is to use:
-	//   com.apple.security.temporary-exception.files.absolute-path.read-only
-	// for:
-	//   /private/var/log/asl/
-	aslmsg query = asl_new(ASL_TYPE_QUERY);
-	
+    // We want the dates and times to be displayed in a standardised form (ISO 8601).
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
+    // ASL does not work in App Sandbox, even read-only. <rdar://problem/9689364>
+    // Workaround is to use:
+    //   com.apple.security.temporary-exception.files.absolute-path.read-only
+    // for:
+    //   /private/var/log/asl/
+    aslmsg query = asl_new(ASL_TYPE_QUERY);
+    
     if (query != NULL) {
 
         NSString *applicationName = [FRApplication applicationName];
@@ -92,13 +92,13 @@
 
                 // Add a new entry for this console line
                 char **rawLineContents = malloc(2 * sizeof(char *));
-				
-				size_t length = strlen(msgTime) + 1;
+                
+                size_t length = strlen(msgTime) + 1;
                 rawLineContents[FR_CONSOLELOG_TIME] = malloc(length);
                 strlcpy(rawLineContents[FR_CONSOLELOG_TIME], msgTime, length);
 
                 length = strlen(msgText) + 1;
-				rawLineContents[FR_CONSOLELOG_TEXT] = malloc(length);
+                rawLineContents[FR_CONSOLELOG_TEXT] = malloc(length);
                 strlcpy(rawLineContents[FR_CONSOLELOG_TEXT], msgText, length);
 
                 rawConsoleLines[consoleLinesProcessed-1] = rawLineContents;
@@ -110,16 +110,16 @@
             if (consoleLinesProcessed) {
                 for (NSInteger i = consoleLinesProcessed - 1; i >= 0; i--) {
                     char **line = rawConsoleLines[i];
-					double dateInterval = strtod(line[FR_CONSOLELOG_TIME], NULL);
+                    double dateInterval = strtod(line[FR_CONSOLELOG_TIME], NULL);
                     NSDate *date = [NSDate dateWithTimeIntervalSince1970:dateInterval];
-					NSString *dateString = [dateFormatter stringFromDate:date];
-					NSString *lineString = [NSString stringWithUTF8String:line[FR_CONSOLELOG_TEXT]];
-					NSString *fullString = [NSString stringWithFormat:@"%@: %@\n", dateString, lineString];
+                    NSString *dateString = [dateFormatter stringFromDate:date];
+                    NSString *lineString = [NSString stringWithUTF8String:line[FR_CONSOLELOG_TEXT]];
+                    NSString *fullString = [NSString stringWithFormat:@"%@: %@\n", dateString, lineString];
                     [consoleLines addObject:fullString];
 
                     // If a maximum size has been provided, respect it and abort if necessary
                     if (maximumSize != nil) {
-						NSString* lastLine = [consoleLines lastObject];
+                        NSString* lastLine = [consoleLines lastObject];
                         consoleOutputLength += [lastLine length];
                         if (consoleOutputLength > [maximumSize unsignedIntegerValue]) break;
                     }

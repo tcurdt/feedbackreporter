@@ -115,7 +115,7 @@
 
 - (void) terminated: (NSNotification *)notification
 {
-	(void)notification;
+    (void)notification;
 
     // NSLog(@"Task terminated");
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -143,21 +143,21 @@
     NSFileHandle *outFile = [outPipe fileHandleForReading];
     NSFileHandle *errFile = [errPipe fileHandleForReading]; 
 
-	NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self
-			   selector:@selector(outData:)
-				   name:NSFileHandleDataAvailableNotification
-				 object:outFile];
+               selector:@selector(outData:)
+                   name:NSFileHandleDataAvailableNotification
+                 object:outFile];
 
     [center addObserver:self
-			   selector:@selector(errData:)
-				   name:NSFileHandleDataAvailableNotification
-				 object:errFile];
+               selector:@selector(errData:)
+                   name:NSFileHandleDataAvailableNotification
+                 object:errFile];
 
     [center addObserver:self
-			   selector:@selector(terminated:)
-				   name:NSTaskDidTerminateNotification
-				 object:_task];
+               selector:@selector(terminated:)
+                   name:NSTaskDidTerminateNotification
+                 object:_task];
 
     [outFile waitForDataInBackgroundAndNotify];
     [errFile waitForDataInBackgroundAndNotify];
