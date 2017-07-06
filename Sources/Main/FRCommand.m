@@ -73,7 +73,7 @@
 {
     NSData *data = [fileHandle availableData];
 
-    if ([data length]) {
+    if ([data length] > 0) {
 
         // Initially try to read the file in using UTF8
         NSString *s = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
