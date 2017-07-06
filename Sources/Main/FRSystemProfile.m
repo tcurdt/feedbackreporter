@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2014, Torsten Curdt
+ * Copyright 2008-2017, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -110,38 +110,13 @@
         char stringValue[256] = {0};
         size_t stringLength = sizeof(stringValue);
         error = sysctlbyname("machdep.cpu.brand_string", &stringValue, &stringLength, NULL, 0);
-        if ((error == 0) && (stringValue != NULL)) {
+        if (error == 0) {
             NSString *brandString = [NSString stringWithUTF8String:stringValue];
             if (brandString)
                 return brandString;
         }
     }
     
-    int cpufamily = -1;
-    length = sizeof(cpufamily);
-    error = sysctlbyname("hw.cpufamily", &cpufamily, &length, NULL, 0);
-
-    if (error == 0) {
-        switch (cpufamily) {
-            case CPUFAMILY_POWERPC_G3:
-                return @"PowerPC G3";
-            case CPUFAMILY_POWERPC_G4:
-                return @"PowerPC G4";
-            case CPUFAMILY_POWERPC_G5:
-                return @"PowerPC G5";
-            case CPUFAMILY_INTEL_YONAH:
-                return @"Intel Core Duo";
-            case CPUFAMILY_INTEL_MEROM:
-                return @"Intel Core 2 Duo";
-            case CPUFAMILY_INTEL_PENRYN:
-                return @"Intel Core 2 Duo (Penryn)";
-            case CPUFAMILY_INTEL_NEHALEM:
-                return @"Intel Xeon (Nehalem)";
-        }
-        return nil;
-    }
-
-
     int cpusubtype = -1;
     length = sizeof(cpusubtype);
     error = sysctlbyname("hw.cpusubtype", &cpusubtype, &length, NULL, 0);
@@ -154,17 +129,12 @@
     switch (cputype) {
         case CPU_TYPE_X86:
             return @"Intel";
-        case CPU_TYPE_POWERPC:
-            switch (cpusubtype) {
-                case CPU_SUBTYPE_POWERPC_750:
-                    return @"PowerPC G3";
-                case CPU_SUBTYPE_POWERPC_7400:
-                case CPU_SUBTYPE_POWERPC_7450:
-                    return @"PowerPC G4";
-                case CPU_SUBTYPE_POWERPC_970:
-                    return @"PowerPC G5";
-            }
-            break;
+		case CPU_TYPE_POWERPC:
+			return @"PowerPC";
+		case CPU_TYPE_ARM:
+			return @"ARM";
+		case CPU_TYPE_ARM64:
+			return @"ARM64";
     }
 
     NSLog(@"Unknown CPU type %d, CPU subtype %d", cputype, cpusubtype);

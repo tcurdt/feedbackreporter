@@ -1,5 +1,5 @@
 /*
- * Copyright 2008, Jens Alfke, Torsten Curdt
+ * Copyright 2008-2017, Jens Alfke, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,11 +23,3 @@
 - (NSString*) my_callStack;
 
 @end
-
-
-// To suppress warning messages if compiled under systems earlier than 10.6.
-#if MAC_OS_X_VERSION_MAX_ALLOWED < 1060
-@interface NSObject (NSExceptionCallstack)
-- (NSArray*) callStackSymbols;
-@end
-#endif
