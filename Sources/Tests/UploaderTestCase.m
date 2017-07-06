@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2010, Torsten Curdt
+ * Copyright 2008-2017, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,15 +34,13 @@ BOOL terminated;
 
     terminated = NO;
 
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     while(!terminated) {
-        if (![[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:100000]]) {
-            break;
+        @autoreleasepool {
+            if (![[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]]) {
+                break;
+            }
         }
-        [pool drain];
-        pool = [[NSAutoreleasePool alloc] init];
     }
-    [pool drain];
 
     [dict release];
     

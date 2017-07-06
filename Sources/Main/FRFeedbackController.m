@@ -564,35 +564,34 @@
 
 - (void) populate
 {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-
-    NSString *consoleLog = [self consoleLog];
-    if ([consoleLog length] > 0) {
-        [self performSelectorOnMainThread:@selector(addTabViewItem:) withObject:tabConsole waitUntilDone:YES];
-        [consoleView performSelectorOnMainThread:@selector(setString:) withObject:consoleLog waitUntilDone:YES];
+    @autoreleasepool {
+        
+        NSString *consoleLog = [self consoleLog];
+        if ([consoleLog length] > 0) {
+            [self performSelectorOnMainThread:@selector(addTabViewItem:) withObject:tabConsole waitUntilDone:YES];
+            [consoleView performSelectorOnMainThread:@selector(setString:) withObject:consoleLog waitUntilDone:YES];
+        }
+        
+        NSString *crashLog = [self crashLog];
+        if ([crashLog length] > 0) {
+            [self performSelectorOnMainThread:@selector(addTabViewItem:) withObject:tabCrash waitUntilDone:YES];
+            [crashesView performSelectorOnMainThread:@selector(setString:) withObject:crashLog waitUntilDone:YES];
+        }
+        
+        NSString *scriptLog = [self scriptLog];
+        if ([scriptLog length] > 0) {
+            [self performSelectorOnMainThread:@selector(addTabViewItem:) withObject:tabScript waitUntilDone:YES];
+            [scriptView performSelectorOnMainThread:@selector(setString:) withObject:scriptLog waitUntilDone:YES];
+        }
+        
+        NSString *preferences = [self preferences];
+        if ([preferences length] > 0) {
+            [self performSelectorOnMainThread:@selector(addTabViewItem:) withObject:tabPreferences waitUntilDone:YES];
+            [preferencesView performSelectorOnMainThread:@selector(setString:) withObject:preferences waitUntilDone:YES];
+        }
+        
+        [self performSelectorOnMainThread:@selector(stopSpinner) withObject:self waitUntilDone:YES];
     }
-
-    NSString *crashLog = [self crashLog];
-    if ([crashLog length] > 0) {
-        [self performSelectorOnMainThread:@selector(addTabViewItem:) withObject:tabCrash waitUntilDone:YES];
-        [crashesView performSelectorOnMainThread:@selector(setString:) withObject:crashLog waitUntilDone:YES];
-    }
-
-    NSString *scriptLog = [self scriptLog];
-    if ([scriptLog length] > 0) {
-        [self performSelectorOnMainThread:@selector(addTabViewItem:) withObject:tabScript waitUntilDone:YES];
-        [scriptView performSelectorOnMainThread:@selector(setString:) withObject:scriptLog waitUntilDone:YES];
-    }
-
-    NSString *preferences = [self preferences];
-    if ([preferences length] > 0) {
-        [self performSelectorOnMainThread:@selector(addTabViewItem:) withObject:tabPreferences waitUntilDone:YES];
-        [preferencesView performSelectorOnMainThread:@selector(setString:) withObject:preferences waitUntilDone:YES];
-    }
-
-    [self performSelectorOnMainThread:@selector(stopSpinner) withObject:self waitUntilDone:YES];
-
-    [pool drain];
 }
 
 - (void) reset
