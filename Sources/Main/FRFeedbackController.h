@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2011, Torsten Curdt
+ * Copyright 2008-2017, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,12 +21,7 @@
 #define FR_EXCEPTION @"exception"
 #define FR_CRASH     @"crash"
 
-@interface FRFeedbackController : NSWindowController 
-#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1060 // on lines like this to not confuse IB
-<FRUploaderDelegate, NSWindowDelegate>
-#else
-<FRUploaderDelegate>
-#endif
+@interface FRFeedbackController : NSWindowController <FRUploaderDelegate, NSWindowDelegate>
 {
 @private
     IBOutlet NSTextField *headingField;
