@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2013, Torsten Curdt
+ * Copyright 2008-2017, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -85,7 +85,6 @@
 
 - (IBAction) buttonExceptionInDispatchQueue:(id)sender
 {
-#if MAC_OS_X_VERSION_MIN_REQUIRED >= 1060
 	dispatch_queue_t queue = dispatch_queue_create(NULL, DISPATCH_QUEUE_SERIAL);
 
 	dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1);
@@ -97,9 +96,6 @@
 	});
 	
 	// leak queue.
-#else
-	NSBeep();
-#endif
 }
 
 - (IBAction) buttonCrash:(id)sender
