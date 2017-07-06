@@ -133,9 +133,8 @@
 {
     static NSArray *systemProfile = nil;
 
-    if (systemProfile == nil) {
-        systemProfile = [[FRSystemProfile discover] retain];
-    }
+    static dispatch_once_t predicate = 0;
+    dispatch_once(&predicate, ^{ systemProfile = [[FRSystemProfile discover] retain]; });
 
     return systemProfile;
 }

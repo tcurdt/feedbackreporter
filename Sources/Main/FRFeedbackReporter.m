@@ -35,9 +35,8 @@
 {
     static FRFeedbackReporter *sharedReporter = nil;
 
-    if (sharedReporter == nil) {
-        sharedReporter = [[[self class] alloc] init];
-    }
+    static dispatch_once_t predicate = 0;
+    dispatch_once(&predicate, ^{ sharedReporter = [[[self class] alloc] init]; });
 
     return sharedReporter;
 }
