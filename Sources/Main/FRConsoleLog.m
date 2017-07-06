@@ -137,6 +137,7 @@
 
     // Free data stores
     [consoleLines release];
+    [dateFormatter release];
     for (NSUInteger i = 0; i < consoleLinesProcessed; i++) {
         free(rawConsoleLines[i][FR_CONSOLELOG_TEXT]);
         free(rawConsoleLines[i][FR_CONSOLELOG_TIME]);
