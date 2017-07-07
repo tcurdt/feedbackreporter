@@ -1,5 +1,5 @@
 /*
- * Copyright 2008, Jens Alfke, Torsten Curdt
+ * Copyright 2008-2017, Jens Alfke, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,8 +20,8 @@
 
 - (void) setValidString: (NSString*) string forKey: (NSString*) key 
 {
-	if ([string length] == 0 || !key) return;
-	[self setObject:string forKey:key];
+    if ([string length] == 0 || !key) return;
+    [self setObject:string forKey:key];
 }
 
 @end

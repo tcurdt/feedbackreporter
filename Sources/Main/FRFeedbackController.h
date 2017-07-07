@@ -35,9 +35,9 @@
 
     IBOutlet NSButton *detailsButton;
     IBOutlet NSTextField *detailsLabel;
-    BOOL detailsShown;
+    BOOL _detailsShown;
 
-	IBOutlet NSButton *sendDetailsCheckbox;
+    IBOutlet NSButton *sendDetailsCheckbox;
 
     IBOutlet NSTabView *tabView;
     IBOutlet NSTabViewItem *tabSystem;
@@ -58,13 +58,13 @@
 
     IBOutlet NSButton *cancelButton;
     IBOutlet NSButton *sendButton;
-		
     
-    FRUploader *uploader;
     
-    id delegate;
+    FRUploader *_uploader;
     
-    NSString *type;
+    id _delegate;
+    
+    NSString *_type;
 }
 
 #pragma mark Accessors

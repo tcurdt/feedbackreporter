@@ -23,7 +23,7 @@
 {
     NSArray *profile = [FRSystemProfile discover];
     
-    STAssertTrue([profile count] > 0, @"No profile data");
+    XCTAssertTrue([profile count] > 0, @"No profile data");
 
 }
 

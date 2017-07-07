@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2012, Torsten Curdt
+ * Copyright 2008-2017, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@
 
 @interface AppController : NSObject <FRFeedbackReporterDelegate> {
 @private
-	IBOutlet NSWindow* window; // strong reference, needed for GC
+    IBOutlet NSWindow* window; // strong reference, needed for GC
 }
 
 - (IBAction) buttonFeedback:(id)sender;

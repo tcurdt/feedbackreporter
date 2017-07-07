@@ -15,9 +15,9 @@
  */
 
 #import <Cocoa/Cocoa.h>
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
-@interface CommandTestCase : SenTestCase {
+@interface CommandTestCase : XCTestCase {
 
 }
 

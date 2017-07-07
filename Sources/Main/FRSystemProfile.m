@@ -129,12 +129,12 @@
     switch (cputype) {
         case CPU_TYPE_X86:
             return @"Intel";
-		case CPU_TYPE_POWERPC:
-			return @"PowerPC";
-		case CPU_TYPE_ARM:
-			return @"ARM";
-		case CPU_TYPE_ARM64:
-			return @"ARM64";
+        case CPU_TYPE_POWERPC:
+            return @"PowerPC";
+        case CPU_TYPE_ARM:
+            return @"ARM";
+        case CPU_TYPE_ARM64:
+            return @"ARM64";
     }
 
     NSLog(@"Unknown CPU type %d, CPU subtype %d", cputype, cpusubtype);
@@ -207,9 +207,9 @@
 
     char *p = malloc(sizeof(char) * length);
     if (p) {
-		error = sysctlbyname("hw.model", p, &length, NULL, 0);
+        error = sysctlbyname("hw.model", p, &length, NULL, 0);
     }
-	
+    
     if (error != 0) {
         NSLog(@"Failed to obtain machine model");
         free(p);
@@ -240,20 +240,20 @@
 {
     long long result = 0;
 
-	int error = 0;
+    int error = 0;
 
     int64_t hertz = 0;
-	size_t size = sizeof(hertz);
-	int mib[2] = {CTL_HW, HW_CPU_FREQ};
-	
-	error = sysctl(mib, 2, &hertz, &size, NULL, 0);
-	
+    size_t size = sizeof(hertz);
+    int mib[2] = {CTL_HW, HW_CPU_FREQ};
+    
+    error = sysctl(mib, 2, &hertz, &size, NULL, 0);
+    
     if (error) {
         NSLog(@"Failed to obtain CPU speed");
         return -1;
     }
-	
-	result = (long long)(hertz/1000000); // Convert to MHz
+    
+    result = (long long)(hertz/1000000); // Convert to MHz
     
     return result;
 }
@@ -262,17 +262,17 @@
 {
     long long result = 0;
 
-	int error = 0;
+    int error = 0;
     int64_t value = 0;
     size_t length = sizeof(value);
-	
+    
     error = sysctlbyname("hw.memsize", &value, &length, NULL, 0);
-	if (error) {
+    if (error) {
         NSLog(@"Failed to obtain RAM size");
         return -1;
-	}
-	const int64_t kBytesPerMebibyte = 1024*1024;
-	result = (long long)(value/kBytesPerMebibyte);
+    }
+    const int64_t kBytesPerMebibyte = 1024*1024;
+    result = (long long)(value/kBytesPerMebibyte);
     
     return result;
 }

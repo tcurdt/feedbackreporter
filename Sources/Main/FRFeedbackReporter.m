@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2013, Torsten Curdt
+ * Copyright 2008-2017, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,9 +35,8 @@
 {
     static FRFeedbackReporter *sharedReporter = nil;
 
-    if (sharedReporter == nil) {
-        sharedReporter = [[[self class] alloc] init];
-    }
+    static dispatch_once_t predicate = 0;
+    dispatch_once(&predicate, ^{ sharedReporter = [[[self class] alloc] init]; });
 
     return sharedReporter;
 }
@@ -46,7 +45,7 @@
 
 - (void) dealloc
 {
-    [feedbackController release];
+    [_feedbackController release];
     
     [super dealloc];
 }
@@ -55,21 +54,21 @@
 
 - (FRFeedbackController*) feedbackController
 {
-    if (feedbackController == nil) {
-        feedbackController = [[FRFeedbackController alloc] init];
+    if (_feedbackController == nil) {
+        _feedbackController = [[FRFeedbackController alloc] init];
     }
     
-    return feedbackController;
+    return _feedbackController;
 }
 
 - (id<FRFeedbackReporterDelegate>) delegate
 {
-    return delegate;
+    return _delegate;
 }
 
 - (void) setDelegate:(id<FRFeedbackReporterDelegate>) pDelegate
 {
-    delegate = pDelegate;
+    _delegate = pDelegate;
 }
 
 
@@ -89,8 +88,8 @@
         [controller reset];
 
         NSString * applicationName = nil;
-        if ([delegate respondsToSelector:@selector(feedbackDisplayName)]) {
-            applicationName = [delegate feedbackDisplayName];
+        if ([_delegate respondsToSelector:@selector(feedbackDisplayName)]) {
+            applicationName = [_delegate feedbackDisplayName];
         }
         else {
             applicationName =[FRApplication applicationName];
@@ -104,12 +103,12 @@
 
         [controller setType:FR_FEEDBACK];
 
-        [controller setDelegate:delegate];
+        [controller setDelegate:_delegate];
 
         [controller showWindow:self];
 
     }
-	
+    
     return YES;
 }
 
@@ -137,8 +136,8 @@
             [controller reset];
 
             NSString * applicationName = nil;
-            if ([delegate respondsToSelector:@selector(feedbackDisplayName)]) {
-               applicationName = [delegate feedbackDisplayName];
+            if ([_delegate respondsToSelector:@selector(feedbackDisplayName)]) {
+               applicationName = [_delegate feedbackDisplayName];
             }
             else {
                applicationName =[FRApplication applicationName];
@@ -152,7 +151,7 @@
             
             [controller setType:FR_CRASH];
 
-            [controller setDelegate:delegate];
+            [controller setDelegate:_delegate];
 
             [controller showWindow:self];
 
@@ -179,8 +178,8 @@
         [controller reset];
        
         NSString * applicationName = nil;
-        if ([delegate respondsToSelector:@selector(feedbackDisplayName)]) {
-            applicationName = [delegate feedbackDisplayName];
+        if ([_delegate respondsToSelector:@selector(feedbackDisplayName)]) {
+            applicationName = [_delegate feedbackDisplayName];
         }
         else {
             applicationName =[FRApplication applicationName];
@@ -201,7 +200,7 @@
 
         [controller setType:FR_EXCEPTION];
 
-        [controller setDelegate:delegate];
+        [controller setDelegate:_delegate];
 
         [controller showWindow:self];
 

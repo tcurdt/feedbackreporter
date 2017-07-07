@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2011, Torsten Curdt
+ * Copyright 2008-2017, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,16 +19,16 @@
 
 @implementation FRCommand
 
-- (id) initWithPath:(NSString*)inPath
+- (instancetype) initWithPath:(NSString*)inPath
 {
     self = [super init];
     if (self != nil) {
-        task = [[NSTask alloc] init];
-        args = [[NSArray array] retain];
-        path = [inPath retain];
-        error = nil;
-        output = nil;
-        terminated = NO;
+        _task = [[NSTask alloc] init];
+        _args = [[NSArray array] retain];
+        _path = [inPath retain];
+        _error = nil;
+        _output = nil;
+        _terminated = NO;
     }
     
     return self;
@@ -36,11 +36,11 @@
 
 -(void)dealloc
 {
-    [task release];
-    [args release];
-    [path release];
-    [error release];
-    [output release];
+    [_task release];
+    [_args release];
+    [_path release];
+    [_error release];
+    [_output release];
 
     [super dealloc];
 }
@@ -50,22 +50,22 @@
 - (void) setArgs:(NSArray*)pArgs
 {
     [pArgs retain];
-    [args release];
-    args = pArgs;
+    [_args release];
+    _args = pArgs;
 }
 
 - (void) setError:(NSMutableString*)pError
 {
     [pError retain];
-    [error release];
-    error = pError;
+    [_error release];
+    _error = pError;
 }
 
 - (void) setOutput:(NSMutableString*)pOutput
 {
     [pOutput retain];
-    [output release];
-    output = pOutput;
+    [_output release];
+    _output = pOutput;
 }
 
 
@@ -98,7 +98,7 @@
 {
     NSFileHandle *fileHandle = (NSFileHandle*) [notification object];
 
-    [self appendDataFrom:fileHandle to:output];
+    [self appendDataFrom:fileHandle to:_output];
 
     [fileHandle waitForDataInBackgroundAndNotify];
 }
@@ -107,7 +107,7 @@
 {
     NSFileHandle *fileHandle = (NSFileHandle*) [notification object];
 
-    [self appendDataFrom:fileHandle to:output];
+    [self appendDataFrom:fileHandle to:_output];
 
     [fileHandle waitForDataInBackgroundAndNotify];
 }
@@ -115,57 +115,57 @@
 
 - (void) terminated: (NSNotification *)notification
 {
-	(void)notification;
+    (void)notification;
 
     // NSLog(@"Task terminated");
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
-    terminated = YES;
+    _terminated = YES;
 }
 
 - (int) execute
 {
-    if (![[NSFileManager defaultManager] isExecutableFileAtPath:path]) {
+    if (![[NSFileManager defaultManager] isExecutableFileAtPath:_path]) {
         // executable not found
         return -1;
     }
 
-    [task setLaunchPath:path];
-    [task setArguments:args];
+    [_task setLaunchPath:_path];
+    [_task setArguments:_args];
 
     NSPipe *outPipe = [NSPipe pipe];
     NSPipe *errPipe = [NSPipe pipe];
 
-    [task setStandardInput:[NSFileHandle fileHandleWithNullDevice]];
-    [task setStandardOutput:outPipe];
-    [task setStandardError:errPipe];
+    [_task setStandardInput:[NSFileHandle fileHandleWithNullDevice]];
+    [_task setStandardOutput:outPipe];
+    [_task setStandardError:errPipe];
 
     NSFileHandle *outFile = [outPipe fileHandleForReading];
     NSFileHandle *errFile = [errPipe fileHandleForReading]; 
 
-	NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self
-			   selector:@selector(outData:)
-				   name:NSFileHandleDataAvailableNotification
-				 object:outFile];
+               selector:@selector(outData:)
+                   name:NSFileHandleDataAvailableNotification
+                 object:outFile];
 
     [center addObserver:self
-			   selector:@selector(errData:)
-				   name:NSFileHandleDataAvailableNotification
-				 object:errFile];
+               selector:@selector(errData:)
+                   name:NSFileHandleDataAvailableNotification
+                 object:errFile];
 
     [center addObserver:self
-			   selector:@selector(terminated:)
-				   name:NSTaskDidTerminateNotification
-				 object:task];
+               selector:@selector(terminated:)
+                   name:NSTaskDidTerminateNotification
+                 object:_task];
 
     [outFile waitForDataInBackgroundAndNotify];
     [errFile waitForDataInBackgroundAndNotify];
 
-    [task launch];
+    [_task launch];
 
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    while(!terminated) {
+    while(!_terminated) {
         if (![[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:100000]]) {
             break;
         }
@@ -174,10 +174,10 @@
     }
     [pool drain];
 
-    [self appendDataFrom:outFile to:output];
-    [self appendDataFrom:errFile to:error];
+    [self appendDataFrom:outFile to:_output];
+    [self appendDataFrom:errFile to:_error];
 
-    int result = [task terminationStatus];
+    int result = [_task terminationStatus];
 
     return result;
 }

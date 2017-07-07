@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,7 +15,6 @@
 		14310F0E160015B500F64299 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14310F07160015A000F64299 /* Foundation.framework */; };
 		14310F0F160015C100F64299 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14310F06160015A000F64299 /* AppKit.framework */; };
 		14310F10160015C100F64299 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14310F07160015A000F64299 /* Foundation.framework */; };
-		14310F12160015ED00F64299 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14310F11160015ED00F64299 /* SenTestingKit.framework */; };
 		146326DF17C3D0690088F15B /* FRLocalizedString.h in Headers */ = {isa = PBXBuildFile; fileRef = 146326DE17C3D0690088F15B /* FRLocalizedString.h */; };
 		444DCB5C1417D13E00C5636D /* FeedbackReporter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 444DCB5E1417D13E00C5636D /* FeedbackReporter.xib */; };
 		444DCB651417D18000C5636D /* App.xib in Resources */ = {isa = PBXBuildFile; fileRef = 444DCB671417D18000C5636D /* App.xib */; };
@@ -88,8 +87,7 @@
 		14310F06160015A000F64299 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		14310F07160015A000F64299 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		14310F08160015A000F64299 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		14310F11160015ED00F64299 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		146326DE17C3D0690088F15B /* FRLocalizedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FRLocalizedString.h; path = Sources/Main/FRLocalizedString.h; sourceTree = "<group>"; };
+		146326DE17C3D0690088F15B /* FRLocalizedString.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = FRLocalizedString.h; path = Sources/Main/FRLocalizedString.h; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
 		444DCB5D1417D13E00C5636D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/FeedbackReporter.xib; sourceTree = "<group>"; };
 		444DCB5F1417D16B00C5636D /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/FeedbackReporter.xib; sourceTree = "<group>"; };
 		444DCB601417D16D00C5636D /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ru; path = ru.lproj/FeedbackReporter.xib; sourceTree = "<group>"; };
@@ -108,44 +106,44 @@
 		444DCB7D1417D30B00C5636D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = Resources/ru.lproj/FeedbackReporter.strings; sourceTree = "<group>"; };
 		444DCB7F1417D39100C5636D /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = Resources/ar.lproj/FeedbackReporter.strings; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* FeedbackReporter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FeedbackReporter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9D006DF40E1438F6000B6AFC /* FRConsoleLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FRConsoleLog.h; path = Sources/Main/FRConsoleLog.h; sourceTree = "<group>"; };
-		9D006DF50E1438F6000B6AFC /* FRConsoleLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FRConsoleLog.m; path = Sources/Main/FRConsoleLog.m; sourceTree = "<group>"; };
-		9D0EC0200DF00F250045EB76 /* FRExceptionReportingApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FRExceptionReportingApplication.h; path = Sources/Main/FRExceptionReportingApplication.h; sourceTree = "<group>"; };
-		9D0EC0210DF00F250045EB76 /* FRExceptionReportingApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FRExceptionReportingApplication.m; path = Sources/Main/FRExceptionReportingApplication.m; sourceTree = "<group>"; };
-		9D0EC0270DF011DB0045EB76 /* NSException+Callstack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSException+Callstack.h"; path = "Sources/Main/NSException+Callstack.h"; sourceTree = "<group>"; };
-		9D0EC0280DF011DB0045EB76 /* NSException+Callstack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSException+Callstack.m"; path = "Sources/Main/NSException+Callstack.m"; sourceTree = "<group>"; };
-		9D291E8C0DF167BB009F859B /* UploaderTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UploaderTestCase.h; path = Sources/Tests/UploaderTestCase.h; sourceTree = "<group>"; };
-		9D291E8D0DF167BB009F859B /* UploaderTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UploaderTestCase.m; path = Sources/Tests/UploaderTestCase.m; sourceTree = "<group>"; };
-		9D5FB36B0E0B269900CF1BE0 /* FRConstants.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = FRConstants.h; path = Sources/Main/FRConstants.h; sourceTree = "<group>"; };
+		9D006DF40E1438F6000B6AFC /* FRConsoleLog.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = FRConsoleLog.h; path = Sources/Main/FRConsoleLog.h; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
+		9D006DF50E1438F6000B6AFC /* FRConsoleLog.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = FRConsoleLog.m; path = Sources/Main/FRConsoleLog.m; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
+		9D0EC0200DF00F250045EB76 /* FRExceptionReportingApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = FRExceptionReportingApplication.h; path = Sources/Main/FRExceptionReportingApplication.h; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
+		9D0EC0210DF00F250045EB76 /* FRExceptionReportingApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = FRExceptionReportingApplication.m; path = Sources/Main/FRExceptionReportingApplication.m; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
+		9D0EC0270DF011DB0045EB76 /* NSException+Callstack.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "NSException+Callstack.h"; path = "Sources/Main/NSException+Callstack.h"; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
+		9D0EC0280DF011DB0045EB76 /* NSException+Callstack.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = "NSException+Callstack.m"; path = "Sources/Main/NSException+Callstack.m"; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
+		9D291E8C0DF167BB009F859B /* UploaderTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = UploaderTestCase.h; path = Sources/Tests/UploaderTestCase.h; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
+		9D291E8D0DF167BB009F859B /* UploaderTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = UploaderTestCase.m; path = Sources/Tests/UploaderTestCase.m; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
+		9D5FB36B0E0B269900CF1BE0 /* FRConstants.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; indentWidth = 4; lineEnding = 0; name = FRConstants.h; path = Sources/Main/FRConstants.h; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
 		9D90077A0DEB96C10000330E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Sources/Main/Info.plist; sourceTree = "<group>"; };
 		9D90077F0DEB96D40000330E /* Tests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Tests-Info.plist"; path = "Sources/Tests/Tests-Info.plist"; sourceTree = SOURCE_ROOT; };
-		9DA7D6B10DEB8A3500C3B586 /* Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		9DA7D6E20DEB8E5D00C3B586 /* FRApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FRApplication.h; path = Sources/Main/FRApplication.h; sourceTree = "<group>"; };
-		9DA7D6E30DEB8E5D00C3B586 /* FRApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FRApplication.m; path = Sources/Main/FRApplication.m; sourceTree = "<group>"; };
-		9DA7D6E40DEB8E5D00C3B586 /* FRCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FRCommand.h; path = Sources/Main/FRCommand.h; sourceTree = "<group>"; };
-		9DA7D6E50DEB8E5D00C3B586 /* FRCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FRCommand.m; path = Sources/Main/FRCommand.m; sourceTree = "<group>"; };
-		9DA7D6E60DEB8E5D00C3B586 /* FRCrashLogFinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FRCrashLogFinder.h; path = Sources/Main/FRCrashLogFinder.h; sourceTree = "<group>"; };
-		9DA7D6E70DEB8E5D00C3B586 /* FRCrashLogFinder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FRCrashLogFinder.m; path = Sources/Main/FRCrashLogFinder.m; sourceTree = "<group>"; };
-		9DA7D6E80DEB8E5D00C3B586 /* FRFeedbackController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FRFeedbackController.h; path = Sources/Main/FRFeedbackController.h; sourceTree = "<group>"; };
-		9DA7D6E90DEB8E5D00C3B586 /* FRFeedbackController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FRFeedbackController.m; path = Sources/Main/FRFeedbackController.m; sourceTree = "<group>"; };
-		9DA7D6EA0DEB8E5D00C3B586 /* FRFeedbackReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FRFeedbackReporter.h; path = Sources/Main/FRFeedbackReporter.h; sourceTree = "<group>"; };
-		9DA7D6EB0DEB8E5D00C3B586 /* FRFeedbackReporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FRFeedbackReporter.m; path = Sources/Main/FRFeedbackReporter.m; sourceTree = "<group>"; };
-		9DA7D6ED0DEB8E5D00C3B586 /* FRUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FRUploader.h; path = Sources/Main/FRUploader.h; sourceTree = "<group>"; };
-		9DA7D6EE0DEB8E5D00C3B586 /* FRUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FRUploader.m; path = Sources/Main/FRUploader.m; sourceTree = "<group>"; };
-		9DA7D6FC0DEB8E9100C3B586 /* CommandTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommandTestCase.h; path = Sources/Tests/CommandTestCase.h; sourceTree = "<group>"; };
-		9DA7D6FD0DEB8E9100C3B586 /* CommandTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommandTestCase.m; path = Sources/Tests/CommandTestCase.m; sourceTree = "<group>"; };
+		9DA7D6B10DEB8A3500C3B586 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9DA7D6E20DEB8E5D00C3B586 /* FRApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = FRApplication.h; path = Sources/Main/FRApplication.h; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
+		9DA7D6E30DEB8E5D00C3B586 /* FRApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = FRApplication.m; path = Sources/Main/FRApplication.m; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
+		9DA7D6E40DEB8E5D00C3B586 /* FRCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = FRCommand.h; path = Sources/Main/FRCommand.h; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
+		9DA7D6E50DEB8E5D00C3B586 /* FRCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = FRCommand.m; path = Sources/Main/FRCommand.m; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
+		9DA7D6E60DEB8E5D00C3B586 /* FRCrashLogFinder.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = FRCrashLogFinder.h; path = Sources/Main/FRCrashLogFinder.h; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
+		9DA7D6E70DEB8E5D00C3B586 /* FRCrashLogFinder.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = FRCrashLogFinder.m; path = Sources/Main/FRCrashLogFinder.m; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
+		9DA7D6E80DEB8E5D00C3B586 /* FRFeedbackController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = FRFeedbackController.h; path = Sources/Main/FRFeedbackController.h; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
+		9DA7D6E90DEB8E5D00C3B586 /* FRFeedbackController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = FRFeedbackController.m; path = Sources/Main/FRFeedbackController.m; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
+		9DA7D6EA0DEB8E5D00C3B586 /* FRFeedbackReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = FRFeedbackReporter.h; path = Sources/Main/FRFeedbackReporter.h; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
+		9DA7D6EB0DEB8E5D00C3B586 /* FRFeedbackReporter.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = FRFeedbackReporter.m; path = Sources/Main/FRFeedbackReporter.m; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
+		9DA7D6ED0DEB8E5D00C3B586 /* FRUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = FRUploader.h; path = Sources/Main/FRUploader.h; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
+		9DA7D6EE0DEB8E5D00C3B586 /* FRUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = FRUploader.m; path = Sources/Main/FRUploader.m; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
+		9DA7D6FC0DEB8E9100C3B586 /* CommandTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = CommandTestCase.h; path = Sources/Tests/CommandTestCase.h; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
+		9DA7D6FD0DEB8E9100C3B586 /* CommandTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = CommandTestCase.m; path = Sources/Tests/CommandTestCase.m; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
 		9DB634E30E4DD64C00C72888 /* App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DB634E70E4DD64C00C72888 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Sources/App/Info.plist; sourceTree = "<group>"; };
-		9DB6351D0E4DD9BE00C72888 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Sources/App/main.m; sourceTree = "<group>"; };
-		9DB6353A0E4DDCB700C72888 /* AppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppController.m; path = Sources/App/AppController.m; sourceTree = SOURCE_ROOT; };
-		9DB6353B0E4DDCB700C72888 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppController.h; path = Sources/App/AppController.h; sourceTree = SOURCE_ROOT; };
-		9DC077900E4CE75E00014424 /* FeedbackReporter.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedbackReporter.pch; path = Sources/Main/FeedbackReporter.pch; sourceTree = "<group>"; };
-		9DCF52A70DEC0D8A00EBF810 /* SystemProfileTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SystemProfileTestCase.h; path = Sources/Tests/SystemProfileTestCase.h; sourceTree = "<group>"; };
-		9DCF52A80DEC0D8A00EBF810 /* SystemProfileTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SystemProfileTestCase.m; path = Sources/Tests/SystemProfileTestCase.m; sourceTree = "<group>"; };
-		9DCF52AA0DEC0E4300EBF810 /* FRSystemProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FRSystemProfile.h; path = Sources/Main/FRSystemProfile.h; sourceTree = "<group>"; };
-		9DCF52AB0DEC0E4300EBF810 /* FRSystemProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FRSystemProfile.m; path = Sources/Main/FRSystemProfile.m; sourceTree = "<group>"; };
-		FC369CB91100D505004C27F8 /* NSMutableDictionary+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableDictionary+Additions.h"; path = "Sources/Main/NSMutableDictionary+Additions.h"; sourceTree = "<group>"; };
-		FC369CBA1100D505004C27F8 /* NSMutableDictionary+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableDictionary+Additions.m"; path = "Sources/Main/NSMutableDictionary+Additions.m"; sourceTree = "<group>"; };
+		9DB6351D0E4DD9BE00C72888 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = main.m; path = Sources/App/main.m; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
+		9DB6353A0E4DDCB700C72888 /* AppController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = AppController.m; path = Sources/App/AppController.m; sourceTree = SOURCE_ROOT; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
+		9DB6353B0E4DDCB700C72888 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = AppController.h; path = Sources/App/AppController.h; sourceTree = SOURCE_ROOT; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
+		9DC077900E4CE75E00014424 /* FeedbackReporter.pch */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = FeedbackReporter.pch; path = Sources/Main/FeedbackReporter.pch; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
+		9DCF52A70DEC0D8A00EBF810 /* SystemProfileTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = SystemProfileTestCase.h; path = Sources/Tests/SystemProfileTestCase.h; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
+		9DCF52A80DEC0D8A00EBF810 /* SystemProfileTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = SystemProfileTestCase.m; path = Sources/Tests/SystemProfileTestCase.m; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
+		9DCF52AA0DEC0E4300EBF810 /* FRSystemProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = FRSystemProfile.h; path = Sources/Main/FRSystemProfile.h; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
+		9DCF52AB0DEC0E4300EBF810 /* FRSystemProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = FRSystemProfile.m; path = Sources/Main/FRSystemProfile.m; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
+		FC369CB91100D505004C27F8 /* NSMutableDictionary+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "NSMutableDictionary+Additions.h"; path = "Sources/Main/NSMutableDictionary+Additions.h"; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
+		FC369CBA1100D505004C27F8 /* NSMutableDictionary+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = "NSMutableDictionary+Additions.m"; path = "Sources/Main/NSMutableDictionary+Additions.m"; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,7 +162,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				14310F12160015ED00F64299 /* SenTestingKit.framework in Frameworks */,
 				14310F0D160015B500F64299 /* AppKit.framework in Frameworks */,
 				14310F0E160015B500F64299 /* Foundation.framework in Frameworks */,
 				9DA7D6B70DEB8A7800C3B586 /* FeedbackReporter.framework in Frameworks */,
@@ -188,7 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				8DC2EF5B0486A6940098B216 /* FeedbackReporter.framework */,
-				9DA7D6B10DEB8A3500C3B586 /* Tests.octest */,
+				9DA7D6B10DEB8A3500C3B586 /* Tests.xctest */,
 				9DB634E30E4DD64C00C72888 /* App.app */,
 			);
 			name = Products;
@@ -213,7 +210,6 @@
 				14310F05160015A000F64299 /* AddressBook.framework */,
 				14310F06160015A000F64299 /* AppKit.framework */,
 				14310F07160015A000F64299 /* Foundation.framework */,
-				14310F11160015ED00F64299 /* SenTestingKit.framework */,
 				14310F08160015A000F64299 /* SystemConfiguration.framework */,
 			);
 			name = Frameworks;
@@ -353,7 +349,6 @@
 				9DA7D6AC0DEB8A3500C3B586 /* Resources */,
 				9DA7D6AD0DEB8A3500C3B586 /* Sources */,
 				9DA7D6AE0DEB8A3500C3B586 /* Frameworks */,
-				9DA7D6AF0DEB8A3500C3B586 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -362,8 +357,8 @@
 			);
 			name = Tests;
 			productName = Tests;
-			productReference = 9DA7D6B10DEB8A3500C3B586 /* Tests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productReference = 9DA7D6B10DEB8A3500C3B586 /* Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		9DB634E20E4DD64C00C72888 /* App */ = {
 			isa = PBXNativeTarget;
@@ -390,10 +385,11 @@
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastTestingUpgradeCheck = 0620;
 				LastUpgradeCheck = 0410;
 			};
 			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "FeedbackReporter" */;
-			compatibilityVersion = "Xcode 3.1";
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -452,23 +448,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		9DA7D6AF0DEB8A3500C3B586 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\nif [ -x '/Applications/OCRunner.app' ]; then\n\topen \"ocrunner://${TARGET_BUILD_DIR}/${PRODUCT_NAME}.octest\"\nelse\n\t\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\nfi";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8DC2EF540486A6940098B216 /* Sources */ = {
@@ -605,9 +584,13 @@
 				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES;
 				CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY = YES;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_OBJC_MISSING_PROPERTY_SYNTHESIS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_ATOMIC_PROPERTIES = YES;
 				CLANG_WARN_OBJC_RECEIVER_WEAK = YES;
 				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__EXIT_TIME_DESTRUCTORS = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_C_LANGUAGE_STANDARD = c99;
@@ -629,6 +612,7 @@
 				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
 				GCC_WARN_SHADOW = YES;
 				GCC_WARN_SIGN_COMPARE = YES;
+				GCC_WARN_STRICT_SELECTOR_MATCH = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNKNOWN_PRAGMAS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
@@ -636,6 +620,7 @@
 				GCC_WARN_UNUSED_PARAMETER = NO;
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = YES;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 			};
@@ -649,9 +634,13 @@
 				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES;
 				CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY = YES;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_OBJC_MISSING_PROPERTY_SYNTHESIS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_ATOMIC_PROPERTIES = YES;
 				CLANG_WARN_OBJC_RECEIVER_WEAK = YES;
 				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__EXIT_TIME_DESTRUCTORS = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_C_LANGUAGE_STANDARD = c99;
@@ -672,6 +661,7 @@
 				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
 				GCC_WARN_SHADOW = YES;
 				GCC_WARN_SIGN_COMPARE = YES;
+				GCC_WARN_STRICT_SELECTOR_MATCH = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNKNOWN_PRAGMAS = YES;
@@ -680,6 +670,7 @@
 				GCC_WARN_UNUSED_PARAMETER = NO;
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = NO;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 			};
@@ -689,12 +680,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Sources/Tests/Tests-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = Tests;
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
@@ -702,12 +692,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Sources/Tests/Tests-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = Tests;
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};
