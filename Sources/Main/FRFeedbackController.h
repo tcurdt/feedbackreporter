@@ -28,7 +28,7 @@
 
 #pragma mark Accessors
 
-@property (readwrite, assign, nonatomic) id<FRFeedbackReporterDelegate> delegate;
+@property (readwrite, weak, nonatomic) id<FRFeedbackReporterDelegate> delegate;
 
 - (void) setHeading:(NSString*)message;
 - (void) setSubheading:(NSString *)informativeText;

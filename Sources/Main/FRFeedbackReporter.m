@@ -42,15 +42,6 @@
     return sharedReporter;
 }
 
-#pragma mark Destruction
-
-- (void) dealloc
-{
-    [_feedbackController release];
-    
-    [super dealloc];
-}
-
 #pragma mark Variable Accessors
 
 - (FRFeedbackController*) feedbackController

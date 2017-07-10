@@ -34,21 +34,25 @@
 @interface FRFeedbackController()
 @property (readwrite, strong, nonatomic) IBOutlet NSArrayController *systemDiscovery;
 
-@property (readwrite, assign, nonatomic) IBOutlet NSTextField *headingField;
-@property (readwrite, assign, nonatomic) IBOutlet NSTextField *subheadingField;
+@property (readwrite, weak, nonatomic) IBOutlet NSTextField *headingField;
+@property (readwrite, weak, nonatomic) IBOutlet NSTextField *subheadingField;
 
-@property (readwrite, assign, nonatomic) IBOutlet NSTextField *messageLabel;
+@property (readwrite, weak, nonatomic) IBOutlet NSTextField *messageLabel;
+#if (MAC_OS_X_VERSION_MIN_REQUIRED < 101200)
 @property (readwrite, assign, nonatomic) IBOutlet NSTextView *messageView;
+#else
+@property (readwrite, weak, nonatomic) IBOutlet NSTextView *messageView;
+#endif
 
-@property (readwrite, assign, nonatomic) IBOutlet NSTextField *emailLabel;
-@property (readwrite, assign, nonatomic) IBOutlet NSComboBox *emailBox;
+@property (readwrite, weak, nonatomic) IBOutlet NSTextField *emailLabel;
+@property (readwrite, weak, nonatomic) IBOutlet NSComboBox *emailBox;
 
-@property (readwrite, assign, nonatomic) IBOutlet NSButton *detailsButton;
-@property (readwrite, assign, nonatomic) IBOutlet NSTextField *detailsLabel;
+@property (readwrite, weak, nonatomic) IBOutlet NSButton *detailsButton;
+@property (readwrite, weak, nonatomic) IBOutlet NSTextField *detailsLabel;
 
-@property (readwrite, assign, nonatomic) IBOutlet NSButton *sendDetailsCheckbox;
+@property (readwrite, weak, nonatomic) IBOutlet NSButton *sendDetailsCheckbox;
 
-@property (readwrite, assign, nonatomic) IBOutlet NSTabView *tabView;
+@property (readwrite, weak, nonatomic) IBOutlet NSTabView *tabView;
 
 // Even though they are not top-level objects, keep strong references to the tabViews.
 @property (readwrite, strong, nonatomic) IBOutlet NSTabViewItem *tabSystem;
@@ -58,17 +62,25 @@
 @property (readwrite, strong, nonatomic) IBOutlet NSTabViewItem *tabPreferences;
 @property (readwrite, strong, nonatomic) IBOutlet NSTabViewItem *tabException;
 
-@property (readwrite, assign, nonatomic) IBOutlet NSTableView *systemView;
+@property (readwrite, weak, nonatomic) IBOutlet NSTableView *systemView;
+#if (MAC_OS_X_VERSION_MIN_REQUIRED < 101200)
 @property (readwrite, assign, nonatomic) IBOutlet NSTextView *consoleView;
 @property (readwrite, assign, nonatomic) IBOutlet NSTextView *crashesView;
 @property (readwrite, assign, nonatomic) IBOutlet NSTextView *scriptView;
 @property (readwrite, assign, nonatomic) IBOutlet NSTextView *preferencesView;
 @property (readwrite, assign, nonatomic) IBOutlet NSTextView *exceptionView;
+#else
+@property (readwrite, weak, nonatomic) IBOutlet NSTextView *consoleView;
+@property (readwrite, weak, nonatomic) IBOutlet NSTextView *crashesView;
+@property (readwrite, weak, nonatomic) IBOutlet NSTextView *scriptView;
+@property (readwrite, weak, nonatomic) IBOutlet NSTextView *preferencesView;
+@property (readwrite, weak, nonatomic) IBOutlet NSTextView *exceptionView;
+#endif
 
-@property (readwrite, assign, nonatomic) IBOutlet NSProgressIndicator *indicator;
+@property (readwrite, weak, nonatomic) IBOutlet NSProgressIndicator *indicator;
 
-@property (readwrite, assign, nonatomic) IBOutlet NSButton *cancelButton;
-@property (readwrite, assign, nonatomic) IBOutlet NSButton *sendButton;
+@property (readwrite, weak, nonatomic) IBOutlet NSButton *cancelButton;
+@property (readwrite, weak, nonatomic) IBOutlet NSButton *sendButton;
 
 @property (readwrite, nonatomic) BOOL detailsShown;
 @property (readwrite, strong, nonatomic) FRUploader *uploader;
@@ -87,26 +99,6 @@
     }
     return self;
 }
-
-#pragma mark Destruction
-
-- (void) dealloc
-{
-    [_type release];
-    [_uploader release];
-
-    [_systemDiscovery release];
-
-    [_tabSystem release];
-    [_tabConsole release];
-    [_tabCrash release];
-    [_tabScript release];
-    [_tabPreferences release];
-    [_tabException release];
-
-    [super dealloc];
-}
-
 
 #pragma mark Accessors
 
@@ -155,7 +147,7 @@
     static NSArray *systemProfile = nil;
 
     static dispatch_once_t predicate = 0;
-    dispatch_once(&predicate, ^{ systemProfile = [[FRSystemProfile discover] retain]; });
+    dispatch_once(&predicate, ^{ systemProfile = [FRSystemProfile discover]; });
 
     return systemProfile;
 }
@@ -254,7 +246,6 @@
         [cmd setOutput:scriptLog];
         [cmd setError:scriptLog];
         int ret = [cmd execute];
-        [cmd release];
 
         NSLog(@"Script exit code = %d", ret);
 
@@ -268,7 +259,7 @@
 
 - (NSString*) preferences
 {
-    NSMutableDictionary *preferences = [[[[NSUserDefaults standardUserDefaults] persistentDomainForName:[FRApplication applicationIdentifier]] mutableCopy] autorelease];
+    NSMutableDictionary *preferences = [[[NSUserDefaults standardUserDefaults] persistentDomainForName:[FRApplication applicationIdentifier]] mutableCopy];
 
     if (preferences == nil) {
         return @"";
@@ -368,9 +359,6 @@
         CFRelease(reachability);
     }
 
-    // Prevent premature garbage collection (UTF8String returns an inner pointer).
-    [host self];
-
     BOOL reachable = reachabilityResult
         &&  (reachabilityFlags & kSCNetworkFlagsReachable)
         && !(reachabilityFlags & kSCNetworkFlagsConnectionRequired)
@@ -384,7 +372,6 @@
         [alert setMessageText:FRLocalizedString(@"Feedback Host Not Reachable", nil)];
         [alert setInformativeText:[NSString stringWithFormat:FRLocalizedString(@"You may not be able to send feedback because %@ isn't reachable.", nil), host]];
         NSInteger alertResult = [alert runModal];
-        [alert release];
 
         if (alertResult != NSAlertFirstButtonReturn) {
             return;
@@ -479,7 +466,6 @@
     [alert setInformativeText:[NSString stringWithFormat:FRLocalizedString(@"Error: %@", nil), [error localizedDescription]]];
     [alert setAlertStyle:NSWarningAlertStyle];
     [alert runModal];
-    [alert release];
 
     [self close];
 }
@@ -519,7 +505,6 @@
             [alert setInformativeText:[NSString stringWithFormat:FRLocalizedString(@"Error: %@", nil), line]];
             [alert setAlertStyle:NSWarningAlertStyle];
             [alert runModal];
-            [alert release];
 
             return;
         }

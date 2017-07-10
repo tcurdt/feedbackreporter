@@ -16,6 +16,11 @@
 
 #import <Cocoa/Cocoa.h>
 
+// ARC is requried.
+#if !__has_feature(objc_arc)
+#error FeedbackReporter requires compiling with ARC
+#endif
+
 @protocol FRFeedbackReporterDelegate <NSObject>
 @optional
 - (NSDictionary*) customParametersForFeedbackReport;
@@ -30,7 +35,7 @@
 + (FRFeedbackReporter *)sharedReporter;
 
 // Gets/sets the delegate.
-@property (readwrite, assign, nonatomic) id<FRFeedbackReporterDelegate> delegate;
+@property (readwrite, weak, nonatomic) id<FRFeedbackReporterDelegate> delegate;
 
 // Displays the feedback user interface allowing the user to provide general feedback. Returns YES if it was able to display the UI, NO otherwise.
 - (BOOL) reportFeedback;

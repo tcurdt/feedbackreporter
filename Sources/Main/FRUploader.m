@@ -18,7 +18,7 @@
 
 // Private interface.
 @interface FRUploader()
-@property (readwrite, assign, nonatomic) id<FRUploaderDelegate> delegate;
+@property (readwrite, weak, nonatomic) id<FRUploaderDelegate> delegate;
 @property (readwrite, strong, nonatomic) NSString *target;
 @property (readwrite, strong, nonatomic) NSURLConnection *connection;
 @property (readwrite, strong, nonatomic) NSMutableData *responseData;
@@ -43,15 +43,6 @@
     }
     
     return self;
-}
-
-- (void) dealloc
-{
-    [_responseData release];
-    [_target release];
-    [_connection release];
-    
-    [super dealloc];
 }
 
 - (NSData *) generateFormData: (NSDictionary *)dict forBoundary:(NSString*)formBoundary
@@ -82,7 +73,7 @@
 
     [result appendData:[[NSString stringWithFormat:@"--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
     
-    return [result autorelease];
+    return result;
 }
 
 
@@ -113,8 +104,8 @@
         return nil;
     }
 
-    return [[[NSString alloc] initWithData:result
-                                  encoding:NSUTF8StringEncoding] autorelease];
+    return [[NSString alloc] initWithData:result
+                                 encoding:NSUTF8StringEncoding];
 }
 
 - (void) postAndNotify:(NSDictionary*)dict
@@ -200,8 +191,8 @@
 
 - (NSString*) response
 {
-    return [[[NSString alloc] initWithData:[self responseData]
-                                  encoding:NSUTF8StringEncoding] autorelease];
+    return [[NSString alloc] initWithData:[self responseData]
+                                 encoding:NSUTF8StringEncoding];
 }
 
 @end

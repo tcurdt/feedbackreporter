@@ -41,8 +41,8 @@
     self = [super init];
     if (self != nil) {
         _task = [[NSTask alloc] init];
-        _args = [@[] retain];
-        _path = [inPath retain];
+        _args = @[];
+        _path = inPath;
         _error = nil;
         _output = nil;
         _terminated = NO;
@@ -50,18 +50,6 @@
     
     return self;
 }
-
--(void)dealloc
-{
-    [_task release];
-    [_args release];
-    [_path release];
-    [_error release];
-    [_output release];
-
-    [super dealloc];
-}
-
 
 -(void) appendDataFrom:(NSFileHandle*)fileHandle to:(NSMutableString*)string
 {
@@ -80,8 +68,6 @@
         if (s) {
             [string appendString:s];
             //NSLog(@"| %@", s);
-
-            [s release];
         }
     }
 

@@ -100,8 +100,6 @@
             [NSException raise:@"TestException-DispatchQueue" format:@"Something went wrong (☃ attack?)"];
         }
     });
-    
-    // leak queue.
 }
 
 - (IBAction) buttonCrash:(id)sender

@@ -45,8 +45,6 @@ BOOL terminated;
         }
     }
 
-    [dict release];
-    
     NSLog(@"done");
 }
 
@@ -59,8 +57,6 @@ BOOL terminated;
 {
     NSLog(@"Upload failed: %@", error);
 
-    [uploader release];
-
     terminated = YES;
 }
 
@@ -72,11 +68,7 @@ BOOL terminated;
     
     NSLog(@"response = %@", response);
 
-    [uploader release];
-
     terminated = YES;
 }
-
-
 
 @end

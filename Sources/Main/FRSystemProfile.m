@@ -21,7 +21,7 @@
 
 + (NSArray*) discover
 {
-    NSMutableArray *discoveryArray = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableArray *discoveryArray = [[NSMutableArray alloc] init];
     NSArray *discoveryKeys = @[@"key", @"visibleKey", @"value", @"visibleValue"];
     
     NSString *osversion = [NSString stringWithFormat:@"%@", [self osversion]];
