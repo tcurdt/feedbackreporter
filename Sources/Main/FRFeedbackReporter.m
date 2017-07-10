@@ -149,6 +149,8 @@
 
 - (BOOL) reportException:(NSException *)exception
 {
+    assert(exception);
+
     FRFeedbackController *controller = [self feedbackController];
 
     @synchronized (controller) {

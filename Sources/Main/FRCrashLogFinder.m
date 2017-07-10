@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2011, Torsten Curdt
+ * Copyright 2008-2017, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,8 +19,10 @@
 
 @implementation FRCrashLogFinder
 
-+ (BOOL)file:(NSString*)path isNewerThan:(NSDate*)date
++ (BOOL)file:(NSString*)path isNewerThan:(nullable NSDate*)date
 {
+    assert(path);
+
     NSFileManager *fileManager = [NSFileManager defaultManager];
 
     if (![fileManager fileExistsAtPath:path]) {
@@ -44,7 +46,7 @@
     return YES;
 }
 
-+ (NSArray*) findCrashLogsSince:(NSDate*)date
++ (NSArray*) findCrashLogsSince:(nullable NSDate*)date
 {
     NSMutableArray *files = [NSMutableArray array];
 

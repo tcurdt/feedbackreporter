@@ -17,6 +17,8 @@
 #import <Cocoa/Cocoa.h>
 #import "FRUploader.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @protocol FRFeedbackReporterDelegate;
 
 // Possibile values for setType:
@@ -32,8 +34,8 @@
 
 - (void) setHeading:(NSString*)message;
 - (void) setSubheading:(NSString *)informativeText;
-- (void) setMessage:(NSString*)message;
-- (void) setException:(NSString*)exception;
+- (void) setMessage:(nullable NSString*)message;
+- (void) setException:(nullable NSString*)exception;
 - (void) setType:(NSString*)type;
 
 #pragma mark UI
@@ -48,3 +50,5 @@
 - (BOOL) isShown;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -22,6 +22,8 @@
 
 - (void) reportException:(NSException *)x
 {
+    assert(x);
+
     // NSApplication is documented to log, let it.
     [super reportException: x];
 

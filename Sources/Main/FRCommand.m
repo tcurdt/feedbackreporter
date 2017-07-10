@@ -38,6 +38,8 @@
 
 - (instancetype) initWithPath:(NSString*)inPath
 {
+    assert(inPath);
+
     self = [super init];
     if (self != nil) {
         _task = [[NSTask alloc] init];
@@ -53,6 +55,9 @@
 
 -(void) appendDataFrom:(NSFileHandle*)fileHandle to:(NSMutableString*)string
 {
+    assert(fileHandle);
+    assert(string);
+
     NSData *data = [fileHandle availableData];
 
     if ([data length] > 0) {
@@ -76,6 +81,8 @@
 
 -(void) outData: (NSNotification *) notification
 {
+    assert(notification);
+
     NSFileHandle *fileHandle = (NSFileHandle*) [notification object];
 
     [self appendDataFrom:fileHandle to:[self output]];
@@ -85,6 +92,8 @@
 
 -(void) errData: (NSNotification *) notification
 {
+    assert(notification);
+
     NSFileHandle *fileHandle = (NSFileHandle*) [notification object];
 
     [self appendDataFrom:fileHandle to:[self output]];
@@ -95,6 +104,8 @@
 
 - (void) terminated: (NSNotification *)notification
 {
+    assert(notification);
+
     (void)notification;
 
     // NSLog(@"Task terminated");

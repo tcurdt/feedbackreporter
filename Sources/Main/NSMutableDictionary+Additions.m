@@ -18,7 +18,7 @@
 
 @implementation NSMutableDictionary (Additions)
 
-- (void) setValidString: (NSString*) string forKey: (NSString*) key 
+- (void) setValidString: (nullable NSString*) string forKey: (nullable NSString*) key
 {
     if ([string length] == 0 || !key) return;
     [self setObject:string forKey:key];

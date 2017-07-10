@@ -27,6 +27,8 @@
 
 -(void)applicationDidFinishLaunching:(NSNotification*)aNotification
 {
+    assert(aNotification);
+
     NSLog(@"applicationDidFinishLaunching - unicode test: مرحبا - 你好 - שלום");
 
     [[FRFeedbackReporter sharedReporter] setDelegate:self];

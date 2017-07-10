@@ -83,7 +83,7 @@
 @property (readwrite, weak, nonatomic) IBOutlet NSButton *sendButton;
 
 @property (readwrite, nonatomic) BOOL detailsShown;
-@property (readwrite, strong, nonatomic) FRUploader *uploader;
+@property (readwrite, strong, nonatomic, nullable) FRUploader *uploader;
 @property (readwrite, strong, nonatomic) NSString *type;
 @end
 
@@ -104,20 +104,22 @@
 
 - (void) setHeading:(NSString*)message
 {
+    assert(message);
     [[self headingField] setStringValue:message];
 }
 
 - (void) setSubheading:(NSString *)informativeText
 {
+    assert(informativeText);
     [[self subheadingField] setStringValue:informativeText];
 }
 
-- (void) setMessage:(NSString*)message
+- (void) setMessage:(nullable NSString*)message
 {
     [[self messageView] setString:message];
 }
 
-- (void) setException:(NSString*)exception
+- (void) setException:(nullable NSString*)exception
 {
     [[self exceptionView] setString:exception];
 }
@@ -435,7 +437,7 @@
 
 - (void) uploaderStarted:(FRUploader*)pUploader
 {
-    (void)pUploader;
+    assert(pUploader); (void)pUploader;
 
     // NSLog(@"Upload started");
 
@@ -448,7 +450,7 @@
 
 - (void) uploaderFailed:(FRUploader*)pUploader withError:(NSError*)error
 {
-    (void)pUploader;
+    assert(pUploader); (void)pUploader;
 
     NSLog(@"Upload failed: %@", error);
 
@@ -472,7 +474,7 @@
 
 - (void) uploaderFinished:(FRUploader*)pUploader
 {
-    (void)pUploader;
+    assert(pUploader); (void)pUploader;
 
     // NSLog(@"Upload finished");
 
@@ -521,7 +523,7 @@
 
 - (void) windowWillClose: (NSNotification *) n
 {
-    (void)n;
+    assert(n); (void)n;
 
     [[self uploader] cancel];
 
@@ -586,6 +588,8 @@
 
 - (void) addTabViewItem:(NSTabViewItem*)theTabViewItem
 {
+    assert(theTabViewItem);
+
     [[self tabView] insertTabViewItem:theTabViewItem atIndex:1];
 }
 

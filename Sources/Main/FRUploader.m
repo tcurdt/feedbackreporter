@@ -35,6 +35,9 @@
 
 - (instancetype) initWithTarget:(NSString*)pTarget delegate:(id<FRUploaderDelegate>)pDelegate
 {
+    assert(pTarget);
+    assert(pDelegate);
+
     self = [super init];
     if (self != nil) {
         _target = pTarget;
@@ -47,6 +50,9 @@
 
 - (NSData *) generateFormData: (NSDictionary *)dict forBoundary:(NSString*)formBoundary
 {
+    assert(dict);
+    assert(formBoundary);
+
     NSString *boundary = formBoundary;
     NSArray *keys = [dict allKeys];
     NSMutableData *result = [[NSMutableData alloc] initWithCapacity:100];
@@ -77,8 +83,10 @@
 }
 
 
-- (NSString*) post:(NSDictionary*)dict
+- (nullable NSString*) post:(NSDictionary*)dict
 {
+    assert(dict);
+
     NSString *formBoundary = [[NSProcessInfo processInfo] globallyUniqueString];
 
     NSData *formData = [self generateFormData:dict forBoundary:formBoundary];
@@ -110,6 +118,8 @@
 
 - (void) postAndNotify:(NSDictionary*)dict
 {
+    assert(dict);
+
     NSString *formBoundary = [[NSProcessInfo processInfo] globallyUniqueString];
 
     NSData *formData = [self generateFormData:dict forBoundary:formBoundary];
@@ -146,7 +156,8 @@
 
 - (void) connection: (NSURLConnection *)pConnection didReceiveData: (NSData *)data
 {
-    (void)pConnection;
+    assert(pConnection); (void)pConnection;
+    assert(data);
 
     NSLog(@"Connection received data");
 
@@ -155,7 +166,8 @@
 
 - (void) connection:(NSURLConnection *)pConnection didFailWithError:(NSError *)error
 {
-    (void)pConnection;
+    assert(pConnection); (void)pConnection;
+    assert(error);
 
     NSLog(@"Connection failed");
     
@@ -170,7 +182,7 @@
 
 - (void) connectionDidFinishLoading: (NSURLConnection *)pConnection
 {
-    (void)pConnection;
+    assert(pConnection); (void)pConnection;
 
     // NSLog(@"Connection finished");
 
@@ -189,7 +201,7 @@
     [self setConnection:nil];
 }
 
-- (NSString*) response
+- (nullable NSString*) response
 {
     return [[NSString alloc] initWithData:[self responseData]
                                  encoding:NSUTF8StringEncoding];

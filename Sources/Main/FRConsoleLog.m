@@ -26,8 +26,10 @@
 
 @implementation FRConsoleLog
 
-+ (NSString*) logSince:(NSDate*)since maxSize:(NSNumber*)maximumSize
++ (NSString*) logSince:(NSDate*)since maxSize:(nullable NSNumber*)maximumSize
 {
+    assert(since);
+
     NSUInteger consoleOutputLength = 0;
     NSUInteger rawConsoleLinesCapacity = 100;
     NSUInteger consoleLinesProcessed = 0;

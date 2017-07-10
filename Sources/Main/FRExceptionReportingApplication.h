@@ -21,6 +21,10 @@
 #error FeedbackReporter requires compiling with ARC
 #endif
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface FRExceptionReportingApplication : NSApplication
 
 @end
+
+NS_ASSUME_NONNULL_END

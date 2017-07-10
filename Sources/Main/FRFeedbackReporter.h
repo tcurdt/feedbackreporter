@@ -21,6 +21,8 @@
 #error FeedbackReporter requires compiling with ARC
 #endif
 
+NS_ASSUME_NONNULL_BEGIN
+
 @protocol FRFeedbackReporterDelegate <NSObject>
 @optional
 - (NSDictionary*) customParametersForFeedbackReport;
@@ -35,7 +37,7 @@
 + (FRFeedbackReporter *)sharedReporter;
 
 // Gets/sets the delegate.
-@property (readwrite, weak, nonatomic) id<FRFeedbackReporterDelegate> delegate;
+@property (readwrite, weak, nonatomic, nullable) id<FRFeedbackReporterDelegate> delegate;
 
 // Displays the feedback user interface allowing the user to provide general feedback. Returns YES if it was able to display the UI, NO otherwise.
 - (BOOL) reportFeedback;
@@ -47,3 +49,5 @@
 - (BOOL) reportException:(NSException *)exception;
 
 @end
+
+NS_ASSUME_NONNULL_END

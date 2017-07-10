@@ -84,7 +84,7 @@
     return is64bit;
 }
 
-+ (NSString*) cputype
++ (nullable NSString*) cputype
 {
     int error = 0;
     
@@ -147,7 +147,7 @@
     return version;
 }
 
-+ (NSString*) architecture
++ (nullable NSString*) architecture
 {
     int error = 0;
     int value = 0;
@@ -186,7 +186,7 @@
     return value;
 }
 
-+ (NSString*) machinemodel
++ (nullable NSString*) machinemodel
 {
     int error = 0;
     size_t length = 0;
@@ -215,7 +215,7 @@
     return machinemodel;
 }
 
-+ (NSString*) language
++ (nullable NSString*) language
 {
     NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
     NSArray *languages = [defs objectForKey:@"AppleLanguages"];
