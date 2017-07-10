@@ -14,8 +14,11 @@
  * limitations under the License.
  */
 
-#import "CommandTestCase.h"
+#import <XCTest/XCTest.h>
 #import "FRCommand.h"
+
+@interface CommandTestCase : XCTestCase {}
+@end
 
 @implementation CommandTestCase
 

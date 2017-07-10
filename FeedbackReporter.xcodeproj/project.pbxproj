@@ -108,7 +108,6 @@
 		9D006DF50E1438F6000B6AFC /* FRConsoleLog.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = FRConsoleLog.m; path = Sources/Main/FRConsoleLog.m; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
 		9D0EC0200DF00F250045EB76 /* FRExceptionReportingApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = FRExceptionReportingApplication.h; path = Sources/Main/FRExceptionReportingApplication.h; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
 		9D0EC0210DF00F250045EB76 /* FRExceptionReportingApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = FRExceptionReportingApplication.m; path = Sources/Main/FRExceptionReportingApplication.m; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
-		9D291E8C0DF167BB009F859B /* UploaderTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = UploaderTestCase.h; path = Sources/Tests/UploaderTestCase.h; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
 		9D291E8D0DF167BB009F859B /* UploaderTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = UploaderTestCase.m; path = Sources/Tests/UploaderTestCase.m; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
 		9D5FB36B0E0B269900CF1BE0 /* FRConstants.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; indentWidth = 4; lineEnding = 0; name = FRConstants.h; path = Sources/Main/FRConstants.h; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
 		9D90077A0DEB96C10000330E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Sources/Main/Info.plist; sourceTree = "<group>"; };
@@ -126,7 +125,6 @@
 		9DA7D6EB0DEB8E5D00C3B586 /* FRFeedbackReporter.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = FRFeedbackReporter.m; path = Sources/Main/FRFeedbackReporter.m; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
 		9DA7D6ED0DEB8E5D00C3B586 /* FRUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = FRUploader.h; path = Sources/Main/FRUploader.h; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
 		9DA7D6EE0DEB8E5D00C3B586 /* FRUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = FRUploader.m; path = Sources/Main/FRUploader.m; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
-		9DA7D6FC0DEB8E9100C3B586 /* CommandTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = CommandTestCase.h; path = Sources/Tests/CommandTestCase.h; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
 		9DA7D6FD0DEB8E9100C3B586 /* CommandTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = CommandTestCase.m; path = Sources/Tests/CommandTestCase.m; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
 		9DB634E30E4DD64C00C72888 /* App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DB634E70E4DD64C00C72888 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Sources/App/Info.plist; sourceTree = "<group>"; };
@@ -134,7 +132,6 @@
 		9DB6353A0E4DDCB700C72888 /* AppController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = AppController.m; path = Sources/App/AppController.m; sourceTree = SOURCE_ROOT; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
 		9DB6353B0E4DDCB700C72888 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = AppController.h; path = Sources/App/AppController.h; sourceTree = SOURCE_ROOT; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
 		9DC077900E4CE75E00014424 /* FeedbackReporter.pch */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = FeedbackReporter.pch; path = Sources/Main/FeedbackReporter.pch; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
-		9DCF52A70DEC0D8A00EBF810 /* SystemProfileTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = SystemProfileTestCase.h; path = Sources/Tests/SystemProfileTestCase.h; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
 		9DCF52A80DEC0D8A00EBF810 /* SystemProfileTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = SystemProfileTestCase.m; path = Sources/Tests/SystemProfileTestCase.m; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
 		9DCF52AA0DEC0E4300EBF810 /* FRSystemProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = FRSystemProfile.h; path = Sources/Main/FRSystemProfile.h; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
 		9DCF52AB0DEC0E4300EBF810 /* FRSystemProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = FRSystemProfile.m; path = Sources/Main/FRSystemProfile.m; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
@@ -271,11 +268,8 @@
 		9DA7D6900DEB87B300C3B586 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				9DA7D6FC0DEB8E9100C3B586 /* CommandTestCase.h */,
 				9DA7D6FD0DEB8E9100C3B586 /* CommandTestCase.m */,
-				9DCF52A70DEC0D8A00EBF810 /* SystemProfileTestCase.h */,
 				9DCF52A80DEC0D8A00EBF810 /* SystemProfileTestCase.m */,
-				9D291E8C0DF167BB009F859B /* UploaderTestCase.h */,
 				9D291E8D0DF167BB009F859B /* UploaderTestCase.m */,
 				9D90077F0DEB96D40000330E /* Tests-Info.plist */,
 			);

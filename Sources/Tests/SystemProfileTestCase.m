@@ -1,5 +1,5 @@
 /*
- * Copyright 2008, Torsten Curdt
+ * Copyright 2008-2017, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,8 +14,11 @@
  * limitations under the License.
  */
 
-#import "SystemProfileTestCase.h"
+#import <XCTest/XCTest.h>
 #import "FRSystemProfile.h"
+
+@interface SystemProfileTestCase : XCTestCase {}
+@end
 
 @implementation SystemProfileTestCase
 

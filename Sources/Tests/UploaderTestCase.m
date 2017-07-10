@@ -14,8 +14,11 @@
  * limitations under the License.
  */
 
-#import "UploaderTestCase.h"
+#import <XCTest/XCTest.h>
 #import "FRUploader.h"
+
+@interface UploaderTestCase : XCTestCase <FRUploaderDelegate> {}
+@end
 
 @implementation UploaderTestCase
 
