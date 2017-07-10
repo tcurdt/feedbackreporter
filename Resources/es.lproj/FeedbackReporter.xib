@@ -24,6 +24,7 @@
                 <outlet property="sendButton" destination="16" id="320"/>
                 <outlet property="sendDetailsCheckbox" destination="980" id="982"/>
                 <outlet property="subheadingField" destination="977" id="985"/>
+                <outlet property="systemDiscovery" destination="681" id="6cs-gp-HHf"/>
                 <outlet property="systemView" destination="673" id="680"/>
                 <outlet property="tabConsole" destination="377" id="874"/>
                 <outlet property="tabCrash" destination="380" id="899"/>

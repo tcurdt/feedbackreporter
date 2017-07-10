@@ -32,6 +32,8 @@
 
 // Private interface.
 @interface FRFeedbackController()
+@property (readwrite, strong, nonatomic) IBOutlet NSArrayController *systemDiscovery;
+
 @property (readwrite, assign, nonatomic) IBOutlet NSTextField *headingField;
 @property (readwrite, assign, nonatomic) IBOutlet NSTextField *subheadingField;
 
@@ -92,6 +94,8 @@
 {
     [_type release];
     [_uploader release];
+
+    [_systemDiscovery release];
 
     [_tabSystem release];
     [_tabConsole release];
