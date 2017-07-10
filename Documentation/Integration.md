@@ -47,7 +47,7 @@ and you can change/set the target for the feedback report
 
     - (NSString *) targetUrlForFeedbackReport
     {
-      return "http://somewhere.com/"
+      return "https://somewhere.com/"
     }
 
 ## Catch uncaught exceptions
@@ -68,7 +68,7 @@ guessable it can also be hard coded to whatever you like. The `project`
 parameter must just match the directory on the server.
 
     <key>FRFeedbackReporter.targetURL</key>
-    <string>http://yourdomain.com/feedback/submit.php?project=%@</string>
+    <string>https://yourdomain.com/feedback/submit.php?project=%@</string>
 
 ## Gather custom information from a shell script
 
