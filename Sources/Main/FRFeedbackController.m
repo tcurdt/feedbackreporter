@@ -30,6 +30,12 @@
 #import <AddressBook/AddressBook.h>
 #import <SystemConfiguration/SystemConfiguration.h>
 
+// Private interface.
+@interface FRFeedbackController()
+@property (readwrite, nonatomic) BOOL detailsShown;
+@property (readwrite, strong, nonatomic) FRUploader *uploader;
+@property (readwrite, strong, nonatomic) NSString *type;
+@end
 
 @implementation FRFeedbackController
 
@@ -58,6 +64,7 @@
 - (void) dealloc
 {
     [_type release];
+    [_uploader release];
 
     [tabConsole release];
     [tabCrash release];
@@ -89,14 +96,6 @@
 - (void) setException:(NSString*)exception
 {
     [exceptionView setString:exception];
-}
-
-- (void) setType:(NSString*)theType
-{
-    if (theType != _type) {
-        [_type release];
-        _type = [theType retain];
-    }
 }
 
 #pragma mark information gathering
@@ -258,7 +257,7 @@
 
 - (void) showDetails:(BOOL)show animate:(BOOL)animate
 {
-    if (_detailsShown == show) {
+    if ([self detailsShown] == show) {
         return;
     }
 
@@ -283,7 +282,7 @@
 
     }
 
-    _detailsShown = show;
+    [self setDetailsShown:show];
 }
 
 - (IBAction) showDetails:(id)sender
@@ -296,7 +295,8 @@
 {
     (void)sender;
 
-    [_uploader cancel], _uploader = nil;
+    [[self uploader] cancel];
+    [self setUploader:nil];
 
     [self close];
 }
@@ -305,7 +305,7 @@
 {
     (void)sender;
 
-    if (_uploader != nil) {
+    if ([self uploader] != nil) {
         NSLog(@"Still uploading");
         return;
     }
@@ -356,7 +356,8 @@
         }
     }
 
-    _uploader = [[FRUploader alloc] initWithTarget:target delegate:self];
+    FRUploader* uploader = [[FRUploader alloc] initWithTarget:target delegate:self];
+    [self setUploader:uploader];
 
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
 
@@ -366,7 +367,7 @@
     [dict setValidString:[messageView string]
                   forKey:POST_KEY_MESSAGE];
 
-    [dict setValidString:_type
+    [dict setValidString:[self type]
                   forKey:POST_KEY_TYPE];
 
     [dict setValidString:[FRApplication applicationLongVersion]
@@ -407,7 +408,7 @@
 
     NSLog(@"Sending feedback to %@", target);
 
-    [_uploader postAndNotify:dict];
+    [uploader postAndNotify:dict];
 }
 
 - (void) uploaderStarted:(FRUploader*)pUploader
@@ -432,7 +433,7 @@
     [indicator stopAnimation:self];
     [indicator setHidden:YES];
 
-    [_uploader release], _uploader = nil;
+    [self setUploader:nil];
 
     [messageView setEditable:YES];
     [sendButton setEnabled:YES];
@@ -457,9 +458,9 @@
     [indicator stopAnimation:self];
     [indicator setHidden:YES];
 
-    NSString *response = [_uploader response];
+    NSString *response = [[self uploader] response];
 
-    [_uploader release], _uploader = nil;
+    [self setUploader:nil];
 
     [messageView setEditable:YES];
     [sendButton setEnabled:YES];
@@ -502,9 +503,9 @@
 {
     (void)n;
 
-    [_uploader cancel];
+    [[self uploader] cancel];
 
-    if ([_type isEqualToString:FR_EXCEPTION]) {
+    if ([[self type] isEqualToString:FR_EXCEPTION]) {
         NSString *exitAfterException = [[[NSBundle mainBundle] infoDictionary] valueForKey:PLIST_KEY_EXITAFTEREXCEPTION];
         if (exitAfterException && [exitAfterException isEqualToString:@"YES"]) {
             // We want a pure exit() here I think.
@@ -655,7 +656,7 @@
 
 - (void) showWindow:(id)sender
 {
-    if ([_type isEqualToString:FR_FEEDBACK]) {
+    if ([[self type] isEqualToString:FR_FEEDBACK]) {
         [messageLabel setStringValue:FRLocalizedString(@"Feedback comment label", nil)];
     } else {
         [messageLabel setStringValue:FRLocalizedString(@"Comments:", nil)];

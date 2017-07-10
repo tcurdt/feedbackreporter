@@ -24,11 +24,7 @@
 - (NSString *) feedbackDisplayName;
 @end
 
-@interface FRFeedbackReporter : NSObject {
-
-    @private
-        id _feedbackController;
-}
+@interface FRFeedbackReporter : NSObject
 
 // Creates and returns the singleton FRFeedbackReporter. Does not perform any checks or other real work.
 + (FRFeedbackReporter *)sharedReporter;

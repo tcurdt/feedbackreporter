@@ -26,10 +26,14 @@
 
 #import <uuid/uuid.h>
 
+// Private interface.
+@interface FRFeedbackReporter()
+@property (readwrite, strong, nonatomic) FRFeedbackController* feedbackController;
+@end
+
 @implementation FRFeedbackReporter
 
 #pragma mark Construction
-
 
 + (FRFeedbackReporter *)sharedReporter
 {

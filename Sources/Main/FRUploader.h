@@ -18,14 +18,7 @@
 
 @protocol FRUploaderDelegate;
 
-@interface FRUploader : NSObject {
-
-@private
-    NSString *_target;
-
-    NSURLConnection *_connection;
-    NSMutableData *_responseData;
-}
+@interface FRUploader : NSObject
 
 - (instancetype) initWithTarget:(NSString*)target delegate:(id<FRUploaderDelegate>)delegate;
 - (NSString*) post:(NSDictionary*)dict;

@@ -19,6 +19,7 @@
 
 @protocol FRFeedbackReporterDelegate;
 
+// Possibile values for setType:
 #define FR_FEEDBACK  @"feedback"
 #define FR_EXCEPTION @"exception"
 #define FR_CRASH     @"crash"
@@ -37,7 +38,6 @@
 
     IBOutlet NSButton *detailsButton;
     IBOutlet NSTextField *detailsLabel;
-    BOOL _detailsShown;
 
     IBOutlet NSButton *sendDetailsCheckbox;
 
@@ -60,10 +60,6 @@
 
     IBOutlet NSButton *cancelButton;
     IBOutlet NSButton *sendButton;
-    
-    
-    FRUploader *_uploader;
-    NSString *_type;
 }
 
 #pragma mark Accessors

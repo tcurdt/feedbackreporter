@@ -17,20 +17,7 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface FRCommand : NSObject {
-
-@private
-    NSTask *_task;
-
-    NSString *_path;
-    NSArray *_args;
-    
-    NSMutableString *_output;
-    NSMutableString *_error;
-    
-    BOOL _terminated;
-}
-
+@interface FRCommand : NSObject
 
 - (instancetype) initWithPath:(NSString*)inPath;
 
@@ -40,6 +27,5 @@
 - (void) setOutput:(NSMutableString*)output;
 
 - (int) execute;
-
 
 @end

@@ -19,6 +19,9 @@
 // Private interface.
 @interface FRUploader()
 @property (readwrite, assign, nonatomic) id<FRUploaderDelegate> delegate;
+@property (readwrite, strong, nonatomic) NSString *target;
+@property (readwrite, strong, nonatomic) NSURLConnection *connection;
+@property (readwrite, strong, nonatomic) NSMutableData *responseData;
 @end
 
 @implementation FRUploader
@@ -38,6 +41,8 @@
 - (void) dealloc
 {
     [_responseData release];
+    [_target release];
+    [_connection release];
     
     [super dealloc];
 }
@@ -80,9 +85,9 @@
 
     NSData *formData = [self generateFormData:dict forBoundary:formBoundary];
 
-    NSLog(@"Posting %lu bytes to %@", (unsigned long)[formData length], _target);
+    NSLog(@"Posting %lu bytes to %@", (unsigned long)[formData length], [self target]);
 
-    NSMutableURLRequest *post = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:_target]];
+    NSMutableURLRequest *post = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[self target]]];
     
     NSString *boundaryString = [NSString stringWithFormat: @"multipart/form-data; boundary=%@", formBoundary];
     [post addValue: boundaryString forHTTPHeaderField: @"Content-Type"];
@@ -110,19 +115,20 @@
 
     NSData *formData = [self generateFormData:dict forBoundary:formBoundary];
 
-    NSLog(@"Posting %lu bytes to %@", (unsigned long)[formData length], _target);
+    NSLog(@"Posting %lu bytes to %@", (unsigned long)[formData length], [self target]);
 
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:_target]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[self target]]];
     
     NSString *boundaryString = [NSString stringWithFormat: @"multipart/form-data; boundary=%@", formBoundary];
     [request addValue: boundaryString forHTTPHeaderField: @"Content-Type"];
     [request setHTTPMethod: @"POST"];
     [request setHTTPBody:formData];
 
-    _connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    NSURLConnection* connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    [self setConnection:connection];
 
     id<FRUploaderDelegate> strongDelegate = [self delegate];
-    if (_connection != nil) {
+    if (connection != nil) {
         if ([strongDelegate respondsToSelector:@selector(uploaderStarted:)]) {
             [strongDelegate performSelector:@selector(uploaderStarted:) withObject:self];
         }
@@ -145,7 +151,7 @@
 
     NSLog(@"Connection received data");
 
-    [_responseData appendData:data];
+    [[self responseData] appendData:data];
 }
 
 - (void) connection:(NSURLConnection *)pConnection didFailWithError:(NSError *)error
@@ -159,8 +165,8 @@
 
         [strongDelegate performSelector:@selector(uploaderFailed:withError:) withObject:self withObject:error];
     }
-        
-    [_connection autorelease];
+    
+    [self setConnection:nil];
 }
 
 - (void) connectionDidFinishLoading: (NSURLConnection *)pConnection
@@ -174,19 +180,19 @@
         [strongDelegate performSelector:@selector(uploaderFinished:) withObject:self];
     }
     
-    [_connection autorelease];
+    [self setConnection:nil];
 }
 
 
 - (void) cancel
 {
-    [_connection cancel];
-    [_connection autorelease], _connection = nil;
+    [[self connection] cancel];
+    [self setConnection:nil];
 }
 
 - (NSString*) response
 {
-    return [[[NSString alloc] initWithData:_responseData
+    return [[[NSString alloc] initWithData:[self responseData]
                                   encoding:NSUTF8StringEncoding] autorelease];
 }
 
