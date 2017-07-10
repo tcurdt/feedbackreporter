@@ -29,6 +29,13 @@
 
 @implementation FRCommand
 
+// Cover the superclass' designated initialiser
+- (instancetype)init NS_UNAVAILABLE
+{
+    assert(0);
+    return nil;
+}
+
 - (instancetype) initWithPath:(NSString*)inPath
 {
     self = [super init];

@@ -20,7 +20,7 @@
 
 @interface FRUploader : NSObject
 
-- (instancetype) initWithTarget:(NSString*)target delegate:(id<FRUploaderDelegate>)delegate;
+- (instancetype) initWithTarget:(NSString*)target delegate:(id<FRUploaderDelegate>)delegate NS_DESIGNATED_INITIALIZER;
 - (NSString*) post:(NSDictionary*)dict;
 - (void) postAndNotify:(NSDictionary*)dict;
 - (void) cancel;

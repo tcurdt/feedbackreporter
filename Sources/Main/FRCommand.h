@@ -19,7 +19,7 @@
 
 @interface FRCommand : NSObject
 
-- (instancetype) initWithPath:(NSString*)inPath;
+- (instancetype) initWithPath:(NSString*)inPath NS_DESIGNATED_INITIALIZER;
 
 - (void) setArgs:(NSArray*)args;
 

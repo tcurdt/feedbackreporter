@@ -26,6 +26,13 @@
 
 @implementation FRUploader
 
+// Cover the superclass' designated initialiser
+- (instancetype)init NS_UNAVAILABLE
+{
+    assert(0);
+    return nil;
+}
+
 - (instancetype) initWithTarget:(NSString*)pTarget delegate:(id<FRUploaderDelegate>)pDelegate
 {
     self = [super init];
