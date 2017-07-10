@@ -18,7 +18,6 @@
 #import "FRFeedbackController.h"
 #import "FRCrashLogFinder.h"
 #import "FRSystemProfile.h"
-#import "NSException+Callstack.h"
 #import "FRUploader.h"
 #import "FRApplication.h"
 #import "FRConstants.h"
@@ -186,11 +185,10 @@
         
         [controller setSubheading:FRLocalizedString(@"Send crash report", nil)];
 
-        NSString* callStack = [exception my_callStack];
-        [controller setException:[NSString stringWithFormat: @"%@\n\n%@\n\n%@",
+        [controller setException:[NSString stringWithFormat: @"%@\n\n%@\n\n%@\n",
                                     [exception name],
                                     [exception reason],
-                                    callStack ? callStack : @""]];
+                                    [exception callStackSymbols]]];
 
         [controller setType:FR_EXCEPTION];
 
