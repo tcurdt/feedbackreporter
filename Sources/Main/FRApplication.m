@@ -21,7 +21,7 @@
 
 + (NSString*) applicationBundleVersion
 {
-    // CFBundleShortVersionString is documented as not localizable.
+	// CFBundleVersion is documented as not localizable.
     NSString *bundleVersion = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleVersion"];
     
     return bundleVersion;

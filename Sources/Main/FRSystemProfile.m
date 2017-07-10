@@ -193,7 +193,7 @@
     error = sysctlbyname("hw.model", NULL, &length, NULL, 0);
     
     if (error != 0) {
-        NSLog(@"Failed to obtain CPU model");
+        NSLog(@"Failed to obtain machine model");
         return nil;
     }
 

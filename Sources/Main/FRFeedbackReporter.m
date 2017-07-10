@@ -24,8 +24,6 @@
 #import "FRConstants.h"
 #import "FRLocalizedString.h"
 
-#import <uuid/uuid.h>
-
 // Private interface.
 @interface FRFeedbackReporter()
 @property (readwrite, strong, nonatomic) FRFeedbackController* feedbackController;

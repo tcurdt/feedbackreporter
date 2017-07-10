@@ -1,5 +1,5 @@
 /*
- * Copyright 2008, Torsten Curdt
+ * Copyright 2008-2017, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-int main(int argc, char *argv[])
+int main(int argc, const char * argv[])
 {
-    return NSApplicationMain(argc,  (const char **) argv);
+    return NSApplicationMain(argc, argv);
 }
