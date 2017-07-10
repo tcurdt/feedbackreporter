@@ -22,7 +22,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (nullable NSString*) applicationBundleVersion;
 + (nullable NSString*) applicationShortVersion;
-+ (nullable NSString*) applicationLongVersion;
 + (nullable NSString*) applicationVersion;
 
 + (nullable NSString*) applicationName;

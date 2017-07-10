@@ -39,23 +39,9 @@
     return shortVersion;
 }
 
-+ (nullable NSString*) applicationLongVersion
-{
-    // CFBundleLongVersionString is hardly documented, it's use is discouraged.
-    NSString *longVersion = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleLongVersionString"];
-    
-    return longVersion;
-}
-
 + (nullable NSString*) applicationVersion
 {
-    NSString *applicationVersion = [[self class] applicationLongVersion];
-    
-    if (applicationVersion != nil) {
-        return applicationVersion;
-    }
-
-    applicationVersion = [[self class] applicationShortVersion];
+    NSString *applicationVersion = [[self class] applicationShortVersion];
     
     if (applicationVersion != nil) {
         return applicationVersion;

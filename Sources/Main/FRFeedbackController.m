@@ -394,9 +394,6 @@
     [dict setValidString:[self type]
                   forKey:POST_KEY_TYPE];
 
-    [dict setValidString:[FRApplication applicationLongVersion]
-                  forKey:POST_KEY_VERSION_LONG];
-
     [dict setValidString:[FRApplication applicationShortVersion]
                   forKey:POST_KEY_VERSION_SHORT];
 
