@@ -103,6 +103,7 @@
 
     if(result == nil) {
         NSLog(@"Post failed. Error: %ld, Description: %@", (long)[error code], [error localizedDescription]);
+        return nil;
     }
 
     return [[[NSString alloc] initWithData:result

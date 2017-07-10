@@ -361,9 +361,12 @@
     NSString *host = [url host];
     const char *hostname = [host UTF8String];
 
+    Boolean reachabilityResult = false;
     SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithName(NULL, hostname);
-    Boolean reachabilityResult = SCNetworkReachabilityGetFlags(reachability, &reachabilityFlags);
-    CFRelease(reachability);
+    if (reachability) {
+        reachabilityResult = SCNetworkReachabilityGetFlags(reachability, &reachabilityFlags);
+        CFRelease(reachability);
+    }
 
     // Prevent premature garbage collection (UTF8String returns an inner pointer).
     [host self];
