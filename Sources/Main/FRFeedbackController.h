@@ -25,42 +25,6 @@
 #define FR_CRASH     @"crash"
 
 @interface FRFeedbackController : NSWindowController <FRUploaderDelegate, NSWindowDelegate>
-{
-@private
-    IBOutlet NSTextField *headingField;
-    IBOutlet NSTextField *subheadingField;
-
-    IBOutlet NSTextField *messageLabel;
-    IBOutlet NSTextView *messageView;
-
-    IBOutlet NSTextField *emailLabel;
-    IBOutlet NSComboBox *emailBox;
-
-    IBOutlet NSButton *detailsButton;
-    IBOutlet NSTextField *detailsLabel;
-
-    IBOutlet NSButton *sendDetailsCheckbox;
-
-    IBOutlet NSTabView *tabView;
-    IBOutlet NSTabViewItem *tabSystem;
-    IBOutlet NSTabViewItem *tabConsole;
-    IBOutlet NSTabViewItem *tabCrash;
-    IBOutlet NSTabViewItem *tabScript;
-    IBOutlet NSTabViewItem *tabPreferences;
-    IBOutlet NSTabViewItem *tabException;
-
-    IBOutlet NSTableView *systemView;
-    IBOutlet NSTextView *consoleView;
-    IBOutlet NSTextView *crashesView;
-    IBOutlet NSTextView *scriptView;
-    IBOutlet NSTextView *preferencesView;
-    IBOutlet NSTextView *exceptionView;
-
-    IBOutlet NSProgressIndicator *indicator;
-
-    IBOutlet NSButton *cancelButton;
-    IBOutlet NSButton *sendButton;
-}
 
 #pragma mark Accessors
 

@@ -17,6 +17,12 @@
 #import "AppController.h"
 #import <FeedbackReporter/FRFeedbackReporter.h>
 
+// Private interface.
+@interface AppController()
+@property (readwrite, strong, nonatomic) IBOutlet NSWindow* window;
+@end
+
+
 @implementation AppController
 
 -(void)applicationDidFinishLaunching:(NSNotification*)aNotification
