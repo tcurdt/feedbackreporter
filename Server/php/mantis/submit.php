@@ -61,4 +61,3 @@
 	catch( SoapFault $e ) {
 		print( 'ERR An error occurred while storing the report' );
 	}
-?>
