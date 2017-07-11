@@ -96,7 +96,8 @@ class Mantis
 														'name'		  => $version,
 														'project_id'  => $projID,
 														'description' => $version,
-														'released'	  => true
+														'released'	  => true,
+														'date_order'  => ''
 												   ));			
 		}
 	}
@@ -125,7 +126,7 @@ class Mantis
 			$t_bug_data->additional_information = $issue->additional_information;
 
 			# submit the issue
-			$ret = bug_create( $t_bug_data );
+			$ret = $t_bug_data->create();
 
 			email_new_bug( $ret );
 
