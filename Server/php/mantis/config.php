@@ -16,4 +16,3 @@
 	// constants for the reports
 	define( 'BUG_SUMMARY',	'Crash report' );
 	define( 'BUG_CATEGORY',	'Feedback' );
-?>
