@@ -17,60 +17,18 @@
 #import <Cocoa/Cocoa.h>
 #import "FRUploader.h"
 
+@protocol FRFeedbackReporterDelegate;
+
+// Possibile values for setType:
 #define FR_FEEDBACK  @"feedback"
 #define FR_EXCEPTION @"exception"
 #define FR_CRASH     @"crash"
 
 @interface FRFeedbackController : NSWindowController <FRUploaderDelegate, NSWindowDelegate>
-{
-@private
-    IBOutlet NSTextField *headingField;
-    IBOutlet NSTextField *subheadingField;
-
-    IBOutlet NSTextField *messageLabel;
-    IBOutlet NSTextView *messageView;
-
-    IBOutlet NSTextField *emailLabel;
-    IBOutlet NSComboBox *emailBox;
-
-    IBOutlet NSButton *detailsButton;
-    IBOutlet NSTextField *detailsLabel;
-    BOOL _detailsShown;
-
-    IBOutlet NSButton *sendDetailsCheckbox;
-
-    IBOutlet NSTabView *tabView;
-    IBOutlet NSTabViewItem *tabSystem;
-    IBOutlet NSTabViewItem *tabConsole;
-    IBOutlet NSTabViewItem *tabCrash;
-    IBOutlet NSTabViewItem *tabScript;
-    IBOutlet NSTabViewItem *tabPreferences;
-    IBOutlet NSTabViewItem *tabException;
-
-    IBOutlet NSTableView *systemView;
-    IBOutlet NSTextView *consoleView;
-    IBOutlet NSTextView *crashesView;
-    IBOutlet NSTextView *scriptView;
-    IBOutlet NSTextView *preferencesView;
-    IBOutlet NSTextView *exceptionView;
-
-    IBOutlet NSProgressIndicator *indicator;
-
-    IBOutlet NSButton *cancelButton;
-    IBOutlet NSButton *sendButton;
-    
-    
-    FRUploader *_uploader;
-    
-    id _delegate;
-    
-    NSString *_type;
-}
 
 #pragma mark Accessors
 
-- (id) delegate;
-- (void) setDelegate:(id) delegate;
+@property (readwrite, assign, nonatomic) id<FRFeedbackReporterDelegate> delegate;
 
 - (void) setHeading:(NSString*)message;
 - (void) setSubheading:(NSString *)informativeText;

@@ -17,6 +17,12 @@
 #import "AppController.h"
 #import <FeedbackReporter/FRFeedbackReporter.h>
 
+// Private interface.
+@interface AppController()
+@property (readwrite, strong, nonatomic) IBOutlet NSWindow* window;
+@end
+
+
 @implementation AppController
 
 -(void)applicationDidFinishLaunching:(NSNotification*)aNotification
@@ -72,10 +78,10 @@
 
 - (void) threadWithException
 {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    NSLog(@"exception on NSThread - unicode: ❄");
-    [NSException raise:@"TestException-NSThread" format:@"Something went wrong (☃ attack?)"];
-    [pool drain];
+    @autoreleasepool {
+        NSLog(@"exception on NSThread - unicode: ❄");
+        [NSException raise:@"TestException-NSThread" format:@"Something went wrong (☃ attack?)"];
+    }
 }
 
 - (IBAction) buttonExceptionInThread:(id)sender
@@ -89,10 +95,10 @@
 
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1);
     dispatch_after(popTime, queue, ^{
-        NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-        NSLog(@"exception on dispatch queue - unicode: ❄");
-        [NSException raise:@"TestException-DispatchQueue" format:@"Something went wrong (☃ attack?)"];
-        [pool drain];
+        @autoreleasepool {
+            NSLog(@"exception on dispatch queue - unicode: ❄");
+            [NSException raise:@"TestException-DispatchQueue" format:@"Something went wrong (☃ attack?)"];
+        }
     });
     
     // leak queue.

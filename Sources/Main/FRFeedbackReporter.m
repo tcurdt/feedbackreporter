@@ -26,10 +26,14 @@
 
 #import <uuid/uuid.h>
 
+// Private interface.
+@interface FRFeedbackReporter()
+@property (readwrite, strong, nonatomic) FRFeedbackController* feedbackController;
+@end
+
 @implementation FRFeedbackReporter
 
 #pragma mark Construction
-
 
 + (FRFeedbackReporter *)sharedReporter
 {
@@ -61,17 +65,6 @@
     return _feedbackController;
 }
 
-- (id<FRFeedbackReporterDelegate>) delegate
-{
-    return _delegate;
-}
-
-- (void) setDelegate:(id<FRFeedbackReporterDelegate>) pDelegate
-{
-    _delegate = pDelegate;
-}
-
-
 #pragma mark Reports
 
 - (BOOL) reportFeedback
@@ -88,14 +81,15 @@
         [controller reset];
 
         NSString * applicationName = nil;
-        if ([_delegate respondsToSelector:@selector(feedbackDisplayName)]) {
-            applicationName = [_delegate feedbackDisplayName];
+        id<FRFeedbackReporterDelegate> strongDelegate = [self delegate];
+        if ([strongDelegate respondsToSelector:@selector(feedbackDisplayName)]) {
+            applicationName = [strongDelegate feedbackDisplayName];
         }
         else {
-            applicationName =[FRApplication applicationName];
+            applicationName = [FRApplication applicationName];
         }
 
-       [controller setHeading:[NSString stringWithFormat:
+        [controller setHeading:[NSString stringWithFormat:
             FRLocalizedString(@"Got a problem with %@?", nil),
             applicationName]];
         
@@ -103,7 +97,7 @@
 
         [controller setType:FR_FEEDBACK];
 
-        [controller setDelegate:_delegate];
+        [controller setDelegate:strongDelegate];
 
         [controller showWindow:self];
 
@@ -136,11 +130,12 @@
             [controller reset];
 
             NSString * applicationName = nil;
-            if ([_delegate respondsToSelector:@selector(feedbackDisplayName)]) {
-               applicationName = [_delegate feedbackDisplayName];
+            id<FRFeedbackReporterDelegate> strongDelegate = [self delegate];
+            if ([strongDelegate respondsToSelector:@selector(feedbackDisplayName)]) {
+               applicationName = [strongDelegate feedbackDisplayName];
             }
             else {
-               applicationName =[FRApplication applicationName];
+               applicationName = [FRApplication applicationName];
             }
            
             [controller setHeading:[NSString stringWithFormat:
@@ -151,7 +146,7 @@
             
             [controller setType:FR_CRASH];
 
-            [controller setDelegate:_delegate];
+            [controller setDelegate:strongDelegate];
 
             [controller showWindow:self];
 
@@ -178,11 +173,12 @@
         [controller reset];
        
         NSString * applicationName = nil;
-        if ([_delegate respondsToSelector:@selector(feedbackDisplayName)]) {
-            applicationName = [_delegate feedbackDisplayName];
+        id<FRFeedbackReporterDelegate> strongDelegate = [self delegate];
+        if ([strongDelegate respondsToSelector:@selector(feedbackDisplayName)]) {
+            applicationName = [strongDelegate feedbackDisplayName];
         }
         else {
-            applicationName =[FRApplication applicationName];
+            applicationName = [FRApplication applicationName];
         }
 
       
@@ -200,7 +196,7 @@
 
         [controller setType:FR_EXCEPTION];
 
-        [controller setDelegate:_delegate];
+        [controller setDelegate:strongDelegate];
 
         [controller showWindow:self];
 

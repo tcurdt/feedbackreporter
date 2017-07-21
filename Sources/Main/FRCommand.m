@@ -16,6 +16,16 @@
 
 #import "FRCommand.h"
 
+// Private interface.
+@interface FRCommand()
+@property (readwrite, strong, nonatomic) NSTask *task;
+@property (readwrite, strong, nonatomic) NSString *path;
+@property (readwrite, strong, nonatomic) NSArray *args;
+@property (readwrite, strong, nonatomic) NSMutableString *output;
+@property (readwrite, strong, nonatomic) NSMutableString *error;
+@property (readwrite, nonatomic) BOOL terminated;
+@end
+
 
 @implementation FRCommand
 
@@ -24,7 +34,7 @@
     self = [super init];
     if (self != nil) {
         _task = [[NSTask alloc] init];
-        _args = [[NSArray array] retain];
+        _args = [@[] retain];
         _path = [inPath retain];
         _error = nil;
         _output = nil;
@@ -46,34 +56,11 @@
 }
 
 
-
-- (void) setArgs:(NSArray*)pArgs
-{
-    [pArgs retain];
-    [_args release];
-    _args = pArgs;
-}
-
-- (void) setError:(NSMutableString*)pError
-{
-    [pError retain];
-    [_error release];
-    _error = pError;
-}
-
-- (void) setOutput:(NSMutableString*)pOutput
-{
-    [pOutput retain];
-    [_output release];
-    _output = pOutput;
-}
-
-
 -(void) appendDataFrom:(NSFileHandle*)fileHandle to:(NSMutableString*)string
 {
     NSData *data = [fileHandle availableData];
 
-    if ([data length]) {
+    if ([data length] > 0) {
 
         // Initially try to read the file in using UTF8
         NSString *s = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
@@ -98,7 +85,7 @@
 {
     NSFileHandle *fileHandle = (NSFileHandle*) [notification object];
 
-    [self appendDataFrom:fileHandle to:_output];
+    [self appendDataFrom:fileHandle to:[self output]];
 
     [fileHandle waitForDataInBackgroundAndNotify];
 }
@@ -107,7 +94,7 @@
 {
     NSFileHandle *fileHandle = (NSFileHandle*) [notification object];
 
-    [self appendDataFrom:fileHandle to:_output];
+    [self appendDataFrom:fileHandle to:[self output]];
 
     [fileHandle waitForDataInBackgroundAndNotify];
 }
@@ -120,25 +107,26 @@
     // NSLog(@"Task terminated");
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
-    _terminated = YES;
+    [self setTerminated:YES];
 }
 
 - (int) execute
 {
-    if (![[NSFileManager defaultManager] isExecutableFileAtPath:_path]) {
+    if (![[NSFileManager defaultManager] isExecutableFileAtPath:[self path]]) {
         // executable not found
         return -1;
     }
 
-    [_task setLaunchPath:_path];
-    [_task setArguments:_args];
+    NSTask* task = [self task];
+    [task setLaunchPath:[self path]];
+    [task setArguments:[self args]];
 
     NSPipe *outPipe = [NSPipe pipe];
     NSPipe *errPipe = [NSPipe pipe];
 
-    [_task setStandardInput:[NSFileHandle fileHandleWithNullDevice]];
-    [_task setStandardOutput:outPipe];
-    [_task setStandardError:errPipe];
+    [task setStandardInput:[NSFileHandle fileHandleWithNullDevice]];
+    [task setStandardOutput:outPipe];
+    [task setStandardError:errPipe];
 
     NSFileHandle *outFile = [outPipe fileHandleForReading];
     NSFileHandle *errFile = [errPipe fileHandleForReading]; 
@@ -157,27 +145,25 @@
     [center addObserver:self
                selector:@selector(terminated:)
                    name:NSTaskDidTerminateNotification
-                 object:_task];
+                 object:task];
 
     [outFile waitForDataInBackgroundAndNotify];
     [errFile waitForDataInBackgroundAndNotify];
 
-    [_task launch];
+    [task launch];
 
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    while(!_terminated) {
-        if (![[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:100000]]) {
-            break;
+    while(![self terminated]) {
+        @autoreleasepool {
+            if (![[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]]) {
+                break;
+            }
         }
-        [pool drain];
-        pool = [[NSAutoreleasePool alloc] init];
     }
-    [pool drain];
 
-    [self appendDataFrom:outFile to:_output];
-    [self appendDataFrom:errFile to:_error];
+    [self appendDataFrom:outFile to:[self output]];
+    [self appendDataFrom:errFile to:[self error]];
 
-    int result = [_task terminationStatus];
+    int result = [task terminationStatus];
 
     return result;
 }

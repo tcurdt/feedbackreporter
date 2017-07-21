@@ -17,10 +17,7 @@
 #import <Cocoa/Cocoa.h>
 #import <FeedbackReporter/FRFeedbackReporter.h>
 
-@interface AppController : NSObject <FRFeedbackReporterDelegate> {
-@private
-    IBOutlet NSWindow* window; // strong reference, needed for GC
-}
+@interface AppController : NSObject <FRFeedbackReporterDelegate>
 
 - (IBAction) buttonFeedback:(id)sender;
 - (IBAction) buttonException:(id)sender;

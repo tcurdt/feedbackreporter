@@ -22,48 +22,40 @@
 + (NSArray*) discover
 {
     NSMutableArray *discoveryArray = [[[NSMutableArray alloc] init] autorelease];
-    NSArray *discoveryKeys = [NSArray arrayWithObjects:@"key", @"visibleKey", @"value", @"visibleValue", nil];
-
+    NSArray *discoveryKeys = @[@"key", @"visibleKey", @"value", @"visibleValue"];
+    
     NSString *osversion = [NSString stringWithFormat:@"%@", [self osversion]];
-    [discoveryArray addObject:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:
-        @"OS_VERSION", @"OS Version", osversion, osversion, nil]
-        forKeys:discoveryKeys]];
-
+    [discoveryArray addObject:[NSDictionary dictionaryWithObjects:@[@"OS_VERSION", @"OS Version", osversion, osversion]
+                                                          forKeys:discoveryKeys]];
+    
     NSString *machinemodel = [NSString stringWithFormat:@"%@", [self machinemodel]];
-    [discoveryArray addObject:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:
-        @"MACHINE_MODEL", @"Machine Model", machinemodel, machinemodel, nil]
-        forKeys:discoveryKeys]];
-
+    [discoveryArray addObject:[NSDictionary dictionaryWithObjects:@[@"MACHINE_MODEL", @"Machine Model", machinemodel, machinemodel]
+                                                          forKeys:discoveryKeys]];
+    
     NSString *ramsize = [NSString stringWithFormat:@"%lld", [self ramsize]];
-    [discoveryArray addObject:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:
-        @"RAM_SIZE", @"Memory in (MB)", ramsize, ramsize, nil]
-        forKeys:discoveryKeys]];
-
+    [discoveryArray addObject:[NSDictionary dictionaryWithObjects:@[@"RAM_SIZE", @"Memory in (MB)", ramsize, ramsize]
+                                                          forKeys:discoveryKeys]];
+    
     NSString *cputype = [NSString stringWithFormat:@"%@", [self cputype]];
-    [discoveryArray addObject:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:
-        @"CPU_TYPE", @"CPU Type", cputype, cputype, nil]
-        forKeys:discoveryKeys]];
-
+    [discoveryArray addObject:[NSDictionary dictionaryWithObjects:@[@"CPU_TYPE", @"CPU Type", cputype, cputype]
+                                                          forKeys:discoveryKeys]];
+    
     NSString *cpuspeed = [NSString stringWithFormat:@"%lld", [self cpuspeed]];
-    [discoveryArray addObject:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:
-        @"CPU_SPEED", @"CPU Speed (MHz)", cpuspeed, cpuspeed, nil]
-        forKeys:discoveryKeys]];
-
+    [discoveryArray addObject:[NSDictionary dictionaryWithObjects:@[@"CPU_SPEED", @"CPU Speed (MHz)", cpuspeed, cpuspeed]
+                                                          forKeys:discoveryKeys]];
+    
     NSString *cpucount = [NSString stringWithFormat:@"%d", [self cpucount]];
-    [discoveryArray addObject:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:
-        @"CPU_COUNT", @"Number of CPUs", cpucount, cpucount, nil]
-        forKeys:discoveryKeys]];
-
+    [discoveryArray addObject:[NSDictionary dictionaryWithObjects:@[@"CPU_COUNT", @"Number of CPUs", cpucount, cpucount]
+                                                          forKeys:discoveryKeys]];
+    
     NSString *is64bit = [NSString stringWithFormat:@"%@", ([self is64bit])?@"YES":@"NO"];
-    [discoveryArray addObject:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:
-        @"CPU_64BIT", @"CPU is 64-Bit", is64bit, is64bit, nil]
-        forKeys:discoveryKeys]];
-
+    [discoveryArray addObject:[NSDictionary dictionaryWithObjects:@[@"CPU_64BIT", @"CPU is 64-Bit", is64bit, is64bit]
+                                                          forKeys:discoveryKeys]];
+    
     NSString *language = [NSString stringWithFormat:@"%@", [self language]];
-    [discoveryArray addObject:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:
-        @"LANGUAGE", @"Preferred Language", language, language, nil]
-        forKeys:discoveryKeys]];
-
+    [discoveryArray addObject:[NSDictionary dictionaryWithObjects:@[@"LANGUAGE", @"Preferred Language", language, language]
+                                                          forKeys:discoveryKeys]];
+    
     return discoveryArray;
 }
 

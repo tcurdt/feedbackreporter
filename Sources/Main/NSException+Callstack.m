@@ -98,7 +98,7 @@
             continue;
         }
 
-        if( [result length] ) {
+        if( [result length] > 0 ) {
             [result appendString: @"\n"];
         }
 
