@@ -27,6 +27,8 @@
 
 -(void)applicationDidFinishLaunching:(NSNotification*)aNotification
 {
+    assert(aNotification);
+
     NSLog(@"applicationDidFinishLaunching - unicode test: مرحبا - 你好 - שלום");
 
     [[FRFeedbackReporter sharedReporter] setDelegate:self];
@@ -58,7 +60,7 @@
 /*
 - (NSString *)targetUrlForFeedbackReport
 {
-    NSString *targetUrlFormat = @"http://myserver.com/submit.php?project=%@&version=%@";
+    NSString *targetUrlFormat = @"https://myserver.com/submit.php?project=%@&version=%@";
     NSString *project = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleExecutable"];
     NSString *version = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleVersion"];
     return [NSString stringWithFormat:targetUrlFormat, project, version];
@@ -100,8 +102,6 @@
             [NSException raise:@"TestException-DispatchQueue" format:@"Something went wrong (☃ attack?)"];
         }
     });
-    
-    // leak queue.
 }
 
 - (IBAction) buttonCrash:(id)sender

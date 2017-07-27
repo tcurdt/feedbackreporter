@@ -17,6 +17,8 @@
 #import <Cocoa/Cocoa.h>
 #import <FeedbackReporter/FRFeedbackReporter.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface AppController : NSObject <FRFeedbackReporterDelegate>
 
 - (IBAction) buttonFeedback:(id)sender;
@@ -26,3 +28,5 @@
 - (IBAction) buttonCrash:(id)sender;
 
 @end
+
+NS_ASSUME_NONNULL_END

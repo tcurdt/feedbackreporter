@@ -16,10 +16,11 @@
 
 #import <Cocoa/Cocoa.h>
 
+NS_ASSUME_NONNULL_BEGIN
 
 @interface FRCommand : NSObject
 
-- (instancetype) initWithPath:(NSString*)inPath;
+- (instancetype) initWithPath:(NSString*)inPath NS_DESIGNATED_INITIALIZER;
 
 - (void) setArgs:(NSArray*)args;
 
@@ -29,3 +30,5 @@
 - (int) execute;
 
 @end
+
+NS_ASSUME_NONNULL_END

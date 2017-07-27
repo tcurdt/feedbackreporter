@@ -29,13 +29,22 @@
 
 @implementation FRCommand
 
+// Cover the superclass' designated initialiser
+- (instancetype)init NS_UNAVAILABLE
+{
+    assert(0);
+    return nil;
+}
+
 - (instancetype) initWithPath:(NSString*)inPath
 {
+    assert(inPath);
+
     self = [super init];
     if (self != nil) {
         _task = [[NSTask alloc] init];
-        _args = [@[] retain];
-        _path = [inPath retain];
+        _args = @[];
+        _path = inPath;
         _error = nil;
         _output = nil;
         _terminated = NO;
@@ -44,20 +53,11 @@
     return self;
 }
 
--(void)dealloc
-{
-    [_task release];
-    [_args release];
-    [_path release];
-    [_error release];
-    [_output release];
-
-    [super dealloc];
-}
-
-
 -(void) appendDataFrom:(NSFileHandle*)fileHandle to:(NSMutableString*)string
 {
+    assert(fileHandle);
+    assert(string);
+
     NSData *data = [fileHandle availableData];
 
     if ([data length] > 0) {
@@ -73,8 +73,6 @@
         if (s) {
             [string appendString:s];
             //NSLog(@"| %@", s);
-
-            [s release];
         }
     }
 
@@ -83,6 +81,8 @@
 
 -(void) outData: (NSNotification *) notification
 {
+    assert(notification);
+
     NSFileHandle *fileHandle = (NSFileHandle*) [notification object];
 
     [self appendDataFrom:fileHandle to:[self output]];
@@ -92,6 +92,8 @@
 
 -(void) errData: (NSNotification *) notification
 {
+    assert(notification);
+
     NSFileHandle *fileHandle = (NSFileHandle*) [notification object];
 
     [self appendDataFrom:fileHandle to:[self output]];
@@ -102,6 +104,8 @@
 
 - (void) terminated: (NSNotification *)notification
 {
+    assert(notification);
+
     (void)notification;
 
     // NSLog(@"Task terminated");

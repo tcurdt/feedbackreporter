@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2014, Torsten Curdt
+ * Copyright 2008-2017, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,19 +16,22 @@
 
 #import <Cocoa/Cocoa.h>
 
+NS_ASSUME_NONNULL_BEGIN
 
 @interface FRSystemProfile : NSObject
 
 + (NSArray*) discover;
 
-+ (NSString*) cputype;
++ (nullable NSString*) cputype;
 + (BOOL) is64bit;
 + (NSString*) osversion;
-+ (NSString*) architecture;
++ (nullable NSString*) architecture;
 + (int) cpucount;
-+ (NSString*) machinemodel;
-+ (NSString*) language;
++ (nullable NSString*) machinemodel;
++ (nullable NSString*) language;
 + (long long) cpuspeed;
 + (long long) ramsize;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -16,15 +16,17 @@
 
 #import <Cocoa/Cocoa.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @protocol FRUploaderDelegate;
 
 @interface FRUploader : NSObject
 
-- (instancetype) initWithTarget:(NSString*)target delegate:(id<FRUploaderDelegate>)delegate;
-- (NSString*) post:(NSDictionary*)dict;
+- (instancetype) initWithTarget:(NSString*)target delegate:(id<FRUploaderDelegate>)delegate NS_DESIGNATED_INITIALIZER;
+- (nullable NSString*) post:(NSDictionary*)dict;
 - (void) postAndNotify:(NSDictionary*)dict;
 - (void) cancel;
-- (NSString*) response;
+- (nullable NSString*) response;
 
 @end
 
@@ -37,3 +39,5 @@
 - (void) uploaderFinished:(FRUploader*)uploader;
 
 @end
+
+NS_ASSUME_NONNULL_END

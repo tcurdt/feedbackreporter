@@ -1,5 +1,5 @@
 /*
- * Copyright 2008, Torsten Curdt
+ * Copyright 2008-2017, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,9 +16,12 @@
 
 #import <Cocoa/Cocoa.h>
 
+NS_ASSUME_NONNULL_BEGIN
 
 @interface FRCrashLogFinder : NSObject
 
-+ (NSArray*) findCrashLogsSince:(NSDate*)date;
++ (NSArray*) findCrashLogsSince:(nullable NSDate*)date;
 
 @end
+
+NS_ASSUME_NONNULL_END

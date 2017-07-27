@@ -18,5 +18,5 @@ same as receiving a form POST submission.
 
 Please check the various scripts/backends for how to configure them.
 
-[1]: http://www.mantisbt.org/
-[2]: http://www.prowlapp.com/
+[1]: https://www.mantisbt.org/
+[2]: https://www.prowlapp.com/

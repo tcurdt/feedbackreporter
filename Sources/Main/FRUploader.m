@@ -18,7 +18,7 @@
 
 // Private interface.
 @interface FRUploader()
-@property (readwrite, assign, nonatomic) id<FRUploaderDelegate> delegate;
+@property (readwrite, weak, nonatomic) id<FRUploaderDelegate> delegate;
 @property (readwrite, strong, nonatomic) NSString *target;
 @property (readwrite, strong, nonatomic) NSURLConnection *connection;
 @property (readwrite, strong, nonatomic) NSMutableData *responseData;
@@ -26,8 +26,18 @@
 
 @implementation FRUploader
 
+// Cover the superclass' designated initialiser
+- (instancetype)init NS_UNAVAILABLE
+{
+    assert(0);
+    return nil;
+}
+
 - (instancetype) initWithTarget:(NSString*)pTarget delegate:(id<FRUploaderDelegate>)pDelegate
 {
+    assert(pTarget);
+    assert(pDelegate);
+
     self = [super init];
     if (self != nil) {
         _target = pTarget;
@@ -38,17 +48,11 @@
     return self;
 }
 
-- (void) dealloc
-{
-    [_responseData release];
-    [_target release];
-    [_connection release];
-    
-    [super dealloc];
-}
-
 - (NSData *) generateFormData: (NSDictionary *)dict forBoundary:(NSString*)formBoundary
 {
+    assert(dict);
+    assert(formBoundary);
+
     NSString *boundary = formBoundary;
     NSArray *keys = [dict allKeys];
     NSMutableData *result = [[NSMutableData alloc] initWithCapacity:100];
@@ -75,12 +79,14 @@
 
     [result appendData:[[NSString stringWithFormat:@"--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
     
-    return [result autorelease];
+    return result;
 }
 
 
-- (NSString*) post:(NSDictionary*)dict
+- (nullable NSString*) post:(NSDictionary*)dict
 {
+    assert(dict);
+
     NSString *formBoundary = [[NSProcessInfo processInfo] globallyUniqueString];
 
     NSData *formData = [self generateFormData:dict forBoundary:formBoundary];
@@ -103,14 +109,17 @@
 
     if(result == nil) {
         NSLog(@"Post failed. Error: %ld, Description: %@", (long)[error code], [error localizedDescription]);
+        return nil;
     }
 
-    return [[[NSString alloc] initWithData:result
-                                  encoding:NSUTF8StringEncoding] autorelease];
+    return [[NSString alloc] initWithData:result
+                                 encoding:NSUTF8StringEncoding];
 }
 
 - (void) postAndNotify:(NSDictionary*)dict
 {
+    assert(dict);
+
     NSString *formBoundary = [[NSProcessInfo processInfo] globallyUniqueString];
 
     NSData *formData = [self generateFormData:dict forBoundary:formBoundary];
@@ -147,7 +156,8 @@
 
 - (void) connection: (NSURLConnection *)pConnection didReceiveData: (NSData *)data
 {
-    (void)pConnection;
+    assert(pConnection); (void)pConnection;
+    assert(data);
 
     NSLog(@"Connection received data");
 
@@ -156,7 +166,8 @@
 
 - (void) connection:(NSURLConnection *)pConnection didFailWithError:(NSError *)error
 {
-    (void)pConnection;
+    assert(pConnection); (void)pConnection;
+    assert(error);
 
     NSLog(@"Connection failed");
     
@@ -171,7 +182,7 @@
 
 - (void) connectionDidFinishLoading: (NSURLConnection *)pConnection
 {
-    (void)pConnection;
+    assert(pConnection); (void)pConnection;
 
     // NSLog(@"Connection finished");
 
@@ -190,10 +201,10 @@
     [self setConnection:nil];
 }
 
-- (NSString*) response
+- (nullable NSString*) response
 {
-    return [[[NSString alloc] initWithData:[self responseData]
-                                  encoding:NSUTF8StringEncoding] autorelease];
+    return [[NSString alloc] initWithData:[self responseData]
+                                 encoding:NSUTF8StringEncoding];
 }
 
 @end

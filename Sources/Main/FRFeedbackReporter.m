@@ -18,13 +18,10 @@
 #import "FRFeedbackController.h"
 #import "FRCrashLogFinder.h"
 #import "FRSystemProfile.h"
-#import "NSException+Callstack.h"
 #import "FRUploader.h"
 #import "FRApplication.h"
 #import "FRConstants.h"
 #import "FRLocalizedString.h"
-
-#import <uuid/uuid.h>
 
 // Private interface.
 @interface FRFeedbackReporter()
@@ -43,15 +40,6 @@
     dispatch_once(&predicate, ^{ sharedReporter = [[[self class] alloc] init]; });
 
     return sharedReporter;
-}
-
-#pragma mark Destruction
-
-- (void) dealloc
-{
-    [_feedbackController release];
-    
-    [super dealloc];
 }
 
 #pragma mark Variable Accessors
@@ -161,6 +149,8 @@
 
 - (BOOL) reportException:(NSException *)exception
 {
+    assert(exception);
+
     FRFeedbackController *controller = [self feedbackController];
 
     @synchronized (controller) {
@@ -188,11 +178,10 @@
         
         [controller setSubheading:FRLocalizedString(@"Send crash report", nil)];
 
-        NSString* callStack = [exception my_callStack];
-        [controller setException:[NSString stringWithFormat: @"%@\n\n%@\n\n%@",
+        [controller setException:[NSString stringWithFormat: @"%@\n\n%@\n\n%@\n",
                                     [exception name],
                                     [exception reason],
-                                    callStack ? callStack : @""]];
+                                    [exception callStackSymbols]]];
 
         [controller setType:FR_EXCEPTION];
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2008, Torsten Curdt
+ * Copyright 2008-2017, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,8 +14,11 @@
  * limitations under the License.
  */
 
-#import "CommandTestCase.h"
+#import <XCTest/XCTest.h>
 #import "FRCommand.h"
+
+@interface CommandTestCase : XCTestCase {}
+@end
 
 @implementation CommandTestCase
 
@@ -34,11 +37,6 @@
     XCTAssertTrue(result == 0, @"Return code was %d", result);    
     XCTAssertTrue([out length] > 0, @"Found no output on stdout");
     XCTAssertTrue([err length] == 0, @"Found output on stderr");
-
-    [err release], err = nil;
-    [out release], out = nil;
-    
-    [cmd release], cmd = nil;
 }
 
 @end

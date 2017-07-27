@@ -26,8 +26,10 @@
 
 @implementation FRConsoleLog
 
-+ (NSString*) logSince:(NSDate*)since maxSize:(NSNumber*)maximumSize
++ (NSString*) logSince:(NSDate*)since maxSize:(nullable NSNumber*)maximumSize
 {
+    assert(since);
+
     NSUInteger consoleOutputLength = 0;
     NSUInteger rawConsoleLinesCapacity = 100;
     NSUInteger consoleLinesProcessed = 0;
@@ -54,10 +56,6 @@
 
         asl_set_query(query, ASL_KEY_SENDER, [applicationName UTF8String], ASL_QUERY_OP_EQUAL);
         asl_set_query(query, ASL_KEY_TIME, [sinceString UTF8String], ASL_QUERY_OP_GREATER_EQUAL);
-
-        // Prevent premature garbage collection (UTF8String returns an inner pointer).
-        [applicationName self];
-        [sinceString self];
 
         // This function is very slow. <rdar://problem/7695589>
         aslresponse response = asl_search(NULL, query);
@@ -136,8 +134,6 @@
     }
 
     // Free data stores
-    [consoleLines release];
-    [dateFormatter release];
     for (NSUInteger i = 0; i < consoleLinesProcessed; i++) {
         free(rawConsoleLines[i][FR_CONSOLELOG_TEXT]);
         free(rawConsoleLines[i][FR_CONSOLELOG_TIME]);
@@ -145,7 +141,7 @@
     }
     free(rawConsoleLines);
 
-    return [consoleString autorelease];
+    return consoleString;
 }
 
 @end

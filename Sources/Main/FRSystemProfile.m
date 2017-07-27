@@ -21,7 +21,7 @@
 
 + (NSArray*) discover
 {
-    NSMutableArray *discoveryArray = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableArray *discoveryArray = [[NSMutableArray alloc] init];
     NSArray *discoveryKeys = @[@"key", @"visibleKey", @"value", @"visibleValue"];
     
     NSString *osversion = [NSString stringWithFormat:@"%@", [self osversion]];
@@ -84,7 +84,7 @@
     return is64bit;
 }
 
-+ (NSString*) cputype
++ (nullable NSString*) cputype
 {
     int error = 0;
     
@@ -147,7 +147,7 @@
     return version;
 }
 
-+ (NSString*) architecture
++ (nullable NSString*) architecture
 {
     int error = 0;
     int value = 0;
@@ -186,14 +186,14 @@
     return value;
 }
 
-+ (NSString*) machinemodel
++ (nullable NSString*) machinemodel
 {
     int error = 0;
     size_t length = 0;
     error = sysctlbyname("hw.model", NULL, &length, NULL, 0);
     
     if (error != 0) {
-        NSLog(@"Failed to obtain CPU model");
+        NSLog(@"Failed to obtain machine model");
         return nil;
     }
 
@@ -215,7 +215,7 @@
     return machinemodel;
 }
 
-+ (NSString*) language
++ (nullable NSString*) language
 {
     NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
     NSArray *languages = [defs objectForKey:@"AppleLanguages"];

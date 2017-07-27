@@ -1,5 +1,5 @@
 /*
- * Copyright 2008, Jens Alfke, Torsten Curdt
+ * Copyright 2008-2017, Jens Alfke, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,15 @@
 
 #import <Cocoa/Cocoa.h>
 
+// ARC is requried.
+#if !__has_feature(objc_arc)
+#error FeedbackReporter requires compiling with ARC
+#endif
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface FRExceptionReportingApplication : NSApplication
 
 @end
+
+NS_ASSUME_NONNULL_END

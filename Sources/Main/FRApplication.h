@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2011, Torsten Curdt
+ * Copyright 2008-2017, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,16 +16,18 @@
 
 #import <Cocoa/Cocoa.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface FRApplication : NSObject
 
-+ (NSString*) applicationBundleVersion;
-+ (NSString*) applicationShortVersion;
-+ (NSString*) applicationLongVersion;
-+ (NSString*) applicationVersion;
++ (nullable NSString*) applicationBundleVersion;
++ (nullable NSString*) applicationShortVersion;
++ (nullable NSString*) applicationVersion;
 
-+ (NSString*) applicationName;
-+ (NSString*) applicationIdentifier;
-+ (NSString*) feedbackURL;
-
++ (nullable NSString*) applicationName;
++ (nullable NSString*) applicationIdentifier;
++ (nullable NSString*) feedbackURL;
 
 @end
+
+NS_ASSUME_NONNULL_END

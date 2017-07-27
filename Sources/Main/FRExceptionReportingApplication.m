@@ -15,7 +15,6 @@
  */
 
 #import "FRExceptionReportingApplication.h"
-#import "NSException+Callstack.h"
 #import "FRFeedbackReporter.h"
 #import <pthread.h>
 
@@ -23,6 +22,8 @@
 
 - (void) reportException:(NSException *)x
 {
+    assert(x);
+
     // NSApplication is documented to log, let it.
     [super reportException: x];
 
@@ -55,12 +56,7 @@
     }
     @catch (NSException *exception) {
 
-        if ([exception respondsToSelector:@selector(callStackSymbols)]) {
-            NSLog(@"Problem within FeedbackReporter %@: %@  call stack:%@", [exception name], [exception reason], [(id)exception callStackSymbols]);
-        } else {
-            NSLog(@"Problem within FeedbackReporter %@: %@  call stack:%@", [exception name], [exception reason], [exception callStackReturnAddresses]);
-        }
-
+        NSLog(@"Problem within FeedbackReporter %@: %@  call stack:%@", [exception name], [exception reason], [exception callStackSymbols]);
     }
     @finally {
     }

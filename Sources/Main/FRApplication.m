@@ -19,15 +19,15 @@
 
 @implementation FRApplication
 
-+ (NSString*) applicationBundleVersion
++ (nullable NSString*) applicationBundleVersion
 {
-    // CFBundleShortVersionString is documented as not localizable.
+	// CFBundleVersion is documented as not localizable.
     NSString *bundleVersion = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleVersion"];
     
     return bundleVersion;
 }
 
-+ (NSString*) applicationShortVersion
++ (nullable NSString*) applicationShortVersion
 {
     // CFBundleShortVersionString is documented as localizable, so prefer a localized value if available.
     NSString *shortVersion = [[[NSBundle mainBundle] localizedInfoDictionary] valueForKey: @"CFBundleShortVersionString"];
@@ -39,23 +39,9 @@
     return shortVersion;
 }
 
-+ (NSString*) applicationLongVersion
++ (nullable NSString*) applicationVersion
 {
-    // CFBundleLongVersionString is hardly documented, it's use is discouraged.
-    NSString *longVersion = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleLongVersionString"];
-    
-    return longVersion;
-}
-
-+ (NSString*) applicationVersion
-{
-    NSString *applicationVersion = [[self class] applicationLongVersion];
-    
-    if (applicationVersion != nil) {
-        return applicationVersion;
-    }
-
-    applicationVersion = [[self class] applicationShortVersion];
+    NSString *applicationVersion = [[self class] applicationShortVersion];
     
     if (applicationVersion != nil) {
         return applicationVersion;
@@ -65,7 +51,7 @@
 }
 
 
-+ (NSString*) applicationName
++ (nullable NSString*) applicationName
 {
     // CFBundleExecutable is not localizable.
    NSString *applicationName = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleExecutable"];
@@ -73,7 +59,7 @@
     return applicationName;
 }
 
-+ (NSString*) applicationIdentifier
++ (nullable NSString*) applicationIdentifier
 {
     // CFBundleIdentifier is not localizable.
     NSString *applicationIdentifier = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleIdentifier"];
@@ -81,7 +67,7 @@
     return applicationIdentifier;
 }
 
-+ (NSString*) feedbackURL
++ (nullable NSString*) feedbackURL
 {
     NSString *target = [[[NSBundle mainBundle] infoDictionary] valueForKey: PLIST_KEY_TARGETURL];
 

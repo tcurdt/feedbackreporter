@@ -14,8 +14,11 @@
  * limitations under the License.
  */
 
-#import "UploaderTestCase.h"
+#import <XCTest/XCTest.h>
 #import "FRUploader.h"
+
+@interface UploaderTestCase : XCTestCase <FRUploaderDelegate> {}
+@end
 
 @implementation UploaderTestCase
 
@@ -42,8 +45,6 @@ BOOL terminated;
         }
     }
 
-    [dict release];
-    
     NSLog(@"done");
 }
 
@@ -56,8 +57,6 @@ BOOL terminated;
 {
     NSLog(@"Upload failed: %@", error);
 
-    [uploader release];
-
     terminated = YES;
 }
 
@@ -69,11 +68,7 @@ BOOL terminated;
     
     NSLog(@"response = %@", response);
 
-    [uploader release];
-
     terminated = YES;
 }
-
-
 
 @end
