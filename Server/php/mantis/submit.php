@@ -60,4 +60,10 @@
 	}
 	catch( SoapFault $e ) {
 		print( 'ERR An error occurred while storing the report' );
+		# SUBMIT_TEST is not normally defined
+		# - It can be created in "config.php" or "config.private.php"
+		if( SUBMIT_TEST ){
+			echo "<pre>";
+			var_dump($e);
+		}
 	}
