@@ -1,8 +1,24 @@
 # MantisBT Integration, 2017-edition
 
+## PHP system administration/configuration
+
+`php.ini` settings that are relevant:
+
+    post_max_size = 42M;
+
+> (42 MiB should be enough?)
+
+    upload_max_filesize = 42M;
+
+> (42 MiB per file uploaded should be enough?)
+
+    max_input_time = 300;
+
+> (5 minutes to perform the upload should be enough?)
+
 ## July 2017
 
-### Introduction
+### Introduction ~~~
 
 Hello, World!
 
@@ -12,7 +28,7 @@ to support the lates available version of MantisBT
 
 // Victor
 
-### New Features
+### New Features ~~~
 
 - `config.php` is version controlled, so, it now uses a
 small "hook" to look for `config.private.php` before it
