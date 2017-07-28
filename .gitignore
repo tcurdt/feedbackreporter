@@ -11,3 +11,4 @@
 *.xcworkspace
 xcuserdata
 dsa_priv.pem
+/Server/php/mantis/config.private.php
