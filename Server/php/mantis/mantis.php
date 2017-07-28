@@ -126,14 +126,16 @@ class Mantis
 			$t_bug_data->additional_information = $issue->additional_information;
 
 			# submit the issue
-			$ret = $t_bug_data->create();
+			$t_bug_id = $t_bug_data->create();
 
-			email_new_bug( $ret );
+			# trigger an e-mail: "send notices when a new bug is added"
+			email_bug_added($t_bug_id);
 
-		} else
-			$ret = $this->client->mc_issue_add( MANTIS_USER, MANTIS_PWD, $issue );
-			
-		return( $ret );
+		} else {
+			$t_bug_id = $this->client->mc_issue_add( MANTIS_USER, MANTIS_PWD, $issue );
+		}
+
+		return( $t_bug_id );
 	}
 	
 	public function addAttachment( $bugID, $name, $str )
