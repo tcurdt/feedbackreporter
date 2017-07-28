@@ -1,6 +1,7 @@
 <?php
 /*
  * Copyright 2009, Simone Tellini, http://tellini.info
+ * Copyright 2017, Victor Yap <victor.yap@alumni.concordia.ca>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
