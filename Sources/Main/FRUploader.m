@@ -107,7 +107,7 @@
                                            returningResponse: &response
                                                        error: &error];
 
-    if(result == nil) {
+    if (result == nil) {
         NSLog(@"Post failed. Error: %ld, Description: %@", (long)[error code], [error localizedDescription]);
         return nil;
     }
@@ -141,13 +141,11 @@
         if ([strongDelegate respondsToSelector:@selector(uploaderStarted:)]) {
             [strongDelegate performSelector:@selector(uploaderStarted:) withObject:self];
         }
-        
     } else {
         if ([strongDelegate respondsToSelector:@selector(uploaderFailed:withError:)]) {
-
+            NSError *error = [NSError errorWithDomain:@"Failed to establish connection" code:0 userInfo:nil];
             [strongDelegate performSelector:@selector(uploaderFailed:withError:) withObject:self
-                withObject:[NSError errorWithDomain:@"Failed to establish connection" code:0 userInfo:nil]];
-
+                withObject:error];
         }
     }
 }

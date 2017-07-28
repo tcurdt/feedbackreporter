@@ -133,7 +133,7 @@
     [task setStandardError:errPipe];
 
     NSFileHandle *outFile = [outPipe fileHandleForReading];
-    NSFileHandle *errFile = [errPipe fileHandleForReading]; 
+    NSFileHandle *errFile = [errPipe fileHandleForReading];
 
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self
@@ -156,7 +156,7 @@
 
     [task launch];
 
-    while(![self terminated]) {
+    while (![self terminated]) {
         @autoreleasepool {
             if (![[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]]) {
                 break;

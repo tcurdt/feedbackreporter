@@ -109,7 +109,7 @@
         FRFeedbackController *controller = [self feedbackController];
 
         @synchronized (controller) {
-        
+
             if ([controller isShown]) {
                 NSLog(@"Controller already shown");
                 return NO;
@@ -120,12 +120,12 @@
             NSString * applicationName = nil;
             id<FRFeedbackReporterDelegate> strongDelegate = [self delegate];
             if ([strongDelegate respondsToSelector:@selector(feedbackDisplayName)]) {
-               applicationName = [strongDelegate feedbackDisplayName];
+                applicationName = [strongDelegate feedbackDisplayName];
             }
             else {
-               applicationName = [FRApplication applicationName];
+                applicationName = [FRApplication applicationName];
             }
-           
+
             [controller setHeading:[NSString stringWithFormat:
                 FRLocalizedString(@"%@ has recently crashed!", nil),
                 applicationName]];
@@ -137,11 +137,9 @@
             [controller setDelegate:strongDelegate];
 
             [controller showWindow:self];
-
         }
         
         return YES;
-
     }
     
     return NO;

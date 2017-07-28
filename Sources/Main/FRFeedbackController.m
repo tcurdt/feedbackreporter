@@ -159,7 +159,7 @@
     NSMutableString *string = [NSMutableString string];
     NSArray *dicts = [self systemProfile];
     NSUInteger i = [dicts count];
-    while(i--) {
+    while (i--) {
         NSDictionary *dict = [dicts objectAtIndex:i];
         [string appendFormat:@"%@ = %@\n", [dict objectForKey:@"key"], [dict objectForKey:@"value"]];
     }
@@ -335,7 +335,7 @@
         return;
     }
 
-    NSString *target = [[FRApplication feedbackURL] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] ;
+    NSString *target = [[FRApplication feedbackURL] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 
     id<FRFeedbackReporterDelegate> strongDelegate = [self delegate];
     if ([strongDelegate respondsToSelector:@selector(targetUrlForFeedbackReport)]) {
@@ -487,7 +487,7 @@
 
     NSArray *lines = [response componentsSeparatedByString:@"\n"];
     NSUInteger i = [lines count];
-    while(i--) {
+    while (i--) {
         NSString *line = [lines objectAtIndex:i];
 
         if ([line length] == 0) {
@@ -639,7 +639,7 @@
 
     [[self emailBox] addItemWithObjectValue:FRLocalizedString(@"anonymous", nil)];
 
-    for(NSUInteger i=0; i<count; i++) {
+    for (NSUInteger i=0; i<count; i++) {
 
         NSString *emailAddress = [emailAddresses valueAtIndex:i];
 

@@ -119,7 +119,9 @@
                     if (maximumSize != nil) {
                         NSString* lastLine = [consoleLines lastObject];
                         consoleOutputLength += [lastLine length];
-                        if (consoleOutputLength > [maximumSize unsignedIntegerValue]) break;
+                        if (consoleOutputLength > [maximumSize unsignedIntegerValue]) {
+                            break;
+                        }
                     }
                 }
             }

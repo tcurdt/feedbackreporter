@@ -54,7 +54,7 @@
 + (nullable NSString*) applicationName
 {
     // CFBundleExecutable is not localizable.
-   NSString *applicationName = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleExecutable"];
+    NSString *applicationName = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleExecutable"];
     
     return applicationName;
 }

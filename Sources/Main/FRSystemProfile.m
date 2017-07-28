@@ -67,11 +67,11 @@
 
     error = sysctlbyname("hw.cpu64bit_capable", &value, &length, NULL, 0);
     
-    if(error != 0) {
+    if (error != 0) {
         error = sysctlbyname("hw.optional.x86_64", &value, &length, NULL, 0); //x86 specific
     }
     
-    if(error != 0) {
+    if (error != 0) {
         error = sysctlbyname("hw.optional.64bitops", &value, &length, NULL, 0); //PPC specific
     }
     
@@ -104,8 +104,9 @@
         error = sysctlbyname("machdep.cpu.brand_string", &stringValue, &stringLength, NULL, 0);
         if (error == 0) {
             NSString *brandString = [NSString stringWithUTF8String:stringValue];
-            if (brandString)
+            if (brandString) {
                 return brandString;
+            }
         }
     }
     
@@ -268,6 +269,5 @@
     
     return result;
 }
-
 
 @end

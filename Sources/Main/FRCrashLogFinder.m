@@ -55,7 +55,7 @@
     NSArray *libraryDirectories = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSLocalDomainMask|NSUserDomainMask, NO);
 
     NSUInteger i = [libraryDirectories count];
-    while(i--) {
+    while (i--) {
         NSString* libraryDirectory = [libraryDirectories objectAtIndex:i];
 
         NSDirectoryEnumerator *enumerator = nil;
@@ -75,7 +75,7 @@
 
         if ([fileManager fileExistsAtPath:logDir2]) {
 
-            enumerator  = [fileManager enumeratorAtPath:logDir2];
+            enumerator = [fileManager enumeratorAtPath:logDir2];
             while ((file = [enumerator nextObject])) {
 
                 // NSLog(@"Checking crash file %@", file);

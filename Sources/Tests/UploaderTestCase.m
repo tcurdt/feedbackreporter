@@ -37,7 +37,7 @@ BOOL terminated;
 
     terminated = NO;
 
-    while(!terminated) {
+    while (!terminated) {
         @autoreleasepool {
             if (![[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]]) {
                 break;
