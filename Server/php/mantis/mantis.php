@@ -1,6 +1,7 @@
 <?php
 /*
  * Copyright 2009, Simone Tellini, http://tellini.info
+ * Copyright 2017, Victor Yap <victor.yap@alumni.concordia.ca>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -96,7 +97,8 @@ class Mantis
 														'name'		  => $version,
 														'project_id'  => $projID,
 														'description' => $version,
-														'released'	  => true
+														'released'	  => true,
+														'date_order'  => ''
 												   ));			
 		}
 	}
@@ -125,14 +127,16 @@ class Mantis
 			$t_bug_data->additional_information = $issue->additional_information;
 
 			# submit the issue
-			$ret = bug_create( $t_bug_data );
+			$t_bug_id = $t_bug_data->create();
 
-			email_new_bug( $ret );
+			# trigger an e-mail: "send notices when a new bug is added"
+			email_bug_added($t_bug_id);
 
-		} else
-			$ret = $this->client->mc_issue_add( MANTIS_USER, MANTIS_PWD, $issue );
-			
-		return( $ret );
+		} else {
+			$t_bug_id = $this->client->mc_issue_add( MANTIS_USER, MANTIS_PWD, $issue );
+		}
+
+		return( $t_bug_id );
 	}
 	
 	public function addAttachment( $bugID, $name, $str )
@@ -155,4 +159,3 @@ class Mantis
 
 	}
 }
-?>

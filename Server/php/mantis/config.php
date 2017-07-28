@@ -1,4 +1,9 @@
 <?php
+	$private_config = __DIR__ . '/config.private.php';
+	if(file_exists($private_config)){
+		include $private_config;
+	}
+
 	// the reporter of the issues
 	define( 'MANTIS_USER',	'user' );
 	define( 'MANTIS_PWD',	'password' );
@@ -14,6 +19,4 @@
 	define( 'MANTIS_WSDL',	MANTIS_URL . 'api/soap/mantisconnect.php?wsdl' );
 
 	// constants for the reports
-	define( 'BUG_SUMMARY',	'Crash report' );
 	define( 'BUG_CATEGORY',	'Feedback' );
-?>

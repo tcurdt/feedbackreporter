@@ -1,6 +1,7 @@
 <?php
 	/*
 	 * Copyright 2009, Simone Tellini, http://tellini.info
+	 * Copyright 2017, Victor Yap <victor.yap@alumni.concordia.ca>
 	 *
 	 * Licensed under the Apache License, Version 2.0 (the "License");
 	 * you may not use this file except in compliance with the License.
@@ -21,7 +22,7 @@
 	$issue    = new StdClass;
 	$crashlog = explode( 'Binary Images:', $_POST[ 'crashes' ] );
 
-	$issue->summary                = BUG_SUMMARY;
+	$issue->summary                = "User-submitted {$_POST['type']} - version {$_POST['version']} - from {$_POST['email']}";
 	$issue->severity               = array( 'id' => 70 );
 	$issue->category               = BUG_CATEGORY;
 	$issue->description            = 'From: ' . $_POST[ 'email' ] . "\n\n" . $_POST[ 'comment' ];
@@ -60,5 +61,10 @@
 	}
 	catch( SoapFault $e ) {
 		print( 'ERR An error occurred while storing the report' );
+		# SUBMIT_TEST is not normally defined
+		# - It can be created in "config.php" or "config.private.php"
+		if( SUBMIT_TEST ){
+			echo "<pre>";
+			var_dump($e);
+		}
 	}
-?>
