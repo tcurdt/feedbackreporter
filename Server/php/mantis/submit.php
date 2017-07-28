@@ -21,7 +21,7 @@
 	$issue    = new StdClass;
 	$crashlog = explode( 'Binary Images:', $_POST[ 'crashes' ] );
 
-	$issue->summary                = BUG_SUMMARY;
+	$issue->summary                = "User-submitted {$_POST['type']} - version {$_POST['version']} - from {$_POST['email']}";
 	$issue->severity               = array( 'id' => 70 );
 	$issue->category               = BUG_CATEGORY;
 	$issue->description            = 'From: ' . $_POST[ 'email' ] . "\n\n" . $_POST[ 'comment' ];

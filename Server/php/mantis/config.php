@@ -19,5 +19,4 @@
 	define( 'MANTIS_WSDL',	MANTIS_URL . 'api/soap/mantisconnect.php?wsdl' );
 
 	// constants for the reports
-	define( 'BUG_SUMMARY',	'Crash report' );
 	define( 'BUG_CATEGORY',	'Feedback' );
