@@ -128,7 +128,7 @@
 
 - (NSString*) consoleLog
 {
-    NSNumber *hours = [[[NSBundle mainBundle] infoDictionary] valueForKey:PLIST_KEY_LOGHOURS];
+    NSNumber *hours = [[[NSBundle mainBundle] infoDictionary] objectForKey:PLIST_KEY_LOGHOURS];
 
     int h = 24;
 
@@ -138,7 +138,7 @@
 
     NSDate *since = [NSDate dateWithTimeIntervalSinceNow:-h * 60.0 * 60.0];
 
-    NSNumber *maximumSize = [[[NSBundle mainBundle] infoDictionary] valueForKey:PLIST_KEY_MAXCONSOLELOGSIZE];
+    NSNumber *maximumSize = [[[NSBundle mainBundle] infoDictionary] objectForKey:PLIST_KEY_MAXCONSOLELOGSIZE];
 
     return [FRConsoleLog logSince:since maxSize:maximumSize];
 }
@@ -525,7 +525,7 @@
     [[self uploader] cancel];
 
     if ([[self type] isEqualToString:FR_EXCEPTION]) {
-        NSString *exitAfterException = [[[NSBundle mainBundle] infoDictionary] valueForKey:PLIST_KEY_EXITAFTEREXCEPTION];
+        NSString *exitAfterException = [[[NSBundle mainBundle] infoDictionary] objectForKey:PLIST_KEY_EXITAFTEREXCEPTION];
         if (exitAfterException && [exitAfterException isEqualToString:@"YES"]) {
             // We want a pure exit() here I think.
             // As an exception has already been raised there is no
@@ -652,7 +652,7 @@
     if (found != NSNotFound) {
         [[self emailBox] selectItemAtIndex:found];
     } else if ([[self emailBox] numberOfItems] >= 2) {
-        NSString *defaultSender = [[[NSBundle mainBundle] infoDictionary] valueForKey:PLIST_KEY_DEFAULTSENDER];
+        NSString *defaultSender = [[[NSBundle mainBundle] infoDictionary] objectForKey:PLIST_KEY_DEFAULTSENDER];
         NSUInteger idx = (defaultSender && [defaultSender isEqualToString:@"firstEmail"]) ? 1 : 0;
         [[self emailBox] selectItemAtIndex:idx];
     }
@@ -671,7 +671,7 @@
     //  setup 'send details' checkbox...
     [[self sendDetailsCheckbox] setTitle:FRLocalizedString(@"Send details", nil)];
     [[self sendDetailsCheckbox] setState:NSOnState];
-    NSString *sendDetailsIsOptional = [[[NSBundle mainBundle] infoDictionary] valueForKey:PLIST_KEY_SENDDETAILSISOPTIONAL];
+    NSString *sendDetailsIsOptional = [[[NSBundle mainBundle] infoDictionary] objectForKey:PLIST_KEY_SENDDETAILSISOPTIONAL];
     if (sendDetailsIsOptional && [sendDetailsIsOptional isEqualToString:@"YES"]) {
         [[self detailsLabel] setHidden:YES];
         [[self sendDetailsCheckbox] setHidden:NO];

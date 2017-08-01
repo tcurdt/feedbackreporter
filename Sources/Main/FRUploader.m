@@ -58,7 +58,7 @@
     NSMutableData *result = [[NSMutableData alloc] initWithCapacity:100];
     
     for (NSUInteger i = 0; i < [keys count]; i++) {
-        id value = [dict valueForKey: [keys objectAtIndex: i]];
+        id value = [dict objectForKey: [keys objectAtIndex: i]];
         
         [result appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
 
