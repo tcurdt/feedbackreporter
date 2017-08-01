@@ -1,3 +1,17 @@
+## Version 2.0, released 2017-??-??
+* [CHG] Increased minumum requirements to:
+ * development machine: 10.11+
+ * Xcode 8.2.1+
+ * SDK 10.11+
+ * deployment 10.9
+* [FIX] Fixed compilation against 10.12 SDK.
+* [FIX] Converted unit tests from SenTestKit to XCTest, to work with current Xcode versions.
+* [CHG] Switched to ARC memory management.
+* [DEL] Dropped support for garbage collection.
+* [DEL] Dropped support for PowerPC.
+* [CHG] Added nullability annotations to all methods, public and private.
+* [CHG] No longer attempt to search the obsolete Library/Logs/CrashReporter folder.
+
 ## Version 1.3.1, unreleased
 * [ADD] Added Spanish translation. Thanks to Emilio Perez.
 * [ADD] Added targetUrlForFeedbackReport to delegate protocol. Thanks to Rick Fillion.
@@ -6,7 +20,7 @@
 * [CHG] Link against Foundation and 10.4 compatibility. Thanks to Linas Valiukas.
 
 
-## Version 1.3.0, released 18.06.2010
+## Version 1.3.0, released 2010-06-18
 
 New localizations. New options. Many little fixes. Better CPU detection.
 Garbage Collection ready. Ready for inclusion into plugins.
@@ -25,7 +39,7 @@ Garbage Collection ready. Ready for inclusion into plugins.
 * [ADD] Added Italian translation. Thanks to Andrea.
 
 
-## Version 1.2.0, released 29.09.2009
+## Version 1.2.0, released 2009-09-29
 
 New UI layout, Dropped support for Tiger, Updated for Snow Leopard
 
@@ -35,7 +49,7 @@ New UI layout, Dropped support for Tiger, Updated for Snow Leopard
 * [CHG] Changed the UI layout to be a more Mac-like. Thanks to Philipp Mayerhofer.
 
 
-## Version 1.1.4, released 04.07.2009
+## Version 1.1.4, released 2009-07-04
 
 Asynchronous gathering of system information. Shows all email addresses. Fixed some bugs/crashes.
 
@@ -47,7 +61,7 @@ Asynchronous gathering of system information. Shows all email addresses. Fixed s
 * [ADD] Added Mantis integration.
 
 
-## Version 1.1.3, released 30.04.2009
+## Version 1.1.3, released 2009-04-30
 
 Fixex some reported crashes, improved CPU detection, added the option to use
 addressbook email instead of anonymous
@@ -61,7 +75,7 @@ addressbook email instead of anonymous
 * [ADD] Include full Xcode project into release.
 
 
-## Version 1.1.2, released 12.02.2009
+## Version 1.1.2, released 2009-02-12
 
 Prefixed the internal classes and some small fixes. Console log time window
 now configurable.
@@ -75,7 +89,7 @@ now configurable.
 * [ADD] Made the log time window to send configurable.
 
 
-## Version 1.1.0, released 09.08.2008
+## Version 1.1.0, released 2008-08-09
 
 This is a release with some major changes. A non-modal window makes it more
 user friendly. The UI has been refined a bit. Deprecated API methods have been
@@ -97,7 +111,7 @@ localization in other languages.
 * [ADD] German localization.
 
 
-## Version 1.0.1, released 01.06.2008
+## Version 1.0.1, released 2008-06-01
 
 A critical bug fix release in terms of the CPU detection. Quite a few other
 additions. Please note that the API has slightly changed.
@@ -114,6 +128,6 @@ additions. Please note that the API has slightly changed.
 * [ADD] Report number of CPUs.
 
 
-## Version 1.0.0, released 19.05.2008
+## Version 1.0.0, released 2008-05-19
 
 Initial release!
