@@ -158,9 +158,7 @@
 {
     NSMutableString *string = [NSMutableString string];
     NSArray *dicts = [self systemProfile];
-    NSUInteger i = [dicts count];
-    while (i--) {
-        NSDictionary *dict = [dicts objectAtIndex:i];
+    for (NSDictionary *dict in dicts) {
         [string appendFormat:@"%@ = %@\n", [dict objectForKey:@"key"], [dict objectForKey:@"value"]];
     }
     return string;
@@ -489,10 +487,7 @@
     [[self sendButton] setEnabled:YES];
 
     NSArray *lines = [response componentsSeparatedByString:@"\n"];
-    NSUInteger i = [lines count];
-    while (i--) {
-        NSString *line = [lines objectAtIndex:i];
-
+    for (NSString *line in [lines reverseObjectEnumerator]) {
         if ([line length] == 0) {
             continue;
         }

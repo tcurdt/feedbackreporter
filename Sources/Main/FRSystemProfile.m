@@ -215,7 +215,7 @@
         return nil;
     }
     
-    return [languages objectAtIndex:0];
+    return [languages firstObject];
 }
 
 + (long long) cpuspeed
