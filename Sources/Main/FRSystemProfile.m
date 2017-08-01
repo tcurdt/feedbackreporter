@@ -188,9 +188,11 @@
     }
 
     char *p = malloc(sizeof(char) * length);
-    if (p) {
-        error = sysctlbyname("hw.model", p, &length, NULL, 0);
+    if (!p) {
+        return nil;
     }
+    
+    error = sysctlbyname("hw.model", p, &length, NULL, 0);
     
     if (error != 0) {
         NSLog(@"Failed to obtain machine model");
