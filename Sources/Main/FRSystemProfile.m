@@ -66,21 +66,14 @@
     size_t length = sizeof(value);
 
     error = sysctlbyname("hw.cpu64bit_capable", &value, &length, NULL, 0);
-    
+
     if (error != 0) {
-        error = sysctlbyname("hw.optional.x86_64", &value, &length, NULL, 0); //x86 specific
+        NSLog(@"Failed to determine if CPU supports 64 bit");
+        return NO;
     }
     
-    if (error != 0) {
-        error = sysctlbyname("hw.optional.64bitops", &value, &length, NULL, 0); //PPC specific
-    }
-    
-    BOOL is64bit = NO;
-    
-    if (error == 0) {
-        is64bit = value == 1;
-    }
-    
+    BOOL is64bit = (value == 1);
+
     return is64bit;
 }
 
@@ -122,10 +115,6 @@
     switch (cputype) {
         case CPU_TYPE_X86:
             return @"Intel";
-        case CPU_TYPE_POWERPC:
-            return @"PowerPC";
-        case CPU_TYPE_ARM:
-            return @"ARM";
         case CPU_TYPE_ARM64:
             return @"ARM64";
     }
@@ -163,8 +152,8 @@
     switch (value) {
         case CPU_TYPE_X86:
             return @"Intel";
-        case CPU_TYPE_POWERPC:
-            return @"PPC";
+        case CPU_TYPE_ARM64:
+            return @"ARM64";
     }
 
     NSLog(@"Unknown CPU %d", value);
