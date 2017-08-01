@@ -208,7 +208,7 @@
 + (nullable NSString*) language
 {
     NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
-    NSArray *languages = [defs objectForKey:@"AppleLanguages"];
+    NSArray *languages = [defs stringArrayForKey:@"AppleLanguages"];
 
     if ([languages count] == 0) {
         NSLog(@"Failed to obtain preferred language");

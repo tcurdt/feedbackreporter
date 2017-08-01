@@ -168,7 +168,10 @@
 
 - (NSString*) crashLog
 {
-    NSDate *lastSubmissionDate = [[NSUserDefaults standardUserDefaults] valueForKey:DEFAULTS_KEY_LASTSUBMISSIONDATE];
+    NSDate *lastSubmissionDate = [[NSUserDefaults standardUserDefaults] objectForKey:DEFAULTS_KEY_LASTSUBMISSIONDATE];
+    if (lastSubmissionDate && ![lastSubmissionDate isKindOfClass:[NSDate class]]) {
+        lastSubmissionDate = nil;
+    }
 
     NSArray *crashFiles = [FRCrashLogFinder findCrashLogsSince:lastSubmissionDate];
 
@@ -508,10 +511,10 @@
             return;
         }
     }
-
-    [[NSUserDefaults standardUserDefaults] setValue:[NSDate date]
-                                             forKey:DEFAULTS_KEY_LASTSUBMISSIONDATE];
-
+    
+    [[NSUserDefaults standardUserDefaults] setObject:[NSDate date]
+                                              forKey:DEFAULTS_KEY_LASTSUBMISSIONDATE];
+    
     [[NSUserDefaults standardUserDefaults] setObject:[[self emailBox] stringValue]
                                               forKey:DEFAULTS_KEY_SENDEREMAIL];
 
@@ -646,9 +649,11 @@
         [[self emailBox] addItemWithObjectValue:emailAddress];
     }
 
+    NSInteger found = NSNotFound;
     NSString *email = [[NSUserDefaults standardUserDefaults] stringForKey:DEFAULTS_KEY_SENDEREMAIL];
-
-    NSInteger found = [[self emailBox] indexOfItemWithObjectValue:email];
+    if (email) {
+        found = [[self emailBox] indexOfItemWithObjectValue:email];
+    }
     if (found != NSNotFound) {
         [[self emailBox] selectItemAtIndex:found];
     } else if ([[self emailBox] numberOfItems] >= 2) {

@@ -43,7 +43,7 @@
 // If set to 'YES' the application will exit after an exception has been caught
 #define PLIST_KEY_EXITAFTEREXCEPTION    @"FRFeedbackReporter.exitAfterException"
 
-// Keys store in the user defaults
+// Keys stored in the user defaults
 #define DEFAULTS_KEY_LASTCRASHCHECKDATE @"FRFeedbackReporter.lastCrashCheckDate"
 #define DEFAULTS_KEY_LASTSUBMISSIONDATE @"FRFeedbackReporter.lastSubmissionDate"
 #define DEFAULTS_KEY_SENDEREMAIL        @"FRFeedbackReporter.sender"
