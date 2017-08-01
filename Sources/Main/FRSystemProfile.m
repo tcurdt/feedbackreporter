@@ -220,22 +220,19 @@
 
 + (long long) cpuspeed
 {
-    long long result = 0;
-
     int error = 0;
 
     int64_t hertz = 0;
-    size_t size = sizeof(hertz);
-    int mib[2] = {CTL_HW, HW_CPU_FREQ};
+    size_t length = sizeof(hertz);
     
-    error = sysctl(mib, 2, &hertz, &size, NULL, 0);
+    error = sysctlbyname("hw.cpufrequency", &hertz, &length, NULL, 0);
     
     if (error) {
         NSLog(@"Failed to obtain CPU speed");
         return -1;
     }
     
-    result = (long long)(hertz/1000000); // Convert to MHz
+    long long result = (long long)(hertz/1000000); // Convert to MHz
     
     return result;
 }
