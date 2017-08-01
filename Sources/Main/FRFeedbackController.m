@@ -241,21 +241,16 @@
 {
     NSMutableString *scriptLog = [NSMutableString string];
 
-    NSString *scriptPath = [[NSBundle mainBundle] pathForResource:FILE_SHELLSCRIPT ofType:@"sh"];
+    NSURL *scriptFileURL = [[NSBundle mainBundle] URLForResource:FILE_SHELLSCRIPT withExtension:@"sh"];
 
-    if ([[NSFileManager defaultManager] fileExistsAtPath:scriptPath]) {
-
-        FRCommand *cmd = [[FRCommand alloc] initWithPath:scriptPath];
+    if (scriptFileURL) {
+        FRCommand *cmd = [[FRCommand alloc] initWithFileURL:scriptFileURL args:@[]];
         [cmd setOutput:scriptLog];
         [cmd setError:scriptLog];
         int ret = [cmd execute];
 
         NSLog(@"Script exit code = %d", ret);
-
-    } /* else {
-        NSLog(@"No custom script to execute");
     }
-    */
 
     return scriptLog;
 }

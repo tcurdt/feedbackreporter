@@ -20,9 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FRCommand : NSObject
 
-- (instancetype) initWithPath:(NSString*)inPath NS_DESIGNATED_INITIALIZER;
-
-- (void) setArgs:(NSArray*)args;
+- (instancetype) initWithFileURL:(NSURL*)inFileURL args:(NSArray *)inArgs NS_DESIGNATED_INITIALIZER;
 
 - (void) setError:(NSMutableString*)error;
 - (void) setOutput:(NSMutableString*)output;

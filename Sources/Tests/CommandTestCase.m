@@ -24,7 +24,7 @@
 
 - (void) testSimple
 {
-    FRCommand *cmd = [[FRCommand alloc] initWithPath:@"/bin/ls"];
+    FRCommand *cmd = [[FRCommand alloc] initWithFileURL:[NSURL fileURLWithPath:@"/bin/ls"] args:@[]];
     
     NSMutableString *err = [[NSMutableString alloc] init];
     NSMutableString *output = [[NSMutableString alloc] init];
