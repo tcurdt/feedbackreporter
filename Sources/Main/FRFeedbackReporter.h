@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol FRFeedbackReporterDelegate <NSObject>
 @optional
-- (NSDictionary*) customParametersForFeedbackReport;
+- (nullable NSDictionary*) customParametersForFeedbackReport;
 - (NSMutableDictionary*) anonymizePreferencesForFeedbackReport:(NSMutableDictionary *)preferences;
 - (NSString *) targetUrlForFeedbackReport;
 - (NSString *) feedbackDisplayName;

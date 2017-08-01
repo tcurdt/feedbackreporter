@@ -28,7 +28,7 @@ You can set a delegate and…
 
 pass in arbitrary data on the submission e.g. like license information,
 
-    - (NSDictionary*) customParametersForFeedbackReport
+    - (nullable NSDictionary*) customParametersForFeedbackReport
     {
       NSMutableDictionary *dict = [NSMutableDictionary dictionary];
       ...

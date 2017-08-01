@@ -401,7 +401,10 @@
 
     if ([[self sendDetailsCheckbox] state] == NSOnState) {
         if ([strongDelegate respondsToSelector:@selector(customParametersForFeedbackReport)]) {
-            [dict addEntriesFromDictionary:[strongDelegate customParametersForFeedbackReport]];
+            NSDictionary *customParams = [strongDelegate customParametersForFeedbackReport];
+            if (customParams) {
+                [dict addEntriesFromDictionary:customParams];
+            }
         }
 
         [dict setValidString:[self systemProfileAsString]

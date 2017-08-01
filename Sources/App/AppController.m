@@ -37,7 +37,7 @@
     [[FRFeedbackReporter sharedReporter] reportIfCrash];
 }
 
-- (NSDictionary *) customParametersForFeedbackReport
+- (nullable NSDictionary *) customParametersForFeedbackReport
 {
     NSLog(@"adding custom parameters");
 
