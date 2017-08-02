@@ -364,11 +364,13 @@
         && !(reachabilityFlags & kSCNetworkFlagsInterventionRequired);
 
     if (!reachable) {
+        NSString *fullName = [NSString stringWithFormat:@"%@://%@", [url scheme], host];
+        
         NSAlert *alert = [[NSAlert alloc] init];
         [alert addButtonWithTitle:FRLocalizedString(@"Proceed Anyway", nil)];
         [alert addButtonWithTitle:FRLocalizedString(@"Cancel", nil)];
         [alert setMessageText:FRLocalizedString(@"Feedback Host Not Reachable", nil)];
-        [alert setInformativeText:[NSString stringWithFormat:FRLocalizedString(@"You may not be able to send feedback because %@ isn't reachable.", nil), host]];
+        [alert setInformativeText:[NSString stringWithFormat:FRLocalizedString(@"You may not be able to send feedback because %@ isn't reachable.", nil), fullName]];
         NSInteger alertResult = [alert runModal];
 
         if (alertResult != NSAlertFirstButtonReturn) {
