@@ -380,7 +380,7 @@
         }
     }
 
-    FRUploader* uploader = [[FRUploader alloc] initWithTarget:target delegate:self];
+    FRUploader* uploader = [[FRUploader alloc] initWithTargetURL:url delegate:self];
     [self setUploader:uploader];
 
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];

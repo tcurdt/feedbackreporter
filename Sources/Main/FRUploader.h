@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FRUploader : NSObject
 
-- (instancetype) initWithTarget:(NSString*)target delegate:(id<FRUploaderDelegate>)delegate NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithTargetURL:(NSURL*)targetURL delegate:(id<FRUploaderDelegate>)delegate NS_DESIGNATED_INITIALIZER;
 - (nullable NSString*) post:(NSDictionary*)dict;
 - (void) postAndNotify:(NSDictionary*)dict;
 - (void) cancel;
