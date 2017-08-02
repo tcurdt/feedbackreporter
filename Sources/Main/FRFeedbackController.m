@@ -241,7 +241,7 @@
 {
     NSMutableString *scriptLog = [NSMutableString string];
 
-    NSURL *scriptFileURL = [[NSBundle mainBundle] URLForResource:FILE_SHELLSCRIPT withExtension:@"sh"];
+    NSURL *scriptFileURL = [[NSBundle mainBundle] URLForResource:@"FRFeedbackReporter" withExtension:@"sh"];
 
     if (scriptFileURL) {
         FRCommand *cmd = [[FRCommand alloc] initWithFileURL:scriptFileURL args:@[]];

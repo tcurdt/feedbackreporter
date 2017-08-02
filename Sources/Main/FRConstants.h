@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2014, Torsten Curdt
+ * Copyright 2008-2017, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,42 +14,46 @@
  * limitations under the License.
  */
 
-//  Filename of the script in the resource bundle to execute (optional)
-#define FILE_SHELLSCRIPT                @"FRFeedbackReporter"
-
-//  URL where to POST the result to (required)
+// String. URL where to POST results to. Any occurance of "%@" in the string
+// will be replaced with the value of CFBundleExecutable from the Info.plist.
+// If nothing is specified, you must insead implement the targetUrlForFeedbackReport
+// delegate message. (optional)
 #define PLIST_KEY_TARGETURL             @"FRFeedbackReporter.targetURL"
 
-//  Truncates the console log to not send more than x hours into the past. (optional)
+// Integer. Truncates the console log to not send more than x hours into the past.
+// If nothing is specified, defaults to 24 hours. (optional)
 #define PLIST_KEY_LOGHOURS              @"FRFeedbackReporter.logHours"
 
-//  The default e-mail address to select in case there is no selection saved in
-//  the preferences. The options are 'anonymous' and 'firstEmail'. If nothing
-//  is specified, 'anonymous' is selected. (optional)
+// String. The default e-mail address to select in case there is no selection saved in
+// the preferences. The options are 'anonymous' and 'firstEmail'. If nothing
+// is specified, 'anonymous' is selected. (optional)
 #define PLIST_KEY_DEFAULTSENDER         @"FRFeedbackReporter.defaultSender"
 
-//  The number of characters a console log is truncated to. If not specified,
-//  no truncation takes place. (optional)
+// Integer. The number of characters a console log is truncated to. If not specified,
+// no truncation takes place. (optional)
 #define PLIST_KEY_MAXCONSOLELOGSIZE     @"FRFeedbackReporter.maxConsoleLogSize"
 
-//  Set the value of this key to 'YES' to present a checkbox where the user
-//  can switch on and off the sending of details information. If not specified,
-//  defaults to 'NO', hence no checkbox is shown.
-//  If the user checks off the 'send details' option, just the e-mail address,
-//  the comment, the type of report, and the application version are transmitted
-//  to the server. (optional)
+// String. Set the value of this key to 'YES' to present a checkbox where the user
+// can switch on and off the sending of details information. If not specified,
+// defaults to 'NO', hence no checkbox is shown.
+// If the user checks off the 'send details' option, just the e-mail address,
+// the comment, the type of report, and the application version are transmitted
+// to the server. (optional)
 #define PLIST_KEY_SENDDETAILSISOPTIONAL @"FRFeedbackReporter.sendDetailsIsOptional"
 
-// If set to 'YES' the application will exit after an exception has been caught
+// String. If set to 'YES' the application will exit after an exception has been caught.
+// If not specified, defaults to 'NO'. (optional)
 #define PLIST_KEY_EXITAFTEREXCEPTION    @"FRFeedbackReporter.exitAfterException"
 
-// Keys stored in the user defaults
+
+// Keys stored in the user defaults.
 #define DEFAULTS_KEY_LASTCRASHCHECKDATE @"FRFeedbackReporter.lastCrashCheckDate"
 #define DEFAULTS_KEY_LASTSUBMISSIONDATE @"FRFeedbackReporter.lastSubmissionDate"
 #define DEFAULTS_KEY_SENDEREMAIL        @"FRFeedbackReporter.sender"
 
 
-// POST fields filled by default
+// POST fields filled by default.
+// If you want to add custom ones, see the customParametersForFeedbackReport: delegate message.
 #define POST_KEY_TYPE           @"type"
 #define POST_KEY_EMAIL          @"email"
 #define POST_KEY_MESSAGE        @"comment"
