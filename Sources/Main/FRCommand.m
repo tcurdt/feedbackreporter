@@ -66,11 +66,6 @@
         // Initially try to read the file in using UTF8
         NSString *s = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 
-        // If that fails, attempt plain ASCII
-        if (!s) {
-            s = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-        }
-
         if (s) {
             [string appendString:s];
             //NSLog(@"| %@", s);
