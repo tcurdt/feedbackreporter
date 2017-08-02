@@ -20,7 +20,7 @@
 @interface FRUploader()
 @property (readwrite, weak, nonatomic) id<FRUploaderDelegate> delegate;
 @property (readwrite, strong, nonatomic) NSString *target;
-@property (readwrite, strong, nonatomic) NSURLConnection *connection;
+@property (readwrite, strong, nonatomic, nullable) NSURLConnection *connection;
 @property (readwrite, strong, nonatomic) NSMutableData *responseData;
 @end
 

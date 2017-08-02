@@ -72,6 +72,7 @@
         id<FRFeedbackReporterDelegate> strongDelegate = [self delegate];
         if ([strongDelegate respondsToSelector:@selector(feedbackDisplayName)]) {
             applicationName = [strongDelegate feedbackDisplayName];
+            assert(applicationName);
         }
         else {
             applicationName = [FRApplication applicationName];
@@ -124,6 +125,7 @@
             id<FRFeedbackReporterDelegate> strongDelegate = [self delegate];
             if ([strongDelegate respondsToSelector:@selector(feedbackDisplayName)]) {
                 applicationName = [strongDelegate feedbackDisplayName];
+                assert(applicationName);
             }
             else {
                 applicationName = [FRApplication applicationName];
@@ -167,6 +169,7 @@
         id<FRFeedbackReporterDelegate> strongDelegate = [self delegate];
         if ([strongDelegate respondsToSelector:@selector(feedbackDisplayName)]) {
             applicationName = [strongDelegate feedbackDisplayName];
+            assert(applicationName);
         }
         else {
             applicationName = [FRApplication applicationName];

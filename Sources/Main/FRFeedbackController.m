@@ -268,6 +268,7 @@
     id<FRFeedbackReporterDelegate> strongDelegate = [self delegate];
     if ([strongDelegate respondsToSelector:@selector(anonymizePreferencesForFeedbackReport:)]) {
         preferences = [strongDelegate anonymizePreferencesForFeedbackReport:preferences];
+        assert(preferences);
     }
 
     return [NSString stringWithFormat:@"%@", preferences];
@@ -336,6 +337,7 @@
     id<FRFeedbackReporterDelegate> strongDelegate = [self delegate];
     if ([strongDelegate respondsToSelector:@selector(targetUrlForFeedbackReport)]) {
         target = [strongDelegate targetUrlForFeedbackReport];
+        assert(target);
     }
 
     if (target == nil) {
