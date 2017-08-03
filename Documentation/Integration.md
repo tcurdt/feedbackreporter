@@ -30,24 +30,26 @@ pass in arbitrary data on the submission e.g. like license information,
 
     - (nullable NSDictionary*) customParametersForFeedbackReport
     {
-      NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+      NSDictionary *dict = @{@"license" : @"1234-1234-1234-1234"};
       ...
       return dict;
     }
 
 there is a hook to anonymize the preference information
 
-    - (NSMutableDictionary*) anonymizePreferencesForFeedbackReport:(NSMutableDictionary *)preferences
+    - (NSDictionary*) anonymizePreferencesForFeedbackReport:(NSDictionary *)preferences
     {
+      NSMutableDictionary* newPreferences = [preferences mutableCopy];
+      [newPreferences removeObjectsForKeys:...];    
       ...
-      return preferences;
+      return newPreferences;
     }
 
 and you can change/set the target for the feedback report
 
-    - (NSString *) targetUrlForFeedbackReport
+    - (NSURL *) targetURLForFeedbackReport
     {
-      return "https://somewhere.com/"
+      return [NSURL URLWithString:@"https://somewhere.com/"];
     }
 
 ## Catch uncaught exceptions
@@ -66,7 +68,7 @@ be specified in the application’s `Info.plist` under the `FRFeedbackReporter.t
 Note: the optional %@ will get expanded to your application’s name. If you don’t want this URL to be
 guessable it can also be hard coded to whatever you like. The `project`
 parameter must just match the directory on the server. Instead of storing it in the `Info.plist`,
-you can alternatively implement the `targetUrlForFeedbackReport` delegate message.
+you can alternatively implement the `targetURLForFeedbackReport` delegate message.
 
     <key>FRFeedbackReporter.targetURL</key>
     <string>https://yourdomain.com/feedback/submit.php?project=%@</string>

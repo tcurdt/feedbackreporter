@@ -32,5 +32,7 @@
 	<string>firstEmail</string>
 	<key>FRFeedbackReporter.sendDetailsIsOptional</key>
 	<string>YES</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Your email address will be used to autofill the contact information in the crash reporter. No other information is accessed.</string>
 </dict>
 </plist>

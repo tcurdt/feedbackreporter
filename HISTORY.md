@@ -11,6 +11,8 @@
 * [DEL] Dropped support for PowerPC.
 * [CHG] Added nullability annotations to all methods, public and private.
 * [CHG] No longer attempt to search the obsolete Library/Logs/CrashReporter folder.
+* [CHG] Replaced delegate message -(NSString*)targetUrlForFeedbackReport with -(NSURL*)targetURLForFeedbackReport.  Note change of return type, and change of spelling/capitalization.
+* [CHG] Replaced delegate message - (NSMutableDictionary*)anonymizePreferencesForFeedbackReport:(NSMutableDictionary*)preferences with - (NSDictionary*)anonymizePreferencesForFeedbackReport:(NSDictionary*)preferences.  Note change to immutable dictionaries.
 
 ## Version 1.3.1, unreleased
 * [ADD] Added Spanish translation. Thanks to Emilio Perez.
