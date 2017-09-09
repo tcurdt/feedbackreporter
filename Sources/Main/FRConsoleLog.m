@@ -119,7 +119,9 @@
                     if (maximumSize != nil) {
                         NSString* lastLine = [consoleLines lastObject];
                         consoleOutputLength += [lastLine length];
-                        if (consoleOutputLength > [maximumSize unsignedIntegerValue]) break;
+                        if (consoleOutputLength > [maximumSize unsignedIntegerValue]) {
+                            break;
+                        }
                     }
                 }
             }
@@ -127,10 +129,8 @@
     }
 
     // Convert the console lines array to an output string
-    if ([consoleLines count]) {
-        for (NSInteger i = [consoleLines count] - 1; i >= 0; i--) {
-            [consoleString appendString:[consoleLines objectAtIndex:i]];
-        }
+    for (NSString *line in [consoleLines reverseObjectEnumerator]) {
+        [consoleString appendString:line];
     }
 
     // Free data stores

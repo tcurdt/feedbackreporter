@@ -66,21 +66,14 @@
     size_t length = sizeof(value);
 
     error = sysctlbyname("hw.cpu64bit_capable", &value, &length, NULL, 0);
-    
-    if(error != 0) {
-        error = sysctlbyname("hw.optional.x86_64", &value, &length, NULL, 0); //x86 specific
+
+    if (error != 0) {
+        NSLog(@"Failed to determine if CPU supports 64 bit");
+        return NO;
     }
     
-    if(error != 0) {
-        error = sysctlbyname("hw.optional.64bitops", &value, &length, NULL, 0); //PPC specific
-    }
-    
-    BOOL is64bit = NO;
-    
-    if (error == 0) {
-        is64bit = value == 1;
-    }
-    
+    BOOL is64bit = (value == 1);
+
     return is64bit;
 }
 
@@ -104,8 +97,9 @@
         error = sysctlbyname("machdep.cpu.brand_string", &stringValue, &stringLength, NULL, 0);
         if (error == 0) {
             NSString *brandString = [NSString stringWithUTF8String:stringValue];
-            if (brandString)
+            if (brandString) {
                 return brandString;
+            }
         }
     }
     
@@ -121,10 +115,6 @@
     switch (cputype) {
         case CPU_TYPE_X86:
             return @"Intel";
-        case CPU_TYPE_POWERPC:
-            return @"PowerPC";
-        case CPU_TYPE_ARM:
-            return @"ARM";
         case CPU_TYPE_ARM64:
             return @"ARM64";
     }
@@ -162,8 +152,8 @@
     switch (value) {
         case CPU_TYPE_X86:
             return @"Intel";
-        case CPU_TYPE_POWERPC:
-            return @"PPC";
+        case CPU_TYPE_ARM64:
+            return @"ARM64";
     }
 
     NSLog(@"Unknown CPU %d", value);
@@ -198,9 +188,11 @@
     }
 
     char *p = malloc(sizeof(char) * length);
-    if (p) {
-        error = sysctlbyname("hw.model", p, &length, NULL, 0);
+    if (!p) {
+        return nil;
     }
+    
+    error = sysctlbyname("hw.model", p, &length, NULL, 0);
     
     if (error != 0) {
         NSLog(@"Failed to obtain machine model");
@@ -218,34 +210,31 @@
 + (nullable NSString*) language
 {
     NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
-    NSArray *languages = [defs objectForKey:@"AppleLanguages"];
+    NSArray *languages = [defs stringArrayForKey:@"AppleLanguages"];
 
     if ([languages count] == 0) {
         NSLog(@"Failed to obtain preferred language");
         return nil;
     }
     
-    return [languages objectAtIndex:0];
+    return [languages firstObject];
 }
 
 + (long long) cpuspeed
 {
-    long long result = 0;
-
     int error = 0;
 
     int64_t hertz = 0;
-    size_t size = sizeof(hertz);
-    int mib[2] = {CTL_HW, HW_CPU_FREQ};
+    size_t length = sizeof(hertz);
     
-    error = sysctl(mib, 2, &hertz, &size, NULL, 0);
+    error = sysctlbyname("hw.cpufrequency", &hertz, &length, NULL, 0);
     
     if (error) {
         NSLog(@"Failed to obtain CPU speed");
         return -1;
     }
     
-    result = (long long)(hertz/1000000); // Convert to MHz
+    long long result = (long long)(hertz/1000000); // Convert to MHz
     
     return result;
 }
@@ -268,6 +257,5 @@
     
     return result;
 }
-
 
 @end

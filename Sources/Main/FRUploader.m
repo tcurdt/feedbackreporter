@@ -19,8 +19,8 @@
 // Private interface.
 @interface FRUploader()
 @property (readwrite, weak, nonatomic) id<FRUploaderDelegate> delegate;
-@property (readwrite, strong, nonatomic) NSString *target;
-@property (readwrite, strong, nonatomic) NSURLConnection *connection;
+@property (readwrite, copy, nonatomic) NSURL *targetURL;
+@property (readwrite, strong, nonatomic, nullable) NSURLConnection *connection;
 @property (readwrite, strong, nonatomic) NSMutableData *responseData;
 @end
 
@@ -33,15 +33,15 @@
     return nil;
 }
 
-- (instancetype) initWithTarget:(NSString*)pTarget delegate:(id<FRUploaderDelegate>)pDelegate
+- (instancetype) initWithTargetURL:(NSURL*)targetURL delegate:(id<FRUploaderDelegate>)delegate
 {
-    assert(pTarget);
-    assert(pDelegate);
+    assert(targetURL);
+    assert(delegate);
 
     self = [super init];
     if (self != nil) {
-        _target = pTarget;
-        _delegate = pDelegate;
+        _targetURL = [targetURL copy];
+        _delegate = delegate;
         _responseData = [[NSMutableData alloc] init];
     }
     
@@ -53,31 +53,34 @@
     assert(dict);
     assert(formBoundary);
 
-    NSString *boundary = formBoundary;
-    NSArray *keys = [dict allKeys];
     NSMutableData *result = [[NSMutableData alloc] initWithCapacity:100];
-    
-    for (NSUInteger i = 0; i < [keys count]; i++) {
-        id value = [dict valueForKey: [keys objectAtIndex: i]];
-        
-        [result appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+
+    [dict enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
+     
+        [result appendData:[[NSString stringWithFormat:@"--%@\r\n", formBoundary] dataUsingEncoding:NSUTF8StringEncoding]];
 
         if ([value class] != [NSURL class]) {
-            [result appendData:[[NSString stringWithFormat: @"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", [keys objectAtIndex:i]] dataUsingEncoding:NSUTF8StringEncoding]];
-            [result appendData:[[NSString stringWithFormat:@"%@",value] dataUsingEncoding:NSUTF8StringEncoding]];
+            NSString *disposition = [NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n%@", key, value];
+            [result appendData:[disposition dataUsingEncoding:NSUTF8StringEncoding]];
         }
-        else if ([value class] == [NSURL class] && [value isFileURL]) {
-            NSString *disposition = [NSString stringWithFormat: @"Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\n", [keys objectAtIndex:i], [[value path] lastPathComponent]];
-            [result appendData: [disposition dataUsingEncoding:NSUTF8StringEncoding]];
-            
-            [result appendData:[@"Content-Type: application/octet-stream\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-            [result appendData:[NSData dataWithContentsOfFile:[value path]]];
+        else {
+            NSURL *url = (NSURL *)value;
+            if ([url isFileURL]) {
+                NSData *fileData = [NSData dataWithContentsOfURL:url];
+                if (fileData) {
+                    NSString *disposition = [NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\n", key, [url lastPathComponent]];
+                    [result appendData:[disposition dataUsingEncoding:NSUTF8StringEncoding]];
+                    
+                    [result appendData:[@"Content-Type: application/octet-stream\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+                    [result appendData:fileData];
+                }
+            }
         }
-
+        
         [result appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-    }
+    }];
 
-    [result appendData:[[NSString stringWithFormat:@"--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    [result appendData:[[NSString stringWithFormat:@"--%@--\r\n", formBoundary] dataUsingEncoding:NSUTF8StringEncoding]];
     
     return result;
 }
@@ -91,9 +94,9 @@
 
     NSData *formData = [self generateFormData:dict forBoundary:formBoundary];
 
-    NSLog(@"Posting %lu bytes to %@", (unsigned long)[formData length], [self target]);
+    NSLog(@"Posting %lu bytes to %@", (unsigned long)[formData length], [self targetURL]);
 
-    NSMutableURLRequest *post = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[self target]]];
+    NSMutableURLRequest *post = [NSMutableURLRequest requestWithURL:[self targetURL]];
     
     NSString *boundaryString = [NSString stringWithFormat: @"multipart/form-data; boundary=%@", formBoundary];
     [post addValue: boundaryString forHTTPHeaderField: @"Content-Type"];
@@ -107,7 +110,7 @@
                                            returningResponse: &response
                                                        error: &error];
 
-    if(result == nil) {
+    if (result == nil) {
         NSLog(@"Post failed. Error: %ld, Description: %@", (long)[error code], [error localizedDescription]);
         return nil;
     }
@@ -124,9 +127,9 @@
 
     NSData *formData = [self generateFormData:dict forBoundary:formBoundary];
 
-    NSLog(@"Posting %lu bytes to %@", (unsigned long)[formData length], [self target]);
+    NSLog(@"Posting %lu bytes to %@", (unsigned long)[formData length], [self targetURL]);
 
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[self target]]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[self targetURL]];
     
     NSString *boundaryString = [NSString stringWithFormat: @"multipart/form-data; boundary=%@", formBoundary];
     [request addValue: boundaryString forHTTPHeaderField: @"Content-Type"];
@@ -141,13 +144,11 @@
         if ([strongDelegate respondsToSelector:@selector(uploaderStarted:)]) {
             [strongDelegate performSelector:@selector(uploaderStarted:) withObject:self];
         }
-        
     } else {
         if ([strongDelegate respondsToSelector:@selector(uploaderFailed:withError:)]) {
-
+            NSError *error = [NSError errorWithDomain:@"Failed to establish connection" code:0 userInfo:nil];
             [strongDelegate performSelector:@selector(uploaderFailed:withError:) withObject:self
-                withObject:[NSError errorWithDomain:@"Failed to establish connection" code:0 userInfo:nil]];
-
+                withObject:error];
         }
     }
 }
@@ -159,7 +160,7 @@
     assert(pConnection); (void)pConnection;
     assert(data);
 
-    NSLog(@"Connection received data");
+    NSLog(@"Connection received %lu byte of data", [data length]);
 
     [[self responseData] appendData:data];
 }
@@ -169,7 +170,7 @@
     assert(pConnection); (void)pConnection;
     assert(error);
 
-    NSLog(@"Connection failed");
+    NSLog(@"Connection failed with error %@", error);
     
     id<FRUploaderDelegate> strongDelegate = [self delegate];
     if ([strongDelegate respondsToSelector:@selector(uploaderFailed:withError:)]) {

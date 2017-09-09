@@ -24,18 +24,18 @@
 
 - (void) testSimple
 {
-    FRCommand *cmd = [[FRCommand alloc] initWithPath:@"/bin/ls"];
+    FRCommand *cmd = [[FRCommand alloc] initWithFileURL:[NSURL fileURLWithPath:@"/bin/ls"] args:@[]];
     
     NSMutableString *err = [[NSMutableString alloc] init];
-    NSMutableString *out = [[NSMutableString alloc] init];
+    NSMutableString *output = [[NSMutableString alloc] init];
     
-    [cmd setOutput:out];
+    [cmd setOutput:output];
     [cmd setError:err];
     
     int result = [cmd execute];
 
-    XCTAssertTrue(result == 0, @"Return code was %d", result);    
-    XCTAssertTrue([out length] > 0, @"Found no output on stdout");
+    XCTAssertTrue(result == 0, @"Return code was %d", result);
+    XCTAssertTrue([output length] > 0, @"Found no output on stdout");
     XCTAssertTrue([err length] == 0, @"Found output on stderr");
 }
 

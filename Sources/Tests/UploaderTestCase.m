@@ -28,7 +28,8 @@ BOOL terminated;
 {
     NSLog(@"Uploading");
 
-    FRUploader *uploader = [[FRUploader alloc] initWithTarget:@"http://vafer.org/feedback.php?project=TestCase" delegate:self];
+    NSURL* url = [NSURL URLWithString:@"http://vafer.org/feedback.php?project=TestCase"];
+    FRUploader *uploader = [[FRUploader alloc] initWithTargetURL:url delegate:self];
     
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     [dict setObject:@"test" forKey:@"test"];
@@ -37,7 +38,7 @@ BOOL terminated;
 
     terminated = NO;
 
-    while(!terminated) {
+    while (!terminated) {
         @autoreleasepool {
             if (![[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]]) {
                 break;

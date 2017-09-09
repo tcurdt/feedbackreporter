@@ -19,8 +19,8 @@
 // Private interface.
 @interface FRCommand()
 @property (readwrite, strong, nonatomic) NSTask *task;
-@property (readwrite, strong, nonatomic) NSString *path;
-@property (readwrite, strong, nonatomic) NSArray *args;
+@property (readwrite, copy, nonatomic) NSURL *fileURL;
+@property (readwrite, copy, nonatomic) NSArray *args;
 @property (readwrite, strong, nonatomic) NSMutableString *output;
 @property (readwrite, strong, nonatomic) NSMutableString *error;
 @property (readwrite, nonatomic) BOOL terminated;
@@ -36,15 +36,16 @@
     return nil;
 }
 
-- (instancetype) initWithPath:(NSString*)inPath
+- (instancetype) initWithFileURL:(NSURL*)inFileURL args:(NSArray *)inArgs
 {
-    assert(inPath);
+    assert(inFileURL);
+    assert(inArgs);
 
     self = [super init];
     if (self != nil) {
         _task = [[NSTask alloc] init];
-        _args = @[];
-        _path = inPath;
+        _args = [inArgs copy];
+        _fileURL = [inFileURL copy];
         _error = nil;
         _output = nil;
         _terminated = NO;
@@ -64,11 +65,6 @@
 
         // Initially try to read the file in using UTF8
         NSString *s = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-
-        // If that fails, attempt plain ASCII
-        if (!s) {
-            s = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-        }
 
         if (s) {
             [string appendString:s];
@@ -116,13 +112,14 @@
 
 - (int) execute
 {
-    if (![[NSFileManager defaultManager] isExecutableFileAtPath:[self path]]) {
-        // executable not found
+    NSString *path = [[self fileURL] path];
+    if (![[NSFileManager defaultManager] isExecutableFileAtPath:path]) {
+        // executable not found, or not executable
         return -1;
     }
 
     NSTask* task = [self task];
-    [task setLaunchPath:[self path]];
+    [task setLaunchPath:path];
     [task setArguments:[self args]];
 
     NSPipe *outPipe = [NSPipe pipe];
@@ -133,7 +130,7 @@
     [task setStandardError:errPipe];
 
     NSFileHandle *outFile = [outPipe fileHandleForReading];
-    NSFileHandle *errFile = [errPipe fileHandleForReading]; 
+    NSFileHandle *errFile = [errPipe fileHandleForReading];
 
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self
@@ -156,7 +153,7 @@
 
     [task launch];
 
-    while(![self terminated]) {
+    while (![self terminated]) {
         @autoreleasepool {
             if (![[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]]) {
                 break;

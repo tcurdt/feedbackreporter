@@ -72,6 +72,7 @@
         id<FRFeedbackReporterDelegate> strongDelegate = [self delegate];
         if ([strongDelegate respondsToSelector:@selector(feedbackDisplayName)]) {
             applicationName = [strongDelegate feedbackDisplayName];
+            assert(applicationName);
         }
         else {
             applicationName = [FRApplication applicationName];
@@ -96,12 +97,15 @@
 
 - (BOOL) reportIfCrash
 {
-    NSDate *lastCrashCheckDate = [[NSUserDefaults standardUserDefaults] valueForKey:DEFAULTS_KEY_LASTCRASHCHECKDATE];
+    NSDate *lastCrashCheckDate = [[NSUserDefaults standardUserDefaults] objectForKey:DEFAULTS_KEY_LASTCRASHCHECKDATE];
+    if (lastCrashCheckDate && ![lastCrashCheckDate isKindOfClass:[NSDate class]]) {
+        lastCrashCheckDate = nil;
+    }
     
     NSArray *crashFiles = [FRCrashLogFinder findCrashLogsSince:lastCrashCheckDate];
 
-    [[NSUserDefaults standardUserDefaults] setValue: [NSDate date]
-                                             forKey: DEFAULTS_KEY_LASTCRASHCHECKDATE];
+    [[NSUserDefaults standardUserDefaults] setObject: [NSDate date]
+                                              forKey: DEFAULTS_KEY_LASTCRASHCHECKDATE];
     
     if (lastCrashCheckDate && [crashFiles count] > 0) {
         // NSLog(@"Found new crash files");
@@ -109,7 +113,7 @@
         FRFeedbackController *controller = [self feedbackController];
 
         @synchronized (controller) {
-        
+
             if ([controller isShown]) {
                 NSLog(@"Controller already shown");
                 return NO;
@@ -120,12 +124,13 @@
             NSString * applicationName = nil;
             id<FRFeedbackReporterDelegate> strongDelegate = [self delegate];
             if ([strongDelegate respondsToSelector:@selector(feedbackDisplayName)]) {
-               applicationName = [strongDelegate feedbackDisplayName];
+                applicationName = [strongDelegate feedbackDisplayName];
+                assert(applicationName);
             }
             else {
-               applicationName = [FRApplication applicationName];
+                applicationName = [FRApplication applicationName];
             }
-           
+
             [controller setHeading:[NSString stringWithFormat:
                 FRLocalizedString(@"%@ has recently crashed!", nil),
                 applicationName]];
@@ -137,11 +142,9 @@
             [controller setDelegate:strongDelegate];
 
             [controller showWindow:self];
-
         }
         
         return YES;
-
     }
     
     return NO;
@@ -166,6 +169,7 @@
         id<FRFeedbackReporterDelegate> strongDelegate = [self delegate];
         if ([strongDelegate respondsToSelector:@selector(feedbackDisplayName)]) {
             applicationName = [strongDelegate feedbackDisplayName];
+            assert(applicationName);
         }
         else {
             applicationName = [FRApplication applicationName];

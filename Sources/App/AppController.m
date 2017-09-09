@@ -37,7 +37,7 @@
     [[FRFeedbackReporter sharedReporter] reportIfCrash];
 }
 
-- (NSDictionary *) customParametersForFeedbackReport
+- (nullable NSDictionary *) customParametersForFeedbackReport
 {
     NSLog(@"adding custom parameters");
 
@@ -61,8 +61,8 @@
 - (NSString *)targetUrlForFeedbackReport
 {
     NSString *targetUrlFormat = @"https://myserver.com/submit.php?project=%@&version=%@";
-    NSString *project = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleExecutable"];
-    NSString *version = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleVersion"];
+    NSString *project = [[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleExecutable"];
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleVersion"];
     return [NSString stringWithFormat:targetUrlFormat, project, version];
 }*/
 

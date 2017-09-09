@@ -14,7 +14,7 @@ The method `reportIfCrash` should preferably be called just after your applicati
 has started. A good place is `applicationDidFinishLaunching` of the
 application controller. It checks whether there has been a crash or hang
 report since the last run. If so, it presents the user the feedback dialog. If
-there wasn’t it moves on quietly.
+there wasn’t, it moves on quietly.
 
 The method `reportFeedback` is usually called from a “Feedback” menu item in your
 “Help” menu. This way users can send feedback at any time using the same
@@ -28,7 +28,7 @@ You can set a delegate and…
 
 pass in arbitrary data on the submission e.g. like license information,
 
-    - (NSDictionary*) customParametersForFeedbackReport
+    - (nullable NSDictionary*) customParametersForFeedbackReport
     {
       NSMutableDictionary *dict = [NSMutableDictionary dictionary];
       ...
@@ -61,11 +61,12 @@ project’s `Info.plist`.
 
 ## Specify the target in your project’s Info.plist
 
-The framework needs to know where to post the information to. The target needs
-to be specified in the application’s `Info.plist`. Note: the optional %@ will get
-expanded to your application’s name. If you don’t want this URL to be
+The framework needs to know where to post the information to. The target can
+be specified in the application’s `Info.plist` under the `FRFeedbackReporter.targetURL` key.
+Note: the optional %@ will get expanded to your application’s name. If you don’t want this URL to be
 guessable it can also be hard coded to whatever you like. The `project`
-parameter must just match the directory on the server.
+parameter must just match the directory on the server. Instead of storing it in the `Info.plist`,
+you can alternatively implement the `targetUrlForFeedbackReport` delegate message.
 
     <key>FRFeedbackReporter.targetURL</key>
     <string>https://yourdomain.com/feedback/submit.php?project=%@</string>
@@ -74,7 +75,7 @@ parameter must just match the directory on the server.
 
 In case your application needs more details from the user’s system than what
 is provided by the FeedbackReporter framework you can include a shell script
-called `FRFeedbackReporter.sh` into your application bundle. It will be called
+called `FRFeedbackReporter.sh` in your application bundle. It will be called
 whenever the feedback dialog comes up and the stdout and stderr output gets
 included in the `shell` pane.
 

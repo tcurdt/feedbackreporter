@@ -22,7 +22,7 @@
 + (nullable NSString*) applicationBundleVersion
 {
 	// CFBundleVersion is documented as not localizable.
-    NSString *bundleVersion = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleVersion"];
+    NSString *bundleVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleVersion"];
     
     return bundleVersion;
 }
@@ -30,10 +30,10 @@
 + (nullable NSString*) applicationShortVersion
 {
     // CFBundleShortVersionString is documented as localizable, so prefer a localized value if available.
-    NSString *shortVersion = [[[NSBundle mainBundle] localizedInfoDictionary] valueForKey: @"CFBundleShortVersionString"];
+    NSString *shortVersion = [[[NSBundle mainBundle] localizedInfoDictionary] objectForKey: @"CFBundleShortVersionString"];
     
     if (!shortVersion) {
-        shortVersion = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleShortVersionString"];
+        shortVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleShortVersionString"];
     }
     
     return shortVersion;
@@ -54,7 +54,7 @@
 + (nullable NSString*) applicationName
 {
     // CFBundleExecutable is not localizable.
-   NSString *applicationName = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleExecutable"];
+    NSString *applicationName = [[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleExecutable"];
     
     return applicationName;
 }
@@ -62,14 +62,14 @@
 + (nullable NSString*) applicationIdentifier
 {
     // CFBundleIdentifier is not localizable.
-    NSString *applicationIdentifier = [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleIdentifier"];
+    NSString *applicationIdentifier = [[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleIdentifier"];
 
     return applicationIdentifier;
 }
 
 + (nullable NSString*) feedbackURL
 {
-    NSString *target = [[[NSBundle mainBundle] infoDictionary] valueForKey: PLIST_KEY_TARGETURL];
+    NSString *target = [[[NSBundle mainBundle] infoDictionary] objectForKey: PLIST_KEY_TARGETURL];
 
     if (target == nil) {
         return nil;

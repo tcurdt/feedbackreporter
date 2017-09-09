@@ -55,7 +55,7 @@
     NSArray *libraryDirectories = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSLocalDomainMask|NSUserDomainMask, NO);
 
     NSUInteger i = [libraryDirectories count];
-    while(i--) {
+    while (i--) {
         NSString* libraryDirectory = [libraryDirectories objectAtIndex:i];
 
         NSDirectoryEnumerator *enumerator = nil;
@@ -66,16 +66,9 @@
 
         // NSLog(@"Searching for crash files at %@", logDir2);
 
-        // Older versions of Mac OS X used Logs/CrashReporter instead
-        if (![fileManager fileExistsAtPath:logDir2]) {
-
-            logDir2 = @"Logs/CrashReporter/";
-            logDir2 = [[libraryDirectory stringByAppendingPathComponent:logDir2] stringByExpandingTildeInPath];
-        }
-
         if ([fileManager fileExistsAtPath:logDir2]) {
 
-            enumerator  = [fileManager enumeratorAtPath:logDir2];
+            enumerator = [fileManager enumeratorAtPath:logDir2];
             while ((file = [enumerator nextObject])) {
 
                 // NSLog(@"Checking crash file %@", file);

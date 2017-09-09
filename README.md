@@ -23,6 +23,7 @@ Credits:
  * Fraser Speirs, Multipart/Form construction, BSD License
  * Jens Alfke, Exception handling and callstack, BSD License
  * Torsten Curdt, initial codebase, ASL2.0 License
+ * Sean McBride, various fixes and modernization after years of project dormancy
 
 any more contributors sending patches. Thanks!
 

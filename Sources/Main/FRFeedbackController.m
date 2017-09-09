@@ -128,7 +128,7 @@
 
 - (NSString*) consoleLog
 {
-    NSNumber *hours = [[[NSBundle mainBundle] infoDictionary] valueForKey:PLIST_KEY_LOGHOURS];
+    NSNumber *hours = [[[NSBundle mainBundle] infoDictionary] objectForKey:PLIST_KEY_LOGHOURS];
 
     int h = 24;
 
@@ -138,7 +138,7 @@
 
     NSDate *since = [NSDate dateWithTimeIntervalSinceNow:-h * 60.0 * 60.0];
 
-    NSNumber *maximumSize = [[[NSBundle mainBundle] infoDictionary] valueForKey:PLIST_KEY_MAXCONSOLELOGSIZE];
+    NSNumber *maximumSize = [[[NSBundle mainBundle] infoDictionary] objectForKey:PLIST_KEY_MAXCONSOLELOGSIZE];
 
     return [FRConsoleLog logSince:since maxSize:maximumSize];
 }
@@ -158,9 +158,7 @@
 {
     NSMutableString *string = [NSMutableString string];
     NSArray *dicts = [self systemProfile];
-    NSUInteger i = [dicts count];
-    while(i--) {
-        NSDictionary *dict = [dicts objectAtIndex:i];
+    for (NSDictionary *dict in dicts) {
         [string appendFormat:@"%@ = %@\n", [dict objectForKey:@"key"], [dict objectForKey:@"value"]];
     }
     return string;
@@ -168,7 +166,10 @@
 
 - (NSString*) crashLog
 {
-    NSDate *lastSubmissionDate = [[NSUserDefaults standardUserDefaults] valueForKey:DEFAULTS_KEY_LASTSUBMISSIONDATE];
+    NSDate *lastSubmissionDate = [[NSUserDefaults standardUserDefaults] objectForKey:DEFAULTS_KEY_LASTSUBMISSIONDATE];
+    if (lastSubmissionDate && ![lastSubmissionDate isKindOfClass:[NSDate class]]) {
+        lastSubmissionDate = nil;
+    }
 
     NSArray *crashFiles = [FRCrashLogFinder findCrashLogsSince:lastSubmissionDate];
 
@@ -240,21 +241,16 @@
 {
     NSMutableString *scriptLog = [NSMutableString string];
 
-    NSString *scriptPath = [[NSBundle mainBundle] pathForResource:FILE_SHELLSCRIPT ofType:@"sh"];
+    NSURL *scriptFileURL = [[NSBundle mainBundle] URLForResource:@"FRFeedbackReporter" withExtension:@"sh"];
 
-    if ([[NSFileManager defaultManager] fileExistsAtPath:scriptPath]) {
-
-        FRCommand *cmd = [[FRCommand alloc] initWithPath:scriptPath];
+    if (scriptFileURL) {
+        FRCommand *cmd = [[FRCommand alloc] initWithFileURL:scriptFileURL args:@[]];
         [cmd setOutput:scriptLog];
         [cmd setError:scriptLog];
         int ret = [cmd execute];
 
         NSLog(@"Script exit code = %d", ret);
-
-    } /* else {
-        NSLog(@"No custom script to execute");
     }
-    */
 
     return scriptLog;
 }
@@ -272,6 +268,7 @@
     id<FRFeedbackReporterDelegate> strongDelegate = [self delegate];
     if ([strongDelegate respondsToSelector:@selector(anonymizePreferencesForFeedbackReport:)]) {
         preferences = [strongDelegate anonymizePreferencesForFeedbackReport:preferences];
+        assert(preferences);
     }
 
     return [NSString stringWithFormat:@"%@", preferences];
@@ -335,11 +332,12 @@
         return;
     }
 
-    NSString *target = [[FRApplication feedbackURL] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] ;
+    NSString *target = [[FRApplication feedbackURL] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 
     id<FRFeedbackReporterDelegate> strongDelegate = [self delegate];
     if ([strongDelegate respondsToSelector:@selector(targetUrlForFeedbackReport)]) {
         target = [strongDelegate targetUrlForFeedbackReport];
+        assert(target);
     }
 
     if (target == nil) {
@@ -368,11 +366,13 @@
         && !(reachabilityFlags & kSCNetworkFlagsInterventionRequired);
 
     if (!reachable) {
+        NSString *fullName = [NSString stringWithFormat:@"%@://%@", [url scheme], host];
+        
         NSAlert *alert = [[NSAlert alloc] init];
         [alert addButtonWithTitle:FRLocalizedString(@"Proceed Anyway", nil)];
         [alert addButtonWithTitle:FRLocalizedString(@"Cancel", nil)];
         [alert setMessageText:FRLocalizedString(@"Feedback Host Not Reachable", nil)];
-        [alert setInformativeText:[NSString stringWithFormat:FRLocalizedString(@"You may not be able to send feedback because %@ isn't reachable.", nil), host]];
+        [alert setInformativeText:[NSString stringWithFormat:FRLocalizedString(@"You may not be able to send feedback because %@ isn't reachable.", nil), fullName]];
         NSInteger alertResult = [alert runModal];
 
         if (alertResult != NSAlertFirstButtonReturn) {
@@ -380,7 +380,7 @@
         }
     }
 
-    FRUploader* uploader = [[FRUploader alloc] initWithTarget:target delegate:self];
+    FRUploader* uploader = [[FRUploader alloc] initWithTargetURL:url delegate:self];
     [self setUploader:uploader];
 
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
@@ -405,7 +405,10 @@
 
     if ([[self sendDetailsCheckbox] state] == NSOnState) {
         if ([strongDelegate respondsToSelector:@selector(customParametersForFeedbackReport)]) {
-            [dict addEntriesFromDictionary:[strongDelegate customParametersForFeedbackReport]];
+            NSDictionary *customParams = [strongDelegate customParametersForFeedbackReport];
+            if (customParams) {
+                [dict addEntriesFromDictionary:customParams];
+            }
         }
 
         [dict setValidString:[self systemProfileAsString]
@@ -486,10 +489,7 @@
     [[self sendButton] setEnabled:YES];
 
     NSArray *lines = [response componentsSeparatedByString:@"\n"];
-    NSUInteger i = [lines count];
-    while(i--) {
-        NSString *line = [lines objectAtIndex:i];
-
+    for (NSString *line in [lines reverseObjectEnumerator]) {
         if ([line length] == 0) {
             continue;
         }
@@ -508,10 +508,10 @@
             return;
         }
     }
-
-    [[NSUserDefaults standardUserDefaults] setValue:[NSDate date]
-                                             forKey:DEFAULTS_KEY_LASTSUBMISSIONDATE];
-
+    
+    [[NSUserDefaults standardUserDefaults] setObject:[NSDate date]
+                                              forKey:DEFAULTS_KEY_LASTSUBMISSIONDATE];
+    
     [[NSUserDefaults standardUserDefaults] setObject:[[self emailBox] stringValue]
                                               forKey:DEFAULTS_KEY_SENDEREMAIL];
 
@@ -525,7 +525,7 @@
     [[self uploader] cancel];
 
     if ([[self type] isEqualToString:FR_EXCEPTION]) {
-        NSString *exitAfterException = [[[NSBundle mainBundle] infoDictionary] valueForKey:PLIST_KEY_EXITAFTEREXCEPTION];
+        NSString *exitAfterException = [[[NSBundle mainBundle] infoDictionary] objectForKey:PLIST_KEY_EXITAFTEREXCEPTION];
         if (exitAfterException && [exitAfterException isEqualToString:@"YES"]) {
             // We want a pure exit() here I think.
             // As an exception has already been raised there is no
@@ -639,20 +639,22 @@
 
     [[self emailBox] addItemWithObjectValue:FRLocalizedString(@"anonymous", nil)];
 
-    for(NSUInteger i=0; i<count; i++) {
+    for (NSUInteger i=0; i<count; i++) {
 
         NSString *emailAddress = [emailAddresses valueAtIndex:i];
 
         [[self emailBox] addItemWithObjectValue:emailAddress];
     }
 
+    NSInteger found = NSNotFound;
     NSString *email = [[NSUserDefaults standardUserDefaults] stringForKey:DEFAULTS_KEY_SENDEREMAIL];
-
-    NSInteger found = [[self emailBox] indexOfItemWithObjectValue:email];
+    if (email) {
+        found = [[self emailBox] indexOfItemWithObjectValue:email];
+    }
     if (found != NSNotFound) {
         [[self emailBox] selectItemAtIndex:found];
     } else if ([[self emailBox] numberOfItems] >= 2) {
-        NSString *defaultSender = [[[NSBundle mainBundle] infoDictionary] valueForKey:PLIST_KEY_DEFAULTSENDER];
+        NSString *defaultSender = [[[NSBundle mainBundle] infoDictionary] objectForKey:PLIST_KEY_DEFAULTSENDER];
         NSUInteger idx = (defaultSender && [defaultSender isEqualToString:@"firstEmail"]) ? 1 : 0;
         [[self emailBox] selectItemAtIndex:idx];
     }
@@ -671,7 +673,7 @@
     //  setup 'send details' checkbox...
     [[self sendDetailsCheckbox] setTitle:FRLocalizedString(@"Send details", nil)];
     [[self sendDetailsCheckbox] setState:NSOnState];
-    NSString *sendDetailsIsOptional = [[[NSBundle mainBundle] infoDictionary] valueForKey:PLIST_KEY_SENDDETAILSISOPTIONAL];
+    NSString *sendDetailsIsOptional = [[[NSBundle mainBundle] infoDictionary] objectForKey:PLIST_KEY_SENDDETAILSISOPTIONAL];
     if (sendDetailsIsOptional && [sendDetailsIsOptional isEqualToString:@"YES"]) {
         [[self detailsLabel] setHidden:YES];
         [[self sendDetailsCheckbox] setHidden:NO];
