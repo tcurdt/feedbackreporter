@@ -2,7 +2,7 @@
 
 The framework is using a standard multi-part POST request to upload the data
 to the web server. It uses the target URL that is specified in the
-`Info.plist` (or `targetUrlForFeedbackReport` delegate message).
+`Info.plist` (or `targetURLForFeedbackReport` delegate message).
 Once on the server you can easily inject them into your bug
 tracking/ticketing system or just zip them up and send them via email.
 

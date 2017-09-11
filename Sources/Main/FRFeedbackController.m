@@ -267,11 +267,13 @@
 
     id<FRFeedbackReporterDelegate> strongDelegate = [self delegate];
     if ([strongDelegate respondsToSelector:@selector(anonymizePreferencesForFeedbackReport:)]) {
-        preferences = [strongDelegate anonymizePreferencesForFeedbackReport:preferences];
-        assert(preferences);
+        NSDictionary *newPreferences = [strongDelegate anonymizePreferencesForFeedbackReport:preferences];
+        assert(newPreferences);
+        return [NSString stringWithFormat:@"%@", newPreferences];
     }
-
-    return [NSString stringWithFormat:@"%@", preferences];
+    else {
+        return [NSString stringWithFormat:@"%@", preferences];
+    }
 }
 
 
@@ -309,6 +311,7 @@
 
 - (IBAction) showDetails:(id)sender
 {
+    assert([sender isKindOfClass:[NSControl class]]);
     BOOL show = [[sender objectValue] boolValue];
     [self showDetails:show animate:YES];
 }
@@ -332,20 +335,21 @@
         return;
     }
 
-    NSString *target = [[FRApplication feedbackURL] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSURL *url = nil;
 
     id<FRFeedbackReporterDelegate> strongDelegate = [self delegate];
-    if ([strongDelegate respondsToSelector:@selector(targetUrlForFeedbackReport)]) {
-        target = [strongDelegate targetUrlForFeedbackReport];
-        assert(target);
+    if ([strongDelegate respondsToSelector:@selector(targetURLForFeedbackReport)]) {
+        url = [strongDelegate targetURLForFeedbackReport];
+        assert(url);
     }
-
-    if (target == nil) {
-        NSLog(@"You are missing the %@ key in your Info.plist!", PLIST_KEY_TARGETURL);
-        return;
+    else {
+	    NSString *target = [[FRApplication feedbackURL] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	    if (url == nil) {
+            NSLog(@"You are missing the %@ key in your Info.plist!", PLIST_KEY_TARGETURL);
+            return;
+        }
+	    url = [NSURL URLWithString:target];
     }
-
-    NSURL *url = [NSURL URLWithString:target];
 
     SCNetworkConnectionFlags reachabilityFlags = 0;
 
@@ -430,7 +434,7 @@
                       forKey:POST_KEY_EXCEPTION];
     }
 
-    NSLog(@"Sending feedback to %@", target);
+    NSLog(@"Sending feedback to %@", url);
 
     [uploader postAndNotify:dict];
 }

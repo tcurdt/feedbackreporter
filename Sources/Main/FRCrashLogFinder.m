@@ -87,27 +87,6 @@
                 }
             }
         }
-
-        NSString* logDir3 = [NSString stringWithFormat: @"Logs/HangReporter/%@/", [FRApplication applicationName]];
-        logDir3 = [[libraryDirectory stringByAppendingPathComponent:logDir3] stringByExpandingTildeInPath];
-
-        // NSLog(@"Searching for hang files at %@", logDir3);
-
-        if ([fileManager fileExistsAtPath:logDir3]) {
-
-            enumerator  = [fileManager enumeratorAtPath:logDir3];
-            while ((file = [enumerator nextObject])) {
-            
-                if ([[file pathExtension] isEqualToString:@"hang"]) {
-
-                    file = [[libraryDirectory stringByAppendingPathComponent:file] stringByExpandingTildeInPath];
-
-                    if ([self file:file isNewerThan:date]) {
-                        [files addObject:file];
-                    }
-                }
-            }
-        }
     }
     
     return files;

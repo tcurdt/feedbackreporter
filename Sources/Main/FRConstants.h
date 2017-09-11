@@ -16,7 +16,7 @@
 
 // String. URL where to POST results to. Any occurance of "%@" in the string
 // will be replaced with the value of CFBundleExecutable from the Info.plist.
-// If nothing is specified, you must insead implement the targetUrlForFeedbackReport
+// If nothing is specified, you must instead implement the targetUrlForFeedbackReport
 // delegate message. (optional)
 #define PLIST_KEY_TARGETURL             @"FRFeedbackReporter.targetURL"
 

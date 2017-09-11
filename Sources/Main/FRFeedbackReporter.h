@@ -33,11 +33,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 // By default, reports include the entirety of the preferences.
 // If you want to remove some items, for anonymity/privacy reasons, implement this delegate method.
-- (NSMutableDictionary*) anonymizePreferencesForFeedbackReport:(NSMutableDictionary *)preferences;
+- (NSDictionary*) anonymizePreferencesForFeedbackReport:(NSDictionary *)preferences;
 
 // By default, reports are sent to the URL in the Info.plist key PLIST_KEY_TARGETURL.
 // If you want to send them elsewhere, implement this delegate method to return an http or https URL.
-- (NSString *) targetUrlForFeedbackReport;
+- (NSURL *) targetURLForFeedbackReport;
 
 // By default, the report UI uses the Info.plist key CFBundleExecutable as the application's name.
 // If you want to show something else, implement this delegate method.
