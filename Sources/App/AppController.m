@@ -94,8 +94,10 @@
     [NSException raise:@"TestException-MainThread" format:@"Something went wrong (☃💩 attack?)"];
 }
 
-- (void) threadWithException
+- (void) threadWithException:(id)argument
 {
+    (void)argument;
+    
     @autoreleasepool {
         NSLog(@"exception on NSThread - unicode: ❄☠️");
         [NSException raise:@"TestException-NSThread" format:@"Something went wrong (☃💩 attack?)"];
@@ -104,7 +106,7 @@
 
 - (IBAction) buttonExceptionInThread:(id)sender
 {
-    [NSThread detachNewThreadSelector:@selector(threadWithException) toTarget:self withObject:nil];
+    [NSThread detachNewThreadSelector:@selector(threadWithException:) toTarget:self withObject:nil];
 }
 
 - (IBAction) buttonExceptionInDispatchQueue:(id)sender
