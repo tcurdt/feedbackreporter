@@ -15,7 +15,7 @@
 	define( 'MANTIS_PATH',	dirname( __FILE__ ) . '/../mantis/' );
 
 	// used only when MANTIS_LOCAL is false. The SOAP extension is required.
-	define( 'MANTIS_URL',	'http://www.yoursite.com/mantis/' );
+	define( 'MANTIS_URL',	'https://www.yoursite.com/mantis/' );
 	define( 'MANTIS_WSDL',	MANTIS_URL . 'api/soap/mantisconnect.php?wsdl' );
 
 	// constants for the reports
