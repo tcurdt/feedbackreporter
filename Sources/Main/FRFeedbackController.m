@@ -559,23 +559,18 @@
     [[self sendButton] setTitle:FRLocalizedString(@"Send", nil)];
     [[self cancelButton] setTitle:FRLocalizedString(@"Cancel", nil)];
 
-    [[[self consoleView] textContainer] setContainerSize:NSMakeSize(CGFLOAT_MAX, CGFLOAT_MAX)];
     [[[self consoleView] textContainer] setWidthTracksTextView:NO];
     [[self consoleView] setString:@""];
 
-    [[[self crashesView] textContainer] setContainerSize:NSMakeSize(CGFLOAT_MAX, CGFLOAT_MAX)];
     [[[self crashesView] textContainer] setWidthTracksTextView:NO];
     [[self crashesView] setString:@""];
 
-    [[[self scriptView] textContainer] setContainerSize:NSMakeSize(CGFLOAT_MAX, CGFLOAT_MAX)];
     [[[self scriptView] textContainer] setWidthTracksTextView:NO];
     [[self scriptView] setString:@""];
 
-    [[[self preferencesView] textContainer] setContainerSize:NSMakeSize(CGFLOAT_MAX, CGFLOAT_MAX)];
     [[[self preferencesView] textContainer] setWidthTracksTextView:NO];
     [[self preferencesView] setString:@""];
 
-    [[[self exceptionView] textContainer] setContainerSize:NSMakeSize(CGFLOAT_MAX, CGFLOAT_MAX)];
     [[[self exceptionView] textContainer] setWidthTracksTextView:NO];
     [[self exceptionView] setString:@""];
 }
