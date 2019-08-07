@@ -53,6 +53,7 @@
 @property (readwrite, weak, nonatomic) IBOutlet NSButton *sendDetailsCheckbox;
 
 @property (readwrite, weak, nonatomic) IBOutlet NSTabView *tabView;
+@property (readwrite, nonatomic) CGFloat detailsDeltaHeight;
 
 // Even though they are not top-level objects, keep strong references to the tabViews.
 @property (readwrite, strong, nonatomic) IBOutlet NSTabViewItem *tabSystem;
@@ -285,25 +286,31 @@
         return;
     }
 
-    NSSize fullSize = NSMakeSize(455, 302);
-
-    NSRect windowFrame = [[self window] frame];
+    NSWindow *window = [self window];
+    NSRect windowFrame = [window frame];
 
     if (show) {
+        CGFloat deltaHeight = [self detailsDeltaHeight];
+        assert(deltaHeight > 0.0);
 
-        windowFrame.origin.y -= fullSize.height;
-        windowFrame.size.height += fullSize.height;
-        [[self window] setFrame: windowFrame
-                        display: YES
-                        animate: animate];
+        windowFrame.origin.y -= deltaHeight;
+        windowFrame.size.height += deltaHeight;
+        [window setFrame: windowFrame
+                 display: YES
+                 animate: animate];
 
     } else {
-        windowFrame.origin.y += fullSize.height;
-        windowFrame.size.height -= fullSize.height;
-        [[self window] setFrame: windowFrame
-                        display: YES
-                        animate: animate];
+        CGFloat deltaHeight = NSHeight([[self tabView] frame]);
+        assert(deltaHeight > 0.0);
 
+        windowFrame.origin.y += deltaHeight;
+        windowFrame.size.height -= deltaHeight;
+        [window setFrame: windowFrame
+                 display: YES
+                 animate: animate];
+
+        // Remember the height change so we can restore it later.
+        [self setDetailsDeltaHeight:deltaHeight];
     }
 
     [self setDetailsShown:show];
