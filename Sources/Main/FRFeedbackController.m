@@ -566,20 +566,29 @@
     [[self sendButton] setTitle:FRLocalizedString(@"Send", nil)];
     [[self cancelButton] setTitle:FRLocalizedString(@"Cancel", nil)];
 
+    // Use a fixed pitch font for the text views that show code-like things.
+    // Oddly, setting the font in the xib doesn't seem to work.
+    NSFont *font = [NSFont userFixedPitchFontOfSize:[NSFont labelFontSize]];
+
     [[[self consoleView] textContainer] setWidthTracksTextView:NO];
     [[self consoleView] setString:@""];
+    [[self consoleView] setFont:font];
 
     [[[self crashesView] textContainer] setWidthTracksTextView:NO];
     [[self crashesView] setString:@""];
+    [[self crashesView] setFont:font];
 
     [[[self scriptView] textContainer] setWidthTracksTextView:NO];
     [[self scriptView] setString:@""];
+    [[self scriptView] setFont:font];
 
     [[[self preferencesView] textContainer] setWidthTracksTextView:NO];
     [[self preferencesView] setString:@""];
+    [[self preferencesView] setFont:font];
 
     [[[self exceptionView] textContainer] setWidthTracksTextView:NO];
     [[self exceptionView] setString:@""];
+    [[self exceptionView] setFont:font];
 }
 
 - (void) stopSpinner
