@@ -65,4 +65,4 @@
 #define POST_KEY_EXCEPTION      @"exception"
 #define POST_KEY_VERSION_SHORT  @"version_short"  // Corresponds to CFBundleShortVersionString.
 #define POST_KEY_VERSION_BUNDLE @"version_bundle" // Corresponds to CFBundleVersion.
-#define POST_KEY_VERSION        @"version"        // A combination of the above 2.
+#define POST_KEY_VERSION        @"version"        // Above 2 combined as "CFBundleShortVersionString (CFBundleVersion)"

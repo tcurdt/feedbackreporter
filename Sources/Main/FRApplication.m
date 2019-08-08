@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2017, Torsten Curdt
+ * Copyright 2008-2019, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,13 +41,16 @@
 
 + (nullable NSString*) applicationVersion
 {
-    NSString *applicationVersion = [[self class] applicationShortVersion];
+    NSString *bundleVersion = [self applicationBundleVersion];
+    NSString *shortVersion = [self applicationShortVersion];
     
-    if (applicationVersion != nil) {
-        return applicationVersion;
+    // Make a version string like the Cocoa About Box does, ex: "2.3.6 (345684)".
+    NSString* fullVersion = nil;
+    if (shortVersion && bundleVersion) {
+        fullVersion = [NSString stringWithFormat:@"%@ (%@)", shortVersion, bundleVersion];
     }
-
-    return [[self class] applicationBundleVersion];
+	
+    return fullVersion;
 }
 
 
