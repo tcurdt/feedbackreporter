@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2017, Torsten Curdt
+ * Copyright 2008-2019, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,15 +42,16 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     
-    // ASL does not work in App Sandbox, even read-only. <rdar://problem/9689364>
-    // Workaround is to use:
+    // ASL does not work in App Sandbox, even with an entitlement of:
     //   com.apple.security.temporary-exception.files.absolute-path.read-only
     // for:
     //   /private/var/log/asl/
+    // ASL is deprecated starting in macOS 10.12, so this will likely never change.
     aslmsg query = asl_new(ASL_TYPE_QUERY);
-    
-    if (query != NULL) {
-
+    if (query == NULL) {
+        NSLog(@"asl_new returned NULL. If you are using App Sandbox or Hardened Runtime, even an entitlement to /private/var/log/asl/ doesn't seem to work.");
+    }
+    else {
         NSString *applicationName = [FRApplication applicationName];
         NSString *sinceString = [NSString stringWithFormat:@"%01f", [since timeIntervalSince1970]];
 
@@ -63,7 +64,10 @@
         asl_free(query);
 
         // Loop through the query response, grabbing the results into a local store for processing
-        if (response != NULL) {
+        if (response == NULL) {
+            NSLog(@"asl_search returned NULL. If you are using App Sandbox or Hardened Runtime, even an entitlement to /private/var/log/asl/ doesn't seem to work.");
+        }
+        else {
 
             aslmsg msg = NULL;
 

@@ -13,6 +13,7 @@
 * [CHG] No longer attempt to search the obsolete Library/Logs/CrashReporter folder.
 * [CHG] Replaced delegate message -(NSString*)targetUrlForFeedbackReport with -(NSURL*)targetURLForFeedbackReport.  Note change of return type, and change of spelling/capitalization.
 * [CHG] Replaced delegate message - (NSMutableDictionary*)anonymizePreferencesForFeedbackReport:(NSMutableDictionary*)preferences with - (NSDictionary*)anonymizePreferencesForFeedbackReport:(NSDictionary*)preferences.  Note change to immutable dictionaries.
+* [CHG] Better support for App Sandbox.  The correct folders are now searched for .crash files, and the test app can be sandboxed for testing.  Added logs where ASL fails.  Issues remain.
 
 ## Version 1.3.1, unreleased
 * [ADD] Added Spanish translation. Thanks to Emilio Perez.

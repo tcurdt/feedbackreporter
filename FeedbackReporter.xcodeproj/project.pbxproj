@@ -22,7 +22,7 @@
 		9D006DF60E1438F6000B6AFC /* FRConsoleLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D006DF50E1438F6000B6AFC /* FRConsoleLog.m */; };
 		9D0EC0220DF00F250045EB76 /* FRExceptionReportingApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0EC0200DF00F250045EB76 /* FRExceptionReportingApplication.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9D0EC0230DF00F250045EB76 /* FRExceptionReportingApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EC0210DF00F250045EB76 /* FRExceptionReportingApplication.m */; };
-		9D1732470E4DE9B600DC17D6 /* FeedbackReporter.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* FeedbackReporter.framework */; };
+		9D1732470E4DE9B600DC17D6 /* FeedbackReporter.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* FeedbackReporter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		9D291E8E0DF167BB009F859B /* UploaderTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D291E8D0DF167BB009F859B /* UploaderTestCase.m */; };
 		9D4C743D0E33A5D000B5F3BF /* FRConsoleLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D006DF50E1438F6000B6AFC /* FRConsoleLog.m */; };
 		9DA7D6B70DEB8A7800C3B586 /* FeedbackReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* FeedbackReporter.framework */; };
@@ -81,6 +81,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1408D64B1F16A16A0093B0DB /* App.entitlements */ = {isa = PBXFileReference; explicitFileType = text.xml; name = App.entitlements; path = Sources/App/App.entitlements; sourceTree = "<group>"; };
 		14310F05160015A000F64299 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		14310F06160015A000F64299 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		14310F07160015A000F64299 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -283,6 +284,7 @@
 				9DB6353A0E4DDCB700C72888 /* AppController.m */,
 				9DB6351D0E4DD9BE00C72888 /* main.m */,
 				9DB634E70E4DD64C00C72888 /* Info.plist */,
+				1408D64B1F16A16A0093B0DB /* App.entitlements */,
 			);
 			name = App;
 			sourceTree = "<group>";
@@ -697,6 +699,7 @@
 		9DB634E80E4DD64D00C72888 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Sources/App/App.entitlements;
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = Sources/App/Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
@@ -707,6 +710,7 @@
 		9DB634E90E4DD64D00C72888 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Sources/App/App.entitlements;
 				COPY_PHASE_STRIP = YES;
 				INFOPLIST_FILE = Sources/App/Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
