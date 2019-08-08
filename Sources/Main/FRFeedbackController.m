@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2017, Torsten Curdt
+ * Copyright 2008-2019, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -171,71 +171,32 @@
     if (lastSubmissionDate && ![lastSubmissionDate isKindOfClass:[NSDate class]]) {
         lastSubmissionDate = nil;
     }
-
-    NSArray *crashFiles = [FRCrashLogFinder findCrashLogsSince:lastSubmissionDate];
-
-    NSUInteger i = [crashFiles count];
-
-    if (i == 1) {
-        if (lastSubmissionDate == nil) {
-            NSLog(@"Found a crash file");
-        } else {
-            NSLog(@"Found a crash file earlier than latest submission on %@", lastSubmissionDate);
-        }
-        NSError *error = nil;
-        NSString *result = [NSString stringWithContentsOfFile:[crashFiles lastObject] encoding: NSUTF8StringEncoding error:&error];
-        if (result == nil) {
-            NSLog(@"Failed to read crash file: %@", error);
-            return @"";
-        }
-        return result;
+    
+    NSString *expectedPrefix = [FRApplication applicationName];
+    NSArray *crashFiles = [FRCrashLogFinder findCrashLogsSince:lastSubmissionDate
+                                                  withBaseName:expectedPrefix];
+    
+    NSLog(@"Found %lu crash files earlier than latest submission on: %@",
+          (unsigned long)[crashFiles count],
+          lastSubmissionDate);
+    
+    NSURL *latestCrashFileURL = [crashFiles lastObject];
+    if (latestCrashFileURL == nil) {
+        return @"";
     }
-
-    if (lastSubmissionDate == nil) {
-        NSLog(@"Found %lu crash files", (unsigned long)i);
-    } else {
-        NSLog(@"Found %lu crash files earlier than latest submission on %@", (unsigned long)i, lastSubmissionDate);
+    
+    NSLog(@"Chose newest crash file at: %@", latestCrashFileURL);
+    
+    NSError *error = nil;
+    NSString *fileContents = [NSString stringWithContentsOfURL:latestCrashFileURL
+                                                      encoding:NSUTF8StringEncoding
+                                                         error:&error];
+    if (fileContents == nil) {
+        NSLog(@"Failed to read crash file because: %@", error);
+        return @"";
     }
-
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-
-    NSDate *newest = nil;
-    NSInteger newestIndex = -1;
-
-    while(i--) {
-
-        NSString *crashFile = [crashFiles objectAtIndex:i];
-        NSError* error = nil;
-        NSDictionary *fileAttributes = [fileManager attributesOfItemAtPath:crashFile error:&error];
-        if (!fileAttributes) {
-            NSLog(@"Error while fetching file attributes: %@", [error localizedDescription]);
-        }
-        NSDate *fileModDate = [fileAttributes objectForKey:NSFileModificationDate];
-
-        NSLog(@"CrashLog: %@", crashFile);
-
-        if ([fileModDate laterDate:newest] == fileModDate) {
-            newest = fileModDate;
-            newestIndex = i;
-        }
-
-    }
-
-    if (newestIndex != -1) {
-        NSString *newestCrashFile = [crashFiles objectAtIndex:newestIndex];
-
-        NSLog(@"Picking CrashLog: %@", newestCrashFile);
-
-        NSError *error = nil;
-        NSString *result = [NSString stringWithContentsOfFile:newestCrashFile encoding: NSUTF8StringEncoding error:&error];
-        if (result == nil) {
-            NSLog(@"Failed to read crash file: %@", error);
-            return @"";
-        }
-        return result;
-    }
-
-    return @"";
+    
+    return fileContents;
 }
 
 - (NSString*) scriptLog
