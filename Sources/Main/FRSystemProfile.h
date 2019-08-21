@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2017, Torsten Curdt
+ * Copyright 2008-2019, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,17 +20,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FRSystemProfile : NSObject
 
-+ (NSArray*) discover;
-
-+ (nullable NSString*) cputype;
-+ (BOOL) is64bit;
-+ (NSString*) osversion;
-+ (nullable NSString*) architecture;
-+ (int) cpucount;
-+ (nullable NSString*) machinemodel;
-+ (nullable NSString*) language;
-+ (long long) cpuspeed;
-+ (long long) ramsize;
+// Introspects the system for:
+// 1) macOS version
+// 2) Mac model
+// 3) RAM amount
+// 4) CPU type
+// 5) CPU speed
+// 6) number of CPUs
+// 7) number of active CPUs
+// 8) if CPU is 64-Bit
+// 9) preferred language
+// 10) network host name
+// 11) thermal state
+// and returns an array of dictionaries with that information.
++ (NSArray *) discover;
 
 @end
 
