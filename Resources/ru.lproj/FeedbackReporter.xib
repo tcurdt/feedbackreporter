@@ -170,7 +170,7 @@ DQ
                                                 <rect key="frame" x="1" y="1" width="399" height="239"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" id="673">
+                                                    <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowSizeStyle="automatic" viewBased="YES" id="673">
                                                         <rect key="frame" x="0.0" y="0.0" width="399" height="239"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <size key="intercellSpacing" width="3" height="2"/>
@@ -189,9 +189,29 @@ DQ
                                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                 </textFieldCell>
                                                                 <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                                                <connections>
-                                                                    <binding destination="681" name="value" keyPath="arrangedObjects.visibleKey" id="686"/>
-                                                                </connections>
+                                                                <prototypeCellViews>
+                                                                    <tableCellView id="3Wd-9S-RYR">
+                                                                        <rect key="frame" x="1" y="1" width="192" height="17"/>
+                                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                        <subviews>
+                                                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="2ry-uc-L8t">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="192" height="14"/>
+                                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                                                <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="kDi-of-mVM">
+                                                                                    <font key="font" metaFont="smallSystem"/>
+                                                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                                </textFieldCell>
+                                                                                <connections>
+                                                                                    <binding destination="3Wd-9S-RYR" name="value" keyPath="objectValue.visibleKey" id="iPw-oK-DNn"/>
+                                                                                </connections>
+                                                                            </textField>
+                                                                        </subviews>
+                                                                        <connections>
+                                                                            <outlet property="textField" destination="2ry-uc-L8t" id="Yb6-Du-aKn"/>
+                                                                        </connections>
+                                                                    </tableCellView>
+                                                                </prototypeCellViews>
                                                             </tableColumn>
                                                             <tableColumn editable="NO" width="201" minWidth="40" maxWidth="1000" id="676">
                                                                 <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
@@ -205,11 +225,36 @@ DQ
                                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                 </textFieldCell>
                                                                 <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                                                <connections>
-                                                                    <binding destination="681" name="value" keyPath="arrangedObjects.visibleValue" id="684"/>
-                                                                </connections>
+                                                                <prototypeCellViews>
+                                                                    <tableCellView id="u8I-9n-W4h">
+                                                                        <rect key="frame" x="196" y="1" width="201" height="17"/>
+                                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                        <subviews>
+                                                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="pAg-Wj-Und">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="201" height="14"/>
+                                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                                                <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="3ha-FZ-dXH">
+                                                                                    <font key="font" metaFont="smallSystem"/>
+                                                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                                </textFieldCell>
+                                                                                <connections>
+                                                                                    <binding destination="u8I-9n-W4h" name="value" keyPath="objectValue.visibleValue" id="M4p-wT-Ep6"/>
+                                                                                </connections>
+                                                                            </textField>
+                                                                        </subviews>
+                                                                        <connections>
+                                                                            <outlet property="textField" destination="pAg-Wj-Und" id="C0c-Av-jB4"/>
+                                                                        </connections>
+                                                                    </tableCellView>
+                                                                </prototypeCellViews>
                                                             </tableColumn>
                                                         </tableColumns>
+                                                        <connections>
+                                                            <binding destination="681" name="content" keyPath="arrangedObjects" id="3op-Hl-jl9"/>
+                                                            <binding destination="681" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="3op-Hl-jl9" id="zmR-Ie-vS1"/>
+                                                            <binding destination="681" name="sortDescriptors" keyPath="sortDescriptors" previousBinding="zmR-Ie-vS1" id="WKO-K3-Hur"/>
+                                                        </connections>
                                                     </tableView>
                                                 </subviews>
                                             </clipView>
