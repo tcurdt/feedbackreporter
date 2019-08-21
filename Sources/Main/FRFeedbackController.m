@@ -55,7 +55,7 @@
 @property (readwrite, weak, nonatomic) IBOutlet NSTabView *tabView;
 @property (readwrite, nonatomic) CGFloat detailsDeltaHeight;
 
-// Even though they are not top-level objects, keep strong references to the tabViews.
+// Even though they are not top-level objects, keep strong references to the tabViews because they are added/removed from their owning TabView, so something needs to hold on to them.
 @property (readwrite, strong, nonatomic) IBOutlet NSTabViewItem *tabSystem;
 @property (readwrite, strong, nonatomic) IBOutlet NSTabViewItem *tabConsole;
 @property (readwrite, strong, nonatomic) IBOutlet NSTabViewItem *tabCrash;
@@ -559,52 +559,170 @@
     [[self sendButton] setEnabled:YES];
 }
 
-- (void) addTabViewItem:(NSTabViewItem*)theTabViewItem
+- (void) insertTabViewItemInCorrectOrder:(NSTabViewItem *)inTabViewItem
 {
-    assert(theTabViewItem);
+    assert(inTabViewItem);
 
-    [[self tabView] insertTabViewItem:theTabViewItem atIndex:1];
+    // If it's already present, do nothing.
+    if ([[self tabView] indexOfTabViewItem:inTabViewItem] != NSNotFound) {
+        return;
+    }
+
+    NSString *identifier = [inTabViewItem identifier];
+    assert(identifier);
+    
+    // This is the order we want them in.
+    NSArray *orderedIdentifiers = @[@"System",
+                                    @"Console",
+                                    @"Crashes",
+                                    @"Shell",
+                                    @"Preferences",
+                                    @"Exception"];
+    NSUInteger fullIndex = [orderedIdentifiers indexOfObject:identifier];
+    assert(fullIndex != NSNotFound);
+
+    // Determine the index to insert at. If there are no items yet, we'll insert at the beginning.
+    NSInteger runningIndex = 0;
+    NSArray *existingTabItems = [[self tabView] tabViewItems];
+    for (NSTabViewItem *item in existingTabItems)
+    {
+        NSString *testIdentifier = [item identifier];
+        NSUInteger testFullIndex = [orderedIdentifiers indexOfObject:testIdentifier];
+        assert(testFullIndex != NSNotFound);
+        assert(testFullIndex != fullIndex);
+        if (fullIndex < testFullIndex)
+        {
+            // We found the index to insert.
+            break;
+        }
+        runningIndex++;
+    }
+
+    // Insert the given TabViewItem at the calculated index.
+    [[self tabView] insertTabViewItem:inTabViewItem atIndex:runningIndex];
 }
 
-- (void) populate
+- (void) populateSystemTab:(NSArray *)inInfo
 {
-    @autoreleasepool {
-        
-        NSString *consoleLog = [self consoleLog];
+    assert(inInfo);
+    [self insertTabViewItemInCorrectOrder:[self tabSystem]];
+    [[self systemDiscovery] setContent:inInfo];
+}
+
+- (void) populateConsoleTab:(NSString *)inInfo
+{
+    assert(inInfo);
+    [self insertTabViewItemInCorrectOrder:[self tabConsole]];
+    [[self consoleView] setString:inInfo];
+}
+
+- (void) populateCrashTab:(NSString *)inInfo
+{
+    assert(inInfo);
+    [self insertTabViewItemInCorrectOrder:[self tabCrash]];
+    [[self crashesView] setString:inInfo];
+}
+
+- (void) populateScriptTab:(NSString *)inInfo
+{
+    assert(inInfo);
+    [self insertTabViewItemInCorrectOrder:[self tabScript]];
+    [[self scriptView] setString:inInfo];
+}
+
+- (void) populatePreferencesTab:(NSString *)inInfo
+{
+    assert(inInfo);
+    [self insertTabViewItemInCorrectOrder:[self tabPreferences]];
+    [[self preferencesView] setString:inInfo];
+}
+
+- (void) populateExceptionTab
+{
+    [self insertTabViewItemInCorrectOrder:[self tabException]];
+    // exceptionView's string was set elsewhere
+}
+
+- (void) populateAllTabViews
+{
+    NSString *reportType = [self type];
+
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_queue_t workQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+
+    __weak FRFeedbackController *weakSelf = self;
+
+    dispatch_group_async(group, workQueue, ^{
+        //sleep(5 + arc4random_uniform(10));
+        NSArray *systemProfile = [FRSystemProfile discover];
+        if ([systemProfile count] > 0) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf populateSystemTab:systemProfile];
+            });
+        }
+    });
+
+    dispatch_group_async(group, workQueue, ^{
+        //sleep(5 + arc4random_uniform(10));
+        NSString *consoleLog = [weakSelf consoleLog];
         if ([consoleLog length] > 0) {
-            [self performSelectorOnMainThread:@selector(addTabViewItem:) withObject:[self tabConsole] waitUntilDone:YES];
-            [[self consoleView] performSelectorOnMainThread:@selector(setString:) withObject:consoleLog waitUntilDone:YES];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf populateConsoleTab:consoleLog];
+            });
         }
-        
-        NSString *crashLog = [self crashLog];
-        if ([crashLog length] > 0) {
-            [self performSelectorOnMainThread:@selector(addTabViewItem:) withObject:[self tabCrash] waitUntilDone:YES];
-            [[self crashesView] performSelectorOnMainThread:@selector(setString:) withObject:crashLog waitUntilDone:YES];
-        }
-        
-        NSString *scriptLog = [self scriptLog];
-        if ([scriptLog length] > 0) {
-            [self performSelectorOnMainThread:@selector(addTabViewItem:) withObject:[self tabScript] waitUntilDone:YES];
-            [[self scriptView] performSelectorOnMainThread:@selector(setString:) withObject:scriptLog waitUntilDone:YES];
-        }
-        
-        NSString *preferences = [self preferences];
-        if ([preferences length] > 0) {
-            [self performSelectorOnMainThread:@selector(addTabViewItem:) withObject:[self tabPreferences] waitUntilDone:YES];
-            [[self preferencesView] performSelectorOnMainThread:@selector(setString:) withObject:preferences waitUntilDone:YES];
-        }
-        
-        [self performSelectorOnMainThread:@selector(stopSpinner) withObject:self waitUntilDone:YES];
+    });
+
+    if ([reportType isEqualToString:FR_CRASH]) {
+        dispatch_group_async(group, workQueue, ^{
+            //sleep(5 + arc4random_uniform(10));
+            NSString *crashLog = [weakSelf crashLog];
+            if ([crashLog length] > 0) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakSelf populateCrashTab:crashLog];
+                });
+            }
+        });
     }
+
+    dispatch_group_async(group, workQueue, ^{
+        //sleep(5 + arc4random_uniform(10));
+        NSString *scriptLog = [weakSelf scriptLog];
+        if ([scriptLog length] > 0) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf populateScriptTab:scriptLog];
+            });
+        }
+    });
+
+    dispatch_group_async(group, workQueue, ^{
+        //sleep(5 + arc4random_uniform(10));
+        NSString *preferences = [weakSelf preferences];
+        if ([preferences length] > 0) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf populatePreferencesTab:preferences];
+            });
+        }
+    });
+
+    if ([reportType isEqualToString:FR_EXCEPTION]) {
+       [self populateExceptionTab];
+    }
+
+    // When they've all finished, stop the spinner animating.
+    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+        [weakSelf stopSpinner];
+    });
 }
 
 - (void) reset
 {
+    // Remove them all because we don't know which we'll need to show. But keep the "System" tab because it can always show something. Also select it, because the other tab views have weird resizing issues if they are selected before they are populated.
     [[self tabView] removeTabViewItem:[self tabConsole]];
     [[self tabView] removeTabViewItem:[self tabCrash]];
     [[self tabView] removeTabViewItem:[self tabScript]];
     [[self tabView] removeTabViewItem:[self tabPreferences]];
     [[self tabView] removeTabViewItem:[self tabException]];
+    [[self tabView] selectTabViewItemWithIdentifier:@"System"];
 
     ABPerson *me = [[ABAddressBook sharedAddressBook] me];
     ABMutableMultiValue *emailAddresses = [me valueForProperty:kABEmailProperty];
@@ -661,20 +779,14 @@
 
 - (void) showWindow:(id)sender
 {
-    if ([[self type] isEqualToString:FR_FEEDBACK]) {
+    NSString *reportType = [self type];
+    if ([reportType isEqualToString:FR_FEEDBACK]) {
         [[self messageLabel] setStringValue:FRLocalizedString(@"Feedback comment label", nil)];
     } else {
         [[self messageLabel] setStringValue:FRLocalizedString(@"Comments:", nil)];
     }
 
-    if ([[[self exceptionView] string] length] != 0) {
-        [[self tabView] insertTabViewItem:[self tabException] atIndex:1];
-        [[self tabView] selectTabViewItemWithIdentifier:@"Exception"];
-    } else {
-        [[self tabView] selectTabViewItemWithIdentifier:@"System"];
-    }
-
-    [NSThread detachNewThreadSelector:@selector(populate) toTarget:self withObject:nil];
+    [self populateAllTabViews];
 
     [super showWindow:sender];
 }

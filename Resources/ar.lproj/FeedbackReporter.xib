@@ -684,9 +684,6 @@ DQ
                 <string>visibleValue</string>
                 <string>visibleKey</string>
             </declaredKeys>
-            <connections>
-                <binding destination="-2" name="contentArray" keyPath="systemProfile" id="683"/>
-            </connections>
         </arrayController>
     </objects>
     <resources>
