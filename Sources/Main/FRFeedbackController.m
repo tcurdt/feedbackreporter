@@ -150,7 +150,9 @@
     static NSArray *systemProfile = nil;
 
     static dispatch_once_t predicate = 0;
-    dispatch_once(&predicate, ^{ systemProfile = [FRSystemProfile discover]; });
+    dispatch_once(&predicate, ^{
+        systemProfile = [FRSystemProfile discover];
+    });
 
     return systemProfile;
 }
@@ -793,7 +795,8 @@
 
 - (BOOL) isShown
 {
-    return [[self window] isVisible];
+    NSWindow *window = [self window];
+    return [window isVisible];
 }
 
 @end

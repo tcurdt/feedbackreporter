@@ -17,8 +17,6 @@
 #import "FRFeedbackReporter.h"
 #import "FRFeedbackController.h"
 #import "FRCrashLogFinder.h"
-#import "FRSystemProfile.h"
-#import "FRUploader.h"
 #import "FRApplication.h"
 #import "FRConstants.h"
 #import "FRLocalizedString.h"
@@ -37,7 +35,9 @@
     static FRFeedbackReporter *sharedReporter = nil;
 
     static dispatch_once_t predicate = 0;
-    dispatch_once(&predicate, ^{ sharedReporter = [[[self class] alloc] init]; });
+    dispatch_once(&predicate, ^{
+        sharedReporter = [[[self class] alloc] init];
+    });
 
     return sharedReporter;
 }
@@ -89,7 +89,6 @@
         [controller setDelegate:strongDelegate];
 
         [controller showWindow:self];
-
     }
     
     return YES;
@@ -197,7 +196,6 @@
         [controller setDelegate:strongDelegate];
 
         [controller showWindow:self];
-
     }
     
     return YES;
