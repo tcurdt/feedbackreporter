@@ -107,7 +107,7 @@
                     <imageView id="72">
                         <rect key="frame" x="20" y="556" width="64" height="64"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSApplicationIcon" id="957"/>
+                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="NSApplicationIcon" id="957"/>
                     </imageView>
                     <button horizontalHuggingPriority="750" verticalHuggingPriority="750" id="24">
                         <rect key="frame" x="19" y="362" width="13" height="13"/>
