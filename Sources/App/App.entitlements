@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		
+		<!-- Enable App Sandbox. -->
+		<key>com.apple.security.app-sandbox</key>
+		<false/>
+		
+		<!-- To communicate with the server. -->
+		<key>com.apple.security.network.client</key>
+		<true/>
+		
+		<!-- So FeedbackReporter can get the user's email address from the Addressbook/Contacts. -->
+		<key>com.apple.security.personal-information.addressbook</key>
+		<true/>
+		
+		<!-- So FeedbackReporter can get the user's recent Apple System Log output. See also FeedbackReporter bug #23. -->
+		<key>com.apple.security.temporary-exception.files.absolute-path.read-only</key>
+		<array>
+			<string>/private/var/log/asl/</string>
+		</array>
+		
+		<!-- So FeedbackReporter can get the user's recent crash reports. See also FeedbackReporter bug #29. -->
+		<key>com.apple.security.temporary-exception.files.home-relative-path.read-only</key>
+		<array>
+			<string>/Library/Logs/DiagnosticReports/</string>
+		</array>
+		<key>com.apple.security.temporary-exception.files.absolute-path.read-only</key>
+		<array>
+			<string>/Library/Logs/DiagnosticReports/</string>
+		</array>
+	</dict>
+</plist>

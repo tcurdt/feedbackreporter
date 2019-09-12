@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2017, Torsten Curdt
+ * Copyright 2008-2019, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,8 +53,9 @@
 @property (readwrite, weak, nonatomic) IBOutlet NSButton *sendDetailsCheckbox;
 
 @property (readwrite, weak, nonatomic) IBOutlet NSTabView *tabView;
+@property (readwrite, nonatomic) CGFloat detailsDeltaHeight;
 
-// Even though they are not top-level objects, keep strong references to the tabViews.
+// Even though they are not top-level objects, keep strong references to the tabViews because they are added/removed from their owning TabView, so something needs to hold on to them.
 @property (readwrite, strong, nonatomic) IBOutlet NSTabViewItem *tabSystem;
 @property (readwrite, strong, nonatomic) IBOutlet NSTabViewItem *tabConsole;
 @property (readwrite, strong, nonatomic) IBOutlet NSTabViewItem *tabCrash;
@@ -149,7 +150,9 @@
     static NSArray *systemProfile = nil;
 
     static dispatch_once_t predicate = 0;
-    dispatch_once(&predicate, ^{ systemProfile = [FRSystemProfile discover]; });
+    dispatch_once(&predicate, ^{
+        systemProfile = [FRSystemProfile discover];
+    });
 
     return systemProfile;
 }
@@ -170,71 +173,32 @@
     if (lastSubmissionDate && ![lastSubmissionDate isKindOfClass:[NSDate class]]) {
         lastSubmissionDate = nil;
     }
-
-    NSArray *crashFiles = [FRCrashLogFinder findCrashLogsSince:lastSubmissionDate];
-
-    NSUInteger i = [crashFiles count];
-
-    if (i == 1) {
-        if (lastSubmissionDate == nil) {
-            NSLog(@"Found a crash file");
-        } else {
-            NSLog(@"Found a crash file earlier than latest submission on %@", lastSubmissionDate);
-        }
-        NSError *error = nil;
-        NSString *result = [NSString stringWithContentsOfFile:[crashFiles lastObject] encoding: NSUTF8StringEncoding error:&error];
-        if (result == nil) {
-            NSLog(@"Failed to read crash file: %@", error);
-            return @"";
-        }
-        return result;
+    
+    NSString *expectedPrefix = [FRApplication applicationName];
+    NSArray *crashFiles = [FRCrashLogFinder findCrashLogsSince:lastSubmissionDate
+                                                  withBaseName:expectedPrefix];
+    
+    NSLog(@"Found %lu crash files earlier than latest submission on: %@",
+          (unsigned long)[crashFiles count],
+          lastSubmissionDate);
+    
+    NSURL *latestCrashFileURL = [crashFiles lastObject];
+    if (latestCrashFileURL == nil) {
+        return @"";
     }
-
-    if (lastSubmissionDate == nil) {
-        NSLog(@"Found %lu crash files", (unsigned long)i);
-    } else {
-        NSLog(@"Found %lu crash files earlier than latest submission on %@", (unsigned long)i, lastSubmissionDate);
+    
+    NSLog(@"Chose newest crash file at: %@", latestCrashFileURL);
+    
+    NSError *error = nil;
+    NSString *fileContents = [NSString stringWithContentsOfURL:latestCrashFileURL
+                                                      encoding:NSUTF8StringEncoding
+                                                         error:&error];
+    if (fileContents == nil) {
+        NSLog(@"Failed to read crash file because: %@", error);
+        return @"";
     }
-
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-
-    NSDate *newest = nil;
-    NSInteger newestIndex = -1;
-
-    while(i--) {
-
-        NSString *crashFile = [crashFiles objectAtIndex:i];
-        NSError* error = nil;
-        NSDictionary *fileAttributes = [fileManager attributesOfItemAtPath:crashFile error:&error];
-        if (!fileAttributes) {
-            NSLog(@"Error while fetching file attributes: %@", [error localizedDescription]);
-        }
-        NSDate *fileModDate = [fileAttributes objectForKey:NSFileModificationDate];
-
-        NSLog(@"CrashLog: %@", crashFile);
-
-        if ([fileModDate laterDate:newest] == fileModDate) {
-            newest = fileModDate;
-            newestIndex = i;
-        }
-
-    }
-
-    if (newestIndex != -1) {
-        NSString *newestCrashFile = [crashFiles objectAtIndex:newestIndex];
-
-        NSLog(@"Picking CrashLog: %@", newestCrashFile);
-
-        NSError *error = nil;
-        NSString *result = [NSString stringWithContentsOfFile:newestCrashFile encoding: NSUTF8StringEncoding error:&error];
-        if (result == nil) {
-            NSLog(@"Failed to read crash file: %@", error);
-            return @"";
-        }
-        return result;
-    }
-
-    return @"";
+    
+    return fileContents;
 }
 
 - (NSString*) scriptLog
@@ -285,25 +249,31 @@
         return;
     }
 
-    NSSize fullSize = NSMakeSize(455, 302);
-
-    NSRect windowFrame = [[self window] frame];
+    NSWindow *window = [self window];
+    NSRect windowFrame = [window frame];
 
     if (show) {
+        CGFloat deltaHeight = [self detailsDeltaHeight];
+        assert(deltaHeight > 0.0);
 
-        windowFrame.origin.y -= fullSize.height;
-        windowFrame.size.height += fullSize.height;
-        [[self window] setFrame: windowFrame
-                        display: YES
-                        animate: animate];
+        windowFrame.origin.y -= deltaHeight;
+        windowFrame.size.height += deltaHeight;
+        [window setFrame: windowFrame
+                 display: YES
+                 animate: animate];
 
     } else {
-        windowFrame.origin.y += fullSize.height;
-        windowFrame.size.height -= fullSize.height;
-        [[self window] setFrame: windowFrame
-                        display: YES
-                        animate: animate];
+        CGFloat deltaHeight = NSHeight([[self tabView] frame]);
+        assert(deltaHeight > 0.0);
 
+        windowFrame.origin.y += deltaHeight;
+        windowFrame.size.height -= deltaHeight;
+        [window setFrame: windowFrame
+                 display: YES
+                 animate: animate];
+
+        // Remember the height change so we can restore it later.
+        [self setDetailsDeltaHeight:deltaHeight];
     }
 
     [self setDetailsShown:show];
@@ -559,25 +529,34 @@
     [[self sendButton] setTitle:FRLocalizedString(@"Send", nil)];
     [[self cancelButton] setTitle:FRLocalizedString(@"Cancel", nil)];
 
-    [[[self consoleView] textContainer] setContainerSize:NSMakeSize(CGFLOAT_MAX, CGFLOAT_MAX)];
+    // Use a fixed pitch font for the text views that show code-like things.
+    // Oddly, setting the font in the xib doesn't seem to work.
+    NSFont *font = [NSFont userFixedPitchFontOfSize:[NSFont labelFontSize]];
+
+    // In macOS 10.14.6 under Dark Mode, using an empty string @"" results
+    // in the text changing to near black, which is of course illegible.
+    // Using a single space character works around this problem.
+    NSString *emptyString = @" ";
+
     [[[self consoleView] textContainer] setWidthTracksTextView:NO];
-    [[self consoleView] setString:@""];
+    [[self consoleView] setString:emptyString];
+    [[self consoleView] setFont:font];
 
-    [[[self crashesView] textContainer] setContainerSize:NSMakeSize(CGFLOAT_MAX, CGFLOAT_MAX)];
     [[[self crashesView] textContainer] setWidthTracksTextView:NO];
-    [[self crashesView] setString:@""];
+    [[self crashesView] setString:emptyString];
+    [[self crashesView] setFont:font];
 
-    [[[self scriptView] textContainer] setContainerSize:NSMakeSize(CGFLOAT_MAX, CGFLOAT_MAX)];
     [[[self scriptView] textContainer] setWidthTracksTextView:NO];
-    [[self scriptView] setString:@""];
+    [[self scriptView] setString:emptyString];
+    [[self scriptView] setFont:font];
 
-    [[[self preferencesView] textContainer] setContainerSize:NSMakeSize(CGFLOAT_MAX, CGFLOAT_MAX)];
     [[[self preferencesView] textContainer] setWidthTracksTextView:NO];
-    [[self preferencesView] setString:@""];
+    [[self preferencesView] setString:emptyString];
+    [[self preferencesView] setFont:font];
 
-    [[[self exceptionView] textContainer] setContainerSize:NSMakeSize(CGFLOAT_MAX, CGFLOAT_MAX)];
     [[[self exceptionView] textContainer] setWidthTracksTextView:NO];
-    [[self exceptionView] setString:@""];
+    [[self exceptionView] setString:emptyString];
+    [[self exceptionView] setFont:font];
 }
 
 - (void) stopSpinner
@@ -587,52 +566,170 @@
     [[self sendButton] setEnabled:YES];
 }
 
-- (void) addTabViewItem:(NSTabViewItem*)theTabViewItem
+- (void) insertTabViewItemInCorrectOrder:(NSTabViewItem *)inTabViewItem
 {
-    assert(theTabViewItem);
+    assert(inTabViewItem);
 
-    [[self tabView] insertTabViewItem:theTabViewItem atIndex:1];
+    // If it's already present, do nothing.
+    if ([[self tabView] indexOfTabViewItem:inTabViewItem] != NSNotFound) {
+        return;
+    }
+
+    NSString *identifier = [inTabViewItem identifier];
+    assert(identifier);
+    
+    // This is the order we want them in.
+    NSArray *orderedIdentifiers = @[@"System",
+                                    @"Console",
+                                    @"Crashes",
+                                    @"Shell",
+                                    @"Preferences",
+                                    @"Exception"];
+    NSUInteger fullIndex = [orderedIdentifiers indexOfObject:identifier];
+    assert(fullIndex != NSNotFound);
+
+    // Determine the index to insert at. If there are no items yet, we'll insert at the beginning.
+    NSInteger runningIndex = 0;
+    NSArray *existingTabItems = [[self tabView] tabViewItems];
+    for (NSTabViewItem *item in existingTabItems)
+    {
+        NSString *testIdentifier = [item identifier];
+        NSUInteger testFullIndex = [orderedIdentifiers indexOfObject:testIdentifier];
+        assert(testFullIndex != NSNotFound);
+        assert(testFullIndex != fullIndex);
+        if (fullIndex < testFullIndex)
+        {
+            // We found the index to insert.
+            break;
+        }
+        runningIndex++;
+    }
+
+    // Insert the given TabViewItem at the calculated index.
+    [[self tabView] insertTabViewItem:inTabViewItem atIndex:runningIndex];
 }
 
-- (void) populate
+- (void) populateSystemTab:(NSArray *)inInfo
 {
-    @autoreleasepool {
-        
-        NSString *consoleLog = [self consoleLog];
+    assert(inInfo);
+    [self insertTabViewItemInCorrectOrder:[self tabSystem]];
+    [[self systemDiscovery] setContent:inInfo];
+}
+
+- (void) populateConsoleTab:(NSString *)inInfo
+{
+    assert(inInfo);
+    [self insertTabViewItemInCorrectOrder:[self tabConsole]];
+    [[self consoleView] setString:inInfo];
+}
+
+- (void) populateCrashTab:(NSString *)inInfo
+{
+    assert(inInfo);
+    [self insertTabViewItemInCorrectOrder:[self tabCrash]];
+    [[self crashesView] setString:inInfo];
+}
+
+- (void) populateScriptTab:(NSString *)inInfo
+{
+    assert(inInfo);
+    [self insertTabViewItemInCorrectOrder:[self tabScript]];
+    [[self scriptView] setString:inInfo];
+}
+
+- (void) populatePreferencesTab:(NSString *)inInfo
+{
+    assert(inInfo);
+    [self insertTabViewItemInCorrectOrder:[self tabPreferences]];
+    [[self preferencesView] setString:inInfo];
+}
+
+- (void) populateExceptionTab
+{
+    [self insertTabViewItemInCorrectOrder:[self tabException]];
+    // exceptionView's string was set elsewhere
+}
+
+- (void) populateAllTabViews
+{
+    NSString *reportType = [self type];
+
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_queue_t workQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+
+    __weak FRFeedbackController *weakSelf = self;
+
+    dispatch_group_async(group, workQueue, ^{
+        //sleep(5 + arc4random_uniform(10));
+        NSArray *systemProfile = [FRSystemProfile discover];
+        if ([systemProfile count] > 0) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf populateSystemTab:systemProfile];
+            });
+        }
+    });
+
+    dispatch_group_async(group, workQueue, ^{
+        //sleep(5 + arc4random_uniform(10));
+        NSString *consoleLog = [weakSelf consoleLog];
         if ([consoleLog length] > 0) {
-            [self performSelectorOnMainThread:@selector(addTabViewItem:) withObject:[self tabConsole] waitUntilDone:YES];
-            [[self consoleView] performSelectorOnMainThread:@selector(setString:) withObject:consoleLog waitUntilDone:YES];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf populateConsoleTab:consoleLog];
+            });
         }
-        
-        NSString *crashLog = [self crashLog];
-        if ([crashLog length] > 0) {
-            [self performSelectorOnMainThread:@selector(addTabViewItem:) withObject:[self tabCrash] waitUntilDone:YES];
-            [[self crashesView] performSelectorOnMainThread:@selector(setString:) withObject:crashLog waitUntilDone:YES];
-        }
-        
-        NSString *scriptLog = [self scriptLog];
-        if ([scriptLog length] > 0) {
-            [self performSelectorOnMainThread:@selector(addTabViewItem:) withObject:[self tabScript] waitUntilDone:YES];
-            [[self scriptView] performSelectorOnMainThread:@selector(setString:) withObject:scriptLog waitUntilDone:YES];
-        }
-        
-        NSString *preferences = [self preferences];
-        if ([preferences length] > 0) {
-            [self performSelectorOnMainThread:@selector(addTabViewItem:) withObject:[self tabPreferences] waitUntilDone:YES];
-            [[self preferencesView] performSelectorOnMainThread:@selector(setString:) withObject:preferences waitUntilDone:YES];
-        }
-        
-        [self performSelectorOnMainThread:@selector(stopSpinner) withObject:self waitUntilDone:YES];
+    });
+
+    if ([reportType isEqualToString:FR_CRASH]) {
+        dispatch_group_async(group, workQueue, ^{
+            //sleep(5 + arc4random_uniform(10));
+            NSString *crashLog = [weakSelf crashLog];
+            if ([crashLog length] > 0) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakSelf populateCrashTab:crashLog];
+                });
+            }
+        });
     }
+
+    dispatch_group_async(group, workQueue, ^{
+        //sleep(5 + arc4random_uniform(10));
+        NSString *scriptLog = [weakSelf scriptLog];
+        if ([scriptLog length] > 0) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf populateScriptTab:scriptLog];
+            });
+        }
+    });
+
+    dispatch_group_async(group, workQueue, ^{
+        //sleep(5 + arc4random_uniform(10));
+        NSString *preferences = [weakSelf preferences];
+        if ([preferences length] > 0) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf populatePreferencesTab:preferences];
+            });
+        }
+    });
+
+    if ([reportType isEqualToString:FR_EXCEPTION]) {
+       [self populateExceptionTab];
+    }
+
+    // When they've all finished, stop the spinner animating.
+    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+        [weakSelf stopSpinner];
+    });
 }
 
 - (void) reset
 {
+    // Remove them all because we don't know which we'll need to show. But keep the "System" tab because it can always show something. Also select it, because the other tab views have weird resizing issues if they are selected before they are populated.
     [[self tabView] removeTabViewItem:[self tabConsole]];
     [[self tabView] removeTabViewItem:[self tabCrash]];
     [[self tabView] removeTabViewItem:[self tabScript]];
     [[self tabView] removeTabViewItem:[self tabPreferences]];
     [[self tabView] removeTabViewItem:[self tabException]];
+    [[self tabView] selectTabViewItemWithIdentifier:@"System"];
 
     ABPerson *me = [[ABAddressBook sharedAddressBook] me];
     ABMutableMultiValue *emailAddresses = [me valueForProperty:kABEmailProperty];
@@ -689,27 +786,22 @@
 
 - (void) showWindow:(id)sender
 {
-    if ([[self type] isEqualToString:FR_FEEDBACK]) {
+    NSString *reportType = [self type];
+    if ([reportType isEqualToString:FR_FEEDBACK]) {
         [[self messageLabel] setStringValue:FRLocalizedString(@"Feedback comment label", nil)];
     } else {
         [[self messageLabel] setStringValue:FRLocalizedString(@"Comments:", nil)];
     }
 
-    if ([[[self exceptionView] string] length] != 0) {
-        [[self tabView] insertTabViewItem:[self tabException] atIndex:1];
-        [[self tabView] selectTabViewItemWithIdentifier:@"Exception"];
-    } else {
-        [[self tabView] selectTabViewItemWithIdentifier:@"System"];
-    }
-
-    [NSThread detachNewThreadSelector:@selector(populate) toTarget:self withObject:nil];
+    [self populateAllTabViews];
 
     [super showWindow:sender];
 }
 
 - (BOOL) isShown
 {
-    return [[self window] isVisible];
+    NSWindow *window = [self window];
+    return [window isVisible];
 }
 
 @end

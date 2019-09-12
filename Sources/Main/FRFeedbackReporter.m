@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2017, Torsten Curdt
+ * Copyright 2008-2019, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,8 +17,6 @@
 #import "FRFeedbackReporter.h"
 #import "FRFeedbackController.h"
 #import "FRCrashLogFinder.h"
-#import "FRSystemProfile.h"
-#import "FRUploader.h"
 #import "FRApplication.h"
 #import "FRConstants.h"
 #import "FRLocalizedString.h"
@@ -37,7 +35,9 @@
     static FRFeedbackReporter *sharedReporter = nil;
 
     static dispatch_once_t predicate = 0;
-    dispatch_once(&predicate, ^{ sharedReporter = [[[self class] alloc] init]; });
+    dispatch_once(&predicate, ^{
+        sharedReporter = [[[self class] alloc] init];
+    });
 
     return sharedReporter;
 }
@@ -89,7 +89,6 @@
         [controller setDelegate:strongDelegate];
 
         [controller showWindow:self];
-
     }
     
     return YES;
@@ -97,16 +96,21 @@
 
 - (BOOL) reportIfCrash
 {
+	// Get the last crash check date. Sanity check it.
     NSDate *lastCrashCheckDate = [[NSUserDefaults standardUserDefaults] objectForKey:DEFAULTS_KEY_LASTCRASHCHECKDATE];
     if (lastCrashCheckDate && ![lastCrashCheckDate isKindOfClass:[NSDate class]]) {
         lastCrashCheckDate = nil;
     }
-    
-    NSArray *crashFiles = [FRCrashLogFinder findCrashLogsSince:lastCrashCheckDate];
 
+    // Get URLs to crash log files.
+    NSString *expectedPrefix = [FRApplication applicationName];
+    NSArray *crashFiles = [FRCrashLogFinder findCrashLogsSince:lastCrashCheckDate
+                                                  withBaseName:expectedPrefix];
+
+    // Update last crash check date to now.
     [[NSUserDefaults standardUserDefaults] setObject: [NSDate date]
                                               forKey: DEFAULTS_KEY_LASTCRASHCHECKDATE];
-    
+
     if (lastCrashCheckDate && [crashFiles count] > 0) {
         // NSLog(@"Found new crash files");
 
@@ -192,7 +196,6 @@
         [controller setDelegate:strongDelegate];
 
         [controller showWindow:self];
-
     }
     
     return YES;

@@ -13,6 +13,9 @@
 * [CHG] No longer attempt to search the obsolete Library/Logs/CrashReporter folder.
 * [CHG] Replaced delegate message -(NSString*)targetUrlForFeedbackReport with -(NSURL*)targetURLForFeedbackReport.  Note change of return type, and change of spelling/capitalization.
 * [CHG] Replaced delegate message - (NSMutableDictionary*)anonymizePreferencesForFeedbackReport:(NSMutableDictionary*)preferences with - (NSDictionary*)anonymizePreferencesForFeedbackReport:(NSDictionary*)preferences.  Note change to immutable dictionaries.
+* [CHG] Better support for App Sandbox.  The correct folders are now searched for .crash files, and the test app can be sandboxed for testing.  Added logs where ASL fails.  Issues remain.
+* [CHG] Changed the "version" key (POST_KEY_VERSION) in the HTTP POST: it now defaults to using the pattern "CFBundleShortVersionString (CFBundleVersion)".  That should end up something like "2.3.6 (345684)".  (The very obsolete CFBundleLongVersionString key is never used anymore.)
+* [CHG] Added 3 new things to system profile: active processor count, network host name, and thermal state.
 
 ## Version 1.3.1, unreleased
 * [ADD] Added Spanish translation. Thanks to Emilio Perez.

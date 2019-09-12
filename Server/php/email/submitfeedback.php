@@ -268,7 +268,7 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST') && isSupportedAgent($_SERVER['HTTP_US
   }
   
   // send them somewhere usefull
-  header('Location: http://your.domain');
+  header('Location: https://your.domain');
 }
 
 ?>

@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2017, Torsten Curdt
+ * Copyright 2008-2019, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,21 +19,21 @@
 
 @implementation FRSystemProfile
 
-+ (NSArray*) discover
++ (NSArray *) discover
 {
     NSMutableArray *discoveryArray = [[NSMutableArray alloc] init];
     NSArray *discoveryKeys = @[@"key", @"visibleKey", @"value", @"visibleValue"];
     
     NSString *osversion = [NSString stringWithFormat:@"%@", [self osversion]];
-    [discoveryArray addObject:[NSDictionary dictionaryWithObjects:@[@"OS_VERSION", @"OS Version", osversion, osversion]
+    [discoveryArray addObject:[NSDictionary dictionaryWithObjects:@[@"OS_VERSION", @"macOS Version", osversion, osversion]
                                                           forKeys:discoveryKeys]];
     
     NSString *machinemodel = [NSString stringWithFormat:@"%@", [self machinemodel]];
-    [discoveryArray addObject:[NSDictionary dictionaryWithObjects:@[@"MACHINE_MODEL", @"Machine Model", machinemodel, machinemodel]
+    [discoveryArray addObject:[NSDictionary dictionaryWithObjects:@[@"MACHINE_MODEL", @"Mac Model", machinemodel, machinemodel]
                                                           forKeys:discoveryKeys]];
     
-    NSString *ramsize = [NSString stringWithFormat:@"%lld", [self ramsize]];
-    [discoveryArray addObject:[NSDictionary dictionaryWithObjects:@[@"RAM_SIZE", @"Memory in (MB)", ramsize, ramsize]
+    NSString *ramsize = [NSString stringWithFormat:@"%llu", [self ramsize]];
+    [discoveryArray addObject:[NSDictionary dictionaryWithObjects:@[@"RAM_SIZE", @"Memory (MiB)", ramsize, ramsize]
                                                           forKeys:discoveryKeys]];
     
     NSString *cputype = [NSString stringWithFormat:@"%@", [self cputype]];
@@ -44,17 +44,34 @@
     [discoveryArray addObject:[NSDictionary dictionaryWithObjects:@[@"CPU_SPEED", @"CPU Speed (MHz)", cpuspeed, cpuspeed]
                                                           forKeys:discoveryKeys]];
     
-    NSString *cpucount = [NSString stringWithFormat:@"%d", [self cpucount]];
+    NSString *cpucount = [NSString stringWithFormat:@"%zu", [self processorCount]];
     [discoveryArray addObject:[NSDictionary dictionaryWithObjects:@[@"CPU_COUNT", @"Number of CPUs", cpucount, cpucount]
                                                           forKeys:discoveryKeys]];
     
-    NSString *is64bit = [NSString stringWithFormat:@"%@", ([self is64bit])?@"YES":@"NO"];
+    NSString *activecpucount = [NSString stringWithFormat:@"%zu", [self activeProcessorCount]];
+    [discoveryArray addObject:[NSDictionary dictionaryWithObjects:@[@"ACTIVE_CPU_COUNT", @"Number of Active CPUs", activecpucount, activecpucount]
+                                                          forKeys:discoveryKeys]];
+    
+    NSString *is64bit = [NSString stringWithFormat:@"%@", ([self is64bit]) ? @"YES" : @"NO"];
     [discoveryArray addObject:[NSDictionary dictionaryWithObjects:@[@"CPU_64BIT", @"CPU is 64-Bit", is64bit, is64bit]
                                                           forKeys:discoveryKeys]];
     
     NSString *language = [NSString stringWithFormat:@"%@", [self language]];
     [discoveryArray addObject:[NSDictionary dictionaryWithObjects:@[@"LANGUAGE", @"Preferred Language", language, language]
                                                           forKeys:discoveryKeys]];
+    
+    NSString *hostname = [NSString stringWithFormat:@"%@", [self hostName]];
+    [discoveryArray addObject:[NSDictionary dictionaryWithObjects:@[@"HOST_NAME", @"Host Name", hostname, hostname]
+                                                          forKeys:discoveryKeys]];
+    
+#if (MAC_OS_X_VERSION_MAX_ALLOWED >= 101003)
+    if (NSAppKitVersionNumber >= 1347 /* NSAppKitVersionNumber10_10_3 */)
+    {
+        NSString *thermalState = [NSString stringWithFormat:@"%@", [self thermalState]];
+        [discoveryArray addObject:[NSDictionary dictionaryWithObjects:@[@"THERMAL_STATE", @"Thermal State", thermalState, thermalState]
+                                                              forKeys:discoveryKeys]];
+    }
+#endif
     
     return discoveryArray;
 }
@@ -77,7 +94,7 @@
     return is64bit;
 }
 
-+ (nullable NSString*) cputype
++ (nullable NSString *) cputype
 {
     int error = 0;
     
@@ -125,18 +142,19 @@
 }
 
 
-+ (NSString*) osversion
++ (NSString *) osversion
 {
-    NSProcessInfo *info = [NSProcessInfo processInfo];
-    NSString *version = [info operatingSystemVersionString];
+    NSString *version = [[NSProcessInfo processInfo] operatingSystemVersionString];
     
-    if ([version hasPrefix:@"Version "]) {
-        version = [version substringFromIndex:8];
+    NSString *prefix = @"Version ";
+    if ([version hasPrefix:prefix]) {
+        version = [version substringFromIndex:[prefix length]];
     }
 
     return version;
 }
 
+// TODO: not actually used, but might be useful one day.
 + (nullable NSString*) architecture
 {
     int error = 0;
@@ -161,22 +179,51 @@
     return nil;
 }
 
-+ (int) cpucount
++ (NSUInteger) processorCount
 {
-    int error = 0;
-    int value = 0;
-    size_t length = sizeof(value);
-    error = sysctlbyname("hw.ncpu", &value, &length, NULL, 0);
+    NSUInteger count = [[NSProcessInfo processInfo] processorCount];
     
-    if (error != 0) {
-        NSLog(@"Failed to obtain CPU count");
-        return 1;
-    }
-    
-    return value;
+    return count;
 }
 
-+ (nullable NSString*) machinemodel
++ (NSUInteger) activeProcessorCount
+{
+    NSUInteger count = [[NSProcessInfo processInfo] activeProcessorCount];
+    
+    return count;
+}
+
++ (NSString *) hostName
+{
+    NSString *hostName = [[NSProcessInfo processInfo] hostName];
+    
+    return hostName;
+}
+
+#if (MAC_OS_X_VERSION_MAX_ALLOWED >= 101003)
++ (nullable NSString *) thermalState
+{
+    NSProcessInfoThermalState thermalState = [[NSProcessInfo processInfo] thermalState];
+    switch (thermalState) {
+        case NSProcessInfoThermalStateNominal:
+            return @"Nominal";
+            break;
+        case NSProcessInfoThermalStateFair:
+            return @"Fair";
+            break;
+        case NSProcessInfoThermalStateSerious:
+            return @"Serious";
+            break;
+        case NSProcessInfoThermalStateCritical:
+            return @"Critical";
+            break;
+    }
+    
+    return nil;
+}
+#endif
+
++ (nullable NSString *) machinemodel
 {
     int error = 0;
     size_t length = 0;
@@ -207,7 +254,7 @@
     return machinemodel;
 }
 
-+ (nullable NSString*) language
++ (nullable NSString *) language
 {
     NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
     NSArray *languages = [defs stringArrayForKey:@"AppleLanguages"];
@@ -234,28 +281,17 @@
         return -1;
     }
     
-    long long result = (long long)(hertz/1000000); // Convert to MHz
+    long long result = (long long)(hertz / 1000000); // Hz to MHz
     
     return result;
 }
 
-+ (long long) ramsize
++ (unsigned long long) ramsize
 {
-    long long result = 0;
-
-    int error = 0;
-    int64_t value = 0;
-    size_t length = sizeof(value);
-    
-    error = sysctlbyname("hw.memsize", &value, &length, NULL, 0);
-    if (error) {
-        NSLog(@"Failed to obtain RAM size");
-        return -1;
-    }
-    const int64_t kBytesPerMebibyte = 1024*1024;
-    result = (long long)(value/kBytesPerMebibyte);
-    
-    return result;
+    unsigned long long ram = [[NSProcessInfo processInfo] physicalMemory];
+    ram /= (1024 * 1024); // bytes to mebibytes
+	
+    return ram;
 }
 
 @end

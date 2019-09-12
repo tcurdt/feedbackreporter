@@ -1,8 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9532" systemVersion="14F2411" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment version="1090" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9532"/>
+        <development version="8000" identifier="xcode"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="FRFeedbackController">
@@ -69,22 +71,20 @@
                     <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="266">
                         <rect key="frame" x="19" y="432" width="441" height="77"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                        <clipView key="contentView" id="kH5-DL-jqb">
+                        <clipView key="contentView" drawsBackground="NO" id="kH5-DL-jqb">
                             <rect key="frame" x="1" y="1" width="439" height="75"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <textView importsGraphics="NO" richText="NO" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="269">
+                                <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" spellingCorrection="YES" smartInsertDelete="YES" id="269">
                                     <rect key="frame" x="0.0" y="0.0" width="439" height="75"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     <size key="minSize" width="439" height="75"/>
                                     <size key="maxSize" width="880" height="10000000"/>
-                                    <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <size key="minSize" width="439" height="75"/>
-                                    <size key="maxSize" width="880" height="10000000"/>
+                                    <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                 </textView>
                             </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </clipView>
                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="961">
                             <rect key="frame" x="-100" y="-100" width="87" height="18"/>
@@ -107,7 +107,7 @@
                     <imageView id="72">
                         <rect key="frame" x="20" y="556" width="64" height="64"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSApplicationIcon" id="957"/>
+                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="NSApplicationIcon" id="957"/>
                     </imageView>
                     <button horizontalHuggingPriority="750" verticalHuggingPriority="750" id="24">
                         <rect key="frame" x="19" y="362" width="13" height="13"/>
@@ -160,18 +160,18 @@ DQ
                         <tabViewItems>
                             <tabViewItem label="System" identifier="System" id="376">
                                 <view key="view" id="379">
-                                    <rect key="frame" x="10" y="25" width="435" height="264"/>
+                                    <rect key="frame" x="10" y="29" width="435" height="260"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="670">
-                                            <rect key="frame" x="17" y="17" width="401" height="241"/>
+                                            <rect key="frame" x="17" y="13" width="401" height="241"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                             <clipView key="contentView" id="uYf-MQ-y6O">
                                                 <rect key="frame" x="1" y="1" width="399" height="239"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" id="673">
-                                                        <rect key="frame" x="0.0" y="0.0" width="399" height="19"/>
+                                                    <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowSizeStyle="automatic" viewBased="YES" id="673">
+                                                        <rect key="frame" x="0.0" y="0.0" width="399" height="239"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <size key="intercellSpacing" width="3" height="2"/>
                                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -189,9 +189,29 @@ DQ
                                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                 </textFieldCell>
                                                                 <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                                                <connections>
-                                                                    <binding destination="681" name="value" keyPath="arrangedObjects.visibleKey" id="686"/>
-                                                                </connections>
+                                                                <prototypeCellViews>
+                                                                    <tableCellView id="6d1-2T-sGu">
+                                                                        <rect key="frame" x="1" y="1" width="192" height="17"/>
+                                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                        <subviews>
+                                                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="tBg-CY-LeR">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="192" height="14"/>
+                                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                                                <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="6Zp-29-fRd">
+                                                                                    <font key="font" metaFont="smallSystem"/>
+                                                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                                </textFieldCell>
+                                                                                <connections>
+                                                                                    <binding destination="6d1-2T-sGu" name="value" keyPath="objectValue.visibleKey" id="blZ-ez-L92"/>
+                                                                                </connections>
+                                                                            </textField>
+                                                                        </subviews>
+                                                                        <connections>
+                                                                            <outlet property="textField" destination="tBg-CY-LeR" id="2jT-BP-9lO"/>
+                                                                        </connections>
+                                                                    </tableCellView>
+                                                                </prototypeCellViews>
                                                             </tableColumn>
                                                             <tableColumn editable="NO" width="201" minWidth="40" maxWidth="1000" id="676">
                                                                 <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
@@ -205,14 +225,38 @@ DQ
                                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                 </textFieldCell>
                                                                 <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                                                <connections>
-                                                                    <binding destination="681" name="value" keyPath="arrangedObjects.visibleValue" id="684"/>
-                                                                </connections>
+                                                                <prototypeCellViews>
+                                                                    <tableCellView id="pqA-0D-Dg6">
+                                                                        <rect key="frame" x="196" y="1" width="201" height="17"/>
+                                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                        <subviews>
+                                                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="JLB-N1-oLC">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="201" height="14"/>
+                                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                                                <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="j07-ed-lPN">
+                                                                                    <font key="font" metaFont="smallSystem"/>
+                                                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                                </textFieldCell>
+                                                                                <connections>
+                                                                                    <binding destination="pqA-0D-Dg6" name="value" keyPath="objectValue.visibleValue" id="mmZ-89-6I3"/>
+                                                                                </connections>
+                                                                            </textField>
+                                                                        </subviews>
+                                                                        <connections>
+                                                                            <outlet property="textField" destination="JLB-N1-oLC" id="uGr-2t-niK"/>
+                                                                        </connections>
+                                                                    </tableCellView>
+                                                                </prototypeCellViews>
                                                             </tableColumn>
                                                         </tableColumns>
+                                                        <connections>
+                                                            <binding destination="681" name="content" keyPath="arrangedObjects" id="B53-DO-PxR"/>
+                                                            <binding destination="681" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="B53-DO-PxR" id="nCV-nT-sEs"/>
+                                                            <binding destination="681" name="sortDescriptors" keyPath="sortDescriptors" previousBinding="nCV-nT-sEs" id="JTN-Lt-VpS"/>
+                                                        </connections>
                                                     </tableView>
                                                 </subviews>
-                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </clipView>
                                             <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="963">
                                                 <rect key="frame" x="-100" y="-100" width="384" height="15"/>
@@ -234,65 +278,128 @@ DQ
                                         <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="386">
                                             <rect key="frame" x="17" y="17" width="401" height="241"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <clipView key="contentView" id="b1C-34-MNn">
+                                            <clipView key="contentView" drawsBackground="NO" id="b1C-34-MNn">
                                                 <rect key="frame" x="1" y="1" width="399" height="239"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
-                                                    <textView editable="NO" importsGraphics="NO" richText="NO" horizontallyResizable="YES" findStyle="panel" verticallyResizable="YES" spellingCorrection="YES" id="389">
+                                                    <textView editable="NO" importsGraphics="NO" richText="NO" horizontallyResizable="YES" verticallyResizable="YES" findStyle="panel" spellingCorrection="YES" id="389">
                                                         <rect key="frame" x="0.0" y="0.0" width="399" height="239"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         <size key="minSize" width="399" height="239"/>
                                                         <size key="maxSize" width="799" height="10000000"/>
                                                         <attributedString key="textStorage">
                                                             <fragment content="console">
                                                                 <attributes>
+                                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                                     <font key="NSFont" metaFont="label"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="justified" lineBreakMode="wordWrapping" baseWritingDirection="natural">
+                                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural">
                                                                         <tabStops>
-                                                                            <textTab alignment="left" location="0.0"/>
-                                                                            <textTab alignment="left" location="56"/>
-                                                                            <textTab alignment="left" location="112"/>
-                                                                            <textTab alignment="left" location="168"/>
-                                                                            <textTab alignment="left" location="224"/>
-                                                                            <textTab alignment="left" location="280"/>
-                                                                            <textTab alignment="left" location="336"/>
-                                                                            <textTab alignment="left" location="392"/>
-                                                                            <textTab alignment="left" location="448"/>
-                                                                            <textTab alignment="left" location="504"/>
-                                                                            <textTab alignment="left" location="560"/>
-                                                                            <textTab alignment="left" location="616"/>
-                                                                            <textTab alignment="left" location="672"/>
-                                                                            <textTab alignment="left" location="728"/>
-                                                                            <textTab alignment="left" location="784"/>
-                                                                            <textTab alignment="left" location="840"/>
-                                                                            <textTab alignment="left" location="896"/>
-                                                                            <textTab alignment="left" location="952"/>
-                                                                            <textTab alignment="left" location="1008"/>
-                                                                            <textTab alignment="left" location="1064"/>
-                                                                            <textTab alignment="left" location="1120"/>
-                                                                            <textTab alignment="left" location="1176"/>
-                                                                            <textTab alignment="left" location="1232"/>
-                                                                            <textTab alignment="left" location="1288"/>
-                                                                            <textTab alignment="left" location="1344"/>
-                                                                            <textTab alignment="left" location="1400"/>
-                                                                            <textTab alignment="left" location="1456"/>
-                                                                            <textTab alignment="left" location="1512"/>
-                                                                            <textTab alignment="left" location="1568"/>
-                                                                            <textTab alignment="left" location="1624"/>
-                                                                            <textTab alignment="left" location="1680"/>
-                                                                            <textTab alignment="left" location="1736"/>
+                                                                            <textTab alignment="left" location="0.0">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="56">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="112">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="168">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="224">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="280">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="336">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="392">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="448">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="504">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="560">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="616">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="672">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="728">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="784">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="840">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="896">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="952">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="1008">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="1064">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="1120">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="1176">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="1232">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="1288">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="1344">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="1400">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="1456">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="1512">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="1568">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="1624">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="1680">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="1736">
+                                                                                <options/>
+                                                                            </textTab>
                                                                         </tabStops>
                                                                     </paragraphStyle>
                                                                 </attributes>
                                                             </fragment>
                                                         </attributedString>
-                                                        <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <size key="minSize" width="399" height="239"/>
-                                                        <size key="maxSize" width="799" height="10000000"/>
+                                                        <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     </textView>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </clipView>
                                             <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="965">
                                                 <rect key="frame" x="1" y="225" width="384" height="15"/>
@@ -314,65 +421,128 @@ DQ
                                         <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="390">
                                             <rect key="frame" x="17" y="17" width="401" height="241"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <clipView key="contentView" id="cQW-7K-DVE">
+                                            <clipView key="contentView" drawsBackground="NO" id="cQW-7K-DVE">
                                                 <rect key="frame" x="1" y="1" width="399" height="239"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
-                                                    <textView editable="NO" importsGraphics="NO" richText="NO" horizontallyResizable="YES" findStyle="panel" verticallyResizable="YES" spellingCorrection="YES" id="393">
+                                                    <textView editable="NO" importsGraphics="NO" richText="NO" horizontallyResizable="YES" verticallyResizable="YES" findStyle="panel" spellingCorrection="YES" id="393">
                                                         <rect key="frame" x="0.0" y="0.0" width="399" height="239"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         <size key="minSize" width="399" height="239"/>
                                                         <size key="maxSize" width="624" height="10000000"/>
                                                         <attributedString key="textStorage">
                                                             <fragment content="crashes">
                                                                 <attributes>
+                                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                                     <font key="NSFont" metaFont="label"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="justified" lineBreakMode="wordWrapping" baseWritingDirection="natural">
+                                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural">
                                                                         <tabStops>
-                                                                            <textTab alignment="left" location="0.0"/>
-                                                                            <textTab alignment="left" location="56"/>
-                                                                            <textTab alignment="left" location="112"/>
-                                                                            <textTab alignment="left" location="168"/>
-                                                                            <textTab alignment="left" location="224"/>
-                                                                            <textTab alignment="left" location="280"/>
-                                                                            <textTab alignment="left" location="336"/>
-                                                                            <textTab alignment="left" location="392"/>
-                                                                            <textTab alignment="left" location="448"/>
-                                                                            <textTab alignment="left" location="504"/>
-                                                                            <textTab alignment="left" location="560"/>
-                                                                            <textTab alignment="left" location="616"/>
-                                                                            <textTab alignment="left" location="672"/>
-                                                                            <textTab alignment="left" location="728"/>
-                                                                            <textTab alignment="left" location="784"/>
-                                                                            <textTab alignment="left" location="840"/>
-                                                                            <textTab alignment="left" location="896"/>
-                                                                            <textTab alignment="left" location="952"/>
-                                                                            <textTab alignment="left" location="1008"/>
-                                                                            <textTab alignment="left" location="1064"/>
-                                                                            <textTab alignment="left" location="1120"/>
-                                                                            <textTab alignment="left" location="1176"/>
-                                                                            <textTab alignment="left" location="1232"/>
-                                                                            <textTab alignment="left" location="1288"/>
-                                                                            <textTab alignment="left" location="1344"/>
-                                                                            <textTab alignment="left" location="1400"/>
-                                                                            <textTab alignment="left" location="1456"/>
-                                                                            <textTab alignment="left" location="1512"/>
-                                                                            <textTab alignment="left" location="1568"/>
-                                                                            <textTab alignment="left" location="1624"/>
-                                                                            <textTab alignment="left" location="1680"/>
-                                                                            <textTab alignment="left" location="1736"/>
+                                                                            <textTab alignment="left" location="0.0">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="56">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="112">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="168">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="224">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="280">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="336">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="392">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="448">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="504">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="560">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="616">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="672">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="728">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="784">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="840">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="896">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="952">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="1008">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="1064">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="1120">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="1176">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="1232">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="1288">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="1344">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="1400">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="1456">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="1512">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="1568">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="1624">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="1680">
+                                                                                <options/>
+                                                                            </textTab>
+                                                                            <textTab alignment="left" location="1736">
+                                                                                <options/>
+                                                                            </textTab>
                                                                         </tabStops>
                                                                     </paragraphStyle>
                                                                 </attributes>
                                                             </fragment>
                                                         </attributedString>
-                                                        <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <size key="minSize" width="399" height="239"/>
-                                                        <size key="maxSize" width="624" height="10000000"/>
+                                                        <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     </textView>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </clipView>
                                             <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="967">
                                                 <rect key="frame" x="1" y="225" width="384" height="15"/>
@@ -394,30 +564,29 @@ DQ
                                         <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="515">
                                             <rect key="frame" x="17" y="17" width="401" height="241"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <clipView key="contentView" id="iBw-YI-6yd">
+                                            <clipView key="contentView" drawsBackground="NO" id="iBw-YI-6yd">
                                                 <rect key="frame" x="1" y="1" width="399" height="239"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
-                                                    <textView importsGraphics="NO" richText="NO" horizontallyResizable="YES" findStyle="panel" verticallyResizable="YES" spellingCorrection="YES" id="518">
+                                                    <textView importsGraphics="NO" richText="NO" horizontallyResizable="YES" verticallyResizable="YES" findStyle="panel" spellingCorrection="YES" id="518">
                                                         <rect key="frame" x="0.0" y="0.0" width="399" height="239"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         <size key="minSize" width="399" height="239"/>
                                                         <size key="maxSize" width="624" height="10000000"/>
                                                         <attributedString key="textStorage">
                                                             <fragment content="shell">
                                                                 <attributes>
+                                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                                     <font key="NSFont" metaFont="label"/>
                                                                     <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                                                                 </attributes>
                                                             </fragment>
                                                         </attributedString>
-                                                        <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <size key="minSize" width="399" height="239"/>
-                                                        <size key="maxSize" width="624" height="10000000"/>
+                                                        <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     </textView>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </clipView>
                                             <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="969">
                                                 <rect key="frame" x="1" y="225" width="384" height="15"/>
@@ -439,30 +608,29 @@ DQ
                                         <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="585">
                                             <rect key="frame" x="17" y="17" width="401" height="241"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <clipView key="contentView" id="g5w-ea-qi4">
+                                            <clipView key="contentView" drawsBackground="NO" id="g5w-ea-qi4">
                                                 <rect key="frame" x="1" y="1" width="399" height="239"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
-                                                    <textView editable="NO" importsGraphics="NO" richText="NO" horizontallyResizable="YES" findStyle="panel" verticallyResizable="YES" spellingCorrection="YES" id="588">
+                                                    <textView editable="NO" importsGraphics="NO" richText="NO" horizontallyResizable="YES" verticallyResizable="YES" findStyle="panel" spellingCorrection="YES" id="588">
                                                         <rect key="frame" x="0.0" y="0.0" width="399" height="239"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         <size key="minSize" width="399" height="239"/>
                                                         <size key="maxSize" width="624" height="10000000"/>
                                                         <attributedString key="textStorage">
                                                             <fragment content="preferences">
                                                                 <attributes>
+                                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                                     <font key="NSFont" metaFont="label"/>
                                                                     <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                                                                 </attributes>
                                                             </fragment>
                                                         </attributedString>
-                                                        <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <size key="minSize" width="399" height="239"/>
-                                                        <size key="maxSize" width="624" height="10000000"/>
+                                                        <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     </textView>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </clipView>
                                             <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="971">
                                                 <rect key="frame" x="1" y="225" width="384" height="15"/>
@@ -484,30 +652,29 @@ DQ
                                         <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="615">
                                             <rect key="frame" x="17" y="17" width="401" height="241"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                                            <clipView key="contentView" id="OGM-DN-A91">
+                                            <clipView key="contentView" drawsBackground="NO" id="OGM-DN-A91">
                                                 <rect key="frame" x="1" y="1" width="399" height="239"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
-                                                    <textView editable="NO" importsGraphics="NO" richText="NO" horizontallyResizable="YES" findStyle="panel" verticallyResizable="YES" spellingCorrection="YES" id="618">
+                                                    <textView editable="NO" importsGraphics="NO" richText="NO" horizontallyResizable="YES" verticallyResizable="YES" findStyle="panel" spellingCorrection="YES" id="618">
                                                         <rect key="frame" x="0.0" y="0.0" width="399" height="239"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         <size key="minSize" width="399" height="239"/>
                                                         <size key="maxSize" width="624" height="10000000"/>
                                                         <attributedString key="textStorage">
                                                             <fragment content="exception">
                                                                 <attributes>
+                                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                                     <font key="NSFont" metaFont="label"/>
                                                                     <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                                                                 </attributes>
                                                             </fragment>
                                                         </attributedString>
-                                                        <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <size key="minSize" width="399" height="239"/>
-                                                        <size key="maxSize" width="624" height="10000000"/>
+                                                        <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     </textView>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </clipView>
                                             <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="973">
                                                 <rect key="frame" x="1" y="225" width="384" height="15"/>
@@ -562,9 +729,6 @@ DQ
                 <string>visibleValue</string>
                 <string>visibleKey</string>
             </declaredKeys>
-            <connections>
-                <binding destination="-2" name="contentArray" keyPath="systemProfile" id="683"/>
-            </connections>
         </arrayController>
     </objects>
     <resources>
