@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2017, Torsten Curdt
+ * Copyright 2008-2019, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+#import "FRConstants.h"
 #import "FRUploader.h"
 
 // Private interface.
@@ -127,29 +128,42 @@
 
     NSData *formData = [self generateFormData:dict forBoundary:formBoundary];
 
-    NSLog(@"Posting %lu bytes to %@", (unsigned long)[formData length], [self targetURL]);
+    NSUInteger formSize = [formData length];
 
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[self targetURL]];
-    
-    NSString *boundaryString = [NSString stringWithFormat: @"multipart/form-data; boundary=%@", formBoundary];
-    [request addValue: boundaryString forHTTPHeaderField: @"Content-Type"];
-    [request setHTTPMethod: @"POST"];
-    [request setHTTPBody:formData];
+    NSUInteger maximumPOSTSize = [[[[NSBundle mainBundle] infoDictionary] objectForKey:PLIST_KEY_MAXPOSTSIZE] unsignedIntegerValue];
+    if (maximumPOSTSize == 0) {
+        maximumPOSTSize = 100 * 1000 * 1000; // 100 megabytes
+    }
 
-    NSURLConnection* connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-    [self setConnection:connection];
-
-    id<FRUploaderDelegate> strongDelegate = [self delegate];
-    if (connection != nil) {
-        if ([strongDelegate respondsToSelector:@selector(uploaderStarted:)]) {
-            [strongDelegate performSelector:@selector(uploaderStarted:) withObject:self];
+    if (formSize <= maximumPOSTSize) {
+        NSLog(@"Posting %lu bytes to %@", (unsigned long)formSize, [self targetURL]);
+        
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[self targetURL]];
+        
+        NSString *boundaryString = [NSString stringWithFormat: @"multipart/form-data; boundary=%@", formBoundary];
+        [request addValue: boundaryString forHTTPHeaderField: @"Content-Type"];
+        [request setHTTPMethod: @"POST"];
+        [request setHTTPBody:formData];
+        
+        NSURLConnection* connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+        [self setConnection:connection];
+        
+        id<FRUploaderDelegate> strongDelegate = [self delegate];
+        if (connection != nil) {
+            if ([strongDelegate respondsToSelector:@selector(uploaderStarted:)]) {
+                [strongDelegate performSelector:@selector(uploaderStarted:) withObject:self];
+            }
+        } else {
+            if ([strongDelegate respondsToSelector:@selector(uploaderFailed:withError:)]) {
+                NSError *error = [NSError errorWithDomain:@"Failed to establish connection" code:0 userInfo:nil];
+                [strongDelegate performSelector:@selector(uploaderFailed:withError:) withObject:self
+                                     withObject:error];
+            }
         }
     } else {
-        if ([strongDelegate respondsToSelector:@selector(uploaderFailed:withError:)]) {
-            NSError *error = [NSError errorWithDomain:@"Failed to establish connection" code:0 userInfo:nil];
-            [strongDelegate performSelector:@selector(uploaderFailed:withError:) withObject:self
-                withObject:error];
-        }
+        NSLog(@"Refusing post of size %lu bytes, which is greater than max of %lu",
+              (unsigned long)formSize,
+              (unsigned long)maximumPOSTSize);
     }
 }
 
