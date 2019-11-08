@@ -115,12 +115,12 @@
     [[self subheadingField] setStringValue:informativeText];
 }
 
-- (void) setMessage:(nullable NSString*)message
+- (void) setMessage:(NSString*)message
 {
     [[self messageView] setString:message];
 }
 
-- (void) setException:(nullable NSString*)exception
+- (void) setException:(NSString*)exception
 {
     [[self exceptionView] setString:exception];
 }
@@ -533,10 +533,7 @@
     // Oddly, setting the font in the xib doesn't seem to work.
     NSFont *font = [NSFont userFixedPitchFontOfSize:[NSFont labelFontSize]];
 
-    // In macOS 10.14.6 under Dark Mode, using an empty string @"" results
-    // in the text changing to near black, which is of course illegible.
-    // Using a single space character works around this problem.
-    NSString *emptyString = @" ";
+    NSString *emptyString = @"";
 
     [[[self consoleView] textContainer] setWidthTracksTextView:NO];
     [[self consoleView] setString:emptyString];
