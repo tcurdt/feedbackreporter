@@ -1,27 +1,27 @@
-## Version 2.0, released 2017-??-??
+## Version 2.0, released 2019-??-??
 * [CHG] Increased minumum requirements to:
  * development machine: 10.11+
  * Xcode 8.2.1+
  * SDK 10.11+
  * deployment 10.9
-* [FIX] Fixed compilation against 10.12 SDK.
+* [FIX] Fixed compilation against newer SDKs.
 * [FIX] Converted unit tests from SenTestKit to XCTest, to work with current Xcode versions.
 * [CHG] Switched to ARC memory management.
 * [DEL] Dropped support for garbage collection.
 * [DEL] Dropped support for PowerPC.
 * [CHG] Added nullability annotations to all methods, public and private.
 * [CHG] No longer attempt to search the obsolete Library/Logs/CrashReporter folder.
-* [CHG] Replaced delegate message -(NSString*)targetUrlForFeedbackReport with -(NSURL*)targetURLForFeedbackReport.  Note change of return type, and change of spelling/capitalization.
-* [CHG] Replaced delegate message - (NSMutableDictionary*)anonymizePreferencesForFeedbackReport:(NSMutableDictionary*)preferences with - (NSDictionary*)anonymizePreferencesForFeedbackReport:(NSDictionary*)preferences.  Note change to immutable dictionaries.
+* [CHG] Replaced delegate message `-(NSString*)targetUrlForFeedbackReport` with `-(NSURL*)targetURLForFeedbackReport`.  Note change of return type, and change of spelling/capitalization.
+* [CHG] Replaced delegate message `-(NSMutableDictionary*)anonymizePreferencesForFeedbackReport:(NSMutableDictionary*)preferences` with `-(NSDictionary*)anonymizePreferencesForFeedbackReport:(NSDictionary*)preferences`.  Note change to immutable dictionaries.
 * [CHG] Better support for App Sandbox.  The correct folders are now searched for .crash files, and the test app can be sandboxed for testing.  Added logs where ASL fails.  Issues remain.
-* [CHG] Changed the "version" key (POST_KEY_VERSION) in the HTTP POST: it now defaults to using the pattern "CFBundleShortVersionString (CFBundleVersion)".  That should end up something like "2.3.6 (345684)".  (The very obsolete CFBundleLongVersionString key is never used anymore.)
+* [CHG] Changed the "version" key (`POST_KEY_VERSION`) in the HTTP POST: it now defaults to using the pattern "CFBundleShortVersionString (CFBundleVersion)".  That should end up something like "2.3.6 (345684)".  (The very obsolete CFBundleLongVersionString key is never used anymore.)
 * [CHG] Added 3 new things to system profile: active processor count, network host name, and thermal state.
 
 ## Version 1.3.1, unreleased
 * [ADD] Added Spanish translation. Thanks to Emilio Perez.
 * [ADD] Added targetUrlForFeedbackReport to delegate protocol. Thanks to Rick Fillion.
 * [FIX] Don't cache server response. Thanks to Rick Fillion.
-* [FIX] PLIST_KEY_LOGHOURS should come from the info plist. Thanks to Rico.
+* [FIX] `PLIST_KEY_LOGHOURS` should come from the info plist. Thanks to Rico.
 * [CHG] Link against Foundation and 10.4 compatibility. Thanks to Linas Valiukas.
 
 
@@ -30,15 +30,15 @@
 New localizations. New options. Many little fixes. Better CPU detection.
 Garbage Collection ready. Ready for inclusion into plugins.
 
-* [FIX] Use @loader_path instead of @executable_path.
+* [FIX] Use `@loader_path` instead of `@executable_path`.
 * [FIX] Fixed a missing boundary in POSTs.
 * [FIX] Catch exceptions also outside of the main thread.
 * [FIX] Improved CPU detection.
 * [ADD] Changed FRFeedbackReporterDelegate to a real @protocol.
 * [ADD] Added support for Garbage Collection.
 * [ADD] Added anonymizePreferencesForFeedbackReport delegate method to anonymize logs.
-* [ADD] Added option to restrict the log size (FRFeedbackReporter.maxConsoleLogSize).
-* [ADD] Added option to opt-out from sending details (FRFeedbackReporter.sendDetailsIsOptional).
+* [ADD] Added option to restrict the log size (`FRFeedbackReporter.maxConsoleLogSize`).
+* [ADD] Added option to opt-out from sending details (`FRFeedbackReporter.sendDetailsIsOptional`).
 * [ADD] Added Armenian translation. Thanks to Gevorg Hakobyan (www.gevorghakobyan.uni.cc).
 * [ADD] Added French translation. Thanks to Gevorg Hakobyan (www.gevorghakobyan.uni.cc) and Sylvain.
 * [ADD] Added Italian translation. Thanks to Andrea.
@@ -75,7 +75,7 @@ addressbook email instead of anonymous
 * [FIX] Not checking for ASL results caused crashes.
 * [FIX] Read-only tableview.
 * [CHG] More detailed CPU detection on 10.5+.
-* [ADD] Preset email address from addressbook if key FRFeedbackReporter.addressbookEmail is present.
+* [ADD] Preset email address from addressbook if key `FRFeedbackReporter.addressbookEmail` is present.
 * [ADD] Send along the type of the report (feedback/exception/crash).
 * [ADD] Include full Xcode project into release.
 
