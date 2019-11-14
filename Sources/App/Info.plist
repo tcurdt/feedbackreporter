@@ -32,6 +32,12 @@
 	<string>firstEmail</string>
 	<key>FRFeedbackReporter.sendDetailsIsOptional</key>
 	<string>YES</string>
+	<key>FRFeedbackReporter.exitAfterException</key>
+	<string>YES</string>
+	<key>FRFeedbackReporter.maxConsoleLogSize</key>
+	<integer>5000000</integer>
+	<key>FRFeedbackReporter.maxPOSTSize</key>
+	<integer>10000000</integer>
 	<key>NSContactsUsageDescription</key>
 	<string>Your email address will be used to autofill the contact information in the crash reporter. No other information is accessed.</string>
 </dict>

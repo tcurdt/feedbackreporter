@@ -34,8 +34,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) setHeading:(NSString*)message;
 - (void) setSubheading:(NSString *)informativeText;
-- (void) setMessage:(nullable NSString*)message;
-- (void) setException:(nullable NSString*)exception;
+- (void) setMessage:(NSString*)message;
+- (void) setException:(NSString*)exception;
 - (void) setType:(NSString*)type;
 
 #pragma mark UI

@@ -87,14 +87,14 @@
 		14310F07160015A000F64299 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		14310F08160015A000F64299 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		146326DE17C3D0690088F15B /* FRLocalizedString.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = FRLocalizedString.h; path = Sources/Main/FRLocalizedString.h; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
-		444DCB5D1417D13E00C5636D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/FeedbackReporter.xib; sourceTree = "<group>"; };
+		14E997A52379EBF000718F22 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/App.xib; sourceTree = "<group>"; };
+		14E997A62379EBF000718F22 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/FeedbackReporter.xib; sourceTree = "<group>"; };
 		444DCB5F1417D16B00C5636D /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/FeedbackReporter.xib; sourceTree = "<group>"; };
 		444DCB601417D16D00C5636D /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ru; path = ru.lproj/FeedbackReporter.xib; sourceTree = "<group>"; };
 		444DCB611417D16F00C5636D /* it */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = it; path = it.lproj/FeedbackReporter.xib; sourceTree = "<group>"; };
 		444DCB621417D17100C5636D /* hy */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = hy; path = hy.lproj/FeedbackReporter.xib; sourceTree = "<group>"; };
 		444DCB631417D17300C5636D /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/FeedbackReporter.xib; sourceTree = "<group>"; };
 		444DCB641417D17500C5636D /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/FeedbackReporter.xib; sourceTree = "<group>"; };
-		444DCB661417D18000C5636D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/App.xib; sourceTree = "<group>"; };
 		444DCB6F1417D21300C5636D /* ar */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ar; path = ar.lproj/FeedbackReporter.xib; sourceTree = "<group>"; };
 		444DCB711417D2D800C5636D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = Resources/de.lproj/FeedbackReporter.strings; sourceTree = "<group>"; };
 		444DCB731417D2E100C5636D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Resources/en.lproj/FeedbackReporter.strings; sourceTree = "<group>"; };
@@ -393,6 +393,7 @@
 				es,
 				ar,
 				en,
+				Base,
 			);
 			mainGroup = 0867D691FE84028FC02AAC07 /* FeedbackReporter */;
 			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
@@ -490,7 +491,6 @@
 		444DCB5E1417D13E00C5636D /* FeedbackReporter.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				444DCB5D1417D13E00C5636D /* en */,
 				444DCB5F1417D16B00C5636D /* de */,
 				444DCB601417D16D00C5636D /* ru */,
 				444DCB611417D16F00C5636D /* it */,
@@ -498,6 +498,7 @@
 				444DCB631417D17300C5636D /* fr */,
 				444DCB641417D17500C5636D /* es */,
 				444DCB6F1417D21300C5636D /* ar */,
+				14E997A62379EBF000718F22 /* Base */,
 			);
 			name = FeedbackReporter.xib;
 			path = Resources;
@@ -506,7 +507,7 @@
 		444DCB671417D18000C5636D /* App.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				444DCB661417D18000C5636D /* en */,
+				14E997A52379EBF000718F22 /* Base */,
 			);
 			name = App.xib;
 			path = Resources;

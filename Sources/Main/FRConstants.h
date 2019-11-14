@@ -33,6 +33,10 @@
 // no truncation takes place. (optional)
 #define PLIST_KEY_MAXCONSOLELOGSIZE     @"FRFeedbackReporter.maxConsoleLogSize"
 
+// Integer. The maximum number of bytes that the HTTP POST can contain. If not specified,
+// a maximum of 100 megabytes is used. (optional)
+#define PLIST_KEY_MAXPOSTSIZE           @"FRFeedbackReporter.maxPOSTSize"
+
 // String. Set the value of this key to 'YES' to present a checkbox where the user
 // can switch on and off the sending of details information. If not specified,
 // defaults to 'NO', hence no checkbox is shown.
