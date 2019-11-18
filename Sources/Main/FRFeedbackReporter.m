@@ -96,7 +96,7 @@
 
 - (BOOL) reportIfCrash
 {
-	// Get the last crash check date. Sanity check it.
+	// Get the last crash check date, if any. Sanity check it.
     NSDate *lastCrashCheckDate = [[NSUserDefaults standardUserDefaults] objectForKey:DEFAULTS_KEY_LASTCRASHCHECKDATE];
     if (lastCrashCheckDate && ![lastCrashCheckDate isKindOfClass:[NSDate class]]) {
         lastCrashCheckDate = nil;
@@ -111,7 +111,7 @@
     [[NSUserDefaults standardUserDefaults] setObject: [NSDate date]
                                               forKey: DEFAULTS_KEY_LASTCRASHCHECKDATE];
 
-    if (lastCrashCheckDate && [crashFiles count] > 0) {
+    if ([crashFiles count] > 0) {
         // NSLog(@"Found new crash files");
 
         FRFeedbackController *controller = [self feedbackController];
